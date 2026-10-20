@@ -1006,6 +1006,82 @@
   .rt-ref b{display:block;margin-top:4px;font-size:10px;line-height:1.4;font-weight:600;overflow-wrap:anywhere}
   .rt-ref i{margin-left:auto;font-style:normal;color:var(--clay);font-size:14px;flex:none}
 
+  #aidev-decisions-panel{min-width:0;padding-top:clamp(4px,1vw,12px);animation:ex-in .32s ease both}
+  #aidev-decisions-panel[hidden]{display:none}
+  body.is-aidev-decisions .masthead{padding-bottom:0}
+  body.is-aidev-decisions .masthead .eyebrow,
+  body.is-aidev-decisions #page-title,
+  body.is-aidev-decisions #page-dek{display:none}
+  .ds-rejection-viz{display:grid;grid-template-columns:minmax(230px,300px) minmax(0,1fr);
+                    gap:clamp(24px,4vw,54px);align-items:center;margin-top:28px}
+  .ds-rej-figure{margin:0;min-width:0}
+  .ds-rej-chart{position:relative;width:100%;max-width:300px;aspect-ratio:1;margin:0 auto}
+  .ds-rej-chart svg{display:block;width:100%;height:100%;overflow:visible}
+  .ds-rej-chart circle{fill:none}
+  .ds-rej-track{stroke:rgba(120,105,82,.12)}
+  .ds-rej-arc{stroke-width:34}
+  .ds-rej-arc.is-af{stroke:#A94C45}
+  .ds-rej-arc.is-nonaf{stroke:#41604F}
+  .ds-rej-arc.is-unknown{stroke:#B8A88D}
+  .ds-rej-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+                 justify-content:center;pointer-events:none;text-align:center}
+  .ds-rej-center b{font-family:var(--serif);font-size:clamp(42px,5vw,58px);line-height:.95;
+                   font-weight:600;letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+  .ds-rej-center span{margin-top:8px;font-size:9px;letter-spacing:.14em;color:var(--clay);
+                      font-weight:600;text-transform:uppercase}
+  .ds-rej-center small{margin-top:5px;font-size:8px;letter-spacing:.08em;color:var(--muted)}
+  .ds-rej-legend{display:grid;min-width:0}
+  .ds-rej-item{padding:15px 0;border-top:1px solid rgba(120,105,82,.16)}
+  .ds-rej-item:first-child{padding-top:0;border-top:0}
+  .ds-rej-item:last-child{padding-bottom:0}
+  .ds-rej-item-head{display:flex;align-items:baseline;justify-content:space-between;gap:18px}
+  .ds-rej-name{display:flex;align-items:center;gap:9px;font-size:10px;letter-spacing:.1em;
+               color:var(--ink);font-weight:600;text-transform:uppercase}
+  .ds-rej-name i{display:block;width:8px;height:8px;border-radius:50%;flex:none}
+  .ds-rej-item.is-af .ds-rej-name i{background:#A94C45}
+  .ds-rej-item.is-nonaf .ds-rej-name i{background:#41604F}
+  .ds-rej-item.is-unknown .ds-rej-name i{background:#B8A88D}
+  .ds-rej-value{font-family:var(--serif);font-size:26px;line-height:1;font-weight:600;
+                letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+  .ds-rej-item.is-af .ds-rej-value{color:#A94C45}
+  .ds-rej-item.is-nonaf .ds-rej-value{color:#41604F}
+  .ds-rej-item.is-unknown .ds-rej-value{color:#78695A}
+  .ds-rej-item p{margin:7px 0 0;font-size:10px;line-height:1.62;color:var(--muted);font-weight:300}
+  .ds-rej-item p strong{color:var(--ink-soft);font-weight:600}
+  .ds-rej-agents{margin-top:26px;border-top:1px solid rgba(120,105,82,.16);padding-top:16px}
+  .ds-rej-agents-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:6px}
+  .ds-rej-agents-head b{font-size:9px;letter-spacing:.14em;color:var(--clay);font-weight:600;text-transform:uppercase}
+  .ds-rej-agents-head span{font-size:8px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;text-align:right}
+  .ds-rej-agent{display:grid;grid-template-columns:minmax(96px,140px) minmax(0,1fr) auto;
+                gap:16px;align-items:center;padding:8px 0;border-top:1px solid rgba(120,105,82,.1)}
+  .ds-rej-agent-list > .ds-rej-agent:first-child{border-top:0}
+  .ds-rej-agent-name{font-size:10px;letter-spacing:.02em;color:var(--ink);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ds-rej-agent-bar{display:flex;height:8px;border-radius:999px;overflow:hidden;background:#E4DDD0}
+  .ds-rej-agent-bar i{display:block;height:100%}
+  .ds-rej-agent-bar .is-af{background:#A94C45}
+  .ds-rej-agent-bar .is-nonaf{background:#41604F}
+  .ds-rej-agent-bar .is-unknown{background:#B8A88D}
+  .ds-rej-agent-fig{display:flex;align-items:baseline;justify-content:flex-end;gap:8px;min-width:104px}
+  .ds-rej-agent-fig b{font-family:var(--serif);font-size:15px;line-height:1;font-weight:600;font-variant-numeric:tabular-nums}
+  .ds-rej-agent-fig span{font-size:8.5px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.04em;white-space:nowrap}
+  .ds-rej-agents-note{margin:10px 0 0;font-size:8.5px;line-height:1.55;color:var(--muted)}
+  .ds-stack{display:flex;height:18px;border-radius:999px;overflow:hidden;margin-top:24px;background:#E4DDD0}
+  .ds-stack i{display:block;height:100%;min-width:2px;transition:width .4s cubic-bezier(.2,.7,.2,1)}
+  .ds-stack .is-fl{background:#B8524A}
+  .ds-stack .is-hi{background:#C68E6B}
+  .ds-stack .is-nofl{background:#4C6B5B}
+  .ds-stack .is-unknown{background:#CFC4B1}
+  .ds-stack-legend{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:15px}
+  .ds-stack-legend div{min-width:0;border-top:1px solid rgba(120,105,82,.14);padding-top:10px}
+  .ds-stack-legend b{display:block;font-family:var(--serif);font-size:17px;line-height:1;
+                     font-weight:600;font-variant-numeric:tabular-nums}
+  .ds-stack-legend span{display:block;margin-top:5px;font-size:8.5px;line-height:1.45;color:var(--muted);font-weight:400}
+  .ds-stack-legend em{display:inline-block;width:9px;height:5px;border-radius:999px;margin-right:5px;vertical-align:1px}
+  .ds-stack-legend .is-fl em{background:#B8524A}
+  .ds-stack-legend .is-hi em{background:#C68E6B}
+  .ds-stack-legend .is-nofl em{background:#4C6B5B}
+  .ds-stack-legend .is-unknown em{background:#CFC4B1}
+
   @media (max-width:980px){
     .rt-hero{grid-template-columns:1fr;gap:22px}
     .rt-score{max-width:620px;min-height:0}
@@ -1017,6 +1093,9 @@
     .rt-method{grid-template-columns:repeat(2,1fr);row-gap:22px}
     .rt-callouts{grid-template-columns:1fr}
     .rt-refs{grid-template-columns:1fr}
+    .ds-rejection-viz{grid-template-columns:minmax(0,1fr);gap:24px}
+    .ds-rej-chart{max-width:250px}
+    .ds-stack-legend{grid-template-columns:repeat(2,minmax(0,1fr))}
   }
   @media (max-width:720px){
     .rt-section-head{grid-template-columns:1fr;align-items:start}
@@ -1029,6 +1108,14 @@
     .rt-step::before{top:0;bottom:0;left:0;right:auto;width:1px;height:auto}
     .rt-step::after{top:17px;left:-3px}
     .rt-step:last-child{padding-bottom:0}
+    .ds-rej-item-head{gap:12px}
+    .ds-rej-name{font-size:9px;letter-spacing:.07em}
+    .ds-rej-agents-head{display:block}
+    .ds-rej-agents-head span{display:block;margin-top:3px;text-align:left}
+    .ds-rej-agent{grid-template-columns:minmax(0,1fr) auto;gap:5px 12px;padding:9px 0}
+    .ds-rej-agent-name{grid-row:1;grid-column:1}
+    .ds-rej-agent-fig{grid-row:1;grid-column:2;min-width:0}
+    .ds-rej-agent-bar{grid-row:2;grid-column:1/-1}
   }
   @media (max-width:560px){
     .rt-title{font-size:30px;line-height:1.2}
@@ -1050,6 +1137,8 @@
     .rt-insight-stats b{font-size:14px}
     .rt-refs{grid-template-columns:1fr}
     .rt-ref{padding:11px 12px}
+    .ds-stack{height:15px}
+    .ds-stack-legend{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 12px}
   }
   @media (max-width:390px){
     .rt-title{font-size:27px}
@@ -1264,6 +1353,8 @@
   </main>
 
   <main id="aidev-themes-panel" role="tabpanel" hidden aria-labelledby="tab-aidev"></main>
+
+  <main id="aidev-decisions-panel" role="tabpanel" hidden aria-labelledby="tab-aidev"></main>
 
   <main id="aidev-panel" role="tabpanel" hidden aria-labelledby="tab-aidev">
     <div class="atlas-brief">
@@ -2721,7 +2812,8 @@ window.SWECHAT_SOURCE = {
     viewTabs: [
       {key: "pop", label: {zh: "AIDev-pop", en: "AIDev-pop"}},
       {key: "themes", label: {zh: "评审主题", en: "Review themes"}},
-      {key: "atlas", label: {zh: "数据集图谱", en: "Dataset atlas"}}
+      {key: "atlas", label: {zh: "数据集图谱", en: "Dataset atlas"}},
+      {key: "decisions", label: {zh: "PR 决策", en: "PR decisions"}}
     ],
     defaultView: "pop",
     views: {
@@ -2909,6 +3001,158 @@ window.SWECHAT_SOURCE = {
             {label: "DOI", title: {zh: "ACM DOI · 3793302.3793566", en: "ACM DOI · 3793302.3793566"}, href: "https://doi.org/10.1145/3793302.3793566"},
             {label: "ARXIV", title: {zh: "arXiv:2601.19287", en: "arXiv:2601.19287"}, href: "https://arxiv.org/abs/2601.19287"},
             {label: "ZENODO", title: {zh: "复现材料与数据", en: "Replication package"}, href: "https://doi.org/10.5281/zenodo.18067241"}
+          ]
+        }
+      },
+      decisions: {
+        kind: "decision-study",
+        crumb: {zh: "AIDev · PR 决策", en: "AIDev · PR decisions"},
+        eyebrowRight: {zh: "PR 决策  ·  717 个人工样本", en: "PR DECISIONS  ·  717 MANUAL CASES"},
+        docTitle: {
+          zh: "Agentic PR 为什么被合并或拒绝 · MSR 2026",
+          en: "Why agentic PRs are merged or rejected · MSR 2026"
+        },
+        title: {
+          zh: '合并或拒绝<span class="q">：</span>不等于 Agent 能力',
+          en: 'Merge or reject<span class="q">:</span> not agent capability'
+        },
+        dek: {
+          zh: '<b>11,048</b> 个已关闭 PR&nbsp;&nbsp;·&nbsp;&nbsp;<b>9,799</b> 个有人类评审&nbsp;&nbsp;·&nbsp;&nbsp;<b>717</b> 个人工编码样本',
+          en: '<b>11,048</b> closed PRs&nbsp;&nbsp;·&nbsp;&nbsp;<b>9,799</b> human-reviewed&nbsp;&nbsp;·&nbsp;&nbsp;<b>717</b> manually coded'
+        },
+        footerData: {
+          zh: "数据：MSR 2026 · Peralta et al. · 11,048 个 closed Agentic-PR / 717 个人工审阅样本",
+          en: "Data: MSR 2026 · Peralta et al. · 11,048 closed agentic PRs / 717 manually inspected"
+        },
+        rounding: {
+          zh: "RQ1 比例基于 353 个拒绝样本，RQ2 比例基于 364 个合并样本，二者分母不同，不可直接相加。",
+          en: "RQ1 shares use 353 rejected PRs; RQ2 shares use 364 merged PRs. They have different denominators and must not be added."
+        },
+        citeLabel: {zh: "引用 / CITATION", en: "CITATION"},
+        citation: {
+          zh: 'Peralta, S. R. O., Hoshi, F., Washizaki, H., Ubayashi, N., Kondo, I., Higo, Y., Mukai, H., Yoshida, N., Kusama, K., Tanaka, H., &amp; Fan, Y. (2026). <span class="work">Why Are Agentic Pull Requests Merged or Rejected? An Empirical Study.</span> MSR ’26, April 13–14, 2026, Rio de Janeiro, Brazil. <a href="https://doi.org/10.1145/3793302.3793575" target="_blank" rel="noopener">doi:10.1145/3793302.3793575</a>',
+          en: 'Peralta, S. R. O., Hoshi, F., Washizaki, H., Ubayashi, N., Kondo, I., Higo, Y., Mukai, H., Yoshida, N., Kusama, K., Tanaka, H., &amp; Fan, Y. (2026). <span class="work">Why Are Agentic Pull Requests Merged or Rejected? An Empirical Study.</span> MSR ’26, April 13–14, 2026, Rio de Janeiro, Brazil. <a href="https://doi.org/10.1145/3793302.3793575" target="_blank" rel="noopener">doi:10.1145/3793302.3793575</a>'
+        },
+        hero: {
+          kicker: {zh: "MSR 2026  /  PERALTA ET AL.", en: "MSR 2026  /  PERALTA ET AL."},
+          title: {
+            zh: '合并或拒绝，<em>不等于 Agent 能力</em>',
+            en: 'Merge or reject, <em>not agent capability</em>'
+          },
+          lede: {
+            zh: '研究从 <b>11,048</b> 个已关闭 Agentic-PR 出发，剔除仅由 bot 评审的 PR 后得到 <b>9,799</b> 个人类评审样本，再分层抽取 <b>717</b> 个进行人工编码。结论是：merge / reject 标签同时混合了 Agent 行为、仓库工作流与评审介入，单看结果会系统性误读能力。',
+            en: 'The study starts from <b>11,048</b> closed agentic PRs, removes bot-only reviews to obtain <b>9,799</b> human-reviewed PRs, then manually codes a stratified sample of <b>717</b>. Merge and reject labels mix agent behavior, repository workflow, and reviewer intervention, so outcome-only metrics systematically misread capability.'
+          },
+          tags: [
+            {zh: "AIDev 语料", en: "AIDev corpus"},
+            {zh: "RQ1 / RQ2", en: "RQ1 / RQ2"},
+            {zh: "353 个拒绝样本", en: "353 rejected cases"},
+            {zh: "364 个合并样本", en: "364 merged cases"}
+          ]
+        },
+        score: {
+          head: {zh: "拒绝中的可观察 Agent 失败", en: "REJECTIONS THAT ARE AGENT FAILURES"},
+          badge: "RQ1",
+          value: "35.7%",
+          unit: {zh: "126 / 353 个拒绝样本", en: "126 of 353 rejected PRs"},
+          caption: {zh: "只有约三分之一的拒绝能归因于可观察的 Agent 技术失败。", en: "Only about one third of rejections trace to observable agent failure."},
+          cells: [
+            {label: {zh: "工作流原因", en: "WORKFLOW CAUSES"}, value: "31.2%"},
+            {label: {zh: "无法归因", en: "UNKNOWN"}, value: "33.1%"}
+          ],
+          foot: {zh: "AF = 可观察的 Agent 失败；Non-AF = 重复、被替代、不活跃等流程原因；Unknown = 证据不足或静默关闭。", en: "AF = observable agent failure; Non-AF = duplicate, superseded, inactivity, and other process causes; Unknown = insufficient evidence or silent closure."}
+        },
+        stats: [
+          {value: "11,048", label: {zh: "已关闭 PR", en: "CLOSED PRS"}, sub: {zh: "仓库至少 500 stars", en: "repositories with ≥500 stars"}},
+          {value: "9,799", label: {zh: "人类评审样本", en: "HUMAN-REVIEWED"}, sub: {zh: "剔除 1,249 个 bot-only PR", en: "after removing 1,249 bot-only PRs"}},
+          {value: "717", label: {zh: "人工编码样本", en: "MANUAL SAMPLE"}, sub: {zh: "364 merged / 353 rejected", en: "364 merged / 353 rejected"}},
+          {value: "15.4%", label: {zh: "合并含人工介入", en: "MERGES WITH HUMAN INPUT"}, sub: {zh: "364 个合并样本中 56 个", en: "56 of 364 merged PRs"}}
+        ],
+        rejection: {
+          kicker: {zh: "01 / RQ1 · 为什么被拒绝", en: "01 / RQ1 · WHY PRS WERE REJECTED"},
+          title: {zh: '拒绝的原因，<em>并不都归因于 Agent</em>', en: 'Rejections are <em>not all agent failures</em>'},
+          dek: {zh: "人工编码把 353 个拒绝样本拆成三类。AF 需要可观察的技术失败信号，例如失败的测试、CI check，或明确说明“改动不工作”的评审意见。", en: "Manual coding splits 353 rejected PRs into three categories. AF requires observable technical failure, such as failing tests or CI checks, or a review comment stating that the change does not work."},
+          cards: [
+            {tone: "af", value: "35.7%", count: {zh: "126 个 PR", en: "126 PRs"}, label: {zh: "Agentic failure · AF", en: "Agentic failure · AF"}, body: {zh: "可观察的技术失败：测试或 CI 失败、代码没有实现预期行为。", en: "Observable technical failure: tests or CI fail, or the code does not deliver the intended behavior."}},
+            {tone: "nonaf", value: "31.2%", count: {zh: "110 个 PR", en: "110 PRs"}, label: {zh: "Non-agentic failure · Non-AF", en: "Non-agentic failure · Non-AF"}, body: {zh: "工作流原因：重复、被替代、长期不活跃、测试 PR、提交上下文错误。", en: "Workflow causes: duplicate, superseded, inactive, test PR, or submitted in the wrong context."}},
+            {tone: "unknown", value: "33.1%", count: {zh: "117 个 PR", en: "117 PRs"}, label: {zh: "Unknown", en: "Unknown"}, body: {zh: "没有足够证据判断原因，常见于没有评论就关闭的静默 PR。", en: "Insufficient evidence, often because the PR was closed silently without comments."}}
+          ],
+          note: {zh: "三项合计 353。Unknown 不等于 Agent 失败；若把它混入 precision 计算，会把不可观察的仓库行为误算成 Agent 错误。", en: "The three categories sum to 353. Unknown does not mean agent failure; folding it into precision would count unobservable repository behavior as agent error."},
+          byAgentHead: {zh: "同一批拒绝样本，按 Agent 拆分", en: "The same rejected PRs, split by agent"},
+          byAgentUnit: {zh: "AF 占该 Agent 被拒 PR 的比例", en: "AF share of each agent's rejected PRs"},
+          byAgent: [
+            {name: "Cursor", af: 15, nonaf: 1, unknown: 6},
+            {name: "OpenAI Codex", af: 54, nonaf: 19, unknown: 40},
+            {name: "GitHub Copilot", af: 19, nonaf: 17, unknown: 21},
+            {name: "Devin", af: 37, nonaf: 69, unknown: 47},
+            {name: "Claude Code", af: 1, nonaf: 4, unknown: 3}
+          ],
+          byAgentNote: {zh: "样本量差异很大（Claude Code 8、Cursor 22、Copilot 57、Codex 113、Devin 153）：这里描述的是各 Agent 被拒 PR 的构成，不是能力排名。", en: "Sample sizes differ sharply (Claude Code 8, Cursor 22, Copilot 57, Codex 113, Devin 153); this describes the composition of each agent's rejected PRs, not a capability ranking."}
+        },
+        merge: {
+          kicker: {zh: "02 / RQ2 · 成功合并背后", en: "02 / RQ2 · BEHIND A MERGE"},
+          title: {zh: '合并了，<em>也可能是人把最后一段路走完</em>', en: 'Merged, but <em>a human may have finished the job</em>'},
+          dek: {zh: "在 364 个合并样本中，28 个出现反馈回路（评审后由 Agent 自己修订），另有 28 个由评审者直接提交修正 commit。", en: "Among 364 merged PRs, 28 show a feedback loop where the agent revises after review, and another 28 have reviewer-applied corrective commits."},
+          segments: [
+            {key: "fl", value: "7.7%", count: {zh: "28 个 PR", en: "28 PRs"}, label: {zh: "反馈回路 · FL", en: "Feedback loop · FL"}},
+            {key: "hi", value: "7.7%", count: {zh: "28 个 PR", en: "28 PRs"}, label: {zh: "评审者提交 · HI", en: "Reviewer commits · HI"}},
+            {key: "nofl", value: "79.1%", count: {zh: "288 个 PR", en: "288 PRs"}, label: {zh: "无可见反馈 · No FL", en: "No feedback loop · No FL"}},
+            {key: "unknown", value: "5.5%", count: {zh: "20 个 PR", en: "20 PRs"}, label: {zh: "交互证据不足", en: "Insufficient trace"}}
+          ],
+          note: {zh: "显式人工介入合计 56 / 364 = 15.4%，其中 Copilot 与 Devin 占 54 / 56。干预常涉及补测试、修 CI 配置、遵守仓库约定，而非核心功能。", en: "Explicit human involvement totals 56 of 364 merges (15.4%), with Copilot and Devin accounting for 54 of the 56 cases. Interventions often cover missing tests, CI configuration, or repository conventions rather than core functionality."}
+        },
+        agents: {
+          kicker: {zh: "03 / Agent 差异", en: "03 / AGENT DIFFERENCES"},
+          title: {zh: '同是“合并”，<em>介入强度截然不同</em>', en: 'Same merge label, <em>very different human involvement</em>'},
+          dek: {zh: "按各 Agent 的人工审阅合并样本，统计出现 FL 或 HI 的比例。这里比较的是被观察到的评审工作流，不是模型能力排行榜。", en: "Share of each agent's inspected merged PRs with FL or HI. This compares observed review workflows, not a model capability leaderboard."},
+          rows: [
+            {name: "GitHub Copilot", value: "59.2%", count: "29 / 49", detail: "13 FL · 16 HI", width: 59.2},
+            {name: "Devin", value: "23.4%", count: "25 / 107", detail: "14 FL · 11 HI", width: 23.4},
+            {name: "Cursor", value: "3.0%", count: "1 / 33", detail: "1 FL · 0 HI", width: 3.0},
+            {name: "OpenAI Codex", value: "0.6%", count: "1 / 167", detail: "0 FL · 1 HI", width: 0.6},
+            {name: "Claude Code", value: "0%", count: "0 / 8", detail: "0 FL · 0 HI", width: 0}
+          ],
+          note: {zh: "样本量差异很大（Codex 167、Devin 107、Copilot 49、Cursor 33、Claude Code 8）；比例必须结合样本量阅读，不能当作跨 Agent 的能力排名。", en: "Sample sizes differ sharply (Codex 167, Devin 107, Copilot 49, Cursor 33, Claude Code 8); read shares alongside sample size, not as a cross-agent capability ranking."}
+        },
+        method: {
+          kicker: {zh: "04 / 方法", en: "04 / METHOD"},
+          title: {zh: '从 11,048 到 717，<em>再回到交互证据</em>', en: 'From 11,048 to 717, <em>then back to interaction evidence</em>'},
+          dek: {zh: "研究基于 AIDev，限定至少 500 stars 的仓库与已关闭 PR，并按 Agent 与仓库分层抽样。", en: "The study builds on AIDev, restricts to closed PRs in repositories with at least 500 stars, and samples by agent and repository."},
+          steps: [
+            {no: "01", title: {zh: "确定范围", en: "Scope"}, body: {zh: "AIDev 中 ≥500 stars 的 closed Agentic-PR：11,048 个（6,774 merged / 4,274 rejected）。", en: "Closed agentic PRs in repositories with ≥500 stars: 11,048 (6,774 merged / 4,274 rejected)."}},
+            {no: "02", title: {zh: "剔除 bot-only", en: "Remove bot-only"}, body: {zh: "移除没有任何人类评论的 1,249 个 PR，得到 9,799 个人类评审样本（6,179 / 3,620）。", en: "Remove 1,249 PRs with no human comments, leaving 9,799 human-reviewed PRs (6,179 / 3,620)."}},
+            {no: "03", title: {zh: "分层抽样", en: "Stratified sample"}, body: {zh: "按 Agent 与仓库分层，抽取 717 个 PR：364 merged / 353 rejected。", en: "Draw 717 PRs stratified by agent and repository: 364 merged / 353 rejected."}},
+            {no: "04", title: {zh: "人工编码", en: "Manual coding"}, body: {zh: "4 位标注者，每个 PR 由 2 人独立编码；分歧讨论解决，模糊案例归为 Unknown。", en: "Four annotators, two independent coders per PR; disagreements are discussed and ambiguous cases go to Unknown."}},
+            {no: "05", title: {zh: "一致性校验", en: "Agreement check"}, body: {zh: "Cohen’s κ ≈ 0.90（RQ1）与 1.0（RQ2）；除标签外，还阅读评论、CI 与 commit 历史。", en: "Cohen’s κ ≈ 0.90 for RQ1 and 1.0 for RQ2; coding also reads comments, CI outcomes, and commit history."}}
+          ]
+        },
+        takeaway: {
+          kicker: {zh: "核心结论", en: "KEY TAKEAWAY"},
+          quote: {zh: 'PR 结果标签，<em>把 Agent 行为与部署环境混在一起</em>', en: 'PR outcome labels <em>conflate agent behavior with deployment context</em>'},
+          body: {zh: "仓库的 CI 严格度、迭代评审习惯与贡献政策都会改变 merge / reject。标签本身无法区分这些因素，因此跨 Agent 的 merge rate 不能直接当作能力分数；评估需要纳入评论、CI 信号、commit 历史与作者变化。", en: "CI strictness, iterative review norms, and contribution policies all change merge and reject outcomes. Labels cannot separate these factors, so cross-agent merge rates are not capability scores; evaluation needs comments, CI signals, commit history, and authorship changes."},
+          stats: [
+            {value: "717", label: {zh: "人工编码 PR", en: "MANUALLY CODED PRS"}},
+            {value: "33.1%", label: {zh: "拒绝无可观察理由", en: "REJECTIONS WITHOUT RATIONALE"}},
+            {value: "15.4%", label: {zh: "合并含人工介入", en: "MERGES WITH HUMAN INPUT"}}
+          ]
+        },
+        caveats: {
+          kicker: {zh: "读结论时请保留边界", en: "WHEN TO HESITATE"},
+          title: {zh: '这些数字描述的是<em>高星仓库与五个 Agent</em>', en: 'These numbers describe <em>high-star repos and five agents</em>'},
+          items: [
+            {zh: "只覆盖 ≥500 stars 的仓库与 5 个 Agent，未必能外推到小项目、私有环境或未来 Agent。", en: "Only repositories with ≥500 stars and five agents are covered; findings may not generalize to small projects, private settings, or future agents."},
+            {zh: "717 是分层样本而非全量，类别比例存在抽样误差。", en: "The 717 PRs are a stratified sample, not the full corpus, so category shares carry sampling error."},
+            {zh: "33.1% 的拒绝缺少可观察理由，可能隐藏未记录的维护决策。", en: "33.1% of rejections lack observable rationale and may hide unrecorded maintenance decisions."},
+            {zh: "没有评审时长、评论量等成本指标；15.4% 只说明“有人介入”，不说明介入代价。", en: "There are no effort metrics such as review duration or comment volume; 15.4% shows involvement, not its cost."},
+            {zh: "人工编码仍有主观性；双人标注与高 κ 降低但不能消除误分类。", en: "Manual coding remains subjective; dual annotation and high κ reduce but do not eliminate misclassification."}
+          ]
+        },
+        references: {
+          kicker: {zh: "论文与数据", en: "PAPER & DATA"},
+          items: [
+            {label: "PDF", title: {zh: "本地论文 PDF", en: "Local paper PDF"}, href: "Papers/AIDEV/japan.pdf"},
+            {label: "DOI", title: {zh: "ACM DOI · 3793302.3793575", en: "ACM DOI · 3793302.3793575"}, href: "https://doi.org/10.1145/3793302.3793575"},
+            {label: "ARXIV", title: {zh: "arXiv:2605.22534", en: "arXiv:2605.22534"}, href: "https://arxiv.org/abs/2605.22534"}
           ]
         }
       },
@@ -3242,6 +3486,174 @@ window.SWECHAT_SOURCE = {
       });
     });
     renderThemeRanking(view);
+  }
+
+  function renderDecisionStudy(view){
+    const root = document.getElementById("aidev-decisions-panel");
+    if (!root || !view.hero) return;
+    const zh = LANG === "zh";
+    const hero = view.hero;
+    const score = view.score;
+    const rejection = view.rejection;
+    const merge = view.merge;
+    const agents = view.agents;
+    const method = view.method;
+    const takeaway = view.takeaway;
+    const caveats = view.caveats;
+    const references = view.references;
+
+    root.innerHTML = `
+      <section class="rt-hero" aria-labelledby="ds-page-title">
+        <div>
+          <div class="rt-kicker">${pick(hero.kicker)}</div>
+          <h2 class="rt-title" id="ds-page-title">${pick(hero.title)}</h2>
+          <p class="rt-lede">${pick(hero.lede)}</p>
+          <div class="rt-tags">${hero.tags.map(tag => `<span class="rt-tag"><i></i>${pick(tag)}</span>`).join("")}</div>
+        </div>
+        <aside class="rt-score" aria-label="${zh ? "核心结果" : "Headline result"}">
+          <div class="rt-score-head"><span>${pick(score.head)}</span><b>${score.badge}</b></div>
+          <div class="rt-score-main"><b>${score.value}</b><span>${pick(score.unit)}</span></div>
+          <p class="rt-score-caption">${pick(score.caption)}</p>
+          <div class="rt-score-grid">
+            ${score.cells.map(cell => `<div class="rt-score-item"><span>${pick(cell.label)}</span><b>${cell.value}</b></div>`).join("")}
+          </div>
+          <p class="rt-score-foot">${pick(score.foot)}</p>
+        </aside>
+      </section>
+
+      <div class="rt-metrics" aria-label="${zh ? "语料与样本指标" : "Corpus and sample metrics"}">
+        ${view.stats.map(stat => `<div class="rt-metric"><b>${stat.value}</b><span>${pick(stat.label)}</span><small>${pick(stat.sub)}</small></div>`).join("")}
+      </div>
+
+      <section class="rt-section" aria-labelledby="ds-reject-title">
+        <div class="rt-section-head">
+          <div>
+            <span class="rt-section-no">${pick(rejection.kicker)}</span>
+            <h2 id="ds-reject-title">${pick(rejection.title)}</h2>
+            <p>${pick(rejection.dek)}</p>
+          </div>
+        </div>
+        <div class="ds-rejection-viz">
+          <figure class="ds-rej-figure">
+            <div class="ds-rej-chart" role="img" aria-label="${rejection.cards.map(card => `${pick(card.label)} ${card.value}`).join(", ")}">
+              <svg viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+                <circle class="ds-rej-track" cx="100" cy="100" r="76" stroke-width="34"></circle>
+                ${rejection.cards.map((card, i) => {
+                  const value = parseFloat(card.value);
+                  const offset = rejection.cards.slice(0, i).reduce((sum, prev) => sum + parseFloat(prev.value), 0);
+                  return `<circle class="ds-rej-arc is-${card.tone}" cx="100" cy="100" r="76" pathLength="100" stroke-dasharray="${value} ${100 - value}" stroke-dashoffset="${-offset}" transform="rotate(-90 100 100)"></circle>`;
+                }).join("")}
+              </svg>
+              <div class="ds-rej-center">
+                <b>${rejection.cards[0].value}</b>
+                <span>${zh ? "Agent 失败" : "Agentic failure"}</span>
+                <small>${parseInt(rejection.cards[0].count.zh, 10)} / ${rejection.cards.reduce((sum, card) => sum + parseInt(card.count.zh, 10), 0)} ${zh ? "个 PR" : "PRs"}</small>
+              </div>
+            </div>
+          </figure>
+          <div class="ds-rej-legend">
+            ${rejection.cards.map(card => `
+              <article class="ds-rej-item is-${card.tone}">
+                <div class="ds-rej-item-head">
+                  <span class="ds-rej-name"><i></i>${pick(card.label)}</span>
+                  <b class="ds-rej-value">${card.value}</b>
+                </div>
+                <p><strong>${pick(card.count)}</strong> · ${pick(card.body)}</p>
+              </article>`).join("")}
+          </div>
+        </div>
+        <div class="ds-rej-agents">
+          <div class="ds-rej-agents-head">
+            <b>${pick(rejection.byAgentHead)}</b>
+            <span>${pick(rejection.byAgentUnit)}</span>
+          </div>
+          <div class="ds-rej-agent-list">
+            ${[...rejection.byAgent].sort((a, b) => b.af / (b.af + b.nonaf + b.unknown) - a.af / (a.af + a.nonaf + a.unknown)).map(item => {
+              const total = item.af + item.nonaf + item.unknown;
+              const share = (count) => (count / total * 100).toFixed(1);
+              return `
+                <div class="ds-rej-agent">
+                  <span class="ds-rej-agent-name">${item.name}</span>
+                  <span class="ds-rej-agent-bar" title="AF ${item.af} · Non-AF ${item.nonaf} · Unknown ${item.unknown}">
+                    <i class="is-af" style="width:${share(item.af)}%"></i><i class="is-nonaf" style="width:${share(item.nonaf)}%"></i><i class="is-unknown" style="width:${share(item.unknown)}%"></i>
+                  </span>
+                  <span class="ds-rej-agent-fig"><b>${share(item.af)}%</b><span>${item.af} / ${total}</span></span>
+                </div>`;
+            }).join("")}
+          </div>
+          <p class="ds-rej-agents-note">${pick(rejection.byAgentNote)}</p>
+        </div>
+        <p class="rt-foot-note">${pick(rejection.note)}</p>
+      </section>
+
+      <section class="rt-section" aria-labelledby="ds-merge-title">
+        <div class="rt-section-head">
+          <div>
+            <span class="rt-section-no">${pick(merge.kicker)}</span>
+            <h2 id="ds-merge-title">${pick(merge.title)}</h2>
+            <p>${pick(merge.dek)}</p>
+          </div>
+        </div>
+        <div class="ds-stack" role="img" aria-label="${merge.segments.map(item => `${pick(item.label)} ${item.value}`).join(", ")}">
+          ${merge.segments.map(item => `<i class="is-${item.key}" style="width:${parseFloat(item.value).toFixed(1)}%"></i>`).join("")}
+        </div>
+        <div class="ds-stack-legend">
+          ${merge.segments.map(item => `<div class="is-${item.key}"><b>${item.value}</b><span><em></em>${pick(item.label)}<br>${pick(item.count)}</span></div>`).join("")}
+        </div>
+        <p class="rt-foot-note">${pick(merge.note)}</p>
+      </section>
+
+      <section class="rt-section" aria-labelledby="ds-agent-title">
+        <div class="rt-section-head">
+          <div>
+            <span class="rt-section-no">${pick(agents.kicker)}</span>
+            <h2 id="ds-agent-title">${pick(agents.title)}</h2>
+            <p>${pick(agents.dek)}</p>
+          </div>
+        </div>
+        <div class="rt-rank" role="list">
+          ${agents.rows.map(row => `
+            <div class="rt-rank-item" role="listitem">
+              <span class="rt-rank-no" aria-hidden="true">●</span>
+              <span class="rt-rank-name"><b>${row.name}</b><span>${row.detail} · ${row.count}</span></span>
+              <span class="rt-rank-val">${row.value}</span>
+              <span class="rt-bar" aria-hidden="true"><i style="--w:${row.width.toFixed(1)}%"></i></span>
+            </div>`).join("")}
+        </div>
+        <p class="rt-foot-note">${pick(agents.note)}</p>
+      </section>
+
+      <section class="rt-section" aria-labelledby="ds-method-title">
+        <div class="rt-section-head">
+          <div>
+            <span class="rt-section-no">${pick(method.kicker)}</span>
+            <h2 id="ds-method-title">${pick(method.title)}</h2>
+            <p>${pick(method.dek)}</p>
+          </div>
+        </div>
+        <div class="rt-method">
+          ${method.steps.map(step => `<div class="rt-step"><span class="rt-step-n">${step.no}</span><h3>${pick(step.title)}</h3><p>${pick(step.body)}</p></div>`).join("")}
+        </div>
+        <div class="rt-callouts">
+          <aside class="rt-insight">
+            <span class="rt-callout-kicker">${pick(takeaway.kicker)}</span>
+            <p class="rt-quote">${pick(takeaway.quote)}</p>
+            <p>${pick(takeaway.body)}</p>
+            <div class="rt-insight-stats">
+              ${takeaway.stats.map(stat => `<div><b>${stat.value}</b><span>${pick(stat.label)}</span></div>`).join("")}
+            </div>
+          </aside>
+          <aside class="rt-limits">
+            <span class="rt-callout-kicker">${pick(caveats.kicker)}</span>
+            <h3>${pick(caveats.title)}</h3>
+            <ul>${caveats.items.map(item => `<li>${pick(item)}</li>`).join("")}</ul>
+          </aside>
+        </div>
+        <div class="rt-refs-head"><span class="rt-section-no">${pick(references.kicker)}</span></div>
+        <div class="rt-refs">
+          ${references.items.map(item => `<a class="rt-ref" href="${item.href}" target="_blank" rel="noopener"><span>${item.label}</span><b>${pick(item.title)}</b><i>↗</i></a>`).join("")}
+        </div>
+      </section>`;
   }
 
   function renderTaskClusters(view){
@@ -3645,6 +4057,7 @@ window.SWECHAT_SOURCE = {
     const panelFor = key => {
       if (key === "pop") return "aidev-pop-panel";
       if (key === "themes") return "aidev-themes-panel";
+      if (key === "decisions") return "aidev-decisions-panel";
       if (key === "atlas") return "aidev-panel";
       const view = source.views[key];
       return view && view.kind === "task-clusters" ? "cluster-panel" : "chart-panel";
@@ -3745,6 +4158,7 @@ window.SWECHAT_SOURCE = {
     const isPopLanding = !isExample && view.kind === "aidev-pop";
     const isCluster = !isExample && view.kind === "task-clusters";
     const isThemes = !isExample && view.kind === "review-themes";
+    const isDecisions = !isExample && view.kind === "decision-study";
     currentSource = sourceKey in SOURCES ? sourceKey : "tosem";
     currentView = viewKey;
     pinned = null;
@@ -3763,6 +4177,7 @@ window.SWECHAT_SOURCE = {
     document.body.classList.toggle("is-aidev", currentSource === "aidev");
     document.body.classList.toggle("is-aidev-pop", isPopLanding);
     document.body.classList.toggle("is-aidev-themes", isThemes);
+    document.body.classList.toggle("is-aidev-decisions", isDecisions);
 
     const viewbar = document.getElementById("viewbar");
     const isDetail = isExample || viewKey !== source.defaultView;
@@ -3798,14 +4213,16 @@ window.SWECHAT_SOURCE = {
     renderViewTabs(source);
     document.getElementById("aidev-pop-panel").hidden = !isPopLanding;
     document.getElementById("aidev-themes-panel").hidden = !isThemes;
+    document.getElementById("aidev-decisions-panel").hidden = !isDecisions;
     document.getElementById("aidev-panel").hidden = !isAtlas;
 
-    if (isAtlas || isPopLanding || isThemes) {
+    if (isAtlas || isPopLanding || isThemes || isDecisions) {
       document.getElementById("chart-panel").hidden = true;
       document.getElementById("cluster-panel").hidden = true;
       document.getElementById("example-panel").hidden = true;
       document.querySelector(".insight").hidden = true;
       if (isThemes) renderReviewThemes(view);
+      if (isDecisions) renderDecisionStudy(view);
     } else {
       svg.setAttribute("aria-label", pick(view.chartAria));
       document.getElementById("reasons-list").setAttribute("aria-label", pick(view.listAria));
@@ -3981,7 +4398,7 @@ window.SWECHAT_SOURCE = {
         return {source: sourceKey, view: viewKey};
       }
     }
-    return {source: "swechat", view: "task-clusters"};
+    return {source: "tosem", view: SOURCES.tosem.defaultView};
   }
 
   function applyHash(){
