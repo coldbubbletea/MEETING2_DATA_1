@@ -78,6 +78,22 @@
   .source-tab[aria-current="page"] .st-copy .st-name{color:var(--cream)}
   .source-tab[aria-current="page"] .st-n{background:rgba(252,251,248,.14);color:var(--cream)}
 
+  /* ---------- language switch ---------- */
+  .lang-switch{
+    margin-left:auto;flex:none;display:flex;align-items:center;gap:2px;
+    padding:3px;border:1px solid var(--hair);border-radius:999px;
+    background:rgba(252,251,248,.62);box-shadow:inset 0 1px 0 rgba(255,255,255,.55);
+  }
+  .lang-switch button{
+    appearance:none;-webkit-appearance:none;border:0;background:transparent;cursor:pointer;
+    font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.04em;line-height:1;
+    color:var(--muted);border-radius:999px;padding:6px 11px;
+    transition:background .16s ease,color .16s ease;
+  }
+  .lang-switch button[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
+  .lang-switch button:hover:not([aria-pressed="true"]){color:var(--clay);background:rgba(184,82,74,.08)}
+  .lang-switch button:focus-visible{outline:2px solid rgba(184,82,74,.55);outline-offset:2px}
+
   /* ---------- analysis view tabs ---------- */
   .view-tabs-row{
     display:flex;align-items:flex-start;gap:18px;flex-wrap:wrap;
@@ -802,6 +818,7 @@
     .source-tabs{flex-direction:column;border-radius:16px}
     .source-tab{width:100%;border-radius:12px;padding:10px 13px}
     .source-tab .st-n{margin-left:auto}
+    .lang-switch{width:max-content;margin:11px 0 0 auto}
   }
   #aidev-themes-panel{min-width:0;padding-top:clamp(4px,1vw,12px);animation:ex-in .32s ease both}
   #aidev-themes-panel[hidden]{display:none}
@@ -1089,6 +1106,10 @@
           <span class="st-n">933K</span>
         </a>
       </nav>
+      <div class="lang-switch" role="group" aria-label="Language / 语言">
+        <button type="button" data-lang="zh" aria-pressed="false" lang="zh-CN">中文</button>
+        <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+      </div>
     </div>
     <div class="eyebrow">
       <span id="eyebrow-left">TOSEM 2026&nbsp;&nbsp;·&nbsp;&nbsp;WATANABE ET AL.</span>
@@ -1501,7 +1522,6 @@
     <div class="dl">
       <a id="dl-png" href="tosem_outcomes_pie_en.png" download>Download PNG · 300 DPI</a>
       <a id="dl-svg" href="tosem_outcomes_pie_en.svg" download>Download SVG</a>
-      <a id="lang-link" href="aidev_rejection_pie.html" hreflang="zh-CN">中文版 ↗</a>
       <span class="build" id="build-stamp">ui 2026-10-20 · tap17</span>
     </div>
     <div class="citation">
@@ -2142,7 +2162,20 @@ window.SWECHAT_SOURCE = {
 (function(){
   "use strict";
 
-  const LANG = "en";
+  const LANG_STORAGE_KEY = "swechat-lang";
+  const readLang = () => {
+    const query = new URLSearchParams(location.search).get("lang");
+    if (query === "zh" || query === "en") {
+      try { localStorage.setItem(LANG_STORAGE_KEY, query); } catch (error) {}
+      return query;
+    }
+    try {
+      const saved = localStorage.getItem(LANG_STORAGE_KEY);
+      if (saved === "zh" || saved === "en") return saved;
+    } catch (error) {}
+    return "en";
+  };
+  let LANG = readLang();
   const NS = "http://www.w3.org/2000/svg";
   const pick = value => (typeof value === "string" ? value : value[LANG]);
   const pad2 = value => String(value).padStart(2, "0");
@@ -2152,12 +2185,153 @@ window.SWECHAT_SOURCE = {
   const shareTotalOf = view => isPctView(view) ? (view.shareBase || 100) : (view.shareBase || sumOf(view));
   const centerTotalOf = view => view.centerN || (isPctView(view) ? "100%" : shareTotalOf(view));
   const pctOf = (view, item) => isPctView(view) ? item.n : item.n / shareTotalOf(view) * 100;
-  const fmtCount = value => Number(value).toLocaleString("en-US");
+  const fmtCount = value => Number(value).toLocaleString(LANG === "zh" ? "zh-CN" : "en-US");
   const fmtPct = value => `${Number(value).toFixed(1)}%`;
   const fmtCenter = (value, view) => {
     if (isPctView(view)) return fmtPct(value);
     return value >= 100000 ? `${(value / 1000).toFixed(1).replace(/\.0$/, "")}K` : fmtCount(value);
   };
+
+  const STATIC_I18N = [
+    {sel: ".source-picker", attr: "aria-label", zh: "数据来源", en: "DATA SOURCE"},
+    {sel: "#sp-label-main", zh: "数据来源", en: "DATA SOURCE"},
+    {sel: "#sp-label-sub", zh: "选择数据集", en: "SELECT DATASET"},
+    {sel: ".source-tabs", attr: "aria-label", zh: "选择数据集", en: "Select a dataset"},
+    {sel: "#viewbar", attr: "aria-label", zh: "当前视图", en: "CURRENT VIEW"},
+    {sel: "#view-tabs", attr: "aria-label", zh: "分析视图", en: "Analysis view"},
+    {sel: "#vt-label-main", zh: "分析", en: "ANALYSIS"},
+    {sel: "#vt-label-sub", zh: "视图", en: "VIEW"},
+    {sel: "#dl-png", zh: "下载 PNG · 300 DPI", en: "Download PNG · 300 DPI"},
+    {sel: "#dl-svg", zh: "下载 SVG", en: "Download SVG"},
+
+    {sel: "#aidev-pop-panel .pop-kicker", zh: "<i></i>AIDEV / AIDEV-POP", en: "<i></i>AIDEV / AIDEV-POP"},
+    {sel: "#aidev-pop-panel .pop-title", zh: "大多数 AIDev 研究，<em>从这里开始。</em>", en: "Most AIDev research <em>starts here.</em>"},
+    {sel: "#aidev-pop-panel .pop-lede", zh: "AIDev-pop 是 AIDev 中从 <b>&gt;100 GitHub stars</b> 的仓库筛选出的精选子集：<b>33,596</b> 个 agentic PR，占 <b>932,791</b> 个全量 PR 的 <b>3.60%</b>。", en: "AIDev-pop is the curated subset of AIDev drawn from repositories with <b>&gt;100 GitHub stars</b>: <b>33,596</b> agentic PRs, or <b>3.60%</b> of the full corpus of <b>932,791</b>."},
+    {sel: "#pop-figure-title", zh: "AIDEV 语料库 / 星标层级", en: "AIDEV CORPUS / STAR TIER"},
+    {sel: "#pop-open-donut", attr: "aria-label", zh: "打开 AIDev-pop 分析：33,596 个 PR，占 932,791 个全量 PR 的 3.60%", en: "Open the AIDev-pop analysis: 33,596 PRs, 3.60% of the full corpus of 932,791 PRs"},
+    {sel: "#aidev-pop-panel .pop-slice-label", zh: "33,596 个 PR", en: "33,596 PRs"},
+    {sel: "#aidev-pop-panel .pop-center span", zh: "AIDEV · 全部 PR", en: "AIDEV · ALL PRs"},
+    {sel: "#aidev-pop-panel .pop-legend-item:not(.is-pop) .pl-tier span:first-child", zh: "≤100 星", en: "≤100 stars"},
+    {sel: "#aidev-pop-panel .pop-legend-item:not(.is-pop) .pl-sub", zh: "113,404 个仓库 · 全量语料的长尾", en: "113,404 repositories · full-corpus long tail"},
+    {sel: "#pop-open-legend", attr: "aria-label", zh: "打开 AIDev-pop 分析", en: "Open the AIDev-pop analysis"},
+    {sel: "#pop-open-legend .pl-tier span:first-child", zh: "&gt;100 星 · AIDEV-POP", en: "&gt;100 stars · AIDEV-POP"},
+    {sel: "#pop-open-legend .pl-sub", zh: "2,807 个仓库 · 深度分析子集", en: "2,807 repositories · deep-dive subset"},
+    {sel: "#pop-open-legend .pl-open", zh: "打开分析 ↗", en: "Open analysis ↗"},
+    {sel: "#aidev-pop-panel .pop-figure-note", zh: "星标层级是论文的采样边界，而非质量排名；占比均按 PR 计算。AIDev-pop 与全量语料存在重叠，因此两者数量不能相加。", en: "Star tier is the paper's sampling boundary, not a quality ranking; shares are computed over PRs. AIDev-pop overlaps with the full corpus, so the counts cannot be added."},
+    {sel: "#pop-open-cta", zh: "探索 AIDev-pop <span>→</span>", en: "Explore AIDev-pop <span>→</span>"},
+    {sel: "#aidev-pop-panel .pop-note", zh: "点击环形图、AIDev-pop 图例或按钮，查看规模、工作流、数据结构与研究议程。", en: "Click the donut, the AIDev-pop legend, or the button to view scale, workflow, data structure, and the research agenda."},
+
+    {sel: "#aidev-panel .atlas-kicker", zh: "<i></i>数据集图鉴 · AIDEV", en: "<i></i>DATASET ATLAS · AIDEV"},
+    {sel: "#aidev-panel .atlas-thesis", zh: "五个编码代理，<em>93.3 万条 PR</em>，一场发生在真实仓库中的人机协作实验。", en: "Five coding agents, <em>933K pull requests</em>, one collaboration experiment inside real repositories."},
+    {sel: "#aidev-panel .atlas-lede", zh: "AIDev 从 GitHub 收集了 <b>932,791</b> 个 agentic PR，覆盖 <b>116,211</b> 个仓库和 <b>72,189</b> 名开发者，数据截止于 <b>2025-08-01</b>。它不是排行榜，也不是标准答案，而是一份可复用的观测底座：把代理提交、人类评审、后续修复和事件时间线连接起来，让研究者能够提出关于采用、质量与风险的真实世界问题。", en: "AIDev collected <b>932,791</b> agentic PRs from GitHub, spanning <b>116,211</b> repositories and <b>72,189</b> developers, with data cut off on <b>2025-08-01</b>. It is not a leaderboard or an answer key, but a reusable observational substrate: it joins agent submissions, human reviews, follow-up fixes, and event timelines so researchers can ask real-world questions about adoption, quality, and risk."},
+    {sel: "#aidev-panel .atlas-card-label", zh: "覆盖的编码代理", en: "CODING AGENTS COVERED"},
+    {sel: "#aidev-panel .atlas-card-note", zh: "全量语料覆盖五个编码代理。精选子集包含 <b>33,596</b> 个 PR，取自 <b>&gt;100 GitHub stars</b> 的仓库，并补充了评审评论、提交级差异、关联议题和完整时间线。星标数只是筛选阈值，不是质量排名。", en: "The full corpus covers five agents. A curated subset of <b>33,596</b> PRs, drawn from repositories with <b>&gt;100 GitHub stars</b>, adds review comments, commit-level diffs, linked issues, and complete timelines. Star count is a selection threshold, not a quality ranking."},
+    {sel: "#aidev-panel .atlas-metric:nth-child(1) .am-l", zh: "Agentic PR 数量", en: "Agentic Pull Requests"},
+    {sel: "#aidev-panel .atlas-metric:nth-child(1) .am-s", zh: "全量语料 · 五个代理", en: "Full corpus · five agents"},
+    {sel: "#aidev-panel .atlas-metric:nth-child(2) .am-l", zh: "仓库", en: "Repositories"},
+    {sel: "#aidev-panel .atlas-metric:nth-child(2) .am-s", zh: "真实 GitHub 项目", en: "Real GitHub projects"},
+    {sel: "#aidev-panel .atlas-metric:nth-child(3) .am-l", zh: "开发者", en: "Developers"},
+    {sel: "#aidev-panel .atlas-metric:nth-child(3) .am-s", zh: "与 PR 关联的开发者", en: "Developers linked to PRs"},
+    {sel: "#aidev-panel .atlas-metric:nth-child(4) .am-l", zh: "精选 PR", en: "Curated PRs"},
+    {sel: "#aidev-panel .atlas-metric:nth-child(4) .am-s", zh: "&gt;100 星 · 深度分析", en: "&gt;100 stars · deep analysis"},
+
+    {sel: '#aidev-panel section[aria-labelledby="atlas-scale-title"] .atlas-section-no', zh: "01 / 规模", en: "01 / SCALE"},
+    {sel: "#atlas-scale-title", zh: "从全量语料到可深入分析的子集。", en: "From the full corpus to a deeper, analyzable subset."},
+    {sel: '#aidev-panel section[aria-labelledby="atlas-scale-title"] .atlas-section-head > p', zh: "全量表提供规模与覆盖度，精选子集保留了细粒度分析所需的人类行为痕迹。它们是对同一份数据的广角与近景，而不是两个彼此独立的语料。", en: "The full tables provide scale and coverage; the curated subset preserves the human traces needed for fine-grained analysis. They are a wide-angle view and a close-up of the same data, not two independent corpora."},
+    {sel: "#aidev-panel .atlas-term-key small", zh: "仓库术语", en: "REPOSITORY TERM"},
+    {sel: "#aidev-panel .atlas-term", attr: "aria-label", zh: "AIDev-pop 的含义", en: "What AIDev-pop means"},
+    {sel: "#aidev-panel .atlas-term p", zh: "AIDev 复现包的 README 将 <b>&gt;100 GitHub stars</b> 的精选子集称为 <b>AIDev-pop</b>（popular subset），并为其原始数据提供单独下载。论文正文没有使用这个标识，而是写作“curated subset”；两者都指同样这 <b>33,596</b> 个 PR，并非额外数据集。", en: "The AIDev replication package's README calls the <b>&gt;100 GitHub stars</b> curated subset <b>AIDev-pop</b> (the popular subset), and provides a separate download for its raw data. The paper prose does not use this identifier and instead says “curated subset”; both refer to the same <b>33,596</b> PRs, not an additional dataset."},
+    {sel: "#aidev-panel .atlas-compare-head span:nth-child(1)", zh: "规模", en: "SCALE"},
+    {sel: "#aidev-panel .atlas-compare-head span:nth-child(2)", zh: "全量", en: "FULL"},
+    {sel: "#aidev-panel .atlas-compare-head span:nth-child(3)", zh: "占全量", en: "OF FULL"},
+    {sel: "#aidev-panel .atlas-compare-head span:nth-child(4)", zh: "精选", en: "CURATED"},
+    {sel: "#aidev-panel .atlas-compare-row:nth-child(2) .ac-label", zh: "PR 数量", en: "Pull requests"},
+    {sel: "#aidev-panel .atlas-compare-row:nth-child(3) .ac-label", zh: "仓库", en: "Repositories"},
+    {sel: "#aidev-panel .atlas-compare-row:nth-child(4) .ac-label", zh: "开发者", en: "Developers"},
+    {sel: "#aidev-panel .atlas-compare-foot", zh: "<b>阅读提示：</b>百分比以各自的全量总数为分母。精选表与全量表存在重叠，因此行数不能相加；3.60% 也不是代理采用率。", en: "<b>Reading note:</b> percentages are computed against each full-corpus total. The curated and full tables overlap, so their row counts cannot be added, and 3.60% is not an agent adoption rate."},
+
+    {sel: '#aidev-panel section[aria-labelledby="atlas-flow-title"] .atlas-section-no', zh: "02 / 工作流", en: "02 / WORKFLOW"},
+    {sel: "#atlas-flow-title", zh: "一个 agentic PR 的完整闭环。", en: "The full loop of an agentic PR."},
+    {sel: '#aidev-panel section[aria-labelledby="atlas-flow-title"] .atlas-section-head > p', zh: "AIDev 的结构对应真实的 GitHub 协作流程。图 1 的路径解释了为什么数据集要把 PR、评论、提交、议题和时间线放在一起。", en: "AIDev's structure follows the real GitHub collaboration workflow. The path in Figure 1 explains why the dataset includes PRs, comments, commits, issues, and timelines together."},
+    {sel: "#aidev-panel .atlas-step:nth-child(1) h3", zh: "领取议题", en: "Take an issue"},
+    {sel: "#aidev-panel .atlas-step:nth-child(1) p", zh: "代理在真实项目中领取一个议题，获得任务上下文和验收目标。", en: "The agent is assigned an issue in a real project and receives task context and acceptance goals."},
+    {sel: "#aidev-panel .atlas-step:nth-child(2) h3", zh: "生成补丁", en: "Generate a patch"},
+    {sel: "#aidev-panel .atlas-step:nth-child(2) p", zh: "它在仓库中定位文件、修改实现，并运行可用的检查或测试。", en: "It locates files in the repository, changes the implementation, and runs available checks or tests."},
+    {sel: "#aidev-panel .atlas-step:nth-child(3) h3", zh: "提交 PR", en: "Open a PR"},
+    {sel: "#aidev-panel .atlas-step:nth-child(3) p", zh: "它提交带有标题、描述和范围的 pull request，进入公开协作流程。", en: "It submits a pull request with a title, description, and scope, entering the public collaboration process."},
+    {sel: "#aidev-panel .atlas-step:nth-child(4) h3", zh: "接受人类评审", en: "Receive human review"},
+    {sel: "#aidev-panel .atlas-step:nth-child(4) p", zh: "维护者发表评论、请求修改或批准；这些判断成为关于质量与风险的一手信号。", en: "Maintainers comment, request changes, or approve; these judgments become first-hand signals of quality and risk."},
+    {sel: "#aidev-panel .atlas-step:nth-child(5) h3", zh: "跟进与修复", en: "Follow up and fix"},
+    {sel: "#aidev-panel .atlas-step:nth-child(5) p", zh: "代理通过后续提交和回复回应评论，推动人机协作继续向前。", en: "The agent responds to comments through follow-up commits and replies, keeping human-agent collaboration moving."},
+    {sel: "#aidev-panel .atlas-workflow-note", zh: "注意：并非所有编码代理都支持处理评审评论。因此，“已评审”和“评审已解决”是两类不同的证据，应分别分析。", en: "Note: not every coding agent supports handling review comments. \"Reviewed\" and \"review resolved\" are therefore different kinds of evidence and should be analyzed separately."},
+
+    {sel: '#aidev-panel section[aria-labelledby="atlas-schema-title"] .atlas-section-no', zh: "03 / 数据结构", en: "03 / SCHEMA"},
+    {sel: "#atlas-schema-title", zh: "十五张表拼出一个 PR 的完整生命周期。", en: "Fifteen tables assemble the lifecycle of a PR."},
+    {sel: '#aidev-panel section[aria-labelledby="atlas-schema-title"] .atlas-section-head > p', zh: "从 PR 元数据到文件级差异、评审、议题和事件流。柱状条只在各自的表组内比较，不同量级的记录不会被混在一起。", en: "From PR metadata to file-level diffs, reviews, issues, and event streams. Bars compare only within each table group, so records of different magnitudes are not mixed."},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(1) header h3", zh: "核心元数据 · 全量", en: "Core metadata · Full"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(2) header h3", zh: "核心元数据 · 精选", en: "Core metadata · Curated"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(3) header h3", zh: "评论与评审", en: "Comments &amp; reviews"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(4) header h3", zh: "提交与差异", en: "Commits &amp; diffs"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(5) header h3", zh: "议题与事件", en: "Issues &amp; events"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(6) header h3", zh: "自动标签", en: "Automatic labels"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(1) .as-count", zh: "3 张表", en: "3 TABLES"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(2) .as-count", zh: "3 张表", en: "3 TABLES"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(3) .as-count", zh: "3 张表", en: "3 TABLES"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(4) .as-count", zh: "2 张表", en: "2 TABLES"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(5) .as-count", zh: "3 张表", en: "3 TABLES"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(6) .as-count", zh: "1 张表", en: "1 TABLE"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(1) .atlas-table-row:nth-child(2) p", zh: "标题 · 正文 · 代理 · 状态 · 时间戳 · 仓库 · 用户", en: "title · body · agent · state · timestamps · repository · user"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(1) .atlas-table-row:nth-child(3) p", zh: "名称 · 许可证 · 语言 · URL · 星标 · fork", en: "name · license · language · URL · stars · forks"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(1) .atlas-table-row:nth-child(4) p", zh: "登录名 · 关注者 · 创建日期", en: "login · followers · creation date"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(2) .atlas-table-row:nth-child(2) p", zh: "字段与 all_pull_request 相同，限于精选子集", en: "Same fields as all_pull_request, limited to the curated subset"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(2) .atlas-table-row:nth-child(3) p", zh: "字段与 all_repository 相同，限于精选子集", en: "Same fields as all_repository, limited to the curated subset"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(2) .atlas-table-row:nth-child(4) p", zh: "字段与 all_user 相同，限于精选子集", en: "Same fields as all_user, limited to the curated subset"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(3) .atlas-table-row:nth-child(2) p", zh: "线程化评论：作者 · 正文 · 时间戳", en: "Threaded comments: author · body · timestamp"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(3) .atlas-table-row:nth-child(3) p", zh: "评审结论：批准 / 请求修改及其元数据", en: "Review verdicts: approve / request changes and metadata"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(3) .atlas-table-row:nth-child(4) p", zh: "行内评审：文件路径 · diff 片段 · 时间戳", en: "Inline review: file path · diff hunk · timestamp"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(4) .atlas-table-row:nth-child(2) p", zh: "关联到 PR 的提交：SHA · 作者 · 提交信息", en: "Commits linked to PRs: SHA · author · message"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(4) .atlas-table-row:nth-child(3) p", zh: "文件级差异：新增 · 删除 · 补丁", en: "File-level diff: additions · deletions · patches"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(5) .atlas-table-row:nth-child(2) p", zh: "PR 与关联议题之间的映射", en: "Mapping between PRs and related issues"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(5) .atlas-table-row:nth-child(3) p", zh: "标题 · 正文 · 状态 · 用户 · 时间戳", en: "title · body · state · user · timestamps"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(5) .atlas-table-row:nth-child(4) p", zh: "事件历史：提交 · 评审 · 打标签 · 合并 · 关闭", en: "Event history: committed · reviewed · labeled · merged · closed"},
+    {sel: "#aidev-panel .atlas-schema-card:nth-child(6) .atlas-table-row:nth-child(2) p", zh: "借助 GPT 按 Conventional Commits 类别（bug fix · feature · docs 等）对 PR 用途进行分类", en: "PR purpose classified with GPT assistance by Conventional Commits category (bug fix · feature · docs, etc.)"},
+    {sel: "#aidev-panel .atlas-schema-foot", zh: "15 张表合计 2,415,969 条记录，但这并不是 242 万个独立 PR：评论、提交、议题和时间线事件是同一 PR 生命周期的不同视角。全量表与精选表之间也存在重叠。", en: "The 15 tables total 2,415,969 records, but that is not 2.42M independent PRs: comments, commits, issues, and timeline events are different views of the same PR lifecycle. The full and curated tables also overlap."},
+
+    {sel: '#aidev-panel section[aria-labelledby="atlas-agenda-title"] .atlas-section-no', zh: "04 / 研究议程", en: "04 / RESEARCH AGENDA"},
+    {sel: "#atlas-agenda-title", zh: "它让哪些问题变得可测量？", en: "What does it make measurable?"},
+    {sel: '#aidev-panel section[aria-labelledby="atlas-agenda-title"] .atlas-section-head > p', zh: "论文提出了五个研究议程。这些并不是数据集内置的结论，而是 AIDev 希望支撑的下一批实证问题。", en: "The paper lays out five research agendas. These are not conclusions built into the dataset, but the next set of empirical questions AIDev is meant to support."},
+    {sel: "#aidev-panel .atlas-agenda-card:nth-child(1) h3", zh: "采用与实践", en: "Adoption &amp; practice"},
+    {sel: "#aidev-panel .atlas-agenda-card:nth-child(1) p", zh: "谁在使用编码代理？新人与资深开发者的采用路径有何不同？不同仓库和生态中的渗透率如何变化？", en: "Who uses coding agents? How do adoption paths differ between newcomers and experienced developers? How does penetration vary across repositories and ecosystems?"},
+    {sel: "#aidev-panel .atlas-agenda-card:nth-child(2) h3", zh: "补丁特征", en: "Patch characteristics"},
+    {sel: "#aidev-panel .atlas-agenda-card:nth-child(2) p", zh: "agentic PR 如何改动代码：新增或删除了多少行、触及多少文件，重构与复用的比例如何？它们是否遵循项目约定和 CI 检查？", en: "How do agentic PRs change code: lines added or removed, files touched, and the balance of refactoring and reuse? Do they follow project conventions and CI checks?"},
+    {sel: "#aidev-panel .atlas-agenda-card:nth-child(3) h3", zh: "测试行为", en: "Testing behavior"},
+    {sel: "#aidev-panel .atlas-agenda-card:nth-child(3) p", zh: "代理贡献测试的频率有多高？当测试缺失时，开发者是否会通过后续提交或关联 PR 补充验证？", en: "How often do agents contribute tests? When tests are missing, do developers add verification through follow-up commits or linked PRs?"},
+    {sel: "#aidev-panel .atlas-agenda-card:nth-child(4) h3", zh: "评审动态", en: "Review dynamics"},
+    {sel: "#aidev-panel .atlas-agenda-card:nth-child(4) p", zh: "评审中最受关注的是什么：正确性、风格、安全还是测试？哪些评论能被代理解决，哪些依然困难？", en: "Which concerns dominate review: correctness, style, security, or testing? Which comments can agents resolve, and which remain difficult?"},
+    {sel: "#aidev-panel .atlas-agenda-card:nth-child(5) h3", zh: "失败模式与风险", en: "Failure modes &amp; risk"},
+    {sel: "#aidev-panel .atlas-agenda-card:nth-child(5) p", zh: "常见缺陷如何产生？早期信号能否预测拒绝或评审成本？哪些改动最终进入生产并长期留存？", en: "How do common defects emerge? Can early signals predict rejection or review cost? Which changes eventually reach production and persist?"},
+
+    {sel: '#aidev-panel section[aria-labelledby="atlas-access-title"] .atlas-section-no', zh: "05 / 获取方式", en: "05 / ACCESS"},
+    {sel: "#atlas-access-title", zh: "拿走它，用起来。", en: "Take it and use it."},
+    {sel: '#aidev-panel section[aria-labelledby="atlas-access-title"] .atlas-section-head > p', zh: "Hugging Face 通过 Data Studio 支持在浏览器中运行 SQL；Zenodo 提供可引用的归档；GitHub 仓库包含示例 notebook 和 Colab 入口。", en: "Hugging Face supports in-browser SQL through Data Studio; Zenodo provides a citable archive; the GitHub repository includes example notebooks and a Colab entry point."},
+    {sel: "#aidev-panel .atlas-access:nth-child(1) small", zh: "浏览数据 · Data Studio SQL", en: "Browse data · Data Studio SQL"},
+    {sel: "#aidev-panel .atlas-access:nth-child(2) small", zh: "可引用归档 · DOI", en: "Citable archive · DOI"},
+    {sel: "#aidev-panel .atlas-access:nth-child(3) small", zh: "示例 notebook · Colab", en: "Example notebooks · Colab"}
+  ];
+
+  function applyStaticLang(){
+    document.documentElement.lang = LANG === "zh" ? "zh-CN" : "en";
+    document.querySelectorAll(".lang-switch [data-lang]").forEach(button => {
+      button.setAttribute("aria-pressed", String(button.dataset.lang === LANG));
+    });
+    STATIC_I18N.forEach(entry => {
+      const value = LANG === "zh" ? entry.zh : entry.en;
+      document.querySelectorAll(entry.sel).forEach(node => {
+        if (entry.attr) node.setAttribute(entry.attr, value);
+        else node.innerHTML = value;
+      });
+    });
+  }
 
   const SOURCES = {
     tosem: {
@@ -3610,10 +3784,6 @@ window.SWECHAT_SOURCE = {
       if (download) link.href = id === "dl-png" ? download.png : download.svg;
       else link.removeAttribute("href");
     });
-    document.getElementById("lang-link").href =
-      (LANG === "zh" ? "aidev_rejection_pie_en.html" : "aidev_rejection_pie.html") +
-      "#" + routeHash(currentSource, currentView);
-
     document.querySelectorAll(".source-tab").forEach(tab => {
       const tabSource = SOURCES[tab.dataset.source];
       const selected = tab.dataset.source === currentSource;
@@ -3673,16 +3843,34 @@ window.SWECHAT_SOURCE = {
     const hash = routeHash(currentSource, currentView);
     try {
       if (!options.keepHash) {
-        history[options.push ? "pushState" : "replaceState"](null, "", location.pathname + "#" + hash);
+        history[options.push ? "pushState" : "replaceState"](null, "", urlWithLang(hash));
       }
     } catch (error) {
       location.hash = hash;
     }
   }
 
-  document.getElementById("sp-label-main").textContent = LANG === "zh" ? "数据来源" : "DATA SOURCE";
-  document.getElementById("sp-label-sub").textContent = LANG === "zh" ? "DATA SOURCE" : "SELECT DATASET";
-  document.querySelector(".source-tabs").setAttribute("aria-label", LANG === "zh" ? "选择数据集" : "Select a dataset");
+  function urlWithLang(hash){
+    const params = new URLSearchParams(location.search);
+    if (LANG === "zh") params.set("lang", "zh");
+    else params.delete("lang");
+    const search = params.toString();
+    return location.pathname + (search ? `?${search}` : "") + "#" + hash;
+  }
+
+  document.querySelectorAll(".lang-switch [data-lang]").forEach(button => {
+    button.addEventListener("click", () => {
+      const next = button.dataset.lang;
+      if (next === LANG) return;
+      LANG = next;
+      try { localStorage.setItem(LANG_STORAGE_KEY, LANG); } catch (error) {}
+      applyStaticLang();
+      navigate(currentSource, currentView, {keepHash: true});
+      try {
+        history.replaceState(null, "", urlWithLang(location.hash.replace(/^#/, "")));
+      } catch (error) {}
+    });
+  });
 
   document.getElementById("back-button").addEventListener("click", () => {
     const exampleEntry = exampleFromKey(SOURCES[currentSource], currentView);
@@ -3811,6 +3999,7 @@ window.SWECHAT_SOURCE = {
   const initial = (!location.hash && requestedSource && SOURCES[requestedSource])
     ? {source: requestedSource, view: SOURCES[requestedSource].defaultView}
     : parseHash();
+  applyStaticLang();
   navigate(initial.source, initial.view, {keepHash: false});
 
   const lockLightRendering = () => {
