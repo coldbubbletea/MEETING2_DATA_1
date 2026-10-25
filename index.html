@@ -1432,7 +1432,12 @@
   body.is-aidev-skills .masthead{position:absolute;right:clamp(16px,3vw,44px);top:20px}
   body.is-aidev-skills .source-picker{margin:0}
   #aidev-skills-panel{display:flex;flex-direction:column;flex:1;min-height:0}
-  .ev-stage{flex:1;min-height:0;border:1px solid var(--sk-line);border-radius:20px;background:#FFF;overflow:hidden;box-shadow:0 16px 60px #18375609}
+  .ev-deck-frame{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;grid-template-rows:minmax(0,1fr);gap:10px;flex:1;min-height:0}
+  .ev-stage{min-width:0;min-height:0;border:1px solid var(--sk-line);border-radius:20px;background:#FFF;overflow:hidden;box-shadow:0 16px 60px #18375609}
+  .ev-side-nav{align-self:center;width:44px;height:44px;padding:0;display:grid;place-items:center;border:1px solid #B6CADB99;border-radius:50%;background:#FFFFFFCC;backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 #FFF,0 5px 16px #1837560D;color:var(--sk-blue);font:400 32px/1 var(--sans);cursor:pointer;transition:background .18s ease,box-shadow .18s ease,border-color .18s ease}
+  .ev-side-nav:hover:not(:disabled){background:#E4F1EC;border-color:#81B4A7;box-shadow:0 4px 18px #36786D22}
+  .ev-side-nav:focus-visible{outline:2px solid #36786D;outline-offset:3px}
+  .ev-side-nav:disabled{opacity:.25;cursor:default;box-shadow:none}
   .ev-topic-tabs{display:flex;gap:6px;flex:none;margin:0 0 10px;align-self:flex-start;padding:4px;border:1px solid var(--sk-line);border-radius:12px;background:#E9F0F6;max-width:100%;overflow-x:auto}
   .ev-topic-tabs button{flex:none;white-space:nowrap;border:0;border-radius:8px;padding:8px 16px;background:transparent;color:var(--sk-muted);font:500 12px var(--sans);cursor:pointer}
   .ev-topic-tabs button[aria-selected="true"]{background:#FFF;color:var(--sk-blue);box-shadow:0 2px 8px #1837560A}
@@ -1484,13 +1489,31 @@
   .ev-research-slide h2{margin:0;max-width:25em;font-size:clamp(24px,3.5vw,46px);font-weight:500;line-height:1.5;letter-spacing:-.025em;color:#29465C}
   .ev-research-copy{margin:0;max-width:60em;color:var(--sk-muted);font-size:clamp(12px,1.4vw,16px);line-height:1.9}
   .ev-research-status{margin:0;color:var(--sk-muted);font-size:10px;line-height:1.7}
-  .ev-deck-controls{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;padding-top:16px;flex:none}
-  .ev-deck-actions{display:flex;align-items:center;gap:10px}
+  .ev-slide[data-skill-basics]{padding:20px 24px}
+  .ev-slide[data-skill-basics] .sk-heading{margin-bottom:16px}
+  .ev-slide[data-skill-basics] .ev-intro{font-size:12px;margin:10px 0 14px}
+  .ev-basics-definition{margin:12px 0 16px;max-width:32em;color:#29465C;font-size:clamp(22px,2.4vw,30px);line-height:1.5;font-weight:500}
+  .ev-basics-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:12px 0}
+  .ev-basics-grid article{min-width:0;padding:12px;border:1px solid var(--sk-line);border-radius:12px;background:#F3F8FB}
+  .ev-basics-grid small{font-size:10px;color:var(--sk-muted)}
+  .ev-basics-grid h3{margin:8px 0;font-size:15px;color:var(--sk-blue)}
+  .ev-basics-grid p{margin:0;font-size:12px;line-height:1.8;color:var(--sk-muted)}
+  .ev-basics-split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:14px;margin:16px 0}
+  .ev-basics-split>div{min-width:0}
+  .ev-basics-split h3{margin:0 0 8px;font-size:12px;color:var(--sk-blue)}
+  .ev-basics-split pre{margin:0;padding:16px;border-radius:12px;background:#183247;color:#E4F0F5;font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:auto}
+  .ev-basics-sources{display:flex;flex-wrap:wrap;gap:4px 14px;margin:12px 0 0;padding-top:8px;border-top:1px solid var(--sk-line);font-size:10px;line-height:1.8;color:var(--sk-muted)}
+  .ev-basics-sources a{color:var(--sk-blue);text-decoration:underline;text-underline-offset:3px}
+  .ev-basics-table th,.ev-basics-table td{white-space:normal}
+  #sk-basics-distinctions .ev-table,#sk-basics-distinctions .ev-table tbody th{font-size:12px}
+  #sk-basics-distinctions .ev-table th,#sk-basics-distinctions .ev-table td{padding:8px 12px}
+  .ev-deck-controls{position:relative;display:flex;justify-content:center;align-items:center;gap:18px;padding-top:16px;flex:none}
+  .ev-deck-actions{position:absolute;right:0;top:16px}
   .ev-deck-controls button,.ev-deck-controls select{font:500 12px var(--sans);color:var(--sk-blue);border:1px solid var(--sk-line);border-radius:10px;background:#FFF;min-height:40px;padding:8px 14px}
   .ev-deck-controls button{cursor:pointer}
   .ev-deck-controls button:disabled{opacity:.35;cursor:default}
   .ev-deck-controls select{max-width:100%;min-width:0;cursor:pointer}
-  .ev-deck-position{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 14px;align-items:center;max-width:500px;width:100%;justify-self:center}
+  .ev-deck-position{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 14px;align-items:center;max-width:500px;width:calc(100% - 180px)}
   .ev-deck-count{font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--sk-muted)}
   .ev-deck-progress{grid-column:1/-1;width:100%;height:3px;border:0;border-radius:3px;overflow:hidden;appearance:none}
   .ev-deck-progress::-webkit-progress-bar{background:#DCE7EF}
@@ -1564,16 +1587,21 @@
   @media(max-width:760px){
     body.is-aidev-skills .meeting-select{display:none}
     body.is-aidev-skills .meeting-bar-controls{width:auto}
-    .ev-slide{padding:24px}
+    .ev-deck-frame{grid-template-columns:36px minmax(0,1fr) 36px;gap:4px}
+    .ev-side-nav{width:36px;height:44px;font-size:28px}
+    .ev-slide{padding:24px 16px}
+    .ev-slide.sk-hero{padding:24px 16px}
+    #sk-evo-matrix{padding:12px 16px}
+    .ev-basics-grid,.ev-basics-split{grid-template-columns:1fr}
+    .ev-slide[data-skill-basics]{padding:20px 16px}
     .ev-slide.ev-highlights{grid-template-columns:1fr;align-content:start;gap:12px}
     .ev-slide .ev-highlight{padding:22px}
     .ev-slide .ev-comparison{grid-template-columns:1fr}
     .ev-slide .ev-model-detail{margin-top:0}
     .ev-deck-controls{gap:8px}
-    .ev-deck-actions{gap:6px}
     .ev-deck-controls button{padding:8px 10px}
     .ev-fullscreen{display:none}
-    .ev-deck-position{gap:6px}
+    .ev-deck-position{gap:6px;width:100%}
     .ev-deck-controls select{font-size:11px;padding:8px 4px}
     .ev-slide .ev-verdicts{margin-top:20px}
   }
@@ -1584,7 +1612,8 @@
   @media print{
     body.is-aidev-skills .wrap{height:auto;display:block}
     #aidev-skills-panel{display:block}
-    body.is-aidev-skills .masthead,.ev-topic-tabs,.ev-paper-tabs,.ev-deck-controls,.ev-deck-hint,.ev-deck-message{display:none!important}
+    body.is-aidev-skills .masthead,.ev-topic-tabs,.ev-paper-tabs,.ev-deck-controls,.ev-side-nav,.ev-deck-hint,.ev-deck-message{display:none!important}
+    .ev-deck-frame{display:block}
     .ev-stage{height:auto;min-height:0;overflow:visible;border:0;box-shadow:none}
     .ev-slide,.ev-slide[hidden]{display:block!important;height:auto;overflow:visible;break-after:page;padding:24px}
     .ev-slide.ev-highlights{display:grid!important}
@@ -4123,14 +4152,98 @@ window.SWECHAT_SOURCE = {
         description: zh ? "探索反馈、验证和迭代修订，能否提高 Skill 质量与迁移收益。" : "Investigate whether feedback, validation and iterative revision improve Skill quality and transfer utility."
       }
     ];
+    const skillSources = {
+      anthropic: {title: "Anthropic · Agent Skills", url: "https://www.anthropic.com/research/equipping-agents-for-the-real-world-with-agent-skills"},
+      overview: {title: zh ? "Agent Skills · 官方概览" : "Agent Skills · Overview", url: "https://agentskills.io/home"},
+      specification: {title: zh ? "Agent Skills · 格式规范" : "Agent Skills · Specification", url: "https://agentskills.io/specification"},
+      claude: {title: zh ? "Claude · 官方文档" : "Claude · Documentation", url: "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview"},
+      mcp: {title: zh ? "MCP · 官方介绍" : "MCP · Introduction", url: "https://modelcontextprotocol.io/docs/getting-started/intro"}
+    };
+    const basicsSources = (...keys) => `<div class="ev-basics-sources"><span>${zh ? "官方资料释义 / 本页归纳 · 核查 2026-10-26" : "Paraphrased official sources / teaching synthesis · Checked 2026-10-26"}</span>${keys.map(key => `<a href="${skillSources[key].url}" target="_blank" rel="noopener">${skillSources[key].title} ↗</a>`).join("")}</div>`;
+    const basicsPages = [
+      {
+        id: "definition", title: zh ? "官方定义" : "Definition",
+        content: `
+          <p class="ev-basics-definition">${zh ? "把“何时使用、如何完成任务、需要哪些资源”打包成一个可复用的文件夹，让智能体按需加载。" : "A reusable folder that packages when to act, how to do the task, and which resources to use—loaded by an agent when needed."}</p>
+          <div class="ev-basics-grid">
+            <article><small>01 / WHEN</small><h3>${zh ? "发现与触发" : "Discovery and activation"}</h3><p><code>name</code> + <code>description</code><br>${zh ? "说明它做什么，以及什么时候该用。" : "Describe what the Skill does and when to use it."}</p></article>
+            <article><small>02 / HOW</small><h3>${zh ? "任务流程" : "Task procedure"}</h3><p><code>SKILL.md</code><br>${zh ? "提供操作步骤、约束和检查方法。" : "Provide steps, constraints and verification guidance."}</p></article>
+            <article><small>03 / WITH WHAT</small><h3>${zh ? "配套资源（可选）" : "Supporting resources (optional)"}</h3><p>${zh ? "脚本、参考资料、模板或其他文件，按需使用。" : "Scripts, references, templates or other files, used on demand."}</p></article>
+          </div>
+          <p class="sk-note">${zh ? "本页所说的 Skill，特指 Agent Skills 文件格式，不泛指模型掌握的所有“技能”。它为推理时的智能体提供程序性知识，而不是一次模型权重更新。" : "Here, Skill means the Agent Skills artifact format—not every capability a model has. It supplies procedural knowledge at inference time, rather than updating model weights."}</p>
+          ${basicsSources("anthropic", "overview", "claude")}`
+      },
+      {
+        id: "structure", title: zh ? "文件结构" : "File structure",
+        content: `
+          <p class="ev-intro">${zh ? "最小产物是一个包含 SKILL.md 的文件夹。SKILL.md 由 YAML 元数据和 Markdown 正文组成；其他目录是可选的组织惯例。" : "The minimum artifact is a folder containing SKILL.md: YAML frontmatter followed by Markdown instructions. Other directories are optional organizational conventions."}</p>
+          <div class="ev-basics-split">
+            <div><h3>${zh ? "目录示意" : "Example layout"}</h3><pre tabindex="0" role="region" aria-label="${zh ? "Skill 文件夹示例，可横向滚动" : "Skill folder example; horizontally scrollable"}"><code>paper-evidence/
+|-- SKILL.md
+|-- scripts/       (optional)
+|-- references/    (optional)
+\`-- assets/        (optional)</code></pre></div>
+            <div><h3>${zh ? "本页自拟的教学示例，非实验产物" : "Illustrative example, not an experimental artifact"}</h3><pre tabindex="0" role="region" aria-label="${zh ? "SKILL.md 教学示例，可横向滚动" : "Illustrative SKILL.md; horizontally scrollable"}"><code>---
+name: paper-evidence
+description: Check reported metrics when
+  comparing results from research papers.
+---
+1. Locate the original result table.
+2. Record its baseline and denominator.
+3. Separate measured and derived values.</code></pre></div>
+          </div>
+          <p class="sk-note">${zh ? "必填字段：name、description。name 应与父目录名一致；description 要同时说明能力与使用时机。脚本并不是必需项，Skill 也不只是脚本。" : "Required fields: name and description. The name should match the parent directory; the description states both capability and use cases. Scripts are optional: a Skill is not simply a script."}</p>
+          ${basicsSources("specification")}`
+      },
+      {
+        id: "loading", title: zh ? "渐进式加载" : "Progressive loading",
+        content: `
+          <p class="ev-intro">${zh ? "官方称为 progressive disclosure：先知道有哪些 Skill，相关时再读取具体做法，执行时才取需要的资源。" : "Progressive disclosure means discovering available Skills first, reading relevant instructions on activation, then accessing resources during execution."}</p>
+          <div class="ev-basics-grid">
+            <article><small>01 / DISCOVER</small><h3>${zh ? "发现" : "Discover"}</h3><p>${zh ? "启动时加载各 Skill 的名称和描述，不把全部正文都放进上下文。" : "At startup, load Skill names and descriptions—not every instruction body."}</p></article>
+            <article><small>02 / ACTIVATE</small><h3>${zh ? "激活" : "Activate"}</h3><p>${zh ? "任务相关时读取完整 SKILL.md，获得执行步骤与约束。" : "Read the full SKILL.md when relevant, bringing its procedure and constraints into context."}</p></article>
+            <article><small>03 / EXECUTE</small><h3>${zh ? "执行" : "Execute"}</h3><p>${zh ? "按需读取参考文件、使用模板，或通过现有工具执行附带脚本。" : "Read references, use templates or execute bundled scripts through available tools as needed."}</p></article>
+          </div>
+          <div class="ev-caution">${zh ? "<b>不要混淆：</b>加载 Skill 不等于已经执行任务，也不代表任务一定成功。这里描述的是官方架构；具体触发方式、权限与可用工具取决于宿主 harness。" : "<b>Keep distinct:</b> loading a Skill is not task execution or proof of success. This is the documented architecture; activation, permissions and available tools depend on the host harness."}</div>
+          ${basicsSources("anthropic", "claude", "specification")}`
+      },
+      {
+        id: "distinctions", title: zh ? "概念区别" : "Related concepts",
+        content: `
+          <p class="ev-intro">${zh ? "这些不是互相替代的东西：Skill 中包含指令，也可以指导智能体使用工具或 MCP 连接。" : "These concepts are complementary: Skills contain instructions and can guide an agent in using tools or MCP connections."}</p>
+          <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "Skill 与相关概念的教学对照" : "Teaching comparison of Skills and related concepts"}">
+            <table class="ev-table ev-basics-table"><thead><tr><th scope="col">${zh ? "概念" : "Concept"}</th><th scope="col">${zh ? "关注什么" : "Main concern"}</th><th scope="col">${zh ? "与 Skill 的关系" : "Relation to Skills"}</th></tr></thead><tbody>
+              <tr><th scope="row">Prompt</th><td>${zh ? "给模型的指令与上下文" : "Instructions and context given to a model"}</td><td>${zh ? "Skill 正文也是指令；Skill 额外提供文件打包、发现机制和按需加载。" : "Skill instructions also guide the model; Skills add artifact packaging, discovery and on-demand loading."}</td></tr>
+              <tr><th scope="row">Tool</th><td>${zh ? "可调用的动作或功能" : "A callable action or capability"}</td><td>${zh ? "Skill 可说明何时、如何调用工具，也可附带脚本；它不自动授予工具权限。" : "A Skill can teach tool use and bundle scripts; it does not automatically grant tool permissions."}</td></tr>
+              <tr><th scope="row">MCP</th><td>${zh ? "连接 AI 应用与外部系统的开放协议" : "An open protocol connecting AI applications to external systems"}</td><td>${zh ? "MCP 提供连接方式；Skill 可提供使用这些连接完成任务的工作流程。" : "MCP provides connectivity; Skills can supply workflows for using those connections."}</td></tr>
+              <tr><th scope="row">Agent Skill</th><td>${zh ? "可复用的程序性知识与资源包" : "Reusable procedural knowledge and resources"}</td><td>${zh ? "描述“怎样做”，由智能体和 harness 读取并应用。" : "Describe how to do the work, read and applied by an agent and its harness."}</td></tr>
+            </tbody></table>
+          </div>
+          ${basicsSources("claude", "anthropic", "mcp")}`
+      },
+      {
+        id: "boundaries", title: zh ? "可迁移性的边界" : "Portability limits",
+        content: `
+          <p class="ev-basics-definition">${zh ? "文件能搬过去，不代表换一个模型后，任务就一定做得更好。" : "Moving the files does not guarantee better task performance with a different model."}</p>
+          <div class="ev-plan-metrics">
+            <div><h3>${zh ? "格式与工程可移植性" : "Format and engineering portability"}</h3><p>${zh ? "开放格式旨在让兼容的智能体复用同一份产物，但仍需检查依赖、路径、工具接口和执行环境。" : "The open format enables artifact reuse across compatible agents, but dependencies, paths, tool interfaces and execution environments still need checking."}</p></div>
+            <div><h3>${zh ? "性能上的迁移收益" : "Performance transfer utility"}</h3><p>${zh ? "是否在新模型、新任务上优于无 Skill 基线，需要冻结产物并做配对实验，不能从格式规范直接推出。" : "Whether it outperforms no Skill on a new model or task requires frozen-artifact, paired evaluation—not inference from the format specification."}</p></div>
+          </div>
+          <p class="sk-note">${zh ? "本页归纳：可加载、被触发、正确执行、带来净收益，是不同层次。官方定义用于明确研究对象，效果优劣仍需看“论文证据”和自己的实验。" : "Teaching distinction: loadability, activation, correct execution and net benefit are different levels. Official definitions identify the artifact; utility still requires paper evidence and experiments."}</p>
+          <p class="sk-note">${zh ? "使用前也应审阅来源与附带代码；Skill 是可读文件包，不是隔离沙箱。" : "Review provenance and bundled code before use; a Skill is a readable artifact, not an isolation sandbox."}</p>
+          ${basicsSources("overview", "specification", "anthropic")}`
+      }
+    ];
     const slideTitles = [
       ...(zh
         ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "反馈与修订", "结论与证据边界", "我的实验：三组对照", "实验控制与评价指标", "原始论文", "附录：完整对照数据", "EvoSkill：跨模型矩阵", "EvoSkill：迁移收益与边界"]
         : ["Research question", "Three key figures", "Curated vs. AI-generated", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "Feedback and revision", "Conclusions and limits", "My experiment: three conditions", "Controls and evaluation metrics", "Primary sources", "Appendix: full comparison", "EvoSkill: cross-model matrix", "EvoSkill: transfer gains and limits"]),
-      ...researchQuestions.map((question, i) => `RQ${i + 1} · ${question.title}`)
+      ...researchQuestions.map((question, i) => `RQ${i + 1} · ${question.title}`),
+      ...basicsPages.map(page => `${zh ? "什么是 Skill" : "What is a Skill"} · ${page.title}`)
     ];
     root.innerHTML = `
       <div class="ev-topic-tabs" role="tablist" aria-label="${zh ? "第二次 Meeting 内容" : "Meeting 2 topics"}">
+        <button type="button" id="ev-topic-basics" role="tab" data-ev-topic="basics" aria-controls="ev-basics-tabs ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "什么是 Skill" : "What is a Skill?"}</button>
         <button type="button" id="ev-topic-evidence" role="tab" data-ev-topic="evidence" aria-controls="ev-paper-tabs ev-topic-panel" aria-selected="true">${zh ? "论文证据" : "Paper evidence"}</button>
         <button type="button" id="ev-topic-method" role="tab" data-ev-topic="method" aria-controls="ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "我的想法 / 我的方法" : "My ideas / My method"}</button>
         <button type="button" id="ev-topic-research" role="tab" data-ev-topic="research" aria-controls="ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "研究问题" : "Research questions"}</button>
@@ -4138,6 +4251,11 @@ window.SWECHAT_SOURCE = {
       <div class="ev-paper-tabs" id="ev-paper-tabs" role="tablist" aria-label="${zh ? "论文证据：按论文浏览" : "Paper evidence: browse by paper"}">
         ${paperGroups.map((paper, i) => `<button type="button" id="ev-paper-${paper.id}" role="tab" data-ev-paper="${paper.id}" aria-controls="ev-topic-panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}"><span>${paper.title}</span>${paper.publication ? `<small>${paper.publication}</small>` : ""}</button>`).join("")}
       </div>
+      <div class="ev-paper-tabs" id="ev-basics-tabs" role="tablist" aria-label="${zh ? "什么是 Skill：概念导航" : "What is a Skill: concepts"}" hidden>
+        ${basicsPages.map((page, i) => `<button type="button" id="ev-basic-${page.id}" role="tab" data-ev-basic="${i}" aria-controls="ev-topic-panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${page.title}</button>`).join("")}
+      </div>
+      <div class="ev-deck-frame">
+      <button type="button" class="ev-side-nav" id="ev-prev" aria-label="${zh ? "上一页" : "Previous slide"}" title="${zh ? "上一页" : "Previous slide"}" aria-controls="ev-topic-panel" aria-keyshortcuts="ArrowLeft PageUp"><span aria-hidden="true">‹</span></button>
       <div class="ev-stage" id="ev-topic-panel" role="tabpanel" aria-labelledby="ev-topic-evidence">
       <section class="sk-hero ev-slide" id="sk-overview" tabindex="-1">
         <div>
@@ -4354,11 +4472,15 @@ window.SWECHAT_SOURCE = {
           <p class="ev-research-copy">${question.description}</p>
           <p class="ev-research-status">${zh ? "待研究问题 · 非已验证结论" : "Open research question · Not an established finding"}</p>
         </section>`).join("")}
+      ${basicsPages.map((page, i) => `
+        <section class="sk-panel ev-slide" data-skill-basics="${i}" id="sk-basics-${page.id}" tabindex="-1" aria-labelledby="sk-basics-${page.id}-title">
+          ${heading(`S${i + 1}`, `sk-basics-${page.id}-title`, page.title)}
+          ${page.content}
+        </section>`).join("")}
+      </div>
+      <button type="button" class="ev-side-nav" id="ev-next" aria-label="${zh ? "下一页" : "Next slide"}" title="${zh ? "下一页" : "Next slide"}" aria-controls="ev-topic-panel" aria-keyshortcuts="ArrowRight PageDown"><span aria-hidden="true">›</span></button>
       </div>
       <nav class="ev-deck-controls" aria-label="${zh ? "幻灯片导航" : "Slide navigation"}">
-        <div class="ev-deck-actions">
-          <button type="button" id="ev-prev" aria-keyshortcuts="ArrowLeft PageUp">${zh ? "← 上一页" : "← Previous"}</button>
-        </div>
         <div class="ev-deck-position">
           <select id="ev-slide-select" aria-label="${zh ? "跳转幻灯片" : "Go to slide"}">${slideTitles.map((title, i) => `<option value="${i}">${String(i + 1).padStart(2, "0")} / ${title}</option>`).join("")}</select>
           <span class="ev-deck-count" id="ev-slide-count" aria-live="polite" aria-atomic="true"></span>
@@ -4366,10 +4488,9 @@ window.SWECHAT_SOURCE = {
         </div>
         <div class="ev-deck-actions">
           <button type="button" class="ev-fullscreen" id="ev-fullscreen">${zh ? "全屏" : "Full screen"}</button>
-          <button type="button" id="ev-next" aria-keyshortcuts="ArrowRight PageDown">${zh ? "下一页 →" : "Next →"}</button>
         </div>
       </nav>
-      <p class="ev-deck-hint">${zh ? "上方切换内容标签 · 论文证据内按论文浏览 · ← → / PageUp PageDown 翻页 · Home / End 首尾页" : "Switch topics above · Browse evidence by paper · ← → / PageUp PageDown to navigate · Home / End for first / last"}</p>
+      <p class="ev-deck-hint">${zh ? "两侧箭头翻页 · 上方切换标签 · ← → / PageUp PageDown 翻页 · Home / End 首尾页" : "Use side arrows to navigate · Switch topics above · ← → / PageUp PageDown · Home / End for first / last"}</p>
       <p class="ev-deck-message" id="ev-deck-message" role="alert" hidden></p>`;
 
     const flowSvg = document.getElementById("ev-flow-svg");
@@ -4414,21 +4535,24 @@ window.SWECHAT_SOURCE = {
     result.insertAdjacentHTML("beforeend", `<button type="button" class="ev-slide-link" data-sk-target="sk-data-appendix">${zh ? "完整数据与实验边界 → 附录" : "Full data and protocol boundaries → Appendix"}</button>`);
     const allSlides = Array.from(stage.querySelectorAll(".ev-slide"));
     const methodSlides = new Set(["sk-experiment", "sk-experiment-controls"]);
-    const topicForSlide = slide => methodSlides.has(slide.id) ? "method" : slide.hasAttribute("data-research-question") ? "research" : "evidence";
+    const topicForSlide = slide => methodSlides.has(slide.id) ? "method" : slide.hasAttribute("data-research-question") ? "research" : slide.hasAttribute("data-skill-basics") ? "basics" : "evidence";
     const topics = {
       evidence: allSlides.filter(slide => topicForSlide(slide) === "evidence"),
       method: allSlides.filter(slide => topicForSlide(slide) === "method"),
-      research: allSlides.filter(slide => topicForSlide(slide) === "research")
+      research: allSlides.filter(slide => topicForSlide(slide) === "research"),
+      basics: allSlides.filter(slide => topicForSlide(slide) === "basics")
     };
     const papers = Object.fromEntries(paperGroups.map(paper => [paper.id, paper.ids.map(id => document.getElementById(id))]));
     const paperForSlide = slide => paperGroups.find(paper => paper.ids.includes(slide.id)).id;
     let currentTopic = "evidence";
     let currentPaper = "overview";
     let slides = papers.overview;
-    const rememberedSlides = {method: 0, research: 0, ...Object.fromEntries(paperGroups.map(paper => [paper.id, 0]))};
+    const rememberedSlides = {method: 0, research: 0, basics: 0, ...Object.fromEntries(paperGroups.map(paper => [paper.id, 0]))};
     const topicTabs = Array.from(root.querySelectorAll("[data-ev-topic]"));
     const paperTabs = Array.from(root.querySelectorAll("[data-ev-paper]"));
     const paperTablist = document.getElementById("ev-paper-tabs");
+    const basicsTabs = Array.from(root.querySelectorAll("[data-ev-basic]"));
+    const basicsTablist = document.getElementById("ev-basics-tabs");
     const slideSelect = document.getElementById("ev-slide-select");
     const prev = document.getElementById("ev-prev");
     const next = document.getElementById("ev-next");
@@ -4445,6 +4569,15 @@ window.SWECHAT_SOURCE = {
       });
       const active = slides[slideIndex];
       active.scrollTop = 0;
+      if (currentTopic === "basics") {
+        basicsTabs.forEach((tab, i) => {
+          const selected = i === slideIndex;
+          tab.setAttribute("aria-selected", String(selected));
+          tab.tabIndex = selected ? 0 : -1;
+        });
+        stage.setAttribute("aria-labelledby", basicsTabs[slideIndex].id);
+        basicsTabs[slideIndex].scrollIntoView({block: "nearest", inline: "nearest"});
+      }
       slideSelect.value = String(slideIndex);
       prev.disabled = slideIndex === 0;
       next.disabled = slideIndex === slides.length - 1;
@@ -4465,6 +4598,7 @@ window.SWECHAT_SOURCE = {
       currentPaper = paper;
       slides = topic === "evidence" ? papers[paper] : topics[topic];
       paperTablist.hidden = topic !== "evidence";
+      basicsTablist.hidden = topic !== "basics";
       topicTabs.forEach(tab => {
         const selected = tab.dataset.evTopic === topic;
         tab.setAttribute("aria-selected", String(selected));
@@ -4496,34 +4630,23 @@ window.SWECHAT_SOURCE = {
       initialIndex = papers[initialPaper].indexOf(requested);
     }
     showTopic(initialTopic, initialIndex, initialPaper);
-    paperTabs.forEach((tab, i) => {
-      tab.addEventListener("click", () => showTopic("evidence", undefined, tab.dataset.evPaper));
+    const bindTabs = (tabs, activate) => tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => activate(tab));
       tab.addEventListener("keydown", event => {
-        const destinations = {ArrowLeft: (i + paperTabs.length - 1) % paperTabs.length, ArrowRight: (i + 1) % paperTabs.length, Home: 0, End: paperTabs.length - 1};
+        const destinations = {ArrowLeft: (i + tabs.length - 1) % tabs.length, ArrowRight: (i + 1) % tabs.length, Home: 0, End: tabs.length - 1};
         const destination = destinations[event.key];
         if (destination === undefined) return;
         event.preventDefault();
         event.stopPropagation();
-        const nextTab = paperTabs[destination];
-        showTopic("evidence", undefined, nextTab.dataset.evPaper);
+        const nextTab = tabs[destination];
+        activate(nextTab);
         nextTab.focus();
         nextTab.scrollIntoView({block: "nearest", inline: "nearest"});
       });
     });
-    topicTabs.forEach((tab, i) => {
-      tab.addEventListener("click", () => showTopic(tab.dataset.evTopic));
-      tab.addEventListener("keydown", event => {
-        const destinations = {ArrowLeft: (i + topicTabs.length - 1) % topicTabs.length, ArrowRight: (i + 1) % topicTabs.length, Home: 0, End: topicTabs.length - 1};
-        const destination = destinations[event.key];
-        if (destination === undefined) return;
-        event.preventDefault();
-        event.stopPropagation();
-        const nextTab = topicTabs[destination];
-        showTopic(nextTab.dataset.evTopic);
-        nextTab.focus();
-        nextTab.scrollIntoView({block: "nearest", inline: "nearest"});
-      });
-    });
+    bindTabs(paperTabs, tab => showTopic("evidence", undefined, tab.dataset.evPaper));
+    bindTabs(basicsTabs, tab => showTopic("basics", Number(tab.dataset.evBasic)));
+    bindTabs(topicTabs, tab => showTopic(tab.dataset.evTopic));
     prev.addEventListener("click", () => showSlide(slideIndex - 1, true));
     next.addEventListener("click", () => showSlide(slideIndex + 1, true));
     slideSelect.addEventListener("change", () => showSlide(Number(slideSelect.value), true));
@@ -4542,7 +4665,7 @@ window.SWECHAT_SOURCE = {
       document.getElementById("ev-fullscreen").textContent = document.fullscreenElement ? (zh ? "退出全屏" : "Exit full screen") : (zh ? "全屏" : "Full screen");
     };
     root.onkeydown = event => {
-      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.target.closest("input,select,textarea,[contenteditable],.ev-table-wrap,[role=tablist]")) return;
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.target.closest("input,select,textarea,[contenteditable],.ev-table-wrap,.ev-basics-split pre,[role=tablist]")) return;
       const destination = {ArrowLeft: slideIndex - 1, PageUp: slideIndex - 1, ArrowRight: slideIndex + 1, PageDown: slideIndex + 1, Home: 0, End: slides.length - 1}[event.key];
       if (destination === undefined) return;
       event.preventDefault();
