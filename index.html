@@ -1168,39 +1168,23 @@
   .sg-countdown-digits span{font-size:10px;color:var(--timer-accent)}
   .sg-countdown-note{margin:8px 0 0;font-size:9px;color:#9EB5CB}
   .sg-countdown-expired{margin:7px 0 0;font-size:11px;color:#F6CE97}
-  .meeting-choices{position:absolute;inset:0;pointer-events:none}
+  .meeting-choices{display:flex;align-items:center;gap:8px;min-width:0}
   .meeting-choice{
-    position:absolute;left:var(--entry-x,35%);top:var(--entry-y,57%);transform:translate(-50%,-100%);pointer-events:auto;
-    appearance:none;cursor:pointer;min-width:166px;padding:13px 17px;text-align:left;
-    border:1px solid #ABD4EE55;border-radius:12px;background:#102640D9;backdrop-filter:blur(16px);
+    appearance:none;cursor:pointer;min-width:166px;padding:14px 18px;text-align:left;
+    border:1px solid #ABD4EE33;border-radius:12px;background:#17314999;
     color:#E8F4FF;font:500 14px var(--sans);box-shadow:0 8px 40px #020B2440;
     transition:border-color .18s ease,background .18s ease,box-shadow .18s ease;
   }
-  .meeting-choice::after{content:"";position:absolute;width:1px;height:32px;top:100%;left:50%;background:linear-gradient(#A8D8EB,transparent)}
-  .meeting-choice[data-meeting="2"]{--entry-x:70%;--entry-y:66%;border-color:#A9E7CE66}
-  .sg-entry-kicker{display:block;font-size:8px;letter-spacing:.13em;color:#A5BCD5;margin-bottom:7px}
+  .meeting-choice[data-meeting="2"]{border-color:#A9E7CE66;background:linear-gradient(120deg,#2C5B5C99,#1C3D5599)}
   .sg-entry-title{display:block;white-space:nowrap}
   .sg-entry-title::after{content:"↗";margin-left:18px;color:#A3DBC9}
   .meeting-choice:hover{border-color:#C6EDE4;background:#1A3B54;box-shadow:0 0 32px #8CDAC52A}
   .meeting-choice:focus-visible{outline:2px solid #C5EBDE;outline-offset:5px}
   .meeting-home-button:focus-visible{outline:2px solid var(--clay);outline-offset:4px}
-  .sg-footer{position:absolute;bottom:30px;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);display:flex;align-items:flex-end;justify-content:flex-end;gap:20px;pointer-events:none}
+  .sg-footer{position:absolute;bottom:24px;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px;border:1px solid #A8C4D533;border-radius:20px;background:linear-gradient(120deg,#19354CCC,#0C2036E6);backdrop-filter:blur(18px);box-shadow:inset 0 1px 0 #FFFFFF14,0 12px 36px #02091866}
   .sg-motion{pointer-events:auto;border:1px solid #9DBBD533;border-radius:99px;color:#BAD0E4;background:#12263E99;padding:9px 14px;font:400 11px var(--sans);cursor:pointer}
   .sg-error{position:absolute;bottom:100px;left:24px;right:24px;color:#F6CE97;text-align:center;font-size:12px}
-  .sg-fallback .sg-error{top:80px;bottom:auto;padding:8px;border-radius:8px;background:#142D45;z-index:2}
-  .sg-deadlines{position:absolute;bottom:88px;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:690px}
-  .sg-deadline{min-width:0;padding:14px 18px;border:1px solid #A8C4D52B;border-radius:12px;background:#0C2036D9;backdrop-filter:blur(18px)}
-  .sg-deadline header{display:flex;justify-content:space-between;gap:10px;align-items:center}
-  .sg-deadline a{color:#E0EDF7;font-size:12px;font-weight:600;text-decoration:none}
-  .sg-deadline a:hover{text-decoration:underline}
-  .sg-deadline header span{font-size:8px;color:#9EB6C9}
-  .sg-deadline>p{font-size:10px;color:#92A9C0;line-height:1.7;margin:9px 0 0}
-  .sg-deadline dl{display:flex;gap:22px;margin:10px 0 0}
-  .sg-deadline dt{font-size:9px;color:#98B7C7;margin-bottom:5px}
-  .sg-deadline dd{margin:0;font-size:14px;font-weight:500;color:#B4DCCE;font-variant-numeric:tabular-nums}
-  .meeting-home.sg-fallback .meeting-choices{display:flex;align-items:center;justify-content:center;gap:22px}
-  .meeting-home.sg-fallback .meeting-choice{position:relative;left:auto!important;top:auto!important;transform:none}
-  .meeting-home.sg-fallback .meeting-choice::after{display:none}
+  .sg-fallback .sg-error{bottom:150px;padding:8px;border-radius:8px;background:#142D45;z-index:2}
   .meeting-home-button{
     appearance:none;cursor:pointer;border:1px solid var(--hair);border-radius:999px;
     padding:8px 13px;background:var(--cream);color:var(--ink-soft);font:500 12px var(--sans);
@@ -1215,20 +1199,12 @@
     .sg-countdown-digits strong{font-size:25px}
     .sg-countdown-digits span{font-size:8px}
     .sg-countdown-note{font-size:8px;margin-top:7px}
-    .meeting-choice{min-width:140px;padding:12px;font-size:12px}
-    .sg-entry-kicker{font-size:7px;white-space:nowrap}
-    .meeting-choice[data-meeting="2"]{transform:translate(-50%,0)}
-    .meeting-choice[data-meeting="2"]::after{top:auto;bottom:100%;background:linear-gradient(transparent,#A8D8EB)}
-    .sg-footer{bottom:24px;gap:12px}
+    .meeting-choices{width:100%}
+    .meeting-choice{min-width:0;flex:1;padding:12px 8px;font-size:11px}
+    .sg-entry-title::after{margin-left:8px}
+    .sg-footer{bottom:16px;left:16px;right:16px;gap:10px;padding:8px;flex-wrap:wrap}
     .sg-motion{font-size:10px;padding:9px 11px;white-space:nowrap}
-    .sg-deadlines{left:20px;right:20px;bottom:94px;gap:8px}
-    .sg-deadline{padding:12px 10px}
-    .sg-deadline header{align-items:flex-start;flex-direction:column;gap:5px}
-    .sg-deadline dl{gap:10px;flex-direction:column;margin-top:8px}
-    .sg-deadline dt{display:inline;margin-right:6px}
-    .sg-deadline dd{display:inline;font-size:12px}
-    .sg-deadline>p{font-size:9px}
-    .meeting-home.sg-fallback .meeting-choices{flex-direction:column}
+    .sg-footer .sg-motion{margin-left:auto}
   }
   .meeting-bar{
     display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
@@ -1457,9 +1433,18 @@
   body.is-aidev-skills .source-picker{margin:0}
   #aidev-skills-panel{display:flex;flex-direction:column;flex:1;min-height:0}
   .ev-stage{flex:1;min-height:0;border:1px solid var(--sk-line);border-radius:20px;background:#FFF;overflow:hidden;box-shadow:0 16px 60px #18375609}
-  .ev-topic-tabs{display:flex;gap:6px;flex:none;margin:0 0 10px;align-self:flex-start;padding:4px;border:1px solid var(--sk-line);border-radius:12px;background:#E9F0F6;max-width:100%}
-  .ev-topic-tabs button{border:0;border-radius:8px;padding:8px 16px;background:transparent;color:var(--sk-muted);font:500 12px var(--sans);cursor:pointer}
+  .ev-topic-tabs{display:flex;gap:6px;flex:none;margin:0 0 10px;align-self:flex-start;padding:4px;border:1px solid var(--sk-line);border-radius:12px;background:#E9F0F6;max-width:100%;overflow-x:auto}
+  .ev-topic-tabs button{flex:none;white-space:nowrap;border:0;border-radius:8px;padding:8px 16px;background:transparent;color:var(--sk-muted);font:500 12px var(--sans);cursor:pointer}
   .ev-topic-tabs button[aria-selected="true"]{background:#FFF;color:var(--sk-blue);box-shadow:0 2px 8px #1837560A}
+  .ev-paper-tabs{display:flex;gap:6px;flex:none;overflow-x:auto;margin:0 0 10px 12px;padding:0 0 4px 12px;border-left:2px solid #B5CADA;max-width:calc(100% - 12px)}
+  .ev-paper-tabs[hidden]{display:none}
+  .ev-paper-tabs button{flex:none;border:1px solid var(--sk-line);border-radius:8px;padding:7px 12px;background:#F5F8FB;color:var(--sk-muted);font:500 11px var(--sans);cursor:pointer}
+  .ev-paper-tabs button[aria-selected="true"]{background:#203E55;border-color:#203E55;color:#FFF}
+  .ev-paper-tabs button>span{display:block}
+  .ev-paper-tabs small{display:block;margin-top:4px;font-size:9px;font-weight:400;line-height:1.4;white-space:nowrap;color:var(--sk-muted)}
+  .ev-paper-tabs button[aria-selected="true"] small{color:#C5D9E7}
+  .ev-paper-tabs button:focus-visible,.ev-topic-tabs button:focus-visible{outline:2px solid #36786D;outline-offset:2px}
+  .ev-evo-table td small{display:inline;margin-left:6px}
   .ev-slide{height:100%;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:clamp(24px,3vw,42px);box-sizing:border-box;animation:ex-in .22s ease both}
   .ev-slide[hidden]{display:none!important}
   .ev-slide.sk-panel{margin:0;border:0;border-radius:0;box-shadow:none}
@@ -1487,6 +1472,17 @@
   .ev-slide .sk-reference{font-size:13px}
   .ev-slide .ev-table{font-size:14px}
   .ev-slide .ev-table tbody th{font-size:13px}
+  #sk-evo-matrix{padding:12px 24px}
+  #sk-evo-matrix .ev-intro{font-size:12px;margin:10px 0 12px}
+  #sk-evo-matrix .ev-table{font-size:12px}
+  #sk-evo-matrix .ev-table tbody th{font-size:12px}
+  #sk-evo-matrix .ev-table th,#sk-evo-matrix .ev-table td{padding:7px 12px}
+  #sk-evo-matrix .ev-table caption{padding:8px 12px}
+  #sk-evo-matrix .sk-note{font-size:10px;line-height:1.7;margin-top:10px}
+  .ev-research-list{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}
+  .ev-research-list li{display:flex;align-items:center;gap:16px;padding:14px 18px;border:1px solid var(--sk-line);border-radius:12px;background:linear-gradient(110deg,#EDF4F8,#FAFCFD)}
+  .ev-research-list b{flex:none;color:var(--sk-blue);font-size:12px;letter-spacing:.06em}
+  .ev-research-list p{margin:0;color:#29465C;font-size:clamp(13px,1.4vw,17px);line-height:1.6}
   .ev-deck-controls{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;padding-top:16px;flex:none}
   .ev-deck-actions{display:flex;align-items:center;gap:10px}
   .ev-deck-controls button,.ev-deck-controls select{font:500 12px var(--sans);color:var(--sk-blue);border:1px solid var(--sk-line);border-radius:10px;background:#FFF;min-height:40px;padding:8px 14px}
@@ -1587,7 +1583,7 @@
   @media print{
     body.is-aidev-skills .wrap{height:auto;display:block}
     #aidev-skills-panel{display:block}
-    body.is-aidev-skills .masthead,.ev-topic-tabs,.ev-deck-controls,.ev-deck-hint,.ev-deck-message{display:none!important}
+    body.is-aidev-skills .masthead,.ev-topic-tabs,.ev-paper-tabs,.ev-deck-controls,.ev-deck-hint,.ev-deck-message{display:none!important}
     .ev-stage{height:auto;min-height:0;overflow:visible;border:0;box-shadow:none}
     .ev-slide,.ev-slide[hidden]{display:block!important;height:auto;overflow:visible;break-after:page;padding:24px}
     .ev-slide.ev-highlights{display:grid!important}
@@ -1637,15 +1633,13 @@
     <p class="sg-countdown-expired" id="sg-countdown-expired" hidden>Abstract deadline has passed</p>
   </section>
   </div>
-  <nav class="meeting-choices" aria-label="Meetings">
-    <button class="meeting-choice" type="button" data-meeting="1"><span class="sg-entry-kicker">SINGAPORE / MERLION</span><span class="sg-entry-title">Previous Meetings</span></button>
-    <button class="meeting-choice" type="button" data-meeting="2"><span class="sg-entry-kicker">DUBLIN / BECKETT BRIDGE</span><span class="sg-entry-title">Latest Meeting</span></button>
-  </nav>
-  <aside class="sg-deadlines" aria-label="Conference deadlines">
-    <section class="sg-deadline"><header><a href="https://conf.researchr.org/home/issta-2027" target="_blank" rel="noopener">ISSTA 2027 ↗</a><span>SINGAPORE</span></header><dl><div><dt id="sg-issta-abstract-label">Abstract</dt><dd><time datetime="2027-01-09T19:59:00+08:00">2027.01.09</time></dd></div><div><dt id="sg-issta-paper-label">Paper</dt><dd><time datetime="2027-01-12T19:59:00+08:00">2027.01.12</time></dd></div></dl><p id="sg-issta-provenance">19:59 · Asia/Shanghai (UTC+8) · Dates provided by you.</p></section>
-    <section class="sg-deadline"><header><a href="https://2027.msrconf.org/" target="_blank" rel="noopener">MSR 2027 ↗</a><span>MINING CHALLENGE</span></header><dl><div><dt id="sg-abstract-label">Abstract</dt><dd><time datetime="2026-12-18">2026.12.18</time></dd></div><div><dt id="sg-paper-label">Paper</dt><dd><time datetime="2026-12-23">2026.12.23</time></dd></div></dl><p id="sg-msr-provenance">AoE · UTC−12 · Provided by you; pending final confirmation.</p></section>
-  </aside>
-  <div class="sg-footer"><button type="button" class="sg-motion" id="sg-motion"><span id="sg-pause">Pause journey</span><span id="sg-play" hidden>Resume journey</span></button></div>
+  <div class="sg-footer">
+    <nav class="meeting-choices" aria-label="Meetings">
+      <button class="meeting-choice" type="button" data-meeting="2"><span class="sg-entry-title">Latest Meeting</span></button>
+      <button class="meeting-choice" type="button" data-meeting="1"><span class="sg-entry-title">Previous Meetings</span></button>
+    </nav>
+    <button type="button" class="sg-motion" id="sg-motion"><span id="sg-pause">Pause journey</span><span id="sg-play" hidden>Resume journey</span></button>
+  </div>
   <p class="sg-error" id="sg-error" role="alert" hidden></p>
 </main>
 <div class="wrap" id="meeting-content" hidden>
@@ -2796,13 +2790,6 @@ window.SWECHAT_SOURCE = {
     {sel: "#sg-minutes-label,.sg-minutes-unit", zh: "分", en: "M"},
     {sel: "#sg-seconds-label,.sg-seconds-unit", zh: "秒", en: "S"},
     {sel: ".sg-countdown-expired", zh: "摘要截止时间已到", en: "Abstract deadline has passed"},
-    {sel: ".sg-deadlines", attr: "aria-label", zh: "会议投稿截止时间", en: "Conference submission deadlines"},
-    {sel: "#sg-issta-abstract-label", zh: "摘要", en: "Abstract"},
-    {sel: "#sg-issta-paper-label", zh: "全文", en: "Paper"},
-    {sel: "#sg-issta-provenance", zh: "19:59 · 北京时间 (UTC+8) · 你提供的日期。", en: "19:59 · Asia/Shanghai (UTC+8) · Dates provided by you."},
-    {sel: "#sg-abstract-label", zh: "摘要", en: "Abstract"},
-    {sel: "#sg-paper-label", zh: "全文", en: "Paper"},
-    {sel: "#sg-msr-provenance", zh: "AoE · UTC−12 · 你提供的日期，待最终确认。", en: "AoE · UTC−12 · Provided by you; pending final confirmation."},
     {sel: "#sg-pause", zh: "暂停漫游", en: "Pause journey"},
     {sel: "#sg-play", zh: "继续漫游", en: "Resume journey"},
     {sel: "#meeting-home-button", zh: "返回会议选择", en: "Back to meetings"},
@@ -4079,6 +4066,21 @@ window.SWECHAT_SOURCE = {
     const signed = value => `${value > 0 ? "+" : value < 0 ? "−" : ""}${Math.abs(value).toFixed(2)}`;
     const gap = item => (item.curated - item.ai).toFixed(1);
     const pp = zh ? "个百分点" : "pp";
+    const evoExecutors = ["Sonnet 4.5", "GPT-OSS-120B", "Kimi K2.5", "GPT-OSS-20B"];
+    const evoBaseline = [24.1, 22.9, 27.7, 1.2];
+    const evoOrigins = [
+      {model: "Opus 4.5", values: [21.7, 12.0, 36.1, 1.2]},
+      {model: "Sonnet 4.5", values: [39.8, 30.1, 34.9, 2.4]},
+      {model: "GPT-OSS-120B", values: [19.3, 24.1, 18.1, 1.2]},
+      {model: "Kimi K2.5", values: [8.4, 28.9, 32.5, 1.2]}
+    ];
+    const paperGroups = [
+      {id: "overview", title: zh ? "综合概览 / 引用" : "Overview / Sources", ids: ["sk-overview", "sk-highlights", "sk-boundaries", "sk-references"]},
+      {id: "skillsbench", title: "SkillsBench", publication: zh ? "2026 · arXiv 预印本" : "2026 · arXiv preprint", ids: ["sk-result", "sk-data-appendix"]},
+      {id: "raw-experience", title: "From Raw Experience", publication: zh ? "2026 · arXiv 预印本" : "2026 · arXiv preprint", ids: ["sk-transfer", "sk-transfer-cases", "sk-cross-model"]},
+      {id: "skillrevise", title: "SkillRevise", publication: "2026 · EMNLP Findings", ids: ["sk-revision"]},
+      {id: "evoskill", title: "EvoSkill", publication: zh ? "2026 · AgentSkills（待核实）" : "2026 · AgentSkills (unverified)", ids: ["sk-evo-matrix", "sk-evo-transfer"]}
+    ];
     const flowNodes = [
       {id:"A", x:80, y:65, tag:"GENERATE", title:zh ? "A · Harness A + 模型 A" : "A · Harness A + model A", detail:zh ? "在源任务与开发环境中生成 AI Skill，可使用训练侧轨迹和验证反馈；最终测试题始终不可见。人类组获得相同资料与验证机会。" : "Generate AI Skills from source tasks, training traces and development feedback. Final test tasks remain unseen; humans receive matching evidence and validation access."},
       {id:"H", x:80, y:205, tag:"HUMAN", title:zh ? "H · 人工编写" : "H · Human author", detail:zh ? "人工作者基于同一批源任务与资料编写 Skill。独立保存人工产物；记录工时与修订预算，不默认 AI 或人工哪一组更好。" : "Humans author Skills from the same source tasks and evidence. Store artifacts separately and record authoring time and revision budget; neither condition is assumed superior."},
@@ -4094,15 +4096,19 @@ window.SWECHAT_SOURCE = {
       {path:"M592 130 H728", color:"#B49A63", label:zh ? "评估记录" : "Run logs", x:660, y:107, delay:"-1s", packet:"LOG"}
     ];
     const slideTitles = zh
-      ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "反馈与修订", "结论与证据边界", "我的实验：三组对照", "实验控制与评价指标", "原始论文", "附录：完整对照数据"]
-      : ["Research question", "Three key figures", "Curated vs. AI-generated", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "Feedback and revision", "Conclusions and limits", "My experiment: three conditions", "Controls and evaluation metrics", "Primary sources", "Appendix: full comparison"];
+      ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "反馈与修订", "结论与证据边界", "我的实验：三组对照", "实验控制与评价指标", "原始论文", "附录：完整对照数据", "EvoSkill：跨模型矩阵", "EvoSkill：迁移收益与边界", "五个研究问题"]
+      : ["Research question", "Three key figures", "Curated vs. AI-generated", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "Feedback and revision", "Conclusions and limits", "My experiment: three conditions", "Controls and evaluation metrics", "Primary sources", "Appendix: full comparison", "EvoSkill: cross-model matrix", "EvoSkill: transfer gains and limits", "Five research questions"];
     root.innerHTML = `
       <div class="ev-topic-tabs" role="tablist" aria-label="${zh ? "第二次 Meeting 内容" : "Meeting 2 topics"}">
-        <button type="button" id="ev-topic-evidence" role="tab" data-ev-topic="evidence" aria-controls="ev-topic-panel" aria-selected="true">${zh ? "论文证据" : "Paper evidence"}</button>
+        <button type="button" id="ev-topic-evidence" role="tab" data-ev-topic="evidence" aria-controls="ev-paper-tabs ev-topic-panel" aria-selected="true">${zh ? "论文证据" : "Paper evidence"}</button>
         <button type="button" id="ev-topic-method" role="tab" data-ev-topic="method" aria-controls="ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "我的想法 / 我的方法" : "My ideas / My method"}</button>
+        <button type="button" id="ev-topic-research" role="tab" data-ev-topic="research" aria-controls="ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "研究问题" : "Research questions"}</button>
+      </div>
+      <div class="ev-paper-tabs" id="ev-paper-tabs" role="tablist" aria-label="${zh ? "论文证据：按论文浏览" : "Paper evidence: browse by paper"}">
+        ${paperGroups.map((paper, i) => `<button type="button" id="ev-paper-${paper.id}" role="tab" data-ev-paper="${paper.id}" aria-controls="ev-topic-panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}"><span>${paper.title}</span>${paper.publication ? `<small>${paper.publication}</small>` : ""}</button>`).join("")}
       </div>
       <div class="ev-stage" id="ev-topic-panel" role="tabpanel" aria-labelledby="ev-topic-evidence">
-      <section class="sk-hero ev-slide" tabindex="-1">
+      <section class="sk-hero ev-slide" id="sk-overview" tabindex="-1">
         <div>
           <div class="sk-kicker">MEETING 02 / EVIDENCE BRIEF · 2026</div>
           <h1 class="sk-title" id="sk-page-title">${zh ? 'AI 生成的 Skill，<br><em>效果与迁移究竟如何？</em>' : 'AI-generated Skills.<br><em>How well do they work and transfer?</em>'}</h1>
@@ -4115,7 +4121,7 @@ window.SWECHAT_SOURCE = {
           <div>${zh ? "效果差距已有数据。<br>迁移差距，仍需直接的人机对照。" : "Performance gaps are measured.<br>The human–AI transfer gap still needs a direct comparison."}</div>
         </aside>
       </section>
-      <section class="ev-highlights ev-slide" tabindex="-1" aria-label="${zh ? "关键数据摘要" : "Key figures"}">
+      <section class="ev-highlights ev-slide" id="sk-highlights" tabindex="-1" aria-label="${zh ? "关键数据摘要" : "Key figures"}">
         <article class="ev-highlight"><span class="ev-eyebrow">01 / ${zh ? "人工对照" : "CURATED VS. AI"}</span><b>12.5–23.7<small>${pp}</small></b><h2>${zh ? "人工整理领先 AI 自生成" : "Curated Skills outperform self-generation"}</h2><p>SkillsBench v3 · Table 3<br>${zh ? "5 组配对配置 · 当前任务表现，非迁移率" : "5 paired configurations · current-task performance, not transfer"}</p></article>
         <article class="ev-highlight"><span class="ev-eyebrow">02 / ${zh ? "未见任务" : "HELD-OUT TASKS"}</span><b>≈25<small>%</small></b><h2>${zh ? "评估组合出现负迁移" : "Evaluated combinations show negative transfer"}</h2><p>From Raw Experience · Table 1<br>${zh ? "不是单个任务失败率，也不是人机差距" : "Not a per-task failure rate or a human–AI gap"}</p></article>
         <article class="ev-highlight"><span class="ev-eyebrow">03 / ${zh ? "跨模型复用" : "CROSS-MODEL REUSE"}</span><b>+1.8–9.5<small>${pp}</small></b><h2>${zh ? "同一份 Skill，收益因模型而变" : "One fixed Skill, different benefits"}</h2><p>From Raw Experience · Figure 4<br>${zh ? "强经验池产物 · 两个执行模型的收益端点" : "Strong-pool artifact · gain endpoints across consumers"}</p></article>
@@ -4207,7 +4213,7 @@ window.SWECHAT_SOURCE = {
         ${heading("04", "sk-boundary-title", zh ? "数据已经回答什么，还没回答什么？" : "What do the data establish—and leave open?")}
         <div class="ev-verdicts">
           <div><span>01 / ${zh ? "已有对照" : "MEASURED"}</span><h3>${zh ? "当前任务效果，AI 自生成明显落后。" : "Self-generation trails curated Skills on current tasks."}</h3><p>${zh ? "SkillsBench 五组配对配置：低 12.5–23.7 个百分点。结论限定在对应版本、模型与生成协议。" : "Five paired SkillsBench configurations: 12.5–23.7 pp lower, within the tested version, models, and protocol."}</p></div>
-          <div><span>02 / ${zh ? "已有迁移实验" : "TRANSFER TESTED"}</span><h3>${zh ? "AI 生成产物可以迁移，但不保证有益。" : "AI-generated artifacts can transfer, but not always help."}</h3><p>${zh ? "未见任务约 25% 的组合负迁移；同一份 Skill 换执行模型后，收益也会改变。" : "About 25% of held-out combinations regress; a fixed Skill's benefit also changes across consumers."}</p></div>
+          <div><span>02 / ${zh ? "已有迁移实验" : "TRANSFER TESTED"}</span><h3>${zh ? "AI 生成产物可以迁移，但不保证有益。" : "AI-generated artifacts can transfer, but not always help."}</h3><p>${zh ? "From Raw Experience：未见任务约 25% 的组合负迁移。EvoSkill：跨模型有正负收益；SealQA → BrowseComp 为 +5.3 个百分点。两篇研究的协议与分母不合并。" : "From Raw Experience: about 25% of held-out combinations regress. EvoSkill: cross-model gains vary in sign; SealQA → BrowseComp gains +5.3 pp. The studies' protocols and denominators are not pooled."}</p></div>
           <div><span>03 / ${zh ? "尚缺直接对照" : "STILL OPEN"}</span><h3>${zh ? "不能量化“AI 的迁移率比人类低多少”。" : "The human–AI transfer gap is not quantified here."}</h3><p>${zh ? "需要相同信息、相同预算、人类与 AI 分别编写，冻结产物后在同一批未见任务上测试。" : "A direct test needs matched evidence and budgets, human- and AI-authored artifacts, then frozen-artifact evaluation on the same held-out tasks."}</p></div>
         </div>
       </section>
@@ -4266,15 +4272,62 @@ window.SWECHAT_SOURCE = {
       <section class="sk-panel ev-slide" id="sk-references" tabindex="-1" aria-labelledby="sk-refs-title">
         <div class="sk-heading"><h2 id="sk-refs-title">${zh ? "原始论文与数据定位" : "Primary sources and table locations"}</h2></div>
         <div class="sk-references">
-          ${reference(1, `<b>SkillsBench: Benchmarking How Well Agent Skills Work Across Diverse Tasks.</b><br>arXiv:2602.12670v3 · ${zh ? "预印本" : "Preprint"}<br>Table 3 · §4.1.1 · Appendix C.6<br><a href="https://arxiv.org/html/2602.12670v3" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2602.12670v3" target="_blank" rel="noopener">PDF ↗</a>`)}
-          ${reference(2, `<b>Huang et al. From Raw Experience to Skill Consumption: A Systematic Study of Model-Generated Agent Skills.</b><br>arXiv:2605.23899v1 · ${zh ? "预印本" : "Preprint"}<br>Table 1 · §4.1–4.2 · §5.3 / Figure 4<br><a href="https://arxiv.org/html/2605.23899v1" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2605.23899v1" target="_blank" rel="noopener">PDF ↗</a>`)}
+          ${reference(1, `<b>SkillsBench: Benchmarking How Well Agent Skills Work Across Diverse Tasks.</b><br>2026 · arXiv:2602.12670v3 · ${zh ? "预印本；未核实正式会议发表" : "Preprint; conference publication not verified"}<br>Table 3 · §4.1.1 · Appendix C.6<br><a href="https://arxiv.org/html/2602.12670v3" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2602.12670v3" target="_blank" rel="noopener">PDF ↗</a>`)}
+          ${reference(2, `<b>Huang et al. From Raw Experience to Skill Consumption: A Systematic Study of Model-Generated Agent Skills.</b><br>2026 · arXiv:2605.23899v1 · ${zh ? "预印本；未核实正式会议发表" : "Preprint; conference publication not verified"}<br>Table 1 · §4.1–4.2 · §5.3 / Figure 4<br><a href="https://arxiv.org/html/2605.23899v1" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2605.23899v1" target="_blank" rel="noopener">PDF ↗</a>`)}
           ${reference(3, `<b>Liu et al. SkillRevise: Improving LLM-Authored Agent Skills via Trace-Conditioned Skill Revision.</b><br>Findings of EMNLP 2026 · Table 1 / §4.2<br><a href="https://aclanthology.org/2026.findings-emnlp.991/" target="_blank" rel="noopener">${zh ? "正式论文条目" : "Proceedings entry"} ↗</a> · <a href="https://aclanthology.org/2026.findings-emnlp.991.pdf" target="_blank" rel="noopener">PDF ↗</a>`)}
+          ${reference(4, `<b>Alzubi et al. EvoSkill: Automated Skill Discovery for Agents.</b><br>${zh ? "依据本地 PDF：§3.4 / Table 4（PDF 第 7 页）、§3.5（PDF 第 6 页）。文档标注 AgentSkills 2026（2026-05-26，San Jose），ISBN 和 DOI 均为占位符；正式发表状态及会议／Workshop 归属待核实，不视为已确认的顶会主会论文。" : "Checked against the local PDF: §3.4 / Table 4 (PDF p. 7), §3.5 (PDF p. 6). The document lists AgentSkills 2026 (May 26, San Jose), with placeholder ISBN and DOI. Formal publication status and conference/workshop affiliation remain unverified; this is not a confirmed main-track paper."}<br><a href="https://openreview.net/forum?id=i4b4As7RFX" target="_blank" rel="noopener">OpenReview ↗</a>`)}
         </div>
         <p class="sk-method-note">${zh ? "核查日期：2026-10-26。数值依据原始 PDF 表格与实验协议整理，非本页重新运行实验；差值与“使用后”通过率由论文已舍入数值计算。≈ 表示论文汇总的近似比例。不同研究、版本和分母不合并，效果差距不冒充迁移差距；未报告的数据不补造。" : "Checked 2026-10-26 against primary PDF tables and protocols; experiments were not rerun here. Gaps and with-Skill rates are computed from rounded reported values. ≈ denotes approximate study aggregates. Studies, versions, and denominators are not pooled; performance gaps are not transfer gaps, and unreported data are not imputed."}</p>
       </section>
       <section class="sk-panel ev-slide" id="sk-data-appendix" tabindex="-1" aria-labelledby="sk-appendix-title">
         ${heading("A", "sk-appendix-title", zh ? "附录：完整数据与实验边界" : "Appendix: full data and protocol boundaries", cite(1))}
         <button type="button" class="ev-slide-link" data-sk-target="sk-result">${zh ? "← 返回对照图" : "← Back to comparison chart"}</button>
+      </section>
+      <section class="sk-panel ev-slide" id="sk-evo-matrix" tabindex="-1" aria-labelledby="sk-evo-matrix-title">
+        ${heading("E1", "sk-evo-matrix-title", zh ? "EvoSkill：同一来源的 Skill，能跨模型复用吗？" : "EvoSkill: do evolved Skill libraries transfer across models?", cite(4))}
+        <div class="ev-section-meta"><span>SealQA · §3.4 / Table 4</span><span>${zh ? "行：Skill 演化来源 · 列：测试执行模型" : "Rows: Skill evolution origin · Columns: test executor"}</span></div>
+        <p class="ev-intro">${zh ? "在一个模型上演化 Skill 库，再零样本交给另一个模型执行。每格先显示准确率，再显示相对该列无 Skill 基线的变化（百分点）。" : "Evolve a Skill library with one model, then use it zero-shot with another executor. Each cell shows accuracy, followed by change in percentage points against that column's no-Skill baseline."}</p>
+        <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "EvoSkill 完整跨模型矩阵，可横向滚动" : "Complete EvoSkill cross-model matrix; horizontally scrollable"}">
+          <table class="ev-table ev-evo-table" id="ev-evo-matrix">
+            <caption>${zh ? "Table 4 原始准确率（%）；Δ = 使用 Skill − 同执行模型的无 Skill 基线。同名行列是同模型结果，不算跨模型迁移。" : "Table 4 accuracy (%); Δ = with Skill − no Skill for the same executor. Matching row and column models are same-model results, not cross-model transfer."}</caption>
+            <thead><tr><th scope="col">${zh ? "Skill 来源 ↓ / 执行模型 →" : "Skill origin ↓ / Executor →"}</th>${evoExecutors.map(model => `<th scope="col">${model}</th>`).join("")}</tr></thead>
+            <tbody>
+              <tr><th scope="row">${zh ? "无 Skill 基线" : "No-Skill baseline"}</th>${evoBaseline.map(value => `<td>${value.toFixed(1)}%</td>`).join("")}</tr>
+              ${evoOrigins.map(origin => `<tr><th scope="row">${origin.model}</th>${origin.values.map((value, i) => `<td>${value.toFixed(1)}%<small class="${value > evoBaseline[i] ? "ev-positive" : value < evoBaseline[i] ? "ev-negative" : ""}">Δ ${signed(value - evoBaseline[i])}</small></td>`).join("")}</tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+        <p class="sk-note">${zh ? "来源模型 × 执行模型存在兼容性差异。论文还指出 OpenCode 与 Claude Code SDK 等 harness 差异会影响可移植性；不能把所有变化归因于模型本身。GPT-OSS-20B 的工具使用能力限制了结果。" : "Compatibility depends on both origin and executor. The paper also flags harness differences (e.g. OpenCode vs. Claude Code SDK) as portability factors; changes cannot be attributed solely to model identity. GPT-OSS-20B's tool-use limitations constrain its results."}</p>
+      </section>
+      <section class="sk-panel ev-slide" id="sk-evo-transfer" tabindex="-1" aria-labelledby="sk-evo-transfer-title">
+        ${heading("E2", "sk-evo-transfer-title", zh ? "EvoSkill：正迁移、负迁移与跨数据集证据" : "EvoSkill: positive, negative and cross-dataset transfer", cite(4))}
+        <div class="ev-plan-metrics">
+          <div><h3>${zh ? "跨模型 · 同一执行模型对照" : "Cross-model · matched executor"} · Table 4</h3>
+            <p>Opus 4.5 → GPT-OSS-120B<br><b>22.9% → 12.0% · −10.9 ${pp}</b></p>
+            <p>Sonnet 4.5 → GPT-OSS-120B<br><b>22.9% → 30.1% · +7.2 ${pp}</b></p>
+            <p>${zh ? "同一个目标模型，不同来源的 Skill 库可带来相反收益；不是 AI 对人工的比较。" : "The same target model gains or regresses with different-origin libraries; this is not AI versus human authorship."}</p>
+          </div>
+          <div><h3>${zh ? "跨数据集 · Skill 不修改" : "Cross-dataset · unchanged Skill"} · §3.5</h3>
+            <p>SealQA → BrowseComp · 128 ${zh ? "个样例" : "examples"}</p>
+            <p><b>43.5% → 48.8% · +5.3 ${pp}</b></p>
+            <p>Opus 4.5 · <code>search-persistence-protocol</code></p>
+            <p>${zh ? "在 SealQA 演化后，未修改直接迁移到 BrowseComp。这是特定产物与目标集上的准确率提升，不是普遍的迁移成功率。" : "Evolved on SealQA and applied unchanged to BrowseComp. This is an accuracy gain for a specific artifact and target dataset, not a universal transfer success rate."}</p>
+          </div>
+        </div>
+        <div class="ev-caution">${zh ? "<b>证据边界：</b>没有人工编写 Skill 的配对对照，也没有统一消除 harness 差异。不能据此宣称 AI Skill 比人工更难／更易迁移；更不能把 48.8% 称为“迁移率”。" : "<b>Evidence boundary:</b> there is no paired human-authored Skill condition, and harness differences are not uniformly removed. The study does not quantify whether AI Skills transfer better or worse than human Skills; 48.8% is accuracy, not a transfer rate."}</div>
+      </section>
+      <section class="sk-panel ev-slide" id="sk-research-questions" tabindex="-1" aria-labelledby="sk-research-title">
+        ${heading("RQ", "sk-research-title", zh ? "研究问题" : "Research questions")}
+        <p class="sk-note">${zh ? "五个待研究的问题，用于组织后续实验；以下不是已验证的结论。" : "Five open questions to guide future experiments; these are not established findings."}</p>
+        <ol class="ev-research-list">
+          ${[
+            zh ? "大模型能否生成 Skill？这些 Skill 是否具有可迁移性？" : "Can large language models generate Skills, and do those Skills transfer?",
+            zh ? "大模型生成的 Skill，与人类编写的 Skill 相比，效果如何？" : "How do LLM-generated Skills perform compared with human-authored Skills?",
+            zh ? "不同大模型生成的 Skill，效果差距有多大？" : "How large are the performance differences between Skills generated by different models?",
+            zh ? "编写一个“用于生成 Skill 的 Skill”，能否让生成效果更好？" : "Can a Skill for generating Skills improve the quality of generated Skills?",
+            zh ? "如何改进大模型生成 Skill 的方法与效果？" : "How can we improve the methods and outcomes of LLM Skill generation?"
+          ].map((question, i) => `<li><b>RQ${i + 1}</b><p>${question}</p></li>`).join("")}
+        </ol>
       </section>
       </div>
       <nav class="ev-deck-controls" aria-label="${zh ? "幻灯片导航" : "Slide navigation"}">
@@ -4291,7 +4344,7 @@ window.SWECHAT_SOURCE = {
           <button type="button" id="ev-next" aria-keyshortcuts="ArrowRight PageDown">${zh ? "下一页 →" : "Next →"}</button>
         </div>
       </nav>
-      <p class="ev-deck-hint">${zh ? "← → / PageUp PageDown 翻页 · Home / End 首尾页 · 数据表可展开，引用可直达" : "← → / PageUp PageDown to navigate · Home / End for first / last · Expand tables or follow citations"}</p>
+      <p class="ev-deck-hint">${zh ? "上方切换内容标签 · 论文证据内按论文浏览 · ← → / PageUp PageDown 翻页 · Home / End 首尾页" : "Switch topics above · Browse evidence by paper · ← → / PageUp PageDown to navigate · Home / End for first / last"}</p>
       <p class="ev-deck-message" id="ev-deck-message" role="alert" hidden></p>`;
 
     const flowSvg = document.getElementById("ev-flow-svg");
@@ -4336,21 +4389,28 @@ window.SWECHAT_SOURCE = {
     result.insertAdjacentHTML("beforeend", `<button type="button" class="ev-slide-link" data-sk-target="sk-data-appendix">${zh ? "完整数据与实验边界 → 附录" : "Full data and protocol boundaries → Appendix"}</button>`);
     const allSlides = Array.from(stage.querySelectorAll(".ev-slide"));
     const methodSlides = new Set(["sk-experiment", "sk-experiment-controls"]);
+    const topicForSlide = slide => methodSlides.has(slide.id) ? "method" : slide.id === "sk-research-questions" ? "research" : "evidence";
     const topics = {
-      evidence: allSlides.filter(slide => !methodSlides.has(slide.id)),
-      method: allSlides.filter(slide => methodSlides.has(slide.id))
+      evidence: allSlides.filter(slide => topicForSlide(slide) === "evidence"),
+      method: allSlides.filter(slide => topicForSlide(slide) === "method"),
+      research: allSlides.filter(slide => topicForSlide(slide) === "research")
     };
+    const papers = Object.fromEntries(paperGroups.map(paper => [paper.id, paper.ids.map(id => document.getElementById(id))]));
+    const paperForSlide = slide => paperGroups.find(paper => paper.ids.includes(slide.id)).id;
     let currentTopic = "evidence";
-    let slides = topics.evidence;
-    const rememberedSlides = {evidence: 0, method: 0};
+    let currentPaper = "overview";
+    let slides = papers.overview;
+    const rememberedSlides = {method: 0, research: 0, ...Object.fromEntries(paperGroups.map(paper => [paper.id, 0]))};
     const topicTabs = Array.from(root.querySelectorAll("[data-ev-topic]"));
+    const paperTabs = Array.from(root.querySelectorAll("[data-ev-paper]"));
+    const paperTablist = document.getElementById("ev-paper-tabs");
     const slideSelect = document.getElementById("ev-slide-select");
     const prev = document.getElementById("ev-prev");
     const next = document.getElementById("ev-next");
     let slideIndex = 0;
     const showSlide = (index, focus = false) => {
       slideIndex = Math.max(0, Math.min(slides.length - 1, index));
-      rememberedSlides[currentTopic] = slideIndex;
+      rememberedSlides[currentTopic === "evidence" ? currentPaper : currentTopic] = slideIndex;
       allSlides.forEach(slide => { slide.hidden = true; });
       slides.forEach((slide, i) => {
         slide.hidden = i !== slideIndex;
@@ -4367,35 +4427,64 @@ window.SWECHAT_SOURCE = {
       document.getElementById("ev-slide-progress").value = slideIndex + 1;
       const url = new URL(location.href);
       url.searchParams.set("section", currentTopic);
+      if (currentTopic === "evidence") url.searchParams.set("paper", currentPaper);
+      else url.searchParams.delete("paper");
       url.searchParams.set("slide", String(slideIndex + 1));
       history.replaceState(null, "", url);
       if (focus || (stage.contains(document.activeElement) && !active.contains(document.activeElement))) {
         active.focus({preventScroll: true});
       }
     };
-    const showTopic = (topic, index = rememberedSlides[topic]) => {
+    const showTopic = (topic, index, paper = currentPaper) => {
       currentTopic = topic;
-      slides = topics[topic];
+      currentPaper = paper;
+      slides = topic === "evidence" ? papers[paper] : topics[topic];
+      paperTablist.hidden = topic !== "evidence";
       topicTabs.forEach(tab => {
         const selected = tab.dataset.evTopic === topic;
         tab.setAttribute("aria-selected", String(selected));
         tab.tabIndex = selected ? 0 : -1;
       });
-      stage.setAttribute("aria-labelledby", `ev-topic-${topic}`);
+      paperTabs.forEach(tab => {
+        const selected = tab.dataset.evPaper === paper;
+        tab.setAttribute("aria-selected", String(selected));
+        tab.tabIndex = selected ? 0 : -1;
+      });
+      stage.setAttribute("aria-labelledby", topic === "evidence" ? `ev-paper-${paper}` : `ev-topic-${topic}`);
       slideSelect.innerHTML = slides.map((slide, i) => `<option value="${i}">${String(i + 1).padStart(2, "0")} / ${slideTitles[allSlides.indexOf(slide)]}</option>`).join("");
       document.getElementById("ev-slide-progress").max = slides.length;
-      showSlide(index);
+      showSlide(index ?? rememberedSlides[topic === "evidence" ? paper : topic]);
     };
     const params = new URLSearchParams(location.search);
     const requestedSlide = Number(params.get("slide"));
     let initialIndex = Number.isInteger(requestedSlide) && requestedSlide > 0 ? requestedSlide - 1 : 0;
-    let initialTopic = params.get("section") === "method" ? "method" : "evidence";
+    let initialTopic = Object.hasOwn(topics, params.get("section")) ? params.get("section") : "evidence";
+    let initialPaper = Object.hasOwn(papers, params.get("paper")) ? params.get("paper") : "overview";
     if (!params.has("section") && initialIndex < allSlides.length) {
       const requested = allSlides[initialIndex];
-      initialTopic = methodSlides.has(requested.id) ? "method" : "evidence";
-      initialIndex = topics[initialTopic].indexOf(requested);
+      initialTopic = topicForSlide(requested);
+      if (initialTopic === "evidence") initialPaper = paperForSlide(requested);
+      initialIndex = (initialTopic === "evidence" ? papers[initialPaper] : topics[initialTopic]).indexOf(requested);
+    } else if (initialTopic === "evidence" && !params.has("paper")) {
+      const requested = topics.evidence[Math.min(initialIndex, topics.evidence.length - 1)];
+      initialPaper = paperForSlide(requested);
+      initialIndex = papers[initialPaper].indexOf(requested);
     }
-    showTopic(initialTopic, initialIndex);
+    showTopic(initialTopic, initialIndex, initialPaper);
+    paperTabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => showTopic("evidence", undefined, tab.dataset.evPaper));
+      tab.addEventListener("keydown", event => {
+        const destinations = {ArrowLeft: (i + paperTabs.length - 1) % paperTabs.length, ArrowRight: (i + 1) % paperTabs.length, Home: 0, End: paperTabs.length - 1};
+        const destination = destinations[event.key];
+        if (destination === undefined) return;
+        event.preventDefault();
+        event.stopPropagation();
+        const nextTab = paperTabs[destination];
+        showTopic("evidence", undefined, nextTab.dataset.evPaper);
+        nextTab.focus();
+        nextTab.scrollIntoView({block: "nearest", inline: "nearest"});
+      });
+    });
     topicTabs.forEach((tab, i) => {
       tab.addEventListener("click", () => showTopic(tab.dataset.evTopic));
       tab.addEventListener("keydown", event => {
@@ -4407,6 +4496,7 @@ window.SWECHAT_SOURCE = {
         const nextTab = topicTabs[destination];
         showTopic(nextTab.dataset.evTopic);
         nextTab.focus();
+        nextTab.scrollIntoView({block: "nearest", inline: "nearest"});
       });
     });
     prev.addEventListener("click", () => showSlide(slideIndex - 1, true));
@@ -4455,8 +4545,12 @@ window.SWECHAT_SOURCE = {
       button.addEventListener("click", () => {
         const target = document.getElementById(button.dataset.skTarget);
         const targetSlide = target.closest(".ev-slide");
-        const topic = methodSlides.has(targetSlide.id) ? "method" : "evidence";
-        if (topic !== currentTopic) showTopic(topic, topics[topic].indexOf(targetSlide));
+        const topic = topicForSlide(targetSlide);
+        const paper = topic === "evidence" ? paperForSlide(targetSlide) : currentPaper;
+        if (topic !== currentTopic || (topic === "evidence" && paper !== currentPaper)) {
+          const destination = topic === "evidence" ? papers[paper] : topics[topic];
+          showTopic(topic, destination.indexOf(targetSlide), paper);
+        }
         else showSlide(slides.indexOf(targetSlide));
         target.focus({preventScroll: true});
         target.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start"});
@@ -5845,8 +5939,8 @@ window.SWECHAT_SOURCE = {
       return out;
     };
     const entries=[
-      {button:home.querySelector('[data-meeting="1"]'),point:[-4,4.3,3.4]},
-      {button:home.querySelector('[data-meeting="2"]'),point:[5.1,4.7,2.5]}
+      {button:home.querySelector('[data-meeting="1"]')},
+      {button:home.querySelector('[data-meeting="2"]')}
     ];
     let camera = null;
     const pickLandmark = (clientX,clientY) => {
@@ -5898,20 +5992,6 @@ window.SWECHAT_SOURCE = {
       gl.drawArrays(gl.TRIANGLES,0,count);
       gl.uniform3f(offsetLocation,Math.sin(phase*.08)*6,.015*Math.sin(phase),5.2+Math.cos(phase*.08)*.5);
       gl.drawArrays(gl.TRIANGLES,count,boatCount);
-      for(const {button,point} of entries){
-        const v=[...point,1],clip=[0,0,0,0];
-        for(let r=0;r<4;r++)for(let c=0;c<4;c++)clip[r]+=matrix[c*4+r]*v[c];
-        const px=(clip[0]/clip[3]*.5+.5)*w,py=(-clip[1]/clip[3]*.5+.5)*h;
-        const half=button.offsetWidth/2+12;
-        button.style.setProperty("--entry-x",`${Math.max(half,Math.min(w-half,px))}px`);
-        button.style.setProperty("--entry-y",`${Math.max(240,Math.min(h-130,py-18))}px`);
-      }
-      if(w<=520){
-        const first=entries[0].button.getBoundingClientRect(),second=entries[1].button.getBoundingClientRect();
-        if(first.right>second.left&&first.bottom+10>second.top){
-          entries[1].button.style.setProperty("--entry-y",`${first.bottom-home.getBoundingClientRect().top+10}px`);
-        }
-      }
       canvas.dataset.rendered="true";
       if(!paused)frame=requestAnimationFrame(draw);
     };
