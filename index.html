@@ -1148,27 +1148,87 @@
   }
   .meeting-home[hidden],#meeting-content[hidden]{display:none}
   .meeting-home{
-    position:relative;z-index:1;min-height:100vh;min-height:100svh;
-    display:grid;place-items:center;padding:24px;
+    position:relative;z-index:1;height:100svh;min-height:580px;overflow:hidden;
+    background:radial-gradient(ellipse at 75% 25%,#453453 0,transparent 45%),linear-gradient(#071226,#20324B 58%,#0B2034);color:#F2F5FB;
   }
-  .meeting-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:min(100%,660px)}
+  .sg-canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:pan-y}
+  .sg-sky{position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 69% 13%,#DDEBEAB3 0 1px,transparent 2px),radial-gradient(circle at 49% 8%,#B3CFEA80 0 1px,transparent 1.5px),radial-gradient(circle at 87% 29%,#E8DAC680 0 1px,transparent 2px),radial-gradient(circle at 40% 28%,#B3CFEA80 0 1px,transparent 1.5px)}
+  .sg-grain{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,#050E2270,transparent 40%,transparent 75%,#030C1ECC)}
+  .sg-header{position:absolute;top:clamp(24px,5vh,54px);left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);display:flex;justify-content:flex-end;gap:20px;align-items:flex-start;pointer-events:none}
+  .sg-header .lang-switch{pointer-events:auto;background:#FFFFFF0D;border-color:#FFFFFF24}
+  .sg-header .lang-switch button{color:#C4D4E7}
+  .sg-header .lang-switch button[aria-pressed="true"]{background:#DCE9F4;color:#14263D}
+  .sg-countdowns{position:absolute;top:clamp(24px,5vh,54px);left:clamp(24px,5vw,80px);width:min(470px,calc(100% - 180px));display:grid;gap:10px;pointer-events:none;perspective:1000px}
+  .sg-countdown{--timer-accent:#B3E5D1;position:relative;padding:9px 18px;border:1px solid #B3E5D140;border-radius:12px;background:linear-gradient(120deg,#264B5DCC,#10243BD9 65%);backdrop-filter:blur(14px);box-shadow:inset 0 1px 0 #FFFFFF24,inset 0 -3px 0 #020C244D,0 5px 0 #071426,0 12px 24px #02091855;transform:rotateY(4deg);transform-origin:left center}
+  .sg-countdown:first-child{--timer-accent:#B9DCFF;border-color:#B9DCFF40;background:linear-gradient(120deg,#29496BCC,#10243BD9 65%)}
+  .sg-countdown h2{margin:0 0 7px;font:500 11px var(--sans);letter-spacing:.06em;color:var(--timer-accent)}
+  .sg-countdown-digits{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+  .sg-countdown-digits>div{display:flex;align-items:baseline;gap:5px;white-space:nowrap}
+  .sg-countdown-digits strong{font:500 clamp(25px,3vw,30px)/1 var(--sans);letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:#EAF6F3;text-shadow:0 1px 0 #92B8C7,0 2px 0 #476479,0 4px 0 #122A40,0 6px 8px #02091899}
+  .sg-countdown-digits span{font-size:10px;color:var(--timer-accent)}
+  .sg-countdown-note{margin:8px 0 0;font-size:9px;color:#9EB5CB}
+  .sg-countdown-expired{margin:7px 0 0;font-size:11px;color:#F6CE97}
+  .meeting-choices{position:absolute;inset:0;pointer-events:none}
   .meeting-choice{
-    appearance:none;cursor:pointer;min-height:160px;padding:28px 20px;
-    border:1px solid var(--hair);border-radius:18px;background:var(--cream);
-    color:var(--ink);font:500 clamp(22px,3vw,30px) var(--serif);
-    box-shadow:0 12px 34px rgba(31,36,33,.04);
-    transition:border-color .18s ease,background .18s ease,transform .18s ease;
+    position:absolute;left:var(--entry-x,35%);top:var(--entry-y,57%);transform:translate(-50%,-100%);pointer-events:auto;
+    appearance:none;cursor:pointer;min-width:166px;padding:13px 17px;text-align:left;
+    border:1px solid #ABD4EE55;border-radius:12px;background:#102640D9;backdrop-filter:blur(16px);
+    color:#E8F4FF;font:500 14px var(--sans);box-shadow:0 8px 40px #020B2440;
+    transition:border-color .18s ease,background .18s ease,box-shadow .18s ease;
   }
-  .meeting-choice:hover{border-color:var(--clay);background:#F8F0EC;transform:translateY(-3px)}
-  .meeting-choice:focus-visible,.meeting-home-button:focus-visible{outline:2px solid var(--clay);outline-offset:4px}
+  .meeting-choice::after{content:"";position:absolute;width:1px;height:32px;top:100%;left:50%;background:linear-gradient(#A8D8EB,transparent)}
+  .meeting-choice[data-meeting="2"]{--entry-x:70%;--entry-y:66%;border-color:#A9E7CE66}
+  .sg-entry-kicker{display:block;font-size:8px;letter-spacing:.13em;color:#A5BCD5;margin-bottom:7px}
+  .sg-entry-title{display:block;white-space:nowrap}
+  .sg-entry-title::after{content:"↗";margin-left:18px;color:#A3DBC9}
+  .meeting-choice:hover{border-color:#C6EDE4;background:#1A3B54;box-shadow:0 0 32px #8CDAC52A}
+  .meeting-choice:focus-visible{outline:2px solid #C5EBDE;outline-offset:5px}
+  .meeting-home-button:focus-visible{outline:2px solid var(--clay);outline-offset:4px}
+  .sg-footer{position:absolute;bottom:30px;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);display:flex;align-items:flex-end;justify-content:flex-end;gap:20px;pointer-events:none}
+  .sg-motion{pointer-events:auto;border:1px solid #9DBBD533;border-radius:99px;color:#BAD0E4;background:#12263E99;padding:9px 14px;font:400 11px var(--sans);cursor:pointer}
+  .sg-error{position:absolute;bottom:100px;left:24px;right:24px;color:#F6CE97;text-align:center;font-size:12px}
+  .sg-fallback .sg-error{top:80px;bottom:auto;padding:8px;border-radius:8px;background:#142D45;z-index:2}
+  .sg-deadlines{position:absolute;bottom:88px;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);display:grid;grid-template-columns:1fr 1fr;gap:14px;max-width:690px}
+  .sg-deadline{min-width:0;padding:14px 18px;border:1px solid #A8C4D52B;border-radius:12px;background:#0C2036D9;backdrop-filter:blur(18px)}
+  .sg-deadline header{display:flex;justify-content:space-between;gap:10px;align-items:center}
+  .sg-deadline a{color:#E0EDF7;font-size:12px;font-weight:600;text-decoration:none}
+  .sg-deadline a:hover{text-decoration:underline}
+  .sg-deadline header span{font-size:8px;color:#9EB6C9}
+  .sg-deadline>p{font-size:10px;color:#92A9C0;line-height:1.7;margin:9px 0 0}
+  .sg-deadline dl{display:flex;gap:22px;margin:10px 0 0}
+  .sg-deadline dt{font-size:9px;color:#98B7C7;margin-bottom:5px}
+  .sg-deadline dd{margin:0;font-size:14px;font-weight:500;color:#B4DCCE;font-variant-numeric:tabular-nums}
+  .meeting-home.sg-fallback .meeting-choices{display:flex;align-items:center;justify-content:center;gap:22px}
+  .meeting-home.sg-fallback .meeting-choice{position:relative;left:auto!important;top:auto!important;transform:none}
+  .meeting-home.sg-fallback .meeting-choice::after{display:none}
   .meeting-home-button{
     appearance:none;cursor:pointer;border:1px solid var(--hair);border-radius:999px;
     padding:8px 13px;background:var(--cream);color:var(--ink-soft);font:500 12px var(--sans);
   }
   .meeting-home-button:hover{border-color:var(--clay);color:var(--clay)}
   @media(max-width:520px){
-    .meeting-choices{grid-template-columns:1fr;max-width:340px}
-    .meeting-choice{min-height:130px}
+    .sg-countdowns{top:88px;left:24px;width:calc(100% - 48px);gap:9px}
+    .sg-countdown{padding:10px 12px;transform:none}
+    .sg-countdown h2{font-size:10px;margin-bottom:6px}
+    .sg-countdown-digits{gap:6px}
+    .sg-countdown-digits>div{gap:3px}
+    .sg-countdown-digits strong{font-size:25px}
+    .sg-countdown-digits span{font-size:8px}
+    .sg-countdown-note{font-size:8px;margin-top:7px}
+    .meeting-choice{min-width:140px;padding:12px;font-size:12px}
+    .sg-entry-kicker{font-size:7px;white-space:nowrap}
+    .meeting-choice[data-meeting="2"]{transform:translate(-50%,0)}
+    .meeting-choice[data-meeting="2"]::after{top:auto;bottom:100%;background:linear-gradient(transparent,#A8D8EB)}
+    .sg-footer{bottom:24px;gap:12px}
+    .sg-motion{font-size:10px;padding:9px 11px;white-space:nowrap}
+    .sg-deadlines{left:20px;right:20px;bottom:94px;gap:8px}
+    .sg-deadline{padding:12px 10px}
+    .sg-deadline header{align-items:flex-start;flex-direction:column;gap:5px}
+    .sg-deadline dl{gap:10px;flex-direction:column;margin-top:8px}
+    .sg-deadline dt{display:inline;margin-right:6px}
+    .sg-deadline dd{display:inline;font-size:12px}
+    .sg-deadline>p{font-size:9px}
+    .meeting-home.sg-fallback .meeting-choices{flex-direction:column}
   }
   .meeting-bar{
     display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
@@ -1459,6 +1519,29 @@
   .ev-plan-checks .ev-plan-card{padding:14px 16px}
   .ev-plan-checks h3{font-size:14px;margin:6px 0 8px}
   .ev-plan-checks p{font-size:12px}
+  .ev-flow-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:14px 0 8px}
+  .ev-flow-toolbar span{font-size:11px;color:var(--sk-muted)}
+  .ev-flow-toolbar button{border:1px solid var(--sk-line);border-radius:8px;background:white;color:var(--sk-blue);padding:7px 12px;font:500 11px var(--sans);cursor:pointer}
+  .ev-flow-scroll{overflow-x:auto;overflow-y:hidden;border:1px solid #DCE7EF;border-radius:16px;background:radial-gradient(circle,#CCDDE9 1px,transparent 1px) 0 0/18px 18px,#F7FAFD}
+  .ev-flow{position:relative;min-width:620px;height:clamp(200px,28vh,270px)}
+  .ev-flow svg{position:absolute;inset:0;width:100%;height:100%}
+  .ev-flow-node{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:64px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid #C6D8E8;border-radius:18px;background:#FFF;color:#245B91;box-shadow:0 6px 18px #214E7610;cursor:pointer;font-family:var(--sans);transition:box-shadow .2s,border-color .2s}
+  .ev-flow-node strong{font-size:25px;font-weight:600}
+  .ev-flow-node small{font-size:8px;letter-spacing:.09em}
+  .ev-flow-node[data-flow-node="H"]{color:#237761;border-color:#B8DBCC}
+  .ev-flow-node[data-flow-node="B"]{background:#203E55;color:#FFF;border-color:#203E55}
+  .ev-flow-node[data-flow-node="N"]{color:#7A8797}
+  .ev-flow-node[aria-pressed="true"]{outline:3px solid #A0C4D8;outline-offset:4px;box-shadow:0 8px 24px #214E7625}
+  .ev-flow-detail{margin-top:12px;padding:14px 18px;border-radius:12px;background:#EDF3F8;border:1px solid var(--sk-line);min-height:78px;box-sizing:border-box}
+  .ev-flow-detail h3{font-size:14px;margin:0 0 6px;color:var(--sk-blue)}
+  .ev-flow-detail p{font-size:12px;line-height:1.8;color:var(--sk-muted);margin:0}
+  .ev-flow-key{display:flex;gap:18px;flex-wrap:wrap;font-size:10px;color:var(--sk-muted);margin:10px 0 0}
+  .ev-flow-key span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:2px;background:#7399C8;margin-right:6px}
+  .ev-flow-key span:nth-child(2)::before{background:#3D9F83}
+  .ev-flow-key span:nth-child(3)::before{background:#99A6B4}
+  @media(prefers-reduced-motion:reduce){.ev-flow-packet{display:none}}
+  @media print{.ev-flow-packet{display:none}}
+  @media print{.ev-flow-toolbar button{display:none}.ev-flow{min-width:0}}
   @media(max-width:760px){
     .ev-plan-groups,.ev-plan-checks,.ev-plan-metrics{grid-template-columns:1fr}
   }
@@ -1521,10 +1604,49 @@
 </head>
 <body>
 <main class="meeting-home" id="meeting-home" aria-label="Select a meeting">
+  <canvas class="sg-canvas" id="sg-canvas" aria-hidden="true"></canvas>
+  <div class="sg-sky"></div>
+  <div class="sg-grain"></div>
+  <header class="sg-header">
+    <div class="lang-switch" role="group" aria-label="Language / 语言">
+      <button type="button" data-lang="zh" aria-pressed="false" lang="zh-CN">中文</button>
+      <button type="button" data-lang="en" aria-pressed="true" lang="en">EN</button>
+    </div>
+  </header>
+  <div class="sg-countdowns">
+  <section class="sg-countdown" data-deadline="2027-01-09T19:59:00+08:00" aria-labelledby="sg-issta-countdown-title">
+    <h2 id="sg-issta-countdown-title">ISSTA 2027 · Abstract deadline</h2>
+    <div class="sg-countdown-digits" role="timer" aria-live="off" aria-labelledby="sg-issta-countdown-title">
+      <div><strong>00</strong><span class="sg-days-unit">D</span></div>
+      <div><strong>00</strong><span class="sg-hours-unit">H</span></div>
+      <div><strong>00</strong><span class="sg-minutes-unit">M</span></div>
+      <div><strong>00</strong><span class="sg-seconds-unit">S</span></div>
+    </div>
+    <p class="sg-countdown-note"><time datetime="2027-01-09T19:59:00+08:00">2027.01.09 19:59</time> · UTC+8</p>
+    <p class="sg-countdown-expired" hidden>Abstract deadline has passed</p>
+  </section>
+  <section class="sg-countdown" data-deadline="2026-12-19T00:00:00-12:00" aria-labelledby="sg-countdown-title">
+    <h2 id="sg-countdown-title">MSR 2027 · Abstract deadline</h2>
+    <div class="sg-countdown-digits" role="timer" aria-live="off" aria-labelledby="sg-countdown-title">
+      <div><strong id="sg-countdown-days">00</strong><span id="sg-days-label">DAYS</span></div>
+      <div><strong id="sg-countdown-hours">00</strong><span id="sg-hours-label">HOURS</span></div>
+      <div><strong id="sg-countdown-minutes">00</strong><span id="sg-minutes-label">MINUTES</span></div>
+      <div><strong id="sg-countdown-seconds">00</strong><span id="sg-seconds-label">SECONDS</span></div>
+    </div>
+    <p class="sg-countdown-note"><time datetime="2026-12-18">2026.12.18</time> · AoE (UTC−12) · Mining Challenge</p>
+    <p class="sg-countdown-expired" id="sg-countdown-expired" hidden>Abstract deadline has passed</p>
+  </section>
+  </div>
   <nav class="meeting-choices" aria-label="Meetings">
-    <button class="meeting-choice" type="button" data-meeting="1">Meeting 1</button>
-    <button class="meeting-choice" type="button" data-meeting="2">Meeting 2</button>
+    <button class="meeting-choice" type="button" data-meeting="1"><span class="sg-entry-kicker">SINGAPORE / MERLION</span><span class="sg-entry-title">Previous Meetings</span></button>
+    <button class="meeting-choice" type="button" data-meeting="2"><span class="sg-entry-kicker">DUBLIN / BECKETT BRIDGE</span><span class="sg-entry-title">Latest Meeting</span></button>
   </nav>
+  <aside class="sg-deadlines" aria-label="Conference deadlines">
+    <section class="sg-deadline"><header><a href="https://conf.researchr.org/home/issta-2027" target="_blank" rel="noopener">ISSTA 2027 ↗</a><span>SINGAPORE</span></header><dl><div><dt id="sg-issta-abstract-label">Abstract</dt><dd><time datetime="2027-01-09T19:59:00+08:00">2027.01.09</time></dd></div><div><dt id="sg-issta-paper-label">Paper</dt><dd><time datetime="2027-01-12T19:59:00+08:00">2027.01.12</time></dd></div></dl><p id="sg-issta-provenance">19:59 · Asia/Shanghai (UTC+8) · Dates provided by you.</p></section>
+    <section class="sg-deadline"><header><a href="https://2027.msrconf.org/" target="_blank" rel="noopener">MSR 2027 ↗</a><span>MINING CHALLENGE</span></header><dl><div><dt id="sg-abstract-label">Abstract</dt><dd><time datetime="2026-12-18">2026.12.18</time></dd></div><div><dt id="sg-paper-label">Paper</dt><dd><time datetime="2026-12-23">2026.12.23</time></dd></div></dl><p id="sg-msr-provenance">AoE · UTC−12 · Provided by you; pending final confirmation.</p></section>
+  </aside>
+  <div class="sg-footer"><button type="button" class="sg-motion" id="sg-motion"><span id="sg-pause">Pause journey</span><span id="sg-play" hidden>Resume journey</span></button></div>
+  <p class="sg-error" id="sg-error" role="alert" hidden></p>
 </main>
 <div class="wrap" id="meeting-content" hidden>
 
@@ -2665,8 +2787,24 @@ window.SWECHAT_SOURCE = {
   const STATIC_I18N = [
     {sel: "#meeting-home", attr: "aria-label", zh: "选择会议", en: "Select a meeting"},
     {sel: ".meeting-choices", attr: "aria-label", zh: "会议导航", en: "Meetings"},
-    {sel: '.meeting-choice[data-meeting="1"]', zh: "第一次 Meeting", en: "Meeting 1"},
-    {sel: '.meeting-choice[data-meeting="2"]', zh: "第二次 Meeting", en: "Meeting 2"},
+    {sel: '.meeting-choice[data-meeting="1"] .sg-entry-title', zh: "以前的 Meeting", en: "Previous Meetings"},
+    {sel: '.meeting-choice[data-meeting="2"] .sg-entry-title', zh: "最新的 Meeting", en: "Latest Meeting"},
+    {sel: "#sg-countdown-title", zh: "距 MSR 2027 摘要截止", en: "MSR 2027 · Abstract deadline"},
+    {sel: "#sg-issta-countdown-title", zh: "距 ISSTA 2027 摘要截止", en: "ISSTA 2027 · Abstract deadline"},
+    {sel: "#sg-days-label,.sg-days-unit", zh: "天", en: "D"},
+    {sel: "#sg-hours-label,.sg-hours-unit", zh: "时", en: "H"},
+    {sel: "#sg-minutes-label,.sg-minutes-unit", zh: "分", en: "M"},
+    {sel: "#sg-seconds-label,.sg-seconds-unit", zh: "秒", en: "S"},
+    {sel: ".sg-countdown-expired", zh: "摘要截止时间已到", en: "Abstract deadline has passed"},
+    {sel: ".sg-deadlines", attr: "aria-label", zh: "会议投稿截止时间", en: "Conference submission deadlines"},
+    {sel: "#sg-issta-abstract-label", zh: "摘要", en: "Abstract"},
+    {sel: "#sg-issta-paper-label", zh: "全文", en: "Paper"},
+    {sel: "#sg-issta-provenance", zh: "19:59 · 北京时间 (UTC+8) · 你提供的日期。", en: "19:59 · Asia/Shanghai (UTC+8) · Dates provided by you."},
+    {sel: "#sg-abstract-label", zh: "摘要", en: "Abstract"},
+    {sel: "#sg-paper-label", zh: "全文", en: "Paper"},
+    {sel: "#sg-msr-provenance", zh: "AoE · UTC−12 · 你提供的日期，待最终确认。", en: "AoE · UTC−12 · Provided by you; pending final confirmation."},
+    {sel: "#sg-pause", zh: "暂停漫游", en: "Pause journey"},
+    {sel: "#sg-play", zh: "继续漫游", en: "Resume journey"},
     {sel: "#meeting-home-button", zh: "返回会议选择", en: "Back to meetings"},
     {sel: ".meeting-bar", attr: "aria-label", zh: "会议选择", en: "Meeting selector"},
     {sel: "#meeting-bar-kicker", zh: "博士导师会议记录", en: "PHD ADVISOR MEETINGS"},
@@ -3941,6 +4079,20 @@ window.SWECHAT_SOURCE = {
     const signed = value => `${value > 0 ? "+" : value < 0 ? "−" : ""}${Math.abs(value).toFixed(2)}`;
     const gap = item => (item.curated - item.ai).toFixed(1);
     const pp = zh ? "个百分点" : "pp";
+    const flowNodes = [
+      {id:"A", x:80, y:65, tag:"GENERATE", title:zh ? "A · Harness A + 模型 A" : "A · Harness A + model A", detail:zh ? "在源任务与开发环境中生成 AI Skill，可使用训练侧轨迹和验证反馈；最终测试题始终不可见。人类组获得相同资料与验证机会。" : "Generate AI Skills from source tasks, training traces and development feedback. Final test tasks remain unseen; humans receive matching evidence and validation access."},
+      {id:"H", x:80, y:205, tag:"HUMAN", title:zh ? "H · 人工编写" : "H · Human author", detail:zh ? "人工作者基于同一批源任务与资料编写 Skill。独立保存人工产物；记录工时与修订预算，不默认 AI 或人工哪一组更好。" : "Humans author Skills from the same source tasks and evidence. Store artifacts separately and record authoring time and revision budget; neither condition is assumed superior."},
+      {id:"F", x:300, y:130, tag:"FREEZE", title:zh ? "F · 独立文件夹 / 冻结产物" : "F · Separate folders / frozen artifacts", detail:zh ? "AI 与人工 Skill 分开保存，记录版本与哈希，只读传递给 B，测试时不得修改。文件夹用于保存产物，本身不是隔离沙箱。" : "Keep AI and human Skills in separate versioned, hashed folders. Pass them read-only to B with no test-time edits. Storage folders alone are not isolation sandboxes."},
+      {id:"N", x:400, y:235, tag:"NO SKILL", title:zh ? "N · 无 Skill 基线" : "N · No-Skill baseline", detail:zh ? "不加载任何额外 Skill，但使用与其他两组相同的目标模型、harness、工具、执行预算和未见测试题。" : "Load no added Skills. Keep the target model, harness, tools, execution budget and unseen tasks identical to both Skill conditions."},
+      {id:"B", x:560, y:130, tag:"EXECUTE", title:zh ? "B · Harness B + 模型 B" : "B · Harness B + model B", detail:zh ? "三种条件分别执行，而非混入同一次运行。每个任务 × 条件 × 重复运行使用干净会话与独立工作区；执行代码时使用独立容器，隔离缓存与记忆。" : "Run each condition separately, never mixed in one run. Use a fresh session and isolated workspace per task × condition × repeat, with separate containers for code and isolated caches and memory."},
+      {id:"R", x:760, y:130, tag:"COMPARE", title:zh ? "R · 统一评分 / 配对比较" : "R · Shared scorer / paired comparison", detail:zh ? "在同一批未见任务上比较三组成功率、相对无 Skill 的净收益、token、耗时与工具调用。动画仅示意数据传递，不代表已运行或任何实验结果。" : "Compare success rates, gain over no Skill, tokens, latency and tool calls on the same held-out tasks. Animation illustrates data flow only, not execution or measured results."}
+    ];
+    const flowRoutes = [
+      {path:"M112 65 C190 65 210 110 268 110 L332 110 H528", color:"#7399C8", label:"AI Skill", x:400, y:96, delay:"0s", packet:"SKILL"},
+      {path:"M112 205 C190 205 210 150 268 150 L332 150 H528", color:"#3D9F83", label:"Human Skill", x:400, y:179, delay:"-2s", packet:"SKILL"},
+      {path:"M432 235 H485 Q560 235 560 195 V162", color:"#99A6B4", label:"No Skill", x:480, y:282, delay:"-4s", packet:"∅"},
+      {path:"M592 130 H728", color:"#B49A63", label:zh ? "评估记录" : "Run logs", x:660, y:107, delay:"-1s", packet:"LOG"}
+    ];
     const slideTitles = zh
       ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "反馈与修订", "结论与证据边界", "我的实验：三组对照", "实验控制与评价指标", "原始论文", "附录：完整对照数据"]
       : ["Research question", "Three key figures", "Curated vs. AI-generated", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "Feedback and revision", "Conclusions and limits", "My experiment: three conditions", "Controls and evaluation metrics", "Primary sources", "Appendix: full comparison"];
@@ -4061,20 +4213,25 @@ window.SWECHAT_SOURCE = {
       </section>
 
       <section class="sk-panel ev-slide" id="sk-experiment" tabindex="-1" aria-labelledby="sk-experiment-title">
-        ${heading("05", "sk-experiment-title", zh ? "我的实验：换一个环境，做三组对照" : "My experiment: three conditions in a new environment")}
-        <div class="ev-section-meta"><span class="ev-plan-status">${zh ? "个人研究设想 · 尚未执行" : "Proposed study · not yet run"}</span><span>${zh ? "问题：AI Skill 在目标环境中，是否比人工 Skill 更有效？" : "Question: do AI Skills outperform human Skills in the target environment?"}</span></div>
-        <div class="ev-protocol" aria-label="${zh ? "Skill 生成与迁移实验流程" : "Skill creation and transfer protocol"}">
-          <div><small>01 / CREATE</small><b>${zh ? "源环境中编写" : "Create in source environment"}</b><span>${zh ? "Harness A + 模型 A 生成 AI Skill；人类基于相同源任务与资料编写。" : "Harness A + model A generates AI Skills; humans author from the same source tasks and evidence."}</span></div>
-          <div><small>02 / FREEZE</small><b>${zh ? "独立文件夹冻结" : "Freeze in separate folders"}</b><span>${zh ? "分开保存 AI / Human Skill，记录版本与哈希；不接触最终测试题。" : "Store AI / human Skills separately with versions and hashes; no access to final test tasks."}</span></div>
-          <div><small>03 / TRANSFER</small><b>${zh ? "新环境中测试" : "Test in target environment"}</b><span>${zh ? "只读加载冻结产物；在未见任务上运行，不允许边测边改。" : "Load frozen artifacts read-only on unseen tasks; no test-time Skill revision."}</span></div>
+        ${heading("05", "sk-experiment-title", zh ? "让 Skill 流动起来" : "Follow the Skill")}
+        <div class="ev-section-meta"><span class="ev-plan-status">${zh ? "研究设想 · 动画示意，非实验结果" : "Proposed study · illustrative, not measured"}</span></div>
+        <div class="ev-flow-toolbar"><span>${zh ? "点击节点查看内部 · 小屏可横向滑动" : "Select a node to inspect · swipe horizontally on small screens"}</span><button type="button" id="ev-flow-toggle" aria-controls="ev-flow-svg"></button></div>
+        <div class="ev-flow-scroll" tabindex="0" role="region" aria-label="${zh ? "可交互的实验数据流图，可横向滚动" : "Interactive experiment data flow; horizontally scrollable"}">
+          <div class="ev-flow">
+            <svg id="ev-flow-svg" viewBox="0 0 840 300" preserveAspectRatio="none" aria-hidden="true">
+              <defs><marker id="ev-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10" fill="none" stroke="#8FA8BC" stroke-width="1.5"/></marker></defs>
+              <rect x="242" y="35" width="116" height="185" rx="20" fill="#EAF1F8" stroke="#C7D8E8" stroke-dasharray="5 5"/>
+              <rect x="505" y="35" width="110" height="185" rx="20" fill="#E5F1ED" stroke="#BBD6CD" stroke-dasharray="5 5"/>
+              <text x="300" y="58" text-anchor="middle" fill="#6C859C" font-size="10">READ ONLY</text>
+              <text x="560" y="58" text-anchor="middle" fill="#5C877A" font-size="10">ISOLATED RUNS</text>
+              ${flowRoutes.map(route => `<path d="${route.path}" fill="none" stroke="${route.color}" stroke-width="2" opacity=".55" marker-end="url(#ev-flow-arrow)"/><text x="${route.x}" y="${route.y}" text-anchor="middle" fill="${route.color}" font-size="11" font-family="sans-serif">${route.label}</text>
+                <g class="ev-flow-packet"><rect x="-20" y="-9" width="40" height="18" rx="5" fill="${route.color}" stroke="#FFF" stroke-width="1.5"/><text text-anchor="middle" y="3" fill="#FFF" font-size="8" font-weight="600" font-family="sans-serif">${route.packet}</text><animateMotion dur="6s" begin="${route.delay}" repeatCount="indefinite" path="${route.path}"/></g>`).join("")}
+            </svg>
+            ${flowNodes.map(node => `<button type="button" class="ev-flow-node" data-flow-node="${node.id}" style="--x:${node.x / 840 * 100}%;--y:${node.y / 300 * 100}%" aria-label="${node.title}" aria-pressed="false" aria-controls="ev-flow-detail"><strong>${node.id}</strong><small>${node.tag}</small></button>`).join("")}
+          </div>
         </div>
-        <div class="ev-plan-target">${zh ? "固定目标执行端：Harness B + 模型 B · 相同测试题 / 工具 / 预算 / 评分器" : "Fixed target: Harness B + model B · same tasks / tools / budget / scorer"}</div>
-        <div class="ev-plan-groups">
-          <article class="ev-plan-card"><small>CONTROL / NONE</small><h3>${zh ? "无 Skill" : "No Skill"}</h3><p>${zh ? "建立目标模型与 harness 自身的能力基线。" : "Measure the target model–harness baseline without added Skills."}</p></article>
-          <article class="ev-plan-card ai"><small>TREATMENT / AI</small><h3>AI-generated Skill</h3><p>${zh ? "加载 A 环境生成的冻结 Skill，测量迁移后的收益或退化。" : "Load the AI Skill from environment A and measure gains or regressions."}</p></article>
-          <article class="ev-plan-card human"><small>TREATMENT / HUMAN</small><h3>${zh ? "人工编写 Skill" : "Human-authored Skill"}</h3><p>${zh ? "加载人工产物，与 AI 条件在同一批任务上配对比较。" : "Load human-authored artifacts and compare on the same paired tasks."}</p></article>
-        </div>
-        <p class="sk-note">${zh ? "核心假设保持开放：AI 与人工谁更好由结果决定；此页是实验提案，不是论文已报告的结论。" : "The hypothesis is open: results decide which condition helps more. This is a proposal, not a reported empirical finding."}</p>
+        <div class="ev-flow-key"><span>AI Skill</span><span>Human Skill</span><span>No Skill</span></div>
+        <div class="ev-flow-detail" id="ev-flow-detail" aria-live="polite" aria-atomic="true"><h3>${zh ? "A → F → B → R" : "A → F → B → R"}</h3><p>${zh ? "生成 → 冻结 → 独立执行 → 配对比较。点击 A、H、F、N、B 或 R，展开对应设计。" : "Generate → freeze → isolated execution → paired comparison. Select A, H, F, N, B or R to inspect the design."}</p></div>
       </section>
 
       <section class="sk-panel ev-slide" id="sk-experiment-controls" tabindex="-1" aria-labelledby="sk-controls-title">
@@ -4137,6 +4294,38 @@ window.SWECHAT_SOURCE = {
       <p class="ev-deck-hint">${zh ? "← → / PageUp PageDown 翻页 · Home / End 首尾页 · 数据表可展开，引用可直达" : "← → / PageUp PageDown to navigate · Home / End for first / last · Expand tables or follow citations"}</p>
       <p class="ev-deck-message" id="ev-deck-message" role="alert" hidden></p>`;
 
+    const flowSvg = document.getElementById("ev-flow-svg");
+    const flowToggle = document.getElementById("ev-flow-toggle");
+    let flowPaused = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    flowToggle.disabled = flowPaused;
+    const updateFlowPlayback = () => {
+      if (flowPaused) flowSvg.pauseAnimations();
+      else flowSvg.unpauseAnimations();
+      flowToggle.textContent = flowToggle.disabled ? (zh ? "静态模式" : "Reduced motion") : flowPaused ? (zh ? "播放动画" : "Play animation") : (zh ? "暂停动画" : "Pause animation");
+    };
+    flowSvg.setCurrentTime(1.5);
+    updateFlowPlayback();
+    flowToggle.addEventListener("click", () => {
+      flowPaused = !flowPaused;
+      updateFlowPlayback();
+    });
+    const flowDetail = document.getElementById("ev-flow-detail");
+    const flowOverview = flowDetail.innerHTML;
+    root.querySelectorAll("[data-flow-node]").forEach(button => {
+      button.addEventListener("click", () => {
+        const selected = button.getAttribute("aria-pressed") !== "true";
+        root.querySelectorAll("[data-flow-node]").forEach(node => node.setAttribute("aria-pressed", String(selected && node === button)));
+        const node = flowNodes.find(node => node.id === button.dataset.flowNode);
+        if (selected) {
+          flowDetail.replaceChildren();
+          const title = document.createElement("h3");
+          title.textContent = node.title;
+          const description = document.createElement("p");
+          description.textContent = node.detail;
+          flowDetail.append(title, description);
+        } else flowDetail.innerHTML = flowOverview;
+      });
+    });
     const stage = root.querySelector(".ev-stage");
     stage.insertBefore(document.getElementById("sk-revision"), document.getElementById("sk-boundaries"));
     const result = document.getElementById("sk-result");
@@ -5139,6 +5328,14 @@ window.SWECHAT_SOURCE = {
       LANG = next;
       try { localStorage.setItem(LANG_STORAGE_KEY, LANG); } catch (error) {}
       applyStaticLang();
+      if (!meetingHome.hidden) {
+        const url = new URL(location.href);
+        if (LANG === "zh") url.searchParams.set("lang", "zh");
+        else url.searchParams.delete("lang");
+        history.replaceState(null, "", url);
+        showMeetingHome();
+        return;
+      }
       navigate(currentSource, currentView, {keepHash: true});
       try {
         history.replaceState(null, "", urlWithLang(location.hash.replace(/^#/, "")));
@@ -5318,6 +5515,435 @@ window.SWECHAT_SOURCE = {
   requestAnimationFrame(() => requestAnimationFrame(lockLightRendering));
   setTimeout(lockLightRendering, 250);
   setTimeout(lockLightRendering, 900);
+})();
+</script>
+<script>
+(() => {
+  const home = document.getElementById("meeting-home");
+  const countdowns = Array.from(home.querySelectorAll(".sg-countdown"), panel => ({
+    fields: panel.querySelectorAll(".sg-countdown-digits strong"),
+    expired: panel.querySelector(".sg-countdown-expired"),
+    deadline: Date.parse(panel.dataset.deadline)
+  }));
+  const updateCountdown = () => {
+    const now = Date.now();
+    countdowns.forEach(({fields, expired, deadline}) => {
+      const remaining = Math.max(0, Math.ceil((deadline - now) / 1000));
+      const values = [Math.floor(remaining / 86400), Math.floor(remaining / 3600) % 24, Math.floor(remaining / 60) % 60, remaining % 60];
+      fields.forEach((field, index) => {
+        const value = String(values[index]).padStart(2, "0");
+        if (field.textContent !== value) field.textContent = value;
+      });
+      expired.hidden = remaining > 0;
+    });
+  };
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+  document.addEventListener("visibilitychange", updateCountdown);
+  const canvas = document.getElementById("sg-canvas");
+  const motion = document.getElementById("sg-motion");
+  const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
+  let paused = reduceMotion.matches;
+  let frame = 0;
+  let failed = false;
+  let contextLost = false;
+  let phase = 0;
+  let lastTime = 0;
+  let pointerX = 0;
+  let pointerY = 0;
+  let yawOffset = 0;
+  let pitchOffset = 0;
+  const showError = error => {
+    failed = true;
+    cancelAnimationFrame(frame);
+    frame = 0;
+    home.classList.add("sg-fallback");
+    const message = document.getElementById("sg-error");
+    message.textContent = document.documentElement.lang.startsWith("zh")
+      ? "3D 场景暂不可用，请使用下方 Meeting 入口。"
+      : "The 3D scene is unavailable. Meeting entries remain accessible.";
+    message.hidden = false;
+    motion.disabled = true;
+    console.error("Singapore scene:", error);
+  };
+  try {
+    const gl = canvas.getContext("webgl", {alpha:true, antialias:true, powerPreference:"low-power"});
+    if (!gl) throw new Error("WebGL is not available.");
+    const compile = (type, source) => {
+      const shader = gl.createShader(type);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+      if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(shader));
+      return shader;
+    };
+    const program = gl.createProgram();
+    gl.attachShader(program, compile(gl.VERTEX_SHADER, `
+      attribute vec3 aPosition;
+      attribute vec3 aColor;
+      uniform mat4 uMatrix;
+      uniform float uTime;
+      uniform vec3 uOffset;
+      varying vec3 vColor;
+      varying float vDepth;
+      void main() {
+        vec3 p = aPosition + uOffset;
+        if (p.y < -0.07 && p.y > -0.13) {
+          p.y += sin(p.x * 2.5 + uTime) * cos(p.z * 2.0 + uTime * 0.7) * 0.022;
+        }
+        gl_Position = uMatrix * vec4(p, 1.0);
+        gl_PointSize = 2.0;
+        vColor = aColor;
+        vDepth = gl_Position.w;
+      }`));
+    gl.attachShader(program, compile(gl.FRAGMENT_SHADER, `
+      precision mediump float;
+      varying vec3 vColor;
+      varying float vDepth;
+      void main() {
+        float fog = clamp((vDepth - 26.0) / 65.0, 0.0, 0.35);
+        gl_FragColor = vec4(mix(vColor, vec3(0.10, 0.17, 0.25), fog), 1.0);
+      }`));
+    gl.linkProgram(program);
+    if (!gl.getProgramParameter(program, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(program));
+    gl.useProgram(program);
+    const vertices = [];
+    const cross = (a,b) => [a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+    const norm = v => {const length=Math.hypot(...v);return v.map(x=>x/length);};
+    const subtract = (a,b) => a.map((x,i)=>x-b[i]);
+    const dot = (a,b) => a.reduce((sum,x,i)=>sum+x*b[i],0);
+    const triangle = (a,b,c,color,emissive=false) => {
+      const normal = norm(cross(subtract(b,a),subtract(c,a)));
+      const light = emissive ? 1 : .58 + .42 * Math.max(0,dot(normal,norm([-.4,1,.6])));
+      for (const p of [a,b,c]) vertices.push(...p,...color.map(x=>x*light));
+    };
+    const quad = (a,b,c,d,color,emissive=false) => {
+      triangle(a,b,c,color,emissive);triangle(a,c,d,color,emissive);
+    };
+    const box = (x,y,z,w,h,d,color,emissive=false) => {
+      const p=[[x-w/2,y,z-d/2],[x+w/2,y,z-d/2],[x+w/2,y,z+d/2],[x-w/2,y,z+d/2]];
+      const q=p.map(v=>[v[0],y+h,v[2]]);
+      quad(q[0],q[3],q[2],q[1],color,emissive);
+      for(let i=0;i<4;i++){const j=(i+1)%4;quad(p[i],q[i],q[j],p[j],color,emissive);}
+    };
+    const tube = (a,b,r,color,sides=8,emissive=false) => {
+      const axis=norm(subtract(b,a));
+      const u=norm(cross(axis,Math.abs(axis[1])>.9?[1,0,0]:[0,1,0]));
+      const v=cross(axis,u);
+      const point=(center,angle)=>center.map((n,i)=>n+r*(u[i]*Math.cos(angle)+v[i]*Math.sin(angle)));
+      for(let i=0;i<sides;i++){
+        const t=i/sides*Math.PI*2, next=(i+1)/sides*Math.PI*2;
+        quad(point(a,t),point(a,next),point(b,next),point(b,t),color,emissive);
+      }
+    };
+    const ellipse = (x,y,z,rx,rz,h,color) => {
+      for(let i=0;i<40;i++){
+        const t=i/40*Math.PI*2,n=(i+1)/40*Math.PI*2;
+        const a=[x+rx*Math.cos(t),y,z+rz*Math.sin(t)],b=[x+rx*Math.cos(n),y,z+rz*Math.sin(n)];
+        const c=[b[0],y+h,b[2]],d=[a[0],y+h,a[2]];
+        quad(a,b,c,d,color);
+        triangle([x,y+h,z],d,c,color);
+      }
+    };
+    const sphere = (x,y,z,rx,ry,rz,color,transform=point=>point) => {
+      const point=(latitude,longitude)=>transform([x+rx*Math.sin(latitude)*Math.cos(longitude),y+ry*Math.cos(latitude),z+rz*Math.sin(latitude)*Math.sin(longitude)]);
+      for(let row=0;row<10;row++)for(let col=0;col<16;col++){
+        const a=row/10*Math.PI,b=(row+1)/10*Math.PI,c=col/16*Math.PI*2,d=(col+1)/16*Math.PI*2;
+        if(row===0)triangle(point(a,c),point(b,d),point(b,c),color);
+        else if(row===9)triangle(point(a,c),point(a,d),point(b,c),color);
+        else quad(point(a,c),point(a,d),point(b,d),point(b,c),color);
+      }
+    };
+    let seed=2026;
+    const random=()=>{seed=(seed*16807)%2147483647;return(seed-1)/2147483646;};
+    const gold=[.90,.68,.36], cyan=[.30,.69,.75], ivory=[.83,.87,.81];
+    for(let x=-32;x<32;x+=1.5) for(let z=-24;z<24;z+=1.5){
+      const shade=.045+random()*.02;
+      quad([x,-.1,z],[x,-.1,z+1.5],[x+1.5,-.1,z+1.5],[x+1.5,-.1,z],[shade*.7,shade*1.8,shade*2.7],true);
+    }
+    ellipse(-3,-.03,0,4.7,2.4,.13,[.12,.23,.27]);
+    box(5,-.02,-.4,9,.15,3.8,[.13,.24,.25]);
+    tube([-7,.13,1.5],[0,.13,1.5],.025,gold,6,true);
+    tube([1,.14,2.8],[7,.14,2.8],.025,cyan,6,true);
+    for(const x of [-5,-3,-1]){
+      box(x,.12,0,.95,4.4,.78,[.29,.42,.53]);
+      box(x+.40,.12,.42,.11,4.4,.06,gold,true);
+      box(x-.40,.12,.42,.08,4.4,.06,[.57,.66,.62],true);
+      for(let y=.35;y<4.4;y+=.23){
+        box(x,y,.405,.72,.035,.02,[.63,.67,.57],true);
+        for(let side=-.28;side<.35;side+=.18) box(x+side,y+.06,.42,.045,.075,.015,random()>.35?gold:[.22,.38,.48],true);
+      }
+    }
+    ellipse(-3,4.55,0,3.25,.72,.26,[.62,.57,.45]);
+    ellipse(-3,4.81,0,3.1,.64,.05,gold);
+    box(-3.4,4.88,.08,3.9,.035,.44,[.27,.74,.78],true);
+    for(let i=0;i<14;i++) tube([-5.7+i*.42,4.9,-.33],[-5.7+i*.42,5.04,-.33],.045,[.26,.48,.34],6);
+    const stone=[.81,.84,.78],stoneShade=[.57,.66,.64],stoneLight=[.88,.89,.82];
+    const merlionPoint=([x,y,z])=>[-4+x*.56-z*.83,y,3.4+x*.83+z*.56];
+    const merlionTube=(a,b,r,color=stone,sides=7)=>tube(merlionPoint(a),merlionPoint(b),r,color,sides);
+    const merlionSphere=(x,y,z,rx,ry,rz,color=stone)=>sphere(x,y,z,rx,ry,rz,color,merlionPoint);
+    const merlionQuad=(a,b,c,d,color=stone)=>quad(...[a,b,c,d].map(merlionPoint),color);
+    ellipse(-4,.02,3.4,1.14,.85,.12,stoneShade);
+    ellipse(-4,.14,3.4,1.09,.81,.17,stone);
+    ellipse(-4,.31,3.4,1.16,.87,.08,stoneLight);
+    ellipse(-4,.39,3.4,.94,.70,.09,stoneShade);
+    const merlionLevels=[[.48,.63],[.8,.70],[1.2,.68],[1.6,.59],[2,.48],[2.4,.36],[2.8,.33],[3.04,.40]];
+    const bodyRadius=y=>{
+      const segment=merlionLevels.findIndex((level,i)=>i<merlionLevels.length-1&&y<=merlionLevels[i+1][0]);
+      const [bottom,r]=merlionLevels[segment],[top,next]=merlionLevels[segment+1];
+      return r+(next-r)*(y-bottom)/(top-bottom);
+    };
+    for(let j=0;j<merlionLevels.length-1;j++){
+      const [y,r]=merlionLevels[j],[ny,nr]=merlionLevels[j+1];
+      for(let i=0;i<36;i++){
+        const a=i/36*Math.PI*2,b=(i+1)/36*Math.PI*2;
+        merlionQuad([r*Math.cos(a),y,r*.82*Math.sin(a)],[r*Math.cos(b),y,r*.82*Math.sin(b)],[nr*Math.cos(b),ny,nr*.82*Math.sin(b)],[nr*Math.cos(a),ny,nr*.82*Math.sin(a)]);
+      }
+    }
+    for(let row=0;row<10;row++){
+      const y=.69+row*.165;
+      for(let col=0;col<16;col++){
+        const angle=(col+(row%2)*.5)/16*Math.PI*2;
+        const scalePoint=(offset,dy,lift=0)=>{
+          const r=bodyRadius(y+dy)+.025+lift;
+          return merlionPoint([r*Math.cos(angle+offset),y+dy,r*.82*Math.sin(angle+offset)]);
+        };
+        const center=scalePoint(0,0,.025);
+        const edge=[];
+        for(let step=0;step<=8;step++){
+          const t=step/8*Math.PI;
+          edge.push(scalePoint(Math.cos(t)*.20,-Math.sin(t)*.105));
+        }
+        for(let i=0;i<edge.length-1;i++){
+          triangle(center,edge[i],edge[i+1],i%2?stone:stoneLight);
+          tube(edge[i],edge[i+1],.008,stoneShade,5);
+        }
+        triangle(center,edge[edge.length-1],scalePoint(0,.09),stone);
+        triangle(center,scalePoint(0,.09),edge[0],stone);
+      }
+    }
+    const finRoot=[.28,.84,.52];
+    const finEdge=[[.68,1.04,.35],[1.35,1.16,.10],[1.65,1.52,-.12],[1.55,1.93,-.20],[1.70,2.23,-.25],[1.47,2.40,-.24],[1.20,2.30,-.14],[1.05,2.02,.05],[.74,1.78,.24]];
+    for(let i=0;i<finEdge.length-1;i++){
+      triangle(...[finRoot,finEdge[i],finEdge[i+1]].map(merlionPoint),i%2?stone:stoneLight);
+      merlionTube(finEdge[i],finEdge[i+1],.025,stoneShade);
+      for(let segment=0;segment<8;segment++){
+        const point=t=>finRoot.map((v,k)=>v+(finEdge[i][k]-v)*t+(k===2?Math.sin(t*Math.PI)*.08:0));
+        merlionTube(point(segment/8),point((segment+1)/8),.013,stoneShade,5);
+      }
+    }
+    for(let wave=0;wave<16;wave++){
+      const angle=wave/16*Math.PI*2;
+      for(let step=0;step<8;step++){
+        const point=t=>merlionPoint([(.72+.13*Math.sin(t*Math.PI))*Math.cos(angle+t*.3),.48+.08*Math.sin(t*Math.PI*2),(.72+.13*Math.sin(t*Math.PI))*.8*Math.sin(angle+t*.3)]);
+        tube(point(step/8),point((step+1)/8),.025,stoneLight,6);
+      }
+    }
+    merlionSphere(0,3.30,-.08,.43,.64,.40);
+    merlionSphere(0,3.62,.14,.39,.42,.40);
+    for(let lock=0;lock<23;lock++){
+      const theta=-2.1+lock/22*4.2;
+      const strand=(t,offset=0)=>{
+        const r=.13+.48*Math.sin(t*Math.PI*.7);
+        return [Math.sin(theta+offset)*r,4.02-t*(1.55+.13*Math.cos(theta*3)),-Math.cos(theta+offset)*r*.85-.06];
+      };
+      for(let segment=0;segment<10;segment++){
+        const a=segment/10,b=(segment+1)/10,width=.065*(1-b*.4);
+        merlionQuad(strand(a,-width),strand(a,width),strand(b,width),strand(b,-width),lock%3?stone:stoneLight);
+        merlionTube(strand(a),strand(b),.009,stoneShade,5);
+      }
+    }
+    for(const side of [-1,1]){
+      merlionSphere(side*.35,3.86,-.01,.10,.13,.075,stoneShade);
+      merlionSphere(side*.35,3.87,.015,.07,.08,.055,stone);
+      merlionSphere(side*.285,3.49,.31,.17,.24,.20);
+      merlionSphere(side*.25,3.70,.405,.11,.075,.055,stoneShade);
+      merlionSphere(side*.25,3.70,.444,.047,.035,.018,[.32,.40,.40]);
+      merlionTube([side*.13,3.80,.43],[side*.35,3.79,.34],.045,stoneLight);
+    }
+    merlionSphere(0,3.33,.64,.29,.13,.16,[.14,.22,.23]);
+    merlionSphere(0,3.13,.53,.30,.13,.26);
+    for(const side of [-1,1]){
+      merlionSphere(side*.12,3.48,.62,.19,.145,.24,stoneLight);
+      merlionTube([side*.19,3.37,.70],[side*.17,3.28,.71],.025,stoneLight);
+      for(let whisker=0;whisker<3;whisker++)merlionTube([side*.08,3.48-whisker*.045,.848],[side*.25,3.47-whisker*.04,.74],.008,stoneShade,5);
+    }
+    merlionSphere(0,3.57,.80,.13,.07,.08,stoneShade);
+    for(const side of [-1,1])merlionSphere(side*.055,3.56,.858,.022,.018,.012,[.23,.31,.32]);
+    const waterPoint=t=>merlionPoint([0,3.32+.6*t-3.98*t*t,.80+3.2*t]);
+    for(let i=0;i<36;i++)tube(waterPoint(i/36),waterPoint((i+1)/36),.032,[.49,.81,.91],6,true);
+    const splash=waterPoint(1);
+    ellipse(splash[0],-.06,splash[2],.45,.35,.012,cyan);
+
+    const bridgeZ=2.5;
+    box(5,.32,bridgeZ,8,.14,.8,[.59,.71,.68]);
+    for(const z of [bridgeZ-.4,bridgeZ+.4]){
+      tube([1,.68,z],[9,.68,z],.022,ivory,6,true);
+      tube([1,.48,z],[9,.48,z],.025,cyan,6,true);
+      for(let x=1;x<=9;x+=.4)tube([x,.47,z],[x,.69,z],.012,ivory,5);
+    }
+    const mast=t=>[7-2.4*t+.65*Math.sin(t*Math.PI),.45+4.4*t,bridgeZ];
+    for(let i=0;i<30;i++)tube(mast(i/30),mast((i+1)/30),.12-(i/30)*.055,ivory,8);
+    for(let i=0;i<15;i++){
+      const t=.45+i/14*.55,baseX=6.6-i*.37;
+      tube([baseX,.47,bridgeZ],mast(t),.015,[.65,.83,.77],5,true);
+    }
+    for(const x of [1.4,7,8.6])box(x,-.05,bridgeZ,.18,.45,.6,[.25,.39,.41]);
+    for(let i=0;i<7;i++){
+      const x=2+i*1.08,z=-.8,h=1.55+(i%3)*.18;
+      box(x,.12,z,.88,h,.85,i%2?[.32,.25,.24]:[.34,.35,.31]);
+      box(x,h+.12,z,.95,.12,.92,[.21,.29,.30]);
+      for(let y=.4;y<h;y+=.42)for(const dx of [-.23,.23])box(x+dx,y,z+.44,.15,.21,.02,gold,true);
+      box(x,.12,z+.44,.17,.42,.025,[.11,.26,.27]);
+    }
+    box(5,.12,-3.5,4.2,1.25,1.3,[.50,.52,.43]);
+    box(5,1.37,-3.5,4.5,.14,1.45,[.43,.53,.47]);
+    for(let x=3.1;x<=7;x+=.4)tube([x,.15,-2.82],[x,1.3,-2.82],.055,ivory,6);
+    sphere(5,1.65,-3.5,.55,.52,.55,[.26,.46,.43]);
+    tube([5,2.13,-3.5],[5,2.5,-3.5],.035,gold,6,true);
+    tube([8.4,.15,-2.7],[8.4,5,-2.7],.035,[.58,.75,.73],6);
+    for(let i=0;i<13;i++){
+      const x=-12+i*.95,z=-7-random()*3,w=.45+random()*.55,h=1+random()*3.2;
+      box(x,0,z,w,h,.7,[.13+random()*.06,.23,.34]);
+      for(let y=.25;y<h;y+=.32) for(let col=0;col<2;col++){
+        if(random()>.36)box(x+(col-.5)*w*.45,y,z+.36,w*.15,.065,.012,random()>.5?[.52,.64,.65]:[.72,.55,.34],true);
+      }
+      if(i%5===0)tube([x,h,z],[x,h+.5,z],.015,cyan,5,true);
+    }
+    const wheelCenter=[-9,2.2,-4], wheelRadius=1.65;
+    for(let i=0;i<48;i++){
+      const t=i/48*Math.PI*2,n=(i+1)/48*Math.PI*2;
+      const a=[wheelCenter[0]+Math.cos(t)*wheelRadius,wheelCenter[1]+Math.sin(t)*wheelRadius,wheelCenter[2]];
+      const b=[wheelCenter[0]+Math.cos(n)*wheelRadius,wheelCenter[1]+Math.sin(n)*wheelRadius,wheelCenter[2]];
+      tube(a,b,.025,[.53,.71,.77],5,true);
+      if(i%4===0){tube(wheelCenter,a,.009,[.30,.43,.54],4);box(a[0],a[1]-.05,a[2],.12,.10,.12,gold,true);}
+    }
+    tube([-10,.1,-4],wheelCenter,.065,[.32,.45,.54]);tube([-8,.1,-4],wheelCenter,.065,[.32,.45,.54]);
+    for(let i=0;i<180;i++){
+      const x=-8+random()*17,z=2.3+random()*11;
+      const color=x<0?[.16,.23,.23]:[.10,.22,.27];
+      box(x,-.065,z,.025+random()*.06,.003,.16+random()*.4,color,true);
+    }
+    const count=vertices.length/6;
+    box(0,.03,0,.62,.12,.28,[.32,.48,.56]);
+    box(0,.15,0,.34,.15,.22,[.75,.78,.71]);
+    box(0,.18,.12,.27,.055,.014,gold,true);
+    box(-.27,.15,0,.05,.04,.04,cyan,true);
+    const boatCount=vertices.length/6-count;
+    const buffer=gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,buffer);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(vertices),gl.STATIC_DRAW);
+    for(const [name,offset] of [["aPosition",0],["aColor",12]]){
+      const location=gl.getAttribLocation(program,name);
+      gl.enableVertexAttribArray(location);gl.vertexAttribPointer(location,3,gl.FLOAT,false,24,offset);
+    }
+    gl.enable(gl.DEPTH_TEST);
+    gl.clearColor(0,0,0,0);
+    const matrixLocation=gl.getUniformLocation(program,"uMatrix"),timeLocation=gl.getUniformLocation(program,"uTime"),offsetLocation=gl.getUniformLocation(program,"uOffset");
+    const multiply=(a,b)=>{
+      const out=new Float32Array(16);
+      for(let c=0;c<4;c++)for(let r=0;r<4;r++)for(let k=0;k<4;k++)out[c*4+r]+=a[k*4+r]*b[c*4+k];
+      return out;
+    };
+    const entries=[
+      {button:home.querySelector('[data-meeting="1"]'),point:[-4,4.3,3.4]},
+      {button:home.querySelector('[data-meeting="2"]'),point:[5.1,4.7,2.5]}
+    ];
+    let camera = null;
+    const pickLandmark = (clientX,clientY) => {
+      if(!camera)return null;
+      const {eye,x,y,z,f,aspect}=camera;
+      const rect=canvas.getBoundingClientRect();
+      const nx=((clientX-rect.left)/rect.width*2-1)*aspect/f;
+      const ny=(1-(clientY-rect.top)/rect.height*2+.16)/f;
+      const direction=norm(x.map((v,i)=>v*nx+y[i]*ny-z[i]));
+      const bounds=[
+        {entry:entries[0],min:[-5.05,.1,2.7],max:[-2.75,4.2,5.25]},
+        {entry:entries[1],min:[1,.3,2.1],max:[9,4.9,2.9]}
+      ];
+      let nearest=null,distance=Infinity;
+      for(const bound of bounds){
+        let near=0,far=Infinity;
+        for(let i=0;i<3;i++){
+          if(Math.abs(direction[i])<1e-8){
+            if(eye[i]<bound.min[i]||eye[i]>bound.max[i])far=-1;
+          }else{
+            const a=(bound.min[i]-eye[i])/direction[i],b=(bound.max[i]-eye[i])/direction[i];
+            near=Math.max(near,Math.min(a,b));far=Math.min(far,Math.max(a,b));
+          }
+        }
+        if(near<=far&&near<distance){nearest=bound.entry;distance=near;}
+      }
+      return nearest;
+    };
+    const draw = time => {
+      frame=0;
+      if(failed||contextLost||home.hidden||document.hidden){lastTime=0;return;}
+      const delta=lastTime?Math.min((time-lastTime)/1000,.05):0;
+      lastTime=time;
+      if(!paused){phase+=delta;yawOffset+=(pointerX*.11-yawOffset)*.035;pitchOffset+=(pointerY*.35-pitchOffset)*.035;}
+      const w=home.clientWidth,h=home.clientHeight,dpr=Math.min(devicePixelRatio,1.7);
+      if(canvas.width!==Math.round(w*dpr)||canvas.height!==Math.round(h*dpr)){canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);gl.viewport(0,0,canvas.width,canvas.height);}
+      const aspect=w/h,radius=22*Math.max(1,1.15/aspect),yaw=.10+Math.sin(phase*.12)*.035+yawOffset;
+      const eye=[Math.sin(yaw)*radius,radius*.43+pitchOffset,Math.cos(yaw)*radius],target=[0,1,0];
+      const z=norm(subtract(eye,target)),x=norm(cross([0,1,0],z)),y=cross(z,x);
+      const view=[x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-dot(x,eye),-dot(y,eye),-dot(z,eye),1];
+      const f=1/Math.tan(Math.PI/8),near=.1,far=250;
+      camera={eye,x,y,z,f,aspect};
+      const projection=[f/aspect,0,0,0,0,f,0,0,0,.16,(far+near)/(near-far),-1,0,0,2*far*near/(near-far),0];
+      const matrix=multiply(projection,view);
+      gl.uniformMatrix4fv(matrixLocation,false,matrix);
+      gl.uniform1f(timeLocation,phase);
+      gl.uniform3f(offsetLocation,0,0,0);
+      gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+      gl.drawArrays(gl.TRIANGLES,0,count);
+      gl.uniform3f(offsetLocation,Math.sin(phase*.08)*6,.015*Math.sin(phase),5.2+Math.cos(phase*.08)*.5);
+      gl.drawArrays(gl.TRIANGLES,count,boatCount);
+      for(const {button,point} of entries){
+        const v=[...point,1],clip=[0,0,0,0];
+        for(let r=0;r<4;r++)for(let c=0;c<4;c++)clip[r]+=matrix[c*4+r]*v[c];
+        const px=(clip[0]/clip[3]*.5+.5)*w,py=(-clip[1]/clip[3]*.5+.5)*h;
+        const half=button.offsetWidth/2+12;
+        button.style.setProperty("--entry-x",`${Math.max(half,Math.min(w-half,px))}px`);
+        button.style.setProperty("--entry-y",`${Math.max(240,Math.min(h-130,py-18))}px`);
+      }
+      if(w<=520){
+        const first=entries[0].button.getBoundingClientRect(),second=entries[1].button.getBoundingClientRect();
+        if(first.right>second.left&&first.bottom+10>second.top){
+          entries[1].button.style.setProperty("--entry-y",`${first.bottom-home.getBoundingClientRect().top+10}px`);
+        }
+      }
+      canvas.dataset.rendered="true";
+      if(!paused)frame=requestAnimationFrame(draw);
+    };
+    const wake=()=>{if(!frame&&!failed&&!contextLost&&!home.hidden&&!document.hidden)frame=requestAnimationFrame(draw);};
+    const syncMotion=()=>{
+      document.getElementById("sg-pause").hidden=paused;
+      document.getElementById("sg-play").hidden=!paused;
+      motion.setAttribute("aria-pressed",String(paused));
+      lastTime=0;wake();
+    };
+    motion.addEventListener("click",()=>{paused=!paused;syncMotion();});
+    reduceMotion.addEventListener("change",event=>{paused=event.matches;syncMotion();});
+    home.addEventListener("pointermove",event=>{
+      if(event.target===canvas)canvas.style.cursor=pickLandmark(event.clientX,event.clientY)?"pointer":"default";
+      if(event.pointerType==="touch"||paused)return;
+      pointerX=event.clientX/home.clientWidth-.5;pointerY=event.clientY/home.clientHeight-.5;wake();
+    });
+    home.addEventListener("pointerleave",()=>{pointerX=0;pointerY=0;});
+    canvas.addEventListener("click",event=>{
+      const entry=pickLandmark(event.clientX,event.clientY);
+      if(entry)entry.button.click();
+    });
+    new ResizeObserver(wake).observe(home);
+    new MutationObserver(wake).observe(home,{attributes:true,attributeFilter:["hidden"]});
+    document.addEventListener("visibilitychange",wake);
+    canvas.addEventListener("webglcontextlost",event=>{
+      event.preventDefault();contextLost=true;showError(new Error("WebGL context lost. Reload to restore the scene."));
+    });
+    syncMotion();
+  } catch(error) {
+    showError(error);
+  }
 })();
 </script>
 </body>
