@@ -8,7 +8,7 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<title>Where Do AI PRs End Up? · TOSEM · N=567</title>
+<title>Select a meeting</title>
 <style>
   :root{
     --bg:#F4F3EF;
@@ -1146,12 +1146,340 @@
     .rt-metric span{font-size:8px}
     .rt-insight-stats{grid-template-columns:1fr}
   }
+  .meeting-home[hidden],#meeting-content[hidden]{display:none}
+  .meeting-home{
+    position:relative;z-index:1;min-height:100vh;min-height:100svh;
+    display:grid;place-items:center;padding:24px;
+  }
+  .meeting-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;width:min(100%,660px)}
+  .meeting-choice{
+    appearance:none;cursor:pointer;min-height:160px;padding:28px 20px;
+    border:1px solid var(--hair);border-radius:18px;background:var(--cream);
+    color:var(--ink);font:500 clamp(22px,3vw,30px) var(--serif);
+    box-shadow:0 12px 34px rgba(31,36,33,.04);
+    transition:border-color .18s ease,background .18s ease,transform .18s ease;
+  }
+  .meeting-choice:hover{border-color:var(--clay);background:#F8F0EC;transform:translateY(-3px)}
+  .meeting-choice:focus-visible,.meeting-home-button:focus-visible{outline:2px solid var(--clay);outline-offset:4px}
+  .meeting-home-button{
+    appearance:none;cursor:pointer;border:1px solid var(--hair);border-radius:999px;
+    padding:8px 13px;background:var(--cream);color:var(--ink-soft);font:500 12px var(--sans);
+  }
+  .meeting-home-button:hover{border-color:var(--clay);color:var(--clay)}
+  @media(max-width:520px){
+    .meeting-choices{grid-template-columns:1fr;max-width:340px}
+    .meeting-choice{min-height:130px}
+  }
+  .meeting-bar{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    margin:0 0 clamp(22px,2.8vw,34px);padding:12px 18px;
+    border:1px solid var(--hair);border-radius:14px;
+    background:rgba(252,251,248,.68);box-shadow:inset 0 1px 0 rgba(255,255,255,.55);
+  }
+  .meeting-bar-copy{display:flex;flex-direction:column;gap:2px}
+  .meeting-bar-kicker{font-size:10px;letter-spacing:.16em;color:var(--clay);font-weight:600;text-transform:uppercase}
+  .meeting-bar-sub{font-size:11px;color:var(--muted)}
+  .meeting-bar-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .meeting-bar-label{font-size:11px;font-weight:500;color:var(--ink-soft)}
+  .meeting-select{
+    appearance:none;-webkit-appearance:none;cursor:pointer;
+    padding:8px 34px 8px 13px;border:1px solid var(--hair);border-radius:999px;
+    background-color:var(--cream);color:var(--ink);font:500 12px var(--sans);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 4.5 6 8l3.5-3.5' fill='none' stroke='%234A4F49' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center;
+    transition:border-color .16s ease,box-shadow .16s ease;
+  }
+  .meeting-select:hover{border-color:rgba(184,82,74,.45)}
+  .meeting-select:focus-visible{outline:2px solid rgba(184,82,74,.55);outline-offset:2px}
+  #aidev-skills-panel{--sk-blue:#245B91;--sk-muted:#52677B;--sk-line:#D8E5F0;min-width:0;animation:ex-in .32s ease both}
+  #aidev-skills-panel[hidden]{display:none}
+  body.is-aidev-skills{background:#F3F7FB;color:#182F48}
+  body.is-aidev-skills::before{display:none}
+  body.is-aidev-skills .wrap{max-width:1280px}
+  body.is-aidev-skills .meeting-bar{padding:0;margin-bottom:14px;border:0;border-radius:0;background:none;box-shadow:none}
+  body.is-aidev-skills .meeting-bar-copy,body.is-aidev-skills .meeting-bar-label{display:none}
+  body.is-aidev-skills .meeting-bar-controls{width:100%}
+  body.is-aidev-skills .masthead{padding-bottom:0}
+  body.is-aidev-skills .source-picker{justify-content:flex-end;border:0;margin:0 0 16px;padding:0}
+  body.is-aidev-skills .sp-label,body.is-aidev-skills .source-tabs,
+  body.is-aidev-skills .eyebrow,body.is-aidev-skills #page-title,body.is-aidev-skills #page-dek,
+  body.is-aidev-skills #view-tabs-row,body.is-aidev-skills #viewbar,body.is-aidev-skills footer{display:none}
+  .sk-hero{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr);gap:32px;align-items:center;padding:12px 0 30px}
+  .sk-kicker{font-size:11px;letter-spacing:.15em;font-weight:600;color:var(--sk-blue)}
+  .sk-title{margin:14px 0;font:700 clamp(30px,3.8vw,48px)/1.25 var(--sans);letter-spacing:-.035em;text-wrap:balance}
+  .sk-title em{font-style:normal;color:var(--sk-blue)}
+  .sk-lede{margin:0;font-size:14px;line-height:1.85;color:var(--sk-muted)}
+  .sk-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+  .sk-nav button{padding:9px 15px;background:#FFF;border:1px solid var(--sk-line);border-radius:99px;color:var(--sk-blue);font:500 12px var(--sans);cursor:pointer}
+  .sk-panel{min-width:0;margin-bottom:20px;padding:clamp(20px,2.8vw,32px);border:1px solid var(--sk-line);border-radius:20px;background:#FFF;box-shadow:0 6px 22px #18375604;scroll-margin-top:24px}
+  .sk-heading{display:flex;align-items:center;gap:12px;margin-bottom:22px}
+  .sk-heading h2{margin:0;font-size:clamp(18px,2vw,23px);line-height:1.5}
+  .sk-number{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;background:var(--sk-blue);color:white;font-size:15px;font-weight:700}
+  .sk-cite{vertical-align:super;margin-left:5px;padding:3px;border:0;background:none;color:var(--sk-blue);font:600 10px var(--sans);cursor:pointer}
+  .sk-note{font-size:11px;line-height:1.8;color:var(--sk-muted);margin:14px 0 0}
+  .sk-references{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+  .sk-reference{display:grid;grid-template-columns:24px 1fr;gap:6px;font-size:11px;line-height:1.8;color:var(--sk-muted);scroll-margin-top:30px}
+  .sk-reference b{color:#253F5A}
+  .sk-reference a{color:var(--sk-blue);overflow-wrap:anywhere}
+  .sk-reference:focus{outline:2px solid #7EA3CD;outline-offset:6px;border-radius:3px}
+  .sk-method-note{margin:20px 0 0;padding-top:16px;border-top:1px solid var(--sk-line);font-size:11px;line-height:1.8;color:var(--sk-muted)}
+  .ev-eyebrow{font-size:10px;font-weight:600;letter-spacing:.1em;line-height:1.7}
+  .ev-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .ev-tags span{padding:5px 10px;border:1px solid #C8DDD9;border-radius:99px;color:#276D61;background:#EDF6F2;font-size:10px}
+  .ev-question{padding:28px;border:1px solid #D4E3E4;border-radius:22px;background:linear-gradient(140deg,#E2F0EC,#EBF1FC);align-self:stretch;display:flex;flex-direction:column;justify-content:center}
+  .ev-question>.ev-eyebrow{color:#397264}
+  .ev-question p{font-size:clamp(18px,2.1vw,25px);font-weight:600;line-height:1.6;margin:18px 0}
+  .ev-question>div{padding-top:17px;border-top:1px solid #C9DDD9;color:#52677B;font-size:12px;line-height:1.9}
+  .ev-highlights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin:4px 0 25px}
+  .ev-highlight{min-width:0;border:1px solid var(--sk-line);border-radius:16px;padding:23px;background:#FFF}
+  .ev-highlight>.ev-eyebrow{color:var(--sk-muted)}
+  .ev-highlight>b{display:block;color:#246F61;font-size:clamp(25px,3vw,39px);letter-spacing:-.045em;font-weight:650;margin:16px 0 12px;font-variant-numeric:tabular-nums}
+  .ev-highlight:nth-child(2)>b{color:#B36351}
+  .ev-highlight:nth-child(3)>b{color:#456DA8}
+  .ev-highlight b small{font-size:11px;letter-spacing:0;font-weight:500;margin-left:6px}
+  .ev-highlight h2{font-size:14px;line-height:1.7;margin:0 0 9px}
+  .ev-highlight p{font-size:10px;line-height:1.9;color:var(--sk-muted);margin:0}
+  .ev-section-meta{display:flex;flex-wrap:wrap;gap:7px 18px;margin-top:-10px;font-size:10px;color:var(--sk-muted);line-height:1.8}
+  .ev-section-meta span:first-child{color:var(--sk-blue);font-weight:500}
+  .ev-intro{font-size:13px;line-height:1.9;color:var(--sk-muted);margin:17px 0 24px;max-width:76em}
+  .ev-comparison{display:grid;grid-template-columns:minmax(0,1fr) 245px;gap:30px;margin:25px 0}
+  .ev-legend{display:flex;flex-wrap:wrap;gap:9px 18px;font-size:10px;color:var(--sk-muted)}
+  .ev-legend span{display:flex;align-items:center;gap:6px}
+  .ev-legend i{display:inline-block;width:13px;height:7px;border-radius:2px}
+  .ev-curated{background:#2A9E87}
+  .ev-ai{background:#819AC5}
+  .ev-legend .ev-baseline-key{height:12px;width:0;border-left:2px dashed #536477;border-radius:0}
+  .ev-chart{display:grid;gap:5px;margin-top:13px}
+  .ev-model{display:grid;grid-template-columns:145px minmax(0,1fr);gap:12px;width:100%;border:1px solid transparent;border-radius:10px;background:transparent;padding:12px 10px;text-align:left;font:inherit;cursor:pointer;color:#253F5A;align-items:center}
+  .ev-model[aria-pressed="true"]{border-color:#C5DBD8;background:#F1F8F6}
+  .ev-model-name{font-size:12px;font-weight:600;line-height:1.6}
+  .ev-model-name small{display:block;font-size:9px;font-weight:400;color:var(--sk-muted)}
+  .ev-tracks{position:relative;display:grid;gap:8px;min-width:0;margin-right:46px;background:repeating-linear-gradient(90deg,#DCE6ED 0 1px,transparent 1px 20%)}
+  .ev-track{position:relative;display:block;height:13px}
+  .ev-track>i{display:block;height:100%;border-radius:0 3px 3px 0}
+  .ev-track>b{position:absolute;left:calc(100% + 8px);top:-1px;font-size:11px;line-height:15px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .ev-baseline{position:absolute;top:-4px;bottom:-4px;width:0;border-left:1.5px dashed #536477;z-index:1;pointer-events:none}
+  .ev-model-detail{padding:24px;border-radius:15px;background:#EDF5F2;border:1px solid #D1E4DC;align-self:start;margin-top:50px}
+  .ev-model-detail>.ev-eyebrow{color:#4E766B}
+  .ev-model-detail h3{font-size:13px;margin:13px 0 18px;line-height:1.7}
+  .ev-model-detail>strong{display:block;font-size:48px;letter-spacing:-.04em;color:#246F61;font-variant-numeric:tabular-nums}
+  .ev-model-detail>span:not(.ev-eyebrow){display:block;font-size:11px;color:#4E766B;margin-top:5px;line-height:1.7}
+  .ev-model-detail dl{margin:20px 0 0;border-top:1px solid #D1E4DC;padding-top:12px}
+  .ev-model-detail dl div{display:flex;justify-content:space-between;gap:10px;font-size:11px;line-height:2.3}
+  .ev-model-detail dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
+  .ev-model-detail p{font-size:10px;line-height:1.8;color:#526D63;margin:14px 0 0}
+  .ev-details{margin:20px 0}
+  .ev-details summary{font-size:12px;font-weight:500;color:var(--sk-blue);cursor:pointer;padding:12px 0;border-top:1px solid var(--sk-line)}
+  .ev-table-wrap{max-width:100%;overflow-x:auto;border:1px solid var(--sk-line);border-radius:12px;background:#FFF}
+  .ev-table{width:100%;border-collapse:collapse;text-align:left;font-size:12px;line-height:1.7;font-variant-numeric:tabular-nums}
+  .ev-table caption{text-align:left;padding:14px 16px;background:#F6F9FC;color:var(--sk-muted);font-size:10px;line-height:1.8}
+  .ev-table th,.ev-table td{padding:14px 16px;border-top:1px solid var(--sk-line)}
+  .ev-table thead th{background:#EEF4F8;color:#3A5670;font-size:10px;font-weight:600;white-space:nowrap}
+  .ev-table tbody th{font-size:11px;font-weight:500;min-width:155px}
+  .ev-table tbody tr:nth-child(even){background:#FAFCFD}
+  .ev-table td{white-space:nowrap}
+  .ev-table small,.ev-model-pair span{display:block;color:var(--sk-muted);font-size:10px;font-weight:400}
+  .ev-positive{color:#24745F;font-weight:650}
+  .ev-negative{color:#AC5045;font-weight:650}
+  .ev-caution{margin-top:20px;padding:14px 18px;border-left:3px solid #CAB486;border-radius:0 9px 9px 0;background:#F8F5EE;color:#766246;font-size:11px;line-height:1.9}
+  .ev-protocol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:25px 0}
+  .ev-protocol>div{position:relative;padding:17px 20px;border:1px solid var(--sk-line);background:#F6F9FC;border-radius:12px}
+  .ev-protocol>div:not(:last-child)::after{content:"→";position:absolute;right:-12px;top:40%;z-index:1;color:var(--sk-blue)}
+  .ev-protocol small{font-size:9px;letter-spacing:.09em;color:#67849C}
+  .ev-protocol b{display:block;font-size:14px;margin-top:8px}
+  .ev-protocol span{display:block;font-size:10px;color:var(--sk-muted);line-height:1.8;margin-top:6px}
+  .ev-risk-layout{display:grid;grid-template-columns:240px minmax(0,1fr);gap:35px;align-items:center;padding:22px;border:1px solid #ECDDD6;border-radius:15px;background:#FFFCF9}
+  .ev-risk-summary>.ev-eyebrow{color:#9C6757}
+  .ev-risk-summary>b{display:block;font-size:64px;letter-spacing:-.05em;color:#B36351;margin:8px 0}
+  .ev-risk-summary b small{font-size:24px;margin-left:4px}
+  .ev-risk-summary p{font-size:12px;line-height:1.9;margin:0;color:#786257}
+  .ev-risk-summary>span:last-child{display:block;font-size:9px;color:#8D786B;margin-top:12px;line-height:1.8}
+  .ev-risk-chart{display:grid;gap:23px}
+  .ev-risk-row{display:grid;grid-template-columns:155px minmax(0,1fr) 43px;align-items:center;gap:12px}
+  .ev-risk-row b{display:block;font-size:11px;font-weight:500;overflow-wrap:anywhere}
+  .ev-risk-row span{font-size:9px;color:var(--sk-muted)}
+  .ev-risk-track{height:10px;background:#EEE6E1;border-radius:99px;overflow:hidden}
+  .ev-risk-track i{display:block;height:100%;background:#C68471;border-radius:99px}
+  .ev-risk-row:first-child i{background:#A35A49}
+  .ev-risk-row strong{font-size:15px;text-align:right;color:#A35A49;font-variant-numeric:tabular-nums}
+  .ev-subheading{font-size:16px;margin:30px 0 17px}
+  .ev-artifacts{display:grid;grid-template-columns:1.2fr 1fr;gap:18px}
+  .ev-artifact{min-width:0;padding:25px;border-radius:15px;border:1px solid #CDE3DA;background:#F1F8F5}
+  .ev-artifact>.ev-eyebrow{color:#447D6D}
+  .ev-artifact h3{font-size:18px;margin:12px 0}
+  .ev-artifact>p{font-size:12px;color:var(--sk-muted);line-height:1.9}
+  .ev-endpoints{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:27px 0}
+  .ev-endpoints b,.ev-weak-value b{display:block;font-size:38px;letter-spacing:-.04em;color:#24745F;font-variant-numeric:tabular-nums}
+  .ev-endpoints b small,.ev-weak-value b small{font-size:10px;letter-spacing:0;font-weight:400;margin-left:6px}
+  .ev-endpoints span,.ev-weak-value span{display:block;font-size:10px;line-height:1.8;color:var(--sk-muted);margin-top:9px}
+  .ev-weak{border-color:#EDDAD5;background:#FCF5F2}
+  .ev-weak>.ev-eyebrow,.ev-weak-value b{color:#AC6351}
+  .ev-weak-value{margin:27px 0}
+  .ev-conclusion{background:#1C3546;color:#ECF3F6;border-color:#1C3546}
+  .ev-conclusion .sk-number{background:#36576C}
+  .ev-verdicts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+  .ev-verdicts>div+div{border-left:1px solid #476071;padding-left:25px}
+  .ev-verdicts span{font-size:9px;letter-spacing:.1em;color:#9EBFC4}
+  .ev-verdicts h3{font-size:16px;line-height:1.8;font-weight:500;margin:12px 0}
+  .ev-verdicts p{font-size:11px;color:#B2C6D1;line-height:1.9;margin:0}
+  .ev-revision{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+  .ev-revision>div{padding:19px 16px;border:1px solid var(--sk-line);border-radius:12px;background:#F8FAFC}
+  .ev-revision>div:last-child{background:#ECF6F1;border-color:#CEE2D7}
+  .ev-revision span{font-size:11px;color:var(--sk-muted)}
+  .ev-revision b{display:block;font-size:28px;color:var(--sk-blue);margin:12px 0}
+  .ev-revision>div:last-child b{color:#24745F}
+  .ev-revision small{color:var(--sk-muted);font-size:10px}
+  #aidev-skills-panel button:focus-visible{outline:2px solid var(--sk-blue);outline-offset:3px}
+  @media(hover:hover){
+    .sk-nav button:hover{border-color:#7EA3CD;background:#E7EFFB}
+    .ev-model:hover{background:#F1F8F6;border-color:#C5DBD8}
+  }
+  @media(max-width:1050px){
+    .ev-comparison{grid-template-columns:minmax(0,1fr) 215px;gap:20px}
+    .ev-model{grid-template-columns:125px minmax(0,1fr);gap:8px}
+    .ev-risk-layout{grid-template-columns:200px minmax(0,1fr);gap:22px}
+    .ev-risk-row{grid-template-columns:130px minmax(0,1fr) 43px}
+    .ev-highlight{padding:20px 16px}
+    .ev-highlight>b{font-size:30px}
+  }
+  @media(max-width:760px){
+    .sk-hero,.ev-comparison,.ev-risk-layout,.ev-artifacts{grid-template-columns:1fr}
+    .sk-hero{gap:22px}
+    .ev-model-detail{margin-top:0}
+    .ev-model-detail>strong{font-size:38px}
+    .ev-highlights{gap:9px}
+    .ev-highlight>b{font-size:25px}
+    .ev-highlight b small{display:block;margin:6px 0 0}
+    .ev-highlight h2{font-size:12px}
+    .ev-protocol>div{padding:15px 12px}
+    .ev-verdicts{grid-template-columns:1fr;gap:20px}
+    .ev-verdicts>div+div{border-left:0;border-top:1px solid #476071;padding:20px 0 0}
+    .ev-revision{grid-template-columns:1fr 1fr}
+    .sk-references{grid-template-columns:1fr}
+  }
+  @media(max-width:520px){
+    .sk-panel{padding:18px}
+    .sk-heading{gap:9px}
+    .sk-number{width:28px;height:28px;font-size:12px}
+    .sk-title{font-size:30px}
+    .ev-highlights{grid-template-columns:1fr}
+    .ev-highlight{padding:20px}
+    .ev-highlight>b{font-size:34px;margin:12px 0}
+    .ev-highlight b small{display:inline;margin-left:6px}
+    .ev-highlight h2{font-size:14px}
+    .ev-question{padding:22px}
+    .ev-model{grid-template-columns:1fr;gap:10px;padding:13px 8px}
+    .ev-model-name{display:flex;align-items:baseline;gap:8px}
+    .ev-tracks{margin-right:48px}
+    .ev-risk-layout{padding:18px;gap:25px}
+    .ev-risk-row{grid-template-columns:115px minmax(0,1fr) 39px;gap:7px}
+    .ev-protocol{grid-template-columns:1fr;gap:10px}
+    .ev-protocol>div:not(:last-child)::after{content:"↓";right:17px;top:auto;bottom:-13px}
+    .ev-artifact{padding:20px}
+    .ev-endpoints b{font-size:32px}
+    .ev-endpoints b small{display:block;margin:5px 0 0}
+    .ev-revision b{font-size:24px}
+  }
   @media (max-width:560px){
+    .meeting-bar{align-items:flex-start;flex-direction:column;gap:10px}
+    .meeting-bar-controls,.meeting-select{width:100%}
     body.is-aidev .view-tabs-row{gap:10px;margin-top:-2px}
     body.is-aidev .vt-label{display:none}
     body.is-aidev .view-tabs{flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding-bottom:3px;scrollbar-width:none}
     body.is-aidev .view-tabs::-webkit-scrollbar{display:none}
     body.is-aidev .view-tab{flex:none;padding:7px 11px;font-size:10.5px}
+  }
+  body.is-aidev-skills .wrap{max-width:1440px;padding:18px clamp(16px,3vw,44px);height:100dvh;display:flex;flex-direction:column}
+  body.is-aidev-skills .wrap[hidden]{display:none}
+  body.is-aidev-skills .meeting-bar{flex:none}
+  body.is-aidev-skills .meeting-bar-controls{padding-right:100px}
+  body.is-aidev-skills .masthead{position:absolute;right:clamp(16px,3vw,44px);top:20px}
+  body.is-aidev-skills .source-picker{margin:0}
+  #aidev-skills-panel{display:flex;flex-direction:column;flex:1;min-height:0}
+  .ev-stage{flex:1;min-height:0;border:1px solid var(--sk-line);border-radius:20px;background:#FFF;overflow:hidden;box-shadow:0 16px 60px #18375609}
+  .ev-slide{height:100%;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:clamp(24px,3vw,42px);box-sizing:border-box;animation:ex-in .22s ease both}
+  .ev-slide[hidden]{display:none!important}
+  .ev-slide.sk-panel{margin:0;border:0;border-radius:0;box-shadow:none}
+  .ev-slide.sk-hero{padding:clamp(28px,4vw,60px);align-content:center}
+  .ev-slide.ev-highlights{margin:0;align-content:center;background:#F6F9FC}
+  .ev-slide .ev-highlight{padding:32px 24px}
+  .ev-slide .ev-highlight h2{font-size:17px}
+  .ev-slide .ev-highlight p{font-size:12px}
+  .ev-slide .ev-comparison{margin:12px 0;gap:24px}
+  .ev-slide .ev-model{padding:5px 10px}
+  .ev-slide .ev-model-detail{margin-top:12px;padding:18px}
+  .ev-slide .ev-model-detail h3{margin:8px 0 12px}
+  .ev-slide .ev-model-detail>strong{font-size:40px}
+  .ev-slide .ev-model-detail dl{margin-top:12px;padding-top:8px}
+  .ev-slide .ev-model-detail p{margin-top:8px}
+  .ev-slide .ev-intro{margin:14px 0 18px;font-size:14px}
+  .ev-slide .ev-details{margin:12px 0}
+  .ev-slide .ev-caution{font-size:12px;margin-top:16px}
+  .ev-slide .ev-verdicts{margin-top:clamp(24px,6vh,64px)}
+  .ev-slide .ev-verdicts h3{font-size:20px}
+  .ev-slide .ev-verdicts p{font-size:14px}
+  .ev-slide .ev-revision{margin:40px 0 28px}
+  .ev-slide .ev-revision b{font-size:clamp(28px,3vw,42px)}
+  .ev-slide .sk-references{margin:32px 0}
+  .ev-slide .sk-reference{font-size:13px}
+  .ev-slide .ev-table{font-size:14px}
+  .ev-slide .ev-table tbody th{font-size:13px}
+  .ev-deck-controls{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;padding-top:16px;flex:none}
+  .ev-deck-actions{display:flex;align-items:center;gap:10px}
+  .ev-deck-controls button,.ev-deck-controls select{font:500 12px var(--sans);color:var(--sk-blue);border:1px solid var(--sk-line);border-radius:10px;background:#FFF;min-height:40px;padding:8px 14px}
+  .ev-deck-controls button{cursor:pointer}
+  .ev-deck-controls button:disabled{opacity:.35;cursor:default}
+  .ev-deck-controls select{max-width:100%;min-width:0;cursor:pointer}
+  .ev-deck-position{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 14px;align-items:center;max-width:500px;width:100%;justify-self:center}
+  .ev-deck-count{font-size:12px;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--sk-muted)}
+  .ev-deck-progress{grid-column:1/-1;width:100%;height:3px;border:0;border-radius:3px;overflow:hidden;appearance:none}
+  .ev-deck-progress::-webkit-progress-bar{background:#DCE7EF}
+  .ev-deck-progress::-webkit-progress-value{background:#36786D}
+  .ev-deck-progress::-moz-progress-bar{background:#36786D}
+  .ev-deck-hint{font-size:10px;color:var(--sk-muted);text-align:center;margin:10px 0 0}
+  .ev-deck-message{font-size:12px;color:#AC5045;text-align:center}
+  .ev-slide-link{border:0;background:none;padding:6px 0;color:var(--sk-blue);font:500 12px var(--sans);cursor:pointer}
+  @media(min-width:761px) and (max-height:820px){
+    .ev-slide{padding:24px 30px}
+    .ev-slide .sk-heading{margin-bottom:16px}
+    .ev-slide .ev-protocol{margin:14px 0}
+    .ev-slide .ev-protocol>div{padding:12px 16px}
+    .ev-slide .ev-risk-layout{padding:16px;gap:24px}
+    .ev-slide .ev-risk-chart{gap:20px}
+    .ev-slide .ev-risk-summary>b{font-size:52px}
+    .ev-slide .ev-table th,.ev-slide .ev-table td{padding:10px 14px}
+    .ev-slide .ev-artifact{padding:20px}
+    .ev-slide .ev-endpoints,.ev-slide .ev-weak-value{margin:18px 0}
+  }
+  #aidev-skills-panel:fullscreen{padding:24px;background:#F3F7FB;box-sizing:border-box;overflow:auto}
+  #aidev-skills-panel:fullscreen{height:100dvh}
+  @media(max-width:760px){
+    body.is-aidev-skills .meeting-select{display:none}
+    body.is-aidev-skills .meeting-bar-controls{width:auto}
+    .ev-slide{padding:24px}
+    .ev-slide.ev-highlights{grid-template-columns:1fr;align-content:start;gap:12px}
+    .ev-slide .ev-highlight{padding:22px}
+    .ev-slide .ev-comparison{grid-template-columns:1fr}
+    .ev-slide .ev-model-detail{margin-top:0}
+    .ev-deck-controls{gap:8px}
+    .ev-deck-actions{gap:6px}
+    .ev-deck-controls button{padding:8px 10px}
+    .ev-fullscreen{display:none}
+    .ev-deck-position{gap:6px}
+    .ev-deck-controls select{font-size:11px;padding:8px 4px}
+    .ev-slide .ev-verdicts{margin-top:20px}
+  }
+  @media(max-width:520px){
+    .ev-slide .ev-revision>div{min-width:0;padding:16px 10px}
+    .ev-slide .ev-revision b{font-size:24px}
+  }
+  @media print{
+    body.is-aidev-skills .wrap{height:auto;display:block}
+    #aidev-skills-panel{display:block}
+    body.is-aidev-skills .masthead,.ev-deck-controls,.ev-deck-hint,.ev-deck-message{display:none!important}
+    .ev-stage{height:auto;min-height:0;overflow:visible;border:0;box-shadow:none}
+    .ev-slide,.ev-slide[hidden]{display:block!important;height:auto;overflow:visible;break-after:page;padding:24px}
+    .ev-slide.ev-highlights{display:grid!important}
   }
   @media (prefers-reduced-motion:reduce){
     *{transition:none!important;animation:none!important}
@@ -1164,7 +1492,28 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<main class="meeting-home" id="meeting-home" aria-label="Select a meeting">
+  <nav class="meeting-choices" aria-label="Meetings">
+    <button class="meeting-choice" type="button" data-meeting="1">Meeting 1</button>
+    <button class="meeting-choice" type="button" data-meeting="2">Meeting 2</button>
+  </nav>
+</main>
+<div class="wrap" id="meeting-content" hidden>
+
+  <div class="meeting-bar" role="region" aria-label="Meeting selector">
+    <div class="meeting-bar-copy">
+      <span class="meeting-bar-kicker" id="meeting-bar-kicker">PHD ADVISOR MEETINGS</span>
+      <span class="meeting-bar-sub" id="meeting-bar-sub">Select which meeting's materials to view</span>
+    </div>
+    <div class="meeting-bar-controls">
+      <button class="meeting-home-button" id="meeting-home-button" type="button">Back to meetings</button>
+      <label class="meeting-bar-label" id="meeting-select-label" for="meeting-select">Meeting</label>
+      <select class="meeting-select" id="meeting-select" aria-label="Select a meeting">
+        <option value="1">Meeting 1 · AI PR &amp; AIDev</option>
+        <option value="2">Meeting 2 · AI-generated Skills: performance &amp; transfer</option>
+      </select>
+    </div>
+  </div>
 
   <header class="masthead">
     <div class="source-picker" aria-label="DATA SOURCE">
@@ -1353,6 +1702,8 @@
   </main>
 
   <main id="aidev-themes-panel" role="tabpanel" hidden aria-labelledby="tab-aidev"></main>
+
+  <main id="aidev-skills-panel" hidden aria-labelledby="sk-page-title"></main>
 
   <main id="aidev-decisions-panel" role="tabpanel" hidden aria-labelledby="tab-aidev"></main>
 
@@ -2284,6 +2635,18 @@ window.SWECHAT_SOURCE = {
   };
 
   const STATIC_I18N = [
+    {sel: "#meeting-home", attr: "aria-label", zh: "选择会议", en: "Select a meeting"},
+    {sel: ".meeting-choices", attr: "aria-label", zh: "会议导航", en: "Meetings"},
+    {sel: '.meeting-choice[data-meeting="1"]', zh: "第一次 Meeting", en: "Meeting 1"},
+    {sel: '.meeting-choice[data-meeting="2"]', zh: "第二次 Meeting", en: "Meeting 2"},
+    {sel: "#meeting-home-button", zh: "返回会议选择", en: "Back to meetings"},
+    {sel: ".meeting-bar", attr: "aria-label", zh: "会议选择", en: "Meeting selector"},
+    {sel: "#meeting-bar-kicker", zh: "博士导师会议记录", en: "PHD ADVISOR MEETINGS"},
+    {sel: "#meeting-bar-sub", zh: "先选择第几次 meeting，切换对应汇报内容", en: "Select which meeting's materials to view"},
+    {sel: "#meeting-select-label", zh: "选择会议", en: "Meeting"},
+    {sel: "#meeting-select", attr: "aria-label", zh: "选择会议", en: "Select a meeting"},
+    {sel: '#meeting-select option[value="1"]', zh: "第 1 次 Meeting · AI PR 与 AIDev", en: "Meeting 1 · AI PR & AIDev"},
+    {sel: '#meeting-select option[value="2"]', zh: "第 2 次 Meeting · AI 生成 Skill 的效果与迁移", en: "Meeting 2 · AI-generated Skills: performance & transfer"},
     {sel: ".source-picker", attr: "aria-label", zh: "数据来源", en: "DATA SOURCE"},
     {sel: "#sp-label-main", zh: "数据来源", en: "DATA SOURCE"},
     {sel: "#sp-label-sub", zh: "选择数据集", en: "SELECT DATASET"},
@@ -3004,6 +3367,35 @@ window.SWECHAT_SOURCE = {
           ]
         }
       },
+      skills: {
+        kind: "skill-evidence",
+        crumb: {zh: "Meeting 2 · AI 生成 Skill 的效果与迁移", en: "Meeting 2 · AI-generated Skill performance and transfer"},
+        eyebrowRight: {zh: "论文数据  ·  效果对照与迁移实验", en: "PAPER DATA  ·  PERFORMANCE AND TRANSFER"},
+        docTitle: {
+          zh: "AI 生成的 Skill，效果与迁移究竟如何？ · Meeting 2",
+          en: "AI-Generated Skills: Performance and Transfer · Meeting 2"
+        },
+        title: {
+          zh: 'AI 生成的 Skill，<span class="q">效果与迁移究竟如何？</span>',
+          en: 'AI-generated Skills: <span class="q">how well do they work and transfer?</span>'
+        },
+        dek: {
+          zh: "人工整理与 AI 自生成的实测对照 · 未见任务与跨模型迁移（2026）",
+          en: "Curated vs. AI-generated Skills · held-out tasks and cross-model transfer (2026)"
+        },
+        footerData: {
+          zh: "数据：SkillsBench v3 Table 3；From Raw Experience v1 Table 1 / Figure 4；SkillRevise Table 1。",
+          en: "Data: SkillsBench v3 Table 3; From Raw Experience v1 Table 1 / Figure 4; SkillRevise Table 1."
+        },
+        rounding: {
+          zh: "不同研究与分母不合并；差值按论文已舍入数值计算，效果差距不等同迁移差距。",
+          en: "Studies and denominators are not pooled; gaps use rounded reported values. Performance gaps are not transfer gaps."
+        },
+        citation: {
+          zh: '参考文献及表格定位见本页末尾。对照数据固定为 <a href="https://arxiv.org/html/2602.12670v3" target="_blank" rel="noopener">SkillsBench v3</a>。',
+          en: 'References and table locations appear below. Comparison data are pinned to <a href="https://arxiv.org/html/2602.12670v3" target="_blank" rel="noopener">SkillsBench v3</a>.'
+        }
+      },
       decisions: {
         kind: "decision-study",
         crumb: {zh: "AIDev · PR 决策", en: "AIDev · PR decisions"},
@@ -3200,6 +3592,11 @@ window.SWECHAT_SOURCE = {
   const roLabel = document.getElementById("ro-label");
   const roSub = document.getElementById("ro-sub");
   let slices = [], rows = [], pinned = null, currentSource = "tosem", currentView = "overview";
+  const meetingFromLocation = () => {
+    const requested = new URLSearchParams(location.search).get("meeting");
+    return requested === "2" || location.hash === "#aidev-skills" ? "2" : "1";
+  };
+  let currentMeeting = meetingFromLocation();
   let clusterRows = [], clusterPinned = null, clusterPreview = null;
   let reviewRankMode = "comments";
   let clusterDetailMeasureTimer = null;
@@ -3486,6 +3883,283 @@ window.SWECHAT_SOURCE = {
       });
     });
     renderThemeRanking(view);
+  }
+
+  function renderSkills(){
+    const root = document.getElementById("aidev-skills-panel");
+    const zh = LANG === "zh";
+    const cite = number => `<button type="button" class="sk-cite" data-sk-target="sk-ref-${number}" aria-label="${zh ? "查看参考文献" : "View reference"} ${number}">[${number}]</button>`;
+    const reference = (number, body) => `<div class="sk-reference" id="sk-ref-${number}" tabindex="-1"><b>[${number}]</b><span>${body}</span></div>`;
+    const heading = (number, id, title, citation = "") => `<div class="sk-heading"><span class="sk-number">${number}</span><h2 id="${id}">${title}${citation}</h2></div>`;
+    const comparisons = [
+      {model: "Claude Opus 4.5", harness: "Claude Code", base: 22.0, curated: 45.3, ai: 21.6},
+      {model: "GPT-5.2", harness: "Codex", base: 30.6, curated: 44.7, ai: 25.0},
+      {model: "Claude Opus 4.6", harness: "Claude Code", base: 30.6, curated: 44.5, ai: 32.0},
+      {model: "Claude Sonnet 4.5", harness: "Claude Code", base: 17.3, curated: 31.8, ai: 15.2},
+      {model: "Claude Haiku 4.5", harness: "Claude Code", base: 11.0, curated: 27.7, ai: 11.0}
+    ];
+    const risks = [
+      {label: zh ? "全部领域" : "All domains", value: 25, note: zh ? "总体负迁移" : "Overall negative transfer"},
+      {label: "SWE-bench-Verified", value: 13, note: zh ? "软件工程" : "Software engineering"},
+      {label: "SpreadsheetBench", value: 13, note: zh ? "表格操作" : "Spreadsheets"},
+      {label: "ALFWorld", value: 47, note: zh ? "具身任务" : "Embodied tasks"}
+    ];
+    const transferCases = [
+      {benchmark: "SWE-bench-Verified", writer: "GPT-5.4", executor: "GPT-5.4", base: 68.40, delta: 4.67},
+      {benchmark: "SWE-bench-Verified", writer: "GPT-5.4", executor: "Qwen3.5-9B", base: 33.33, delta: -1.07},
+      {benchmark: "SWE-bench-Verified", writer: "Qwen3.5-35B", executor: "Gemini-3.1-Pro", base: 66.53, delta: -1.60},
+      {benchmark: "BFCL-v4", writer: "Gemini-3.1-Pro", executor: "Gemini-3.1-Pro", base: 51.82, delta: -4.34}
+    ];
+    const signed = value => `${value > 0 ? "+" : value < 0 ? "−" : ""}${Math.abs(value).toFixed(2)}`;
+    const gap = item => (item.curated - item.ai).toFixed(1);
+    const pp = zh ? "个百分点" : "pp";
+    const slideTitles = zh
+      ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "反馈与修订", "结论与证据边界", "原始论文", "附录：完整对照数据"]
+      : ["Research question", "Three key figures", "Curated vs. AI-generated", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "Feedback and revision", "Conclusions and limits", "Primary sources", "Appendix: full comparison"];
+    root.innerHTML = `
+      <div class="ev-stage" aria-roledescription="${zh ? "幻灯片演示" : "slide presentation"}" aria-label="${zh ? "第二次 Meeting" : "Meeting 2"}">
+      <section class="sk-hero ev-slide" tabindex="-1">
+        <div>
+          <div class="sk-kicker">MEETING 02 / EVIDENCE BRIEF · 2026</div>
+          <h1 class="sk-title" id="sk-page-title">${zh ? 'AI 生成的 Skill，<br><em>效果与迁移究竟如何？</em>' : 'AI-generated Skills.<br><em>How well do they work and transfer?</em>'}</h1>
+          <p class="sk-lede">${zh ? "不只问 Skill 有没有用。<br>看 AI 生成与人工整理的实测差距，再看未见任务与跨模型迁移。" : "Not just whether Skills help.<br>Compare AI-generated and human-curated artifacts, then examine held-out tasks and cross-model transfer."}</p>
+          <div class="ev-tags"><span>${zh ? "论文表格核查" : "Paper tables checked"}</span><span>${zh ? "版本固定 · 口径分离" : "Version-pinned · distinct protocols"}</span></div>
+        </div>
+        <aside class="ev-question">
+          <span class="ev-eyebrow">${zh ? "本次关注 / THE QUESTION" : "THE QUESTION"}</span>
+          <p>${zh ? "AI 写出的 Skill，<br>是否比人类写的更难迁移？" : "Do AI-authored Skills transfer less reliably than human-authored ones?"}</p>
+          <div>${zh ? "效果差距已有数据。<br>迁移差距，仍需直接的人机对照。" : "Performance gaps are measured.<br>The human–AI transfer gap still needs a direct comparison."}</div>
+        </aside>
+      </section>
+      <section class="ev-highlights ev-slide" tabindex="-1" aria-label="${zh ? "关键数据摘要" : "Key figures"}">
+        <article class="ev-highlight"><span class="ev-eyebrow">01 / ${zh ? "人工对照" : "CURATED VS. AI"}</span><b>12.5–23.7<small>${pp}</small></b><h2>${zh ? "人工整理领先 AI 自生成" : "Curated Skills outperform self-generation"}</h2><p>SkillsBench v3 · Table 3<br>${zh ? "5 组配对配置 · 当前任务表现，非迁移率" : "5 paired configurations · current-task performance, not transfer"}</p></article>
+        <article class="ev-highlight"><span class="ev-eyebrow">02 / ${zh ? "未见任务" : "HELD-OUT TASKS"}</span><b>≈25<small>%</small></b><h2>${zh ? "评估组合出现负迁移" : "Evaluated combinations show negative transfer"}</h2><p>From Raw Experience · Table 1<br>${zh ? "不是单个任务失败率，也不是人机差距" : "Not a per-task failure rate or a human–AI gap"}</p></article>
+        <article class="ev-highlight"><span class="ev-eyebrow">03 / ${zh ? "跨模型复用" : "CROSS-MODEL REUSE"}</span><b>+1.8–9.5<small>${pp}</small></b><h2>${zh ? "同一份 Skill，收益因模型而变" : "One fixed Skill, different benefits"}</h2><p>From Raw Experience · Figure 4<br>${zh ? "强经验池产物 · 两个执行模型的收益端点" : "Strong-pool artifact · gain endpoints across consumers"}</p></article>
+      </section>
+
+      <section class="sk-panel ev-slide" id="sk-result" tabindex="-1" aria-labelledby="sk-result-title">
+        ${heading("01", "sk-result-title", zh ? "人工整理与 AI 自生成，差距有多大？" : "How large is the curated–AI performance gap?", cite(1))}
+        <div class="ev-section-meta"><span>SkillsBench v3 · Table 3</span><span>${zh ? "84 个评估任务 / 5 组配对配置" : "84 evaluated tasks / 5 paired configurations"}</span></div>
+        <p class="ev-intro">${zh ? "只比较两种条件都完成评估的配置。五组中，AI 自生成全部落后于人工整理；相对无 Skill，三组退化、一组持平、一组提升。" : "Only configurations evaluated under both conditions are paired. Self-generation trails curated Skills in all five; against no Skill, three regress, one ties, and one improves."}</p>
+        <div class="ev-comparison">
+          <div>
+            <div class="ev-legend"><span><i class="ev-curated"></i>${zh ? "人工整理" : "Human-curated"}</span><span><i class="ev-ai"></i>${zh ? "AI 自生成" : "AI-generated"}</span><span><i class="ev-baseline-key"></i>${zh ? "无 Skill 基线" : "No-Skill baseline"}</span></div>
+            <p class="sk-note">${zh ? "任务通过率 · 统一 0–50% 刻度 · 点击模型查看差值" : "Task pass rate · shared 0–50% scale · select a model for details"}</p>
+            <div class="ev-chart" role="group" aria-label="${zh ? "五组模型通过率对比" : "Pass-rate comparison across five configurations"}">
+              ${comparisons.map((item, i) => `<button type="button" class="ev-model" data-ev-model="${i}" aria-pressed="${i === 1}" aria-controls="ev-model-detail" aria-label="${item.model}: ${zh ? "人工整理" : "curated"} ${item.curated.toFixed(1)}%, AI ${item.ai.toFixed(1)}%, ${zh ? "无 Skill" : "no Skill"} ${item.base.toFixed(1)}%">
+                <span class="ev-model-name">${item.model}<small>${item.harness}</small></span>
+                <span class="ev-tracks" aria-hidden="true">
+                  <span class="ev-baseline" style="left:${item.base * 2}%"></span>
+                  <span class="ev-track"><i class="ev-curated" style="width:${item.curated * 2}%"></i><b>${item.curated.toFixed(1)}%</b></span>
+                  <span class="ev-track"><i class="ev-ai" style="width:${item.ai * 2}%"></i><b>${item.ai.toFixed(1)}%</b></span>
+                </span>
+              </button>`).join("")}
+            </div>
+          </div>
+          <aside class="ev-model-detail" id="ev-model-detail" aria-live="polite" aria-atomic="true">
+            <span class="ev-eyebrow">${zh ? "所选配置 / PAIRED GAP" : "SELECTED CONFIGURATION"}</span>
+            <h3 id="ev-detail-model"></h3>
+            <strong id="ev-detail-gap"></strong><span>${zh ? "个百分点 · 人工整理领先" : "percentage points · curated advantage"}</span>
+            <dl id="ev-detail-values"></dl>
+            <p>${zh ? "这里衡量当前任务通过率，不是冻结 Skill 后的迁移率。" : "This measures current-task pass rate, not transfer of a frozen Skill."}</p>
+          </aside>
+        </div>
+        <details class="ev-details"><summary>${zh ? "查看完整数据表 / 五组配置" : "Full data table / five configurations"}</summary>
+          <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "人工整理与 AI 自生成完整对照数据，可横向滚动" : "Complete comparison data; horizontally scrollable"}"><table class="ev-table" id="ev-comparison-table">
+            <caption>${zh ? "SkillsBench v3 · Table 3 · 通过率（%）；差值按表中四舍五入后的数值相减。" : "SkillsBench v3 · Table 3 · pass rates (%); gaps computed from rounded table values."}</caption>
+            <thead><tr><th scope="col">${zh ? "执行模型 / 框架" : "Executor / harness"}</th><th scope="col">${zh ? "无 Skill" : "No Skill"}</th><th scope="col">${zh ? "人工整理" : "Curated"}</th><th scope="col">${zh ? "AI 自生成" : "AI-generated"}</th><th scope="col">${zh ? "人工领先（百分点）" : "Curated lead (pp)"}</th></tr></thead>
+            <tbody>${comparisons.map(item => `<tr><th scope="row">${item.model}<small>${item.harness}</small></th><td>${item.base.toFixed(1)}%</td><td>${item.curated.toFixed(1)}%</td><td>${item.ai.toFixed(1)}%</td><td class="ev-positive">+${gap(item)}</td></tr>`).join("")}</tbody>
+          </table></div>
+        </details>
+        <div class="ev-caution">${zh ? "<b>实验边界：</b>AI 先看到当前任务，再生成 1–5 份 Skill 并解题（附录 C.6）；这不是迁移实验。“人工整理”也不保证全部由人类从零独立编写。固定使用 v3 Table 3，不混用 v4 的任务规模与汇总结果。" : "<b>Protocol boundary:</b> AI sees the current task, generates 1–5 Skills, then solves it (Appendix C.6). This is not a transfer test. Curated does not guarantee wholly human-written authorship. Figures are pinned to v3 Table 3, not mixed with v4."}</div>
+      </section>
+
+      <section class="sk-panel ev-slide" id="sk-transfer" tabindex="-1" aria-labelledby="sk-transfer-title">
+        ${heading("02", "sk-transfer-title", zh ? "换成未见任务，AI 生成的 Skill 还能用吗？" : "Do AI-generated Skills help on unseen tasks?", cite(2))}
+        <div class="ev-section-meta"><span>From Raw Experience · Table 1 / §4.1–4.2</span><span>${zh ? "5 领域 × 5 生成模型 × 6 执行模型" : "5 domains × 5 extractors × 6 executors"}</span></div>
+        <div class="ev-protocol" aria-label="${zh ? "未见任务评估协议" : "Held-out evaluation protocol"}">
+          <div><small>01 / SOURCE</small><b>${zh ? "经验生成集" : "Experience split"}</b><span>${zh ? "收集训练侧执行轨迹" : "Collect training-side execution traces"}</span></div>
+          <div><small>02 / EXTRACT</small><b>${zh ? "AI 提炼 Skill" : "AI extracts a Skill"}</b><span>${zh ? "从成功与失败中总结" : "Distill successes and failures"}</span></div>
+          <div><small>03 / HELD-OUT</small><b>${zh ? "未见测试集" : "Unseen test split"}</b><span>${zh ? "与无 Skill 基线配对比较" : "Compare against no-Skill execution"}</span></div>
+        </div>
+        <div class="ev-risk-layout">
+          <div class="ev-risk-summary"><span class="ev-eyebrow">${zh ? "负迁移 / NEGATIVE TRANSFER" : "NEGATIVE TRANSFER"}</span><b>≈25<small>%</small></b><p>${zh ? "使用 AI 生成 Skill 后，表现低于无 Skill 的评估组合比例。" : "Share of evaluated combinations that perform worse with AI-generated Skills than without."}</p><span>${zh ? "任务按 1∶1 划分 · 每项评估重复 3 次" : "1:1 task split · 3 evaluation runs per entry"}</span></div>
+          <div class="ev-risk-chart" role="img" aria-label="${zh ? "负迁移组合比例：总体约25%，软件工程约13%，表格操作约13%，具身任务约47%；统一0至100%刻度。" : "Negative-transfer combinations: about 25% overall, 13% in coding, 13% in spreadsheets, 47% in embodied tasks. Shared 0–100% scale."}">
+            ${risks.map(item => `<div class="ev-risk-row"><div><b>${item.label}</b><span>${item.note}</span></div><div class="ev-risk-track"><i style="width:${item.value}%"></i></div><strong>≈${item.value}%</strong></div>`).join("")}
+          </div>
+        </div>
+        <div class="ev-caution">${zh ? "<b>分母不能读错：</b>这里是“生成模型 × 执行模型 × 领域”的组合比例，不是单任务失败率；也不能把 25% 负迁移改写成“75% 迁移成功率”。该研究没有人工编写的迁移对照。" : "<b>Read the denominator:</b> these are extractor × executor × domain combinations, not individual task failures. 25% negative transfer does not mean 75% transfer success. This study has no human-authored transfer control."}</div>
+      </section>
+
+      <section class="sk-panel ev-slide" id="sk-transfer-cases" tabindex="-1" aria-labelledby="sk-cases-title">
+        ${heading("02", "sk-cases-title", zh ? "同为 AI 生成，既有收益，也有退化" : "AI-generated Skills: gains and regressions", cite(2))}
+        <p class="ev-intro">${zh ? "四个未见任务组合：对照无 Skill 基线，观察使用后的实际变化。" : "Four held-out combinations: compare with-Skill results against the no-Skill baseline."}</p>
+        <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "未见任务实验明细，可横向滚动" : "Held-out task results; horizontally scrollable"}"><table class="ev-table" id="ev-transfer-table">
+          <caption>${zh ? "Table 1 选取的四个组合；使用后通过率 = 基线 + 论文报告的变化量（按已舍入数值计算）。" : "Four selected Table 1 combinations; with-Skill rates = baseline + reported delta, calculated from rounded values."}</caption>
+          <thead><tr><th scope="col">${zh ? "未见任务基准" : "Held-out benchmark"}</th><th scope="col">${zh ? "生成 → 执行模型" : "Extractor → executor"}</th><th scope="col">${zh ? "无 Skill" : "No Skill"}</th><th scope="col">${zh ? "AI Skill" : "AI Skill"}</th><th scope="col">Δ ${zh ? "百分点" : "pp"}</th></tr></thead>
+          <tbody>${transferCases.map(item => `<tr><th scope="row">${item.benchmark}</th><td class="ev-model-pair">${item.writer}<span>→ ${item.executor}</span></td><td>${item.base.toFixed(2)}%</td><td>${(item.base + item.delta).toFixed(2)}%</td><td class="${item.delta > 0 ? "ev-positive" : "ev-negative"}">${signed(item.delta)}</td></tr>`).join("")}</tbody>
+        </table></div>
+        <p class="sk-note">${zh ? "不同执行模型的 Skill 来自各自经验池；上表不是把同一份 Skill 换给不同模型的冻结产物对照。它也不是完整矩阵，整体比例以上方全研究汇总为准。" : "Skills for different executors come from their respective experience pools. These rows are not a fixed-artifact cross-model comparison, nor the full matrix; overall rates are reported separately above."}</p>
+      </section>
+
+      <section class="sk-panel ev-slide" id="sk-cross-model" tabindex="-1" aria-labelledby="sk-cross-title">
+        ${heading("03", "sk-cross-title", zh ? "同一份 Skill，换个模型会怎样？" : "What happens when one fixed Skill changes consumers?", cite(2))}
+        <div class="ev-section-meta"><span>From Raw Experience · §5.3 / Figure 4</span><span>SpreadsheetBench · GPT-5.4-mini ${zh ? "固定生成" : "fixed extractor"}</span></div>
+        <p class="ev-intro">${zh ? "这次固定 Skill 文本，再交给六个执行模型。对比两份产物：分别从强基线模型与弱基线模型的经验池中提炼。" : "Here the Skill text is held fixed and given to six executors. Two artifacts are compared, distilled from strong- and weak-baseline experience pools."}</p>
+        <div class="ev-artifacts">
+          <article class="ev-artifact ev-strong"><span class="ev-eyebrow">ARTIFACT A / ${zh ? "强经验池" : "STRONG POOL"}</span><h3>GPT-5.4 ${zh ? "执行经验" : "experience"}</h3><p>${zh ? "同一份产物，对六个执行模型均有提升。" : "One fixed artifact improves all six executors."}</p>
+            <div class="ev-endpoints"><div><b>+1.8<small>${pp}</small></b><span>Gemini-3.1-Pro</span></div><div><b>+9.5<small>${pp}</small></b><span>Qwen3.5-35B</span></div></div>
+            <p class="sk-note">${zh ? "以上为论文报告的收益范围端点，不是六个模型的完整数据。" : "Reported gain-range endpoints, not the complete six-model results."}</p>
+          </article>
+          <article class="ev-artifact ev-weak"><span class="ev-eyebrow">ARTIFACT B / ${zh ? "弱经验池" : "WEAK POOL"}</span><h3>Qwen3.5-9B ${zh ? "执行经验" : "experience"}</h3><p>${zh ? "另一份固定产物，对部分执行模型出现负迁移。" : "A different fixed artifact causes negative transfer for some consumers."}</p>
+            <div class="ev-weak-value"><b>−2.0<small>${pp}</small></b><span>${zh ? "迁移给 GPT-5.4 后，相对无 Skill 的变化" : "Change vs. no Skill when consumed by GPT-5.4"}</span></div>
+            <p class="sk-note">${zh ? "不能把产物 A 与 B 当作同一份 Skill；两者生成模型相同，经验来源不同。" : "Artifacts A and B are not the same Skill. Their extractor is identical; their experience sources differ."}</p>
+          </article>
+        </div>
+        <div class="ev-caution">${zh ? "<b>数据说明：</b>经验来源和使用模型会影响迁移收益；这些数据没有人工作者组，不能据此计算“AI 比人类差多少”。" : "<b>Interpretation:</b> experience source and consumer affect transfer utility. Without a human-authored condition, these figures cannot quantify a human–AI transfer gap."}</div>
+      </section>
+
+      <section class="sk-panel ev-conclusion ev-slide" id="sk-boundaries" tabindex="-1" aria-labelledby="sk-boundary-title">
+        ${heading("04", "sk-boundary-title", zh ? "数据已经回答什么，还没回答什么？" : "What do the data establish—and leave open?")}
+        <div class="ev-verdicts">
+          <div><span>01 / ${zh ? "已有对照" : "MEASURED"}</span><h3>${zh ? "当前任务效果，AI 自生成明显落后。" : "Self-generation trails curated Skills on current tasks."}</h3><p>${zh ? "SkillsBench 五组配对配置：低 12.5–23.7 个百分点。结论限定在对应版本、模型与生成协议。" : "Five paired SkillsBench configurations: 12.5–23.7 pp lower, within the tested version, models, and protocol."}</p></div>
+          <div><span>02 / ${zh ? "已有迁移实验" : "TRANSFER TESTED"}</span><h3>${zh ? "AI 生成产物可以迁移，但不保证有益。" : "AI-generated artifacts can transfer, but not always help."}</h3><p>${zh ? "未见任务约 25% 的组合负迁移；同一份 Skill 换执行模型后，收益也会改变。" : "About 25% of held-out combinations regress; a fixed Skill's benefit also changes across consumers."}</p></div>
+          <div><span>03 / ${zh ? "尚缺直接对照" : "STILL OPEN"}</span><h3>${zh ? "不能量化“AI 的迁移率比人类低多少”。" : "The human–AI transfer gap is not quantified here."}</h3><p>${zh ? "需要相同信息、相同预算、人类与 AI 分别编写，冻结产物后在同一批未见任务上测试。" : "A direct test needs matched evidence and budgets, human- and AI-authored artifacts, then frozen-artifact evaluation on the same held-out tasks."}</p></div>
+        </div>
+      </section>
+
+      <section class="sk-panel ev-slide" id="sk-revision" tabindex="-1" aria-labelledby="sk-revision-title">
+        ${heading("+", "sk-revision-title", zh ? "补充：有执行反馈，生成质量可以改善" : "Supplement: execution feedback can improve generation", cite(3))}
+        <p class="ev-intro">${zh ? "SkillRevise · Table 1 · GPT-5.5 / Codex · SkillsBench 86 个任务。这里是生成与修订效果，不是人机迁移对照。" : "SkillRevise · Table 1 · GPT-5.5 / Codex · 86 SkillsBench tasks. This measures generation and revision, not human–AI transfer."}</p>
+        <div class="ev-revision">
+          ${[
+            [zh ? "无 Skill" : "No Skill", "31/86", "36.05%"],
+            [zh ? "一次性生成" : "One-shot generation", "34/86", "39.53%"],
+            [zh ? "初始 Skill v0" : "Initial Skill v0", "35/86", "40.70%"],
+            [zh ? "最多三轮修订" : "Up to 3 revisions", "53/86", "61.63%"]
+          ].map(([label, count, rate]) => `<div><span>${label}</span><b>${rate}</b><small>${count}</small></div>`).join("")}
+        </div>
+        <p class="sk-note">${zh ? "纠正口径：36.05% 是无 Skill 基线，不是“修订前 Skill”。61.63% 相对无 Skill 提升 25.58 个百分点，相对一次性生成提升 22.10 个百分点。修订使用额外执行与验证预算，不能据此宣称超过人工或具有更强迁移性。" : "Correct baseline: 36.05% is no Skill, not the initial Skill. 61.63% is +25.58 pp over no Skill and +22.10 pp over one-shot generation. Revision uses extra execution and verification budget; this is not evidence of superiority to humans or stronger transfer."}</p>
+      </section>
+
+      <section class="sk-panel ev-slide" id="sk-references" tabindex="-1" aria-labelledby="sk-refs-title">
+        <div class="sk-heading"><h2 id="sk-refs-title">${zh ? "原始论文与数据定位" : "Primary sources and table locations"}</h2></div>
+        <div class="sk-references">
+          ${reference(1, `<b>SkillsBench: Benchmarking How Well Agent Skills Work Across Diverse Tasks.</b><br>arXiv:2602.12670v3 · ${zh ? "预印本" : "Preprint"}<br>Table 3 · §4.1.1 · Appendix C.6<br><a href="https://arxiv.org/html/2602.12670v3" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2602.12670v3" target="_blank" rel="noopener">PDF ↗</a>`)}
+          ${reference(2, `<b>Huang et al. From Raw Experience to Skill Consumption: A Systematic Study of Model-Generated Agent Skills.</b><br>arXiv:2605.23899v1 · ${zh ? "预印本" : "Preprint"}<br>Table 1 · §4.1–4.2 · §5.3 / Figure 4<br><a href="https://arxiv.org/html/2605.23899v1" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2605.23899v1" target="_blank" rel="noopener">PDF ↗</a>`)}
+          ${reference(3, `<b>Liu et al. SkillRevise: Improving LLM-Authored Agent Skills via Trace-Conditioned Skill Revision.</b><br>Findings of EMNLP 2026 · Table 1 / §4.2<br><a href="https://aclanthology.org/2026.findings-emnlp.991/" target="_blank" rel="noopener">${zh ? "正式论文条目" : "Proceedings entry"} ↗</a> · <a href="https://aclanthology.org/2026.findings-emnlp.991.pdf" target="_blank" rel="noopener">PDF ↗</a>`)}
+        </div>
+        <p class="sk-method-note">${zh ? "核查日期：2026-10-26。数值依据原始 PDF 表格与实验协议整理，非本页重新运行实验；差值与“使用后”通过率由论文已舍入数值计算。≈ 表示论文汇总的近似比例。不同研究、版本和分母不合并，效果差距不冒充迁移差距；未报告的数据不补造。" : "Checked 2026-10-26 against primary PDF tables and protocols; experiments were not rerun here. Gaps and with-Skill rates are computed from rounded reported values. ≈ denotes approximate study aggregates. Studies, versions, and denominators are not pooled; performance gaps are not transfer gaps, and unreported data are not imputed."}</p>
+      </section>
+      <section class="sk-panel ev-slide" id="sk-data-appendix" tabindex="-1" aria-labelledby="sk-appendix-title">
+        ${heading("A", "sk-appendix-title", zh ? "附录：完整数据与实验边界" : "Appendix: full data and protocol boundaries", cite(1))}
+        <button type="button" class="ev-slide-link" data-sk-target="sk-result">${zh ? "← 返回对照图" : "← Back to comparison chart"}</button>
+      </section>
+      </div>
+      <nav class="ev-deck-controls" aria-label="${zh ? "幻灯片导航" : "Slide navigation"}">
+        <div class="ev-deck-actions">
+          <button type="button" id="ev-prev" aria-keyshortcuts="ArrowLeft PageUp">${zh ? "← 上一页" : "← Previous"}</button>
+        </div>
+        <div class="ev-deck-position">
+          <select id="ev-slide-select" aria-label="${zh ? "跳转幻灯片" : "Go to slide"}">${slideTitles.map((title, i) => `<option value="${i}">${String(i + 1).padStart(2, "0")} / ${title}</option>`).join("")}</select>
+          <span class="ev-deck-count" id="ev-slide-count" aria-live="polite" aria-atomic="true"></span>
+          <progress class="ev-deck-progress" id="ev-slide-progress" max="${slideTitles.length}" value="1" aria-label="${zh ? "演示进度" : "Presentation progress"}"></progress>
+        </div>
+        <div class="ev-deck-actions">
+          <button type="button" class="ev-fullscreen" id="ev-fullscreen">${zh ? "全屏" : "Full screen"}</button>
+          <button type="button" id="ev-next" aria-keyshortcuts="ArrowRight PageDown">${zh ? "下一页 →" : "Next →"}</button>
+        </div>
+      </nav>
+      <p class="ev-deck-hint">${zh ? "← → / PageUp PageDown 翻页 · Home / End 首尾页 · 数据表可展开，引用可直达" : "← → / PageUp PageDown to navigate · Home / End for first / last · Expand tables or follow citations"}</p>
+      <p class="ev-deck-message" id="ev-deck-message" role="alert" hidden></p>`;
+
+    const stage = root.querySelector(".ev-stage");
+    stage.insertBefore(document.getElementById("sk-revision"), document.getElementById("sk-boundaries"));
+    const result = document.getElementById("sk-result");
+    const appendix = document.getElementById("sk-data-appendix");
+    const fullData = result.querySelector(".ev-details");
+    fullData.open = true;
+    appendix.append(fullData, result.querySelector(".ev-caution"));
+    result.insertAdjacentHTML("beforeend", `<button type="button" class="ev-slide-link" data-sk-target="sk-data-appendix">${zh ? "完整数据与实验边界 → 附录" : "Full data and protocol boundaries → Appendix"}</button>`);
+    const slides = Array.from(stage.querySelectorAll(".ev-slide"));
+    const slideSelect = document.getElementById("ev-slide-select");
+    const prev = document.getElementById("ev-prev");
+    const next = document.getElementById("ev-next");
+    let slideIndex = 0;
+    const showSlide = (index, focus = false) => {
+      slideIndex = Math.max(0, Math.min(slides.length - 1, index));
+      slides.forEach((slide, i) => {
+        slide.hidden = i !== slideIndex;
+        slide.setAttribute("role", "group");
+        slide.setAttribute("aria-roledescription", zh ? "幻灯片" : "slide");
+        slide.setAttribute("aria-label", `${i + 1} / ${slides.length} · ${slideTitles[i]}`);
+      });
+      const active = slides[slideIndex];
+      active.scrollTop = 0;
+      slideSelect.value = String(slideIndex);
+      prev.disabled = slideIndex === 0;
+      next.disabled = slideIndex === slides.length - 1;
+      document.getElementById("ev-slide-count").textContent = `${slideIndex + 1} / ${slides.length}`;
+      document.getElementById("ev-slide-progress").value = slideIndex + 1;
+      const url = new URL(location.href);
+      url.searchParams.set("slide", String(slideIndex + 1));
+      history.replaceState(null, "", url);
+      if (focus || (stage.contains(document.activeElement) && !active.contains(document.activeElement))) {
+        active.focus({preventScroll: true});
+      }
+    };
+    const requestedSlide = Number(new URLSearchParams(location.search).get("slide"));
+    showSlide(Number.isInteger(requestedSlide) && requestedSlide > 0 ? requestedSlide - 1 : 0);
+    prev.addEventListener("click", () => showSlide(slideIndex - 1, true));
+    next.addEventListener("click", () => showSlide(slideIndex + 1, true));
+    slideSelect.addEventListener("change", () => showSlide(Number(slideSelect.value), true));
+    document.getElementById("ev-fullscreen").addEventListener("click", async () => {
+      const message = document.getElementById("ev-deck-message");
+      message.hidden = true;
+      try {
+        if (document.fullscreenElement) await document.exitFullscreen();
+        else await root.requestFullscreen();
+      } catch (error) {
+        message.textContent = zh ? `无法进入全屏：${error.message}` : `Full screen unavailable: ${error.message}`;
+        message.hidden = false;
+      }
+    });
+    root.onfullscreenchange = () => {
+      document.getElementById("ev-fullscreen").textContent = document.fullscreenElement ? (zh ? "退出全屏" : "Exit full screen") : (zh ? "全屏" : "Full screen");
+    };
+    root.onkeydown = event => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.target.closest("input,select,textarea,[contenteditable],.ev-table-wrap")) return;
+      const destination = {ArrowLeft: slideIndex - 1, PageUp: slideIndex - 1, ArrowRight: slideIndex + 1, PageDown: slideIndex + 1, Home: 0, End: slides.length - 1}[event.key];
+      if (destination === undefined) return;
+      event.preventDefault();
+      showSlide(destination, true);
+    };
+
+    const selectModel = index => {
+      const item = comparisons[index];
+      root.querySelectorAll("[data-ev-model]").forEach(button => {
+        button.setAttribute("aria-pressed", String(Number(button.dataset.evModel) === index));
+      });
+      document.getElementById("ev-detail-model").textContent = `${item.model} / ${item.harness}`;
+      document.getElementById("ev-detail-gap").textContent = `+${gap(item)}`;
+      document.getElementById("ev-detail-values").innerHTML = [
+        [zh ? "无 Skill" : "No Skill", item.base],
+        [zh ? "人工整理" : "Human-curated", item.curated],
+        [zh ? "AI 自生成" : "AI-generated", item.ai]
+      ].map(([label, value]) => `<div><dt>${label}</dt><dd>${value.toFixed(1)}%</dd></div>`).join("");
+    };
+    root.querySelectorAll("[data-ev-model]").forEach(button => {
+      button.addEventListener("click", () => selectModel(Number(button.dataset.evModel)));
+    });
+    selectModel(1);
+    root.querySelectorAll("[data-sk-target]").forEach(button => {
+      button.addEventListener("click", () => {
+        const target = document.getElementById(button.dataset.skTarget);
+        showSlide(slides.indexOf(target.closest(".ev-slide")));
+        target.focus({preventScroll: true});
+        target.scrollIntoView({behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth", block: "start"});
+      });
+    });
   }
 
   function renderDecisionStudy(view){
@@ -4049,7 +4723,7 @@ window.SWECHAT_SOURCE = {
   function renderViewTabs(source){
     const row = document.getElementById("view-tabs-row");
     const nav = document.getElementById("view-tabs");
-    const tabs = source.viewTabs || [];
+    const tabs = currentMeeting === "2" ? [] : (source.viewTabs || []);
     row.hidden = tabs.length === 0;
     nav.textContent = "";
     if (tabs.length === 0) return;
@@ -4057,6 +4731,7 @@ window.SWECHAT_SOURCE = {
     const panelFor = key => {
       if (key === "pop") return "aidev-pop-panel";
       if (key === "themes") return "aidev-themes-panel";
+      if (key === "skills") return "aidev-skills-panel";
       if (key === "decisions") return "aidev-decisions-panel";
       if (key === "atlas") return "aidev-panel";
       const view = source.views[key];
@@ -4148,9 +4823,18 @@ window.SWECHAT_SOURCE = {
 
   function navigate(sourceKey, viewKey, options){
     options = options || {};
+    if (currentMeeting === "2") {
+      sourceKey = "aidev";
+      viewKey = "skills";
+    }
     const source = SOURCES[sourceKey] || SOURCES.tosem;
     const exampleEntry = exampleFromKey(source, viewKey);
     if (!exampleEntry && !source.views[viewKey]) viewKey = source.defaultView;
+    if (sourceKey === "aidev" && viewKey === "skills" && currentMeeting !== "2") {
+      currentMeeting = "2";
+      const meetingSelectEl = document.getElementById("meeting-select");
+      if (meetingSelectEl) meetingSelectEl.value = "2";
+    }
     if (exampleEntry) viewKey = `revision-example-${exampleEntry.id}`;
     const isExample = Boolean(exampleEntry);
     const view = isExample ? source.views.revision : source.views[viewKey];
@@ -4158,6 +4842,7 @@ window.SWECHAT_SOURCE = {
     const isPopLanding = !isExample && view.kind === "aidev-pop";
     const isCluster = !isExample && view.kind === "task-clusters";
     const isThemes = !isExample && view.kind === "review-themes";
+    const isSkills = !isExample && view.kind === "skill-evidence";
     const isDecisions = !isExample && view.kind === "decision-study";
     currentSource = sourceKey in SOURCES ? sourceKey : "tosem";
     currentView = viewKey;
@@ -4166,6 +4851,8 @@ window.SWECHAT_SOURCE = {
     clusterPreview = null;
 
     document.title = pick(view.docTitle);
+    document.getElementById("meeting-home").hidden = true;
+    document.getElementById("meeting-content").hidden = false;
     document.getElementById("eyebrow-left").textContent = pick(source.eyebrowLeft);
     document.getElementById("eyebrow-right").textContent = pick(view.eyebrowRight);
     document.getElementById("page-title").innerHTML = pick(view.title);
@@ -4177,6 +4864,7 @@ window.SWECHAT_SOURCE = {
     document.body.classList.toggle("is-aidev", currentSource === "aidev");
     document.body.classList.toggle("is-aidev-pop", isPopLanding);
     document.body.classList.toggle("is-aidev-themes", isThemes);
+    document.body.classList.toggle("is-aidev-skills", isSkills);
     document.body.classList.toggle("is-aidev-decisions", isDecisions);
 
     const viewbar = document.getElementById("viewbar");
@@ -4213,15 +4901,17 @@ window.SWECHAT_SOURCE = {
     renderViewTabs(source);
     document.getElementById("aidev-pop-panel").hidden = !isPopLanding;
     document.getElementById("aidev-themes-panel").hidden = !isThemes;
+    document.getElementById("aidev-skills-panel").hidden = !isSkills;
     document.getElementById("aidev-decisions-panel").hidden = !isDecisions;
     document.getElementById("aidev-panel").hidden = !isAtlas;
 
-    if (isAtlas || isPopLanding || isThemes || isDecisions) {
+    if (isAtlas || isPopLanding || isThemes || isSkills || isDecisions) {
       document.getElementById("chart-panel").hidden = true;
       document.getElementById("cluster-panel").hidden = true;
       document.getElementById("example-panel").hidden = true;
       document.querySelector(".insight").hidden = true;
       if (isThemes) renderReviewThemes(view);
+      if (isSkills) renderSkills();
       if (isDecisions) renderDecisionStudy(view);
     } else {
       svg.setAttribute("aria-label", pick(view.chartAria));
@@ -4271,8 +4961,62 @@ window.SWECHAT_SOURCE = {
     const params = new URLSearchParams(location.search);
     if (LANG === "zh") params.set("lang", "zh");
     else params.delete("lang");
+    params.set("meeting", currentMeeting);
     const search = params.toString();
     return location.pathname + (search ? `?${search}` : "") + "#" + hash;
+  }
+
+  const meetingSelect = document.getElementById("meeting-select");
+  const meetingHome = document.getElementById("meeting-home");
+  const meetingContent = document.getElementById("meeting-content");
+
+  function showMeetingHome(options = {}){
+    meetingContent.hidden = true;
+    meetingHome.hidden = false;
+    document.title = LANG === "zh" ? "选择会议" : "Select a meeting";
+    if (options.push) {
+      const params = new URLSearchParams(location.search);
+      params.delete("meeting");
+      params.delete("source");
+      const search = params.toString();
+      history.pushState(null, "", location.pathname + (search ? `?${search}` : ""));
+    }
+    window.scrollTo(0, 0);
+    if (options.focus) meetingHome.querySelector(`[data-meeting="${currentMeeting}"]`).focus();
+  }
+
+  document.querySelectorAll(".meeting-choice").forEach(button => {
+    button.addEventListener("click", () => {
+      currentMeeting = button.dataset.meeting;
+      meetingSelect.value = currentMeeting;
+      if (currentMeeting === "1") navigate("tosem", SOURCES.tosem.defaultView, {push: true});
+      else navigate("aidev", "skills", {push: true});
+      window.scrollTo(0, 0);
+      document.getElementById("meeting-home-button").focus();
+    });
+  });
+  document.getElementById("meeting-home-button").addEventListener("click", () => {
+    showMeetingHome({push: true, focus: true});
+  });
+
+  if (meetingSelect) {
+    meetingSelect.value = currentMeeting;
+    meetingSelect.addEventListener("change", () => {
+      const nextMeeting = meetingSelect.value === "1" ? "1" : "2";
+      if (nextMeeting === currentMeeting) return;
+      currentMeeting = nextMeeting;
+      if (currentMeeting === "2") {
+        navigate("aidev", "skills", {push: true});
+      } else if (currentSource === "aidev" && currentView === "skills") {
+        navigate("aidev", SOURCES.aidev.defaultView, {push: true});
+      } else {
+        renderViewTabs(SOURCES[currentSource]);
+        try {
+          history.replaceState(null, "", urlWithLang(routeHash(currentSource, currentView)));
+        } catch (error) {}
+      }
+      window.scrollTo(0, 0);
+    });
   }
 
   document.querySelectorAll(".lang-switch [data-lang]").forEach(button => {
@@ -4368,6 +5112,12 @@ window.SWECHAT_SOURCE = {
   });
 
   document.addEventListener("keydown", event => {
+    if (!meetingHome.hidden) return;
+    if (currentMeeting === "2") {
+      const deck = document.getElementById("aidev-skills-panel");
+      if (!deck.contains(event.target) && deck.onkeydown) deck.onkeydown(event);
+      return;
+    }
     if (event.key === "Escape") {
       if (clusterPinned !== null) {
         const view = SOURCES[currentSource].views[currentView];
@@ -4402,8 +5152,19 @@ window.SWECHAT_SOURCE = {
   }
 
   function applyHash(){
-    const route = parseHash();
-    if (route.source === currentSource && route.view === currentView) return;
+    const params = new URLSearchParams(location.search);
+    if (!location.hash && !["1", "2"].includes(params.get("meeting")) && !SOURCES[params.get("source")]) {
+      showMeetingHome();
+      return;
+    }
+    const nextMeeting = meetingFromLocation();
+    const meetingChanged = nextMeeting !== currentMeeting;
+    if (meetingChanged) {
+      currentMeeting = nextMeeting;
+      if (meetingSelect) meetingSelect.value = currentMeeting;
+    }
+    const route = currentMeeting === "2" ? {source: "aidev", view: "skills"} : parseHash();
+    if (meetingHome.hidden && !meetingChanged && route.source === currentSource && route.view === currentView) return;
     const sourceChanged = route.source !== currentSource;
     navigate(route.source, route.view, {keepHash: true});
     if (sourceChanged) window.scrollTo(0, 0);
@@ -4413,11 +5174,19 @@ window.SWECHAT_SOURCE = {
   window.addEventListener("popstate", applyHash);
 
   const requestedSource = new URLSearchParams(location.search).get("source");
+  const requestedMeeting = new URLSearchParams(location.search).get("meeting");
   const initial = (!location.hash && requestedSource && SOURCES[requestedSource])
     ? {source: requestedSource, view: SOURCES[requestedSource].defaultView}
-    : parseHash();
+    : (!location.hash && requestedMeeting === "2")
+      ? {source: "aidev", view: "skills"}
+      : parseHash();
   applyStaticLang();
-  navigate(initial.source, initial.view, {keepHash: false});
+  if (meetingSelect) meetingSelect.value = currentMeeting;
+  if (location.hash || ["1", "2"].includes(requestedMeeting) || SOURCES[requestedSource]) {
+    navigate(initial.source, initial.view, {keepHash: false});
+  } else {
+    showMeetingHome();
+  }
 
   const lockLightRendering = () => {
     document.documentElement.style.setProperty("forced-color-adjust", "none", "important");
