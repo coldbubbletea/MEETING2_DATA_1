@@ -1168,7 +1168,7 @@
   .sg-countdown-digits span{font-size:10px;color:var(--timer-accent)}
   .sg-countdown-note{margin:8px 0 0;font-size:9px;color:#9EB5CB}
   .sg-countdown-expired{margin:7px 0 0;font-size:11px;color:#F6CE97}
-  .meeting-choices{display:flex;align-items:center;gap:8px;min-width:0}
+  .meeting-choices{display:flex;flex:1;flex-wrap:wrap;align-items:center;gap:8px;min-width:0}
   .meeting-choice{
     appearance:none;cursor:pointer;min-width:166px;padding:14px 18px;text-align:left;
     border:1px solid #ABD4EE33;border-radius:12px;background:#17314999;
@@ -1176,13 +1176,53 @@
     transition:border-color .18s ease,background .18s ease,box-shadow .18s ease;
   }
   .meeting-choice[data-meeting="2"]{border-color:#A9E7CE66;background:linear-gradient(120deg,#2C5B5C99,#1C3D5599)}
+  .meeting-choice[data-conference]{min-width:120px}
   .sg-entry-title{display:block;white-space:nowrap}
   .sg-entry-title::after{content:"↗";margin-left:18px;color:#A3DBC9}
   .meeting-choice:hover{border-color:#C6EDE4;background:#1A3B54;box-shadow:0 0 32px #8CDAC52A}
   .meeting-choice:focus-visible{outline:2px solid #C5EBDE;outline-offset:5px}
   .meeting-home-button:focus-visible{outline:2px solid var(--clay);outline-offset:4px}
-  .sg-footer{position:absolute;bottom:24px;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px;border:1px solid #A8C4D533;border-radius:20px;background:linear-gradient(120deg,#19354CCC,#0C2036E6);backdrop-filter:blur(18px);box-shadow:inset 0 1px 0 #FFFFFF14,0 12px 36px #02091866}
-  .sg-motion{pointer-events:auto;border:1px solid #9DBBD533;border-radius:99px;color:#BAD0E4;background:#12263E99;padding:9px 14px;font:400 11px var(--sans);cursor:pointer}
+  .sg-footer{position:absolute;bottom:24px;left:clamp(24px,5vw,80px);right:clamp(24px,5vw,80px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:10px;border:1px solid #A8C4D533;border-radius:20px;background:linear-gradient(120deg,#19354CCC,#0C2036E6);backdrop-filter:blur(18px);box-shadow:inset 0 1px 0 #FFFFFF14,0 12px 36px #02091866}
+  .sg-scholars{box-sizing:border-box;width:min(640px,calc(100% - 32px));max-height:calc(100svh - 48px);margin:auto;padding:28px;border:1px solid #A8C4D54D;border-radius:22px;background:linear-gradient(135deg,#213F55,#0E2239);color:#E8F4FF;box-shadow:inset 0 1px 0 #FFFFFF1A,0 24px 90px #02091899;overflow:auto}
+  .sg-scholars::backdrop{background:#020B20B3;backdrop-filter:blur(8px)}
+  .sg-scholars-header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px}
+  .sg-scholars h2{margin:0;font:500 24px/1.4 var(--sans)}
+  .sg-scholars-close{cursor:pointer;flex:none;width:36px;height:36px;border:1px solid #A8C4D54D;border-radius:50%;background:#FFFFFF0A;color:#D9E9F7;font:400 24px/1 var(--sans)}
+  .sg-scholars-intro,.sg-scholars-note{margin:0;color:#AEC6DB;font:400 12px/1.8 var(--sans)}
+  .sg-scholar-list{list-style:none;margin:20px 0 16px;padding:0}
+  .sg-scholar-card{display:block;padding:22px;border:1px solid #ACDFD44D;border-radius:16px;background:linear-gradient(120deg,#2B575E66,#1A354D99);color:#E8F4FF;text-decoration:none;transition:border-color .18s ease,background .18s ease}
+  .sg-scholar-card:hover{border-color:#C6EDE4;background:#234854}
+  .sg-scholar-card:focus-visible,.sg-scholars-close:focus-visible{outline:2px solid #C5EBDE;outline-offset:4px}
+  .sg-scholar-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}
+  .sg-scholar-heading strong{font:500 26px/1.4 var(--sans)}
+  .sg-scholar-heading span{color:#A3DBC9;font-size:22px}
+  .sg-scholar-affiliation{margin:8px 0 12px;color:#B4D5E7;font:400 12px/1.8 var(--sans)}
+  .sg-scholar-summary{margin:0;color:#D6E7EE;font:400 13px/1.8 var(--sans)}
+  .sg-scholar-url{display:block;margin-top:16px;color:#A3DBC9;font:400 11px var(--sans);letter-spacing:.04em}
+  .sg-papers{width:min(800px,calc(100% - 32px))}
+  .sg-papers [hidden]{display:none}
+  .sg-paper-status{margin:20px 0;padding:16px;border:1px solid #E5C88F55;border-radius:12px;background:#D5AA4E0D}
+  .sg-paper-status h3{margin:0 0 6px;color:#E8D2A7;font:500 15px/1.5 var(--sans)}
+  .sg-paper-status p{margin:0;color:#C6D8E6;font:400 12px/1.8 var(--sans)}
+  .sg-paper-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;list-style:none;margin:20px 0 0;padding:0}
+  .sg-paper-links .sg-scholar-card{height:100%;padding:18px}
+  .sg-paper-links strong{display:block;font:500 15px/1.6 var(--sans)}
+  .sg-paper-links span{display:block;margin-top:8px;color:#AEC6DB;font:400 11px/1.8 var(--sans)}
+  .sg-paper-library{margin-top:20px}
+  .sg-paper-provenance{margin:0 0 16px;color:#AEC6DB;font:400 11px/1.8 var(--sans)}
+  .sg-paper-library label{display:block;margin-bottom:6px;font:500 12px/1.6 var(--sans)}
+  .sg-paper-library input{box-sizing:border-box;width:100%;padding:11px 12px;border:1px solid #A8C4D54D;border-radius:10px;background:#091D30;color:#E8F4FF;font:400 13px/1.6 var(--sans)}
+  .sg-paper-library input::placeholder{color:#9BB6CD}
+  .sg-paper-library input:focus-visible{outline:2px solid #C5EBDE;outline-offset:3px}
+  .sg-paper-results,.sg-paper-empty{margin:10px 0;color:#AEC6DB;font:400 12px/1.8 var(--sans)}
+  .sg-accepted-list{display:grid;gap:10px;list-style:none;margin:0;padding:0}
+  .sg-accepted-list li{padding:15px;border:1px solid #A8C4D533;border-radius:12px;background:#FFFFFF05;overflow-wrap:anywhere}
+  .sg-accepted-list h4{margin:0;color:#E8F4FF;font:500 14px/1.6 var(--sans)}
+  .sg-paper-index{margin-right:8px;color:#8EADBD;font:400 10px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .sg-paper-authors{margin:7px 0;color:#AEC6DB;font:400 11px/1.8 var(--sans)}
+  .sg-paper-record-links{display:flex;flex-wrap:wrap;gap:8px 18px}
+  .sg-paper-record-links a{color:#A3DBC9;font:400 11px/1.8 var(--sans);text-underline-offset:3px}
+  .sg-paper-record-links a:focus-visible{outline:2px solid #C5EBDE;outline-offset:3px}
   .sg-error{position:absolute;bottom:100px;left:24px;right:24px;color:#F6CE97;text-align:center;font-size:12px}
   .sg-fallback .sg-error{bottom:150px;padding:8px;border-radius:8px;background:#142D45;z-index:2}
   .meeting-home-button{
@@ -1199,12 +1239,13 @@
     .sg-countdown-digits strong{font-size:25px}
     .sg-countdown-digits span{font-size:8px}
     .sg-countdown-note{font-size:8px;margin-top:7px}
-    .meeting-choices{width:100%}
-    .meeting-choice{min-width:0;flex:1;padding:12px 8px;font-size:11px}
+    .meeting-choices{width:100%;flex-basis:100%}
+    .meeting-choice{min-width:0;flex:1 1 calc(50% - 4px);padding:12px 8px;font-size:11px}
     .sg-entry-title::after{margin-left:8px}
     .sg-footer{bottom:16px;left:16px;right:16px;gap:10px;padding:8px;flex-wrap:wrap}
-    .sg-motion{font-size:10px;padding:9px 11px;white-space:nowrap}
-    .sg-footer .sg-motion{margin-left:auto}
+    .sg-scholars{padding:20px}
+    .sg-scholar-card{padding:18px}
+    .sg-paper-links{grid-template-columns:1fr}
   }
   .meeting-bar{
     display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;
@@ -1252,6 +1293,28 @@
   .sk-heading h2{margin:0;font-size:clamp(18px,2vw,23px);line-height:1.5}
   .sk-number{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;background:var(--sk-blue);color:white;font-size:15px;font-weight:700}
   .sk-cite{vertical-align:super;margin-left:5px;padding:3px;border:0;background:none;color:var(--sk-blue);font:600 10px var(--sans);cursor:pointer}
+  .sk-author-button{vertical-align:middle;margin-left:8px;padding:3px 8px;border:1px solid var(--sk-line);border-radius:6px;background:#F5F8FB;color:var(--sk-blue);font:500 10px/1.6 var(--sans);cursor:pointer;white-space:nowrap}
+  .sk-author-button:focus-visible{outline:2px solid #36786D;outline-offset:2px}
+  .ev-highlight .sk-author-button{margin:10px 0 0}
+  .ev-author-page{height:100%;overflow-y:auto;overscroll-behavior:contain;padding:16px 24px;box-sizing:border-box}
+  .ev-author-page[hidden]{display:none}
+  .ev-author-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .ev-author-top h2{margin:0;color:var(--sk-blue);font-size:22px;line-height:1.5}
+  .ev-author-page p{margin:8px 0;color:var(--sk-muted);font-size:11px;line-height:1.8}
+  .ev-author-page a{color:var(--sk-blue)}
+  .ev-author-page .ev-table{min-width:440px}
+  .ev-author-page .ev-table th,.ev-author-page .ev-table td{padding:8px 12px}
+  .ev-author-page .ev-table td{white-space:normal;overflow-wrap:anywhere}
+  .ev-author-page .ev-table td:first-child{width:40px}
+  .ev-reading-authors .ev-deck-frame{grid-template-columns:minmax(0,1fr)}
+  .ev-reading-authors .ev-side-nav,.ev-reading-authors .ev-deck-controls,.ev-reading-authors .ev-deck-hint{display:none}
+  @media(max-width:760px){
+    .ev-author-page{padding:12px 16px}
+    .ev-author-top{flex-direction:column;align-items:flex-start;gap:4px}
+    .ev-author-top h2{font-size:20px}
+  }
+  @media screen{.ev-stage[data-author-view]>.ev-slide{display:none!important}}
+  @media print{.ev-author-page{display:none!important}.sk-author-button{display:none!important}}
   .sk-note{font-size:11px;line-height:1.8;color:var(--sk-muted);margin:14px 0 0}
   .sk-references{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
   .sk-reference{display:grid;grid-template-columns:24px 1fr;gap:6px;font-size:11px;line-height:1.8;color:var(--sk-muted);scroll-margin-top:30px}
@@ -1483,6 +1546,13 @@
   #sk-evo-matrix .ev-table tbody th{font-size:12px}
   #sk-evo-matrix .ev-table th,#sk-evo-matrix .ev-table td{padding:7px 12px}
   #sk-evo-matrix .ev-table caption{padding:8px 12px}
+  .ev-slide.ev-results-slide{padding:14px 20px}
+  .ev-slide.ev-results-slide .sk-heading{margin-bottom:10px}
+  .ev-results-config{margin:0 0 10px;color:var(--sk-muted);font-size:12px;line-height:1.8}
+  .ev-results-config p{margin:3px 0}
+  .ev-slide.ev-results-slide .ev-table th,.ev-slide.ev-results-slide .ev-table td{padding:8px 12px}
+  .ev-results-slide .ev-table caption{padding:8px 12px}
+  .ev-results-note{margin:8px 0 0;color:var(--sk-muted);font-size:11px;line-height:1.6}
   #sk-evo-matrix .sk-note{font-size:10px;line-height:1.7;margin-top:10px}
   .ev-research-slide{display:grid;align-content:center;gap:22px;background:linear-gradient(125deg,#EDF4F8,#FFF 70%)}
   .ev-research-label{margin:0;color:var(--sk-blue);font-size:12px;font-weight:600;letter-spacing:.08em}
@@ -1539,29 +1609,95 @@
   .ev-plan-checks .ev-plan-card{padding:14px 16px}
   .ev-plan-checks h3{font-size:14px;margin:6px 0 8px}
   .ev-plan-checks p{font-size:12px}
-  .ev-flow-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:14px 0 8px}
-  .ev-flow-toolbar span{font-size:11px;color:var(--sk-muted)}
-  .ev-flow-toolbar button{border:1px solid var(--sk-line);border-radius:8px;background:white;color:var(--sk-blue);padding:7px 12px;font:500 11px var(--sans);cursor:pointer}
-  .ev-flow-scroll{overflow-x:auto;overflow-y:hidden;border:1px solid #DCE7EF;border-radius:16px;background:radial-gradient(circle,#CCDDE9 1px,transparent 1px) 0 0/18px 18px,#F7FAFD}
-  .ev-flow{position:relative;min-width:620px;height:clamp(200px,28vh,270px)}
-  .ev-flow svg{position:absolute;inset:0;width:100%;height:100%}
-  .ev-flow-node{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);width:64px;height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border:1px solid #C6D8E8;border-radius:18px;background:#FFF;color:#245B91;box-shadow:0 6px 18px #214E7610;cursor:pointer;font-family:var(--sans);transition:box-shadow .2s,border-color .2s}
-  .ev-flow-node strong{font-size:25px;font-weight:600}
-  .ev-flow-node small{font-size:8px;letter-spacing:.09em}
-  .ev-flow-node[data-flow-node="H"]{color:#237761;border-color:#B8DBCC}
-  .ev-flow-node[data-flow-node="B"]{background:#203E55;color:#FFF;border-color:#203E55}
-  .ev-flow-node[data-flow-node="N"]{color:#7A8797}
-  .ev-flow-node[aria-pressed="true"]{outline:3px solid #A0C4D8;outline-offset:4px;box-shadow:0 8px 24px #214E7625}
-  .ev-flow-detail{margin-top:12px;padding:14px 18px;border-radius:12px;background:#EDF3F8;border:1px solid var(--sk-line);min-height:78px;box-sizing:border-box}
-  .ev-flow-detail h3{font-size:14px;margin:0 0 6px;color:var(--sk-blue)}
-  .ev-flow-detail p{font-size:12px;line-height:1.8;color:var(--sk-muted);margin:0}
-  .ev-flow-key{display:flex;gap:18px;flex-wrap:wrap;font-size:10px;color:var(--sk-muted);margin:10px 0 0}
-  .ev-flow-key span::before{content:"";display:inline-block;width:7px;height:7px;border-radius:2px;background:#7399C8;margin-right:6px}
-  .ev-flow-key span:nth-child(2)::before{background:#3D9F83}
-  .ev-flow-key span:nth-child(3)::before{background:#99A6B4}
+  #sk-experiment{padding:10px 20px}
+  #sk-experiment .sk-heading{margin-bottom:0}
+  #sk-experiment .ev-plan-status{margin-left:12px;vertical-align:middle}
+  .ev-task-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}
+  .ev-task-heading .sk-heading{min-width:0}
+  .ev-task-heading>button{flex:none;border:1px solid var(--sk-line);border-radius:8px;background:white;color:var(--sk-blue);padding:5px 10px;font:500 11px var(--sans);cursor:pointer}
+  .ev-flow-scroll{overflow-x:auto;overflow-y:hidden;padding:2px;border-radius:16px}
+  .ev-flow{--ev-condition-rows:44px repeat(3,minmax(70px,1fr)) 56px;display:grid;grid-template-columns:180px minmax(0,1fr) 120px;align-items:stretch;gap:18px;min-width:700px;min-height:clamp(320px,42vh,380px)}
+  .ev-task-inputs,.ev-task-results{position:relative;display:flex;flex-direction:column;gap:8px;min-width:0;padding:12px 10px;border:1px solid #DAE5EC;border-radius:14px;background:#F6F9FB;color:#355267}
+  .ev-task-inputs h3,.ev-task-results h3{margin:0;font-size:15px;line-height:1.5}
+  .ev-task-kicker{font-size:9px;line-height:1.5;font-weight:600;letter-spacing:.1em;color:#7B93A5}
+  .ev-task-copy{margin:0;font-size:10px;line-height:1.6;color:#607D90}
+  .ev-task-inputs{display:grid;grid-template-rows:var(--ev-condition-rows);gap:8px;padding:0;border:0;background:none}
+  .ev-task-inputs-header{display:flex;flex-direction:column;justify-content:center;gap:3px}
+  .ev-condition-input{position:relative;display:flex;min-width:0}
+  .ev-condition-input .ev-flow-node{flex:1;gap:3px}
+  .ev-condition-input code{font:10px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .ev-condition-input .ev-flow-node small{font-size:9px}
+  .ev-task-common{display:flex;flex-direction:column;justify-content:center;gap:4px}
+  .ev-task-common .ev-flow-node{padding:4px 8px;font-size:10px}
+  .ev-task-common .ev-flow-node strong{font-size:10px}
+  .ev-flow-node{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:4px;min-width:0;padding:8px;border:1px solid #CDDCE7;border-radius:9px;background:#FFF;color:#315E81;text-align:left;cursor:pointer;font:400 11px/1.5 var(--sans);transition:box-shadow .2s,border-color .2s}
+  .ev-flow-node strong{font-size:12px;font-weight:600;line-height:1.5}
+  .ev-flow-node small{font-size:10px;line-height:1.5}
+  .ev-flow-node[data-flow-node="A"]{background:#EAF3FC;border-color:#A7C5DF}
+  .ev-flow-node[data-flow-node="H"]{color:#306853;border-color:#ACD0BC;background:#EAF6EF}
+  .ev-flow-node[data-flow-node="N"]{border-color:#CAD6DF;background:#F3F6F8;color:#607D90}
+  .ev-flow-node[data-flow-node="B"]{margin-top:auto;background:#E8F0F7;border-color:#A9C1D4}
+  .ev-flow-node[data-flow-node="R"]{background:#EDF6F1;border-color:#B8D6C6;color:#306853}
+  .ev-flow-node:hover{border-color:currentColor;box-shadow:0 4px 12px #18375614}
+  .ev-flow-node:focus-visible,.ev-flow-node[aria-pressed="true"]{outline:2px solid currentColor;outline-offset:2px}
+  .ev-task-containers{position:relative;display:flex;min-width:0}
+  .ev-docker-overview{display:grid;grid-template-rows:var(--ev-condition-rows);flex:1;gap:8px;min-width:0}
+  .ev-docker-overview h3{margin:0;font-size:15px;line-height:1.5;color:#355267}
+  .ev-docker-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:10px;flex:1;width:100%;min-width:0;padding:6px 12px;border:1.5px solid #A7C5DF;border-radius:12px;background:#EAF3FC;color:#315E81;text-align:left;font-family:var(--sans);cursor:pointer;transition:box-shadow .2s,border-color .2s}
+  .ev-docker-row[data-docker-condition="human"]{border-color:#ACD0BC;background:#EAF6EF;color:#306853}
+  .ev-docker-row[data-docker-condition="none"]{border-color:#CAD6DF;background:#F3F6F8;color:#607D90}
+  .ev-docker-row:hover{border-color:currentColor;box-shadow:0 4px 14px #18375614}
+  .ev-docker-row:focus-visible,.ev-docker-back:focus-visible{outline:2px solid #497B9E;outline-offset:2px}
+  .ev-docker-row svg{width:28px;height:28px}
+  .ev-docker-row strong{display:block;font-size:15px;font-weight:600;line-height:1.5}
+  .ev-docker-row small{display:block;font-size:9px;line-height:1.5}
+  .ev-docker-executor{display:block;margin:3px 0;font-size:10px;font-weight:600;line-height:1.5}
+  .ev-docker-open-arrow{font-size:20px}
+  .ev-docker-overview[hidden],.ev-docker-detail[hidden]{display:none}
+  .ev-task-container{position:relative;display:flex;flex-direction:column;min-width:0;border:2px solid #497B9E;border-radius:15px;background:#FFF;box-shadow:0 8px 24px #244F7710}
+  .ev-docker-detail{flex:1}
+  .ev-docker-detail[data-condition="human"]{border-color:#4B886A}
+  .ev-docker-detail[data-condition="none"]{border-color:#7B929F}
+  .ev-docker-detail[data-condition="human"] .ev-task-container-header{background:#356C53}
+  .ev-docker-detail[data-condition="none"] .ev-task-container-header{background:#586F7F}
+  .ev-task-container-header{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:12px 12px 0 0;background:#244B68;color:#EFF7FC}
+  .ev-task-container-header svg{flex:none;width:28px;height:28px}
+  .ev-task-container-header h3{margin:0;font-size:14px;font-weight:600;line-height:1.4}
+  .ev-task-container-header small{display:block;margin-top:3px;font-size:9px;line-height:1.5;color:#C2D9E9}
+  .ev-docker-back{flex:none;margin-left:auto;padding:5px 7px;border:1px solid #DBEBF455;border-radius:6px;background:#FFFFFF14;color:#EFF7FC;font:500 10px/1.5 var(--sans);cursor:pointer}
+  .ev-docker-mount{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 8px;padding:6px 8px;border:1px solid #D3E0E9;border-radius:7px;background:#F3F7FA;color:#355267;font-size:10px}
+  .ev-docker-mount code{font:10px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow-wrap:anywhere}
+  .ev-task-container-body{display:flex;flex:1;flex-direction:column;gap:8px;padding:12px}
+  .ev-flow-node[data-flow-node="T"]{flex:1;background:#F3F8FC;border-color:#C9DDEB}
+  .ev-flow-node[data-flow-node="T"] strong{font-size:14px}
+  .ev-task-workspace{padding:9px 10px;border:1px solid #D9E5EC;border-radius:9px;background:#FAFCFD}
+  .ev-task-workspace h4{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 5px;font-size:12px;color:#355267}
+  .ev-task-workspace code{font:10px ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#587C96}
+  .ev-task-workspace p{margin:0;font-size:10px;line-height:1.6;color:#607D90}
+  .ev-task-eval-stage{padding-top:8px;border-top:1px dashed #AABFCC}
+  .ev-task-stage-label{display:block;margin-bottom:5px;font-size:9px;line-height:1.5;letter-spacing:.04em;color:#7D6D50}
+  .ev-flow-node[data-flow-node="O"]{width:100%;background:#F9F5ED;border-color:#D9CAAA;color:#755D37}
+  .ev-task-oracle-title{display:flex;align-items:center;justify-content:space-between;gap:8px;width:100%}
+  .ev-task-oracle-title strong{font-size:14px}
+  .ev-task-oracle-title>span{padding:2px 6px;border:1px solid #D8C8A9;border-radius:5px;font-size:9px;white-space:nowrap}
+  .ev-task-metrics{display:flex;flex-direction:column;gap:7px;margin:4px 0 0;padding:0;list-style:none;font-size:11px;line-height:1.6}
+  .ev-task-metrics li{padding-bottom:6px;border-bottom:1px solid #E0E9EF}
+  .ev-task-results>.ev-task-copy:last-child{margin-top:auto}
+  .ev-pipeline-connector{position:absolute;right:-19px;top:calc(55% - 18px);width:18px;height:36px;z-index:1;overflow:visible;pointer-events:none;color:#8EA9BD}
+  .ev-condition-input>.ev-pipeline-connector{top:calc(50% - 18px)}
+  .ev-condition-ai{color:#315E81}
+  .ev-condition-human{color:#306853}
+  .ev-condition-none{color:#607D90}
+  .ev-flow[data-active-condition="ai"] [data-input-condition]:not([data-input-condition="ai"])>.ev-pipeline-connector,
+  .ev-flow[data-active-condition="human"] [data-input-condition]:not([data-input-condition="human"])>.ev-pipeline-connector,
+  .ev-flow[data-active-condition="none"] [data-input-condition]:not([data-input-condition="none"])>.ev-pipeline-connector{display:none}
+  .ev-task-containers>.ev-pipeline-connector{top:calc(55% - 18px)}
+  .ev-flow-detail{margin-top:8px;padding:8px 10px;border-radius:12px;background:#F3F6F9;border:1px solid var(--sk-line);min-height:56px;box-sizing:border-box}
+  .ev-flow-detail h3{font-size:12px;margin:0 0 4px;color:var(--sk-blue)}
+  .ev-flow-detail p{font-size:11px;line-height:1.7;color:var(--sk-muted);margin:0}
   @media(prefers-reduced-motion:reduce){.ev-flow-packet{display:none}}
   @media print{.ev-flow-packet{display:none}}
-  @media print{.ev-flow-toolbar button{display:none}.ev-flow{min-width:0}}
+  @media print{.ev-task-heading>button{display:none}.ev-flow{min-width:0}.ev-docker-overview,.ev-docker-overview[hidden]{display:grid!important}.ev-docker-detail{display:none!important}.ev-condition-input>.ev-pipeline-connector{display:block!important}.ev-docker-row,.ev-condition-input .ev-flow-node{print-color-adjust:exact}}
   @media(max-width:760px){
     .ev-plan-groups,.ev-plan-checks,.ev-plan-metrics{grid-template-columns:1fr}
   }
@@ -1664,13 +1800,61 @@
   </section>
   </div>
   <div class="sg-footer">
-    <nav class="meeting-choices" aria-label="Meetings">
+    <nav class="meeting-choices" aria-label="Home navigation">
       <button class="meeting-choice" type="button" data-meeting="2"><span class="sg-entry-title">Latest Meeting</span></button>
       <button class="meeting-choice" type="button" data-meeting="1"><span class="sg-entry-title">Previous Meetings</span></button>
+      <button class="meeting-choice" id="sg-scholars-open" type="button" aria-haspopup="dialog" aria-controls="sg-scholars"><span class="sg-entry-title">Related Scholars</span></button>
+      <button class="meeting-choice" id="sg-issta26-open" type="button" data-conference="issta26" aria-haspopup="dialog" aria-controls="sg-papers"><span class="sg-entry-title">ISSTA26</span></button>
+      <button class="meeting-choice" id="sg-msr26-open" type="button" data-conference="msr26" aria-haspopup="dialog" aria-controls="sg-papers"><span class="sg-entry-title">MSR26</span></button>
     </nav>
-    <button type="button" class="sg-motion" id="sg-motion"><span id="sg-pause">Pause journey</span><span id="sg-play" hidden>Resume journey</span></button>
   </div>
   <p class="sg-error" id="sg-error" role="alert" hidden></p>
+  <dialog class="sg-scholars" id="sg-scholars" aria-labelledby="sg-scholars-title" aria-describedby="sg-scholars-intro">
+    <div class="sg-scholars-header">
+      <h2 id="sg-scholars-title">Related Scholars</h2>
+      <button class="sg-scholars-close" id="sg-scholars-close" type="button" aria-label="Close scholars" autofocus>&times;</button>
+    </div>
+    <p class="sg-scholars-intro" id="sg-scholars-intro">People working on skills and agent evaluation.</p>
+    <ul class="sg-scholar-list">
+      <li>
+        <a class="sg-scholar-card" href="https://www.yiminl.com/" target="_blank" rel="noopener noreferrer" aria-describedby="sg-scholars-note">
+          <div class="sg-scholar-heading"><strong>Yimin Liu</strong><span aria-hidden="true">↗</span></div>
+          <p class="sg-scholar-affiliation">The Ohio State University · Ph.D. Candidate</p>
+          <p class="sg-scholar-summary">Works on Agent Skills, agent evaluation infrastructure, and AI for Science. Related work includes SkillsBench.</p>
+          <span class="sg-scholar-url">www.yiminl.com</span>
+        </a>
+      </li>
+    </ul>
+    <p class="sg-scholars-note" id="sg-scholars-note">Summary based on the scholar's personal website. The card opens the website in a new tab.</p>
+  </dialog>
+  <dialog class="sg-scholars sg-papers" id="sg-papers" aria-labelledby="sg-papers-title" aria-describedby="sg-issta26-scope">
+    <div class="sg-scholars-header">
+      <h2 id="sg-papers-title"><span data-conference-panel="issta26">ISSTA26 · Accepted Papers</span><span data-conference-panel="msr26" hidden>MSR26 · Mining Challenge</span></h2>
+      <button class="sg-scholars-close" id="sg-papers-close" type="button" aria-label="Close paper directory" autofocus>&times;</button>
+    </div>
+    <p class="sg-scholars-intro" id="sg-issta26-scope" data-conference-panel="issta26">210 accepted papers from the official ISSTA 2026 Research papers track, including its experience and replicability studies. Other tracks and workshops are not included.</p>
+    <p class="sg-scholars-intro" id="sg-msr26-scope" data-conference-panel="msr26" hidden>Scope: MSR 2026 Mining Challenge papers only, excluding the Technical Papers and other tracks.</p>
+    <section class="sg-paper-status" data-conference-panel="msr26" hidden aria-labelledby="sg-papers-status-title">
+      <h3 id="sg-papers-status-title">Full directory pending import</h3>
+      <p id="sg-papers-status">The full MSR 2026 Mining Challenge paper list has not been imported or verified. The links below are source entry points, not a complete local paper collection.</p>
+    </section>
+    <section class="sg-paper-library" data-conference-panel="issta26" aria-labelledby="sg-papers-title">
+      <p class="sg-paper-provenance" id="sg-issta26-provenance">Official Accepted Papers · checked 2026-10-26 · includes unscheduled papers; titles and author order follow the source.</p>
+      <label id="sg-issta26-search-label" for="sg-issta26-search">Search titles or authors</label>
+      <input id="sg-issta26-search" type="search" placeholder="Title or author name" aria-controls="sg-issta26-list">
+      <p class="sg-paper-results" id="sg-issta26-results" role="status" aria-live="polite"></p>
+      <p class="sg-paper-empty" id="sg-issta26-empty" hidden>No matching papers. Try another title or author.</p>
+      <ol class="sg-accepted-list" id="sg-issta26-list"></ol>
+    </section>
+    <ul class="sg-paper-links" data-conference-panel="issta26">
+      <li><a class="sg-scholar-card" href="https://conf.researchr.org/track/issta-2026/issta-2026-research-papers#event-overview" target="_blank" rel="noopener noreferrer"><strong class="sg-paper-official">Official conference website ↗</strong><span id="sg-issta26-source">The source Accepted Papers list for the Research papers track.</span></a></li>
+      <li><a class="sg-scholar-card" href="https://dblp.org/db/conf/issta/issta2026.html" target="_blank" rel="noopener noreferrer"><strong class="sg-paper-dblp">DBLP proceedings directory ↗</strong><span class="sg-paper-crosscheck">Supporting source for checking titles, authors and publication links.</span></a></li>
+    </ul>
+    <ul class="sg-paper-links" data-conference-panel="msr26" hidden>
+      <li><a class="sg-scholar-card" href="https://2026.msrconf.org/track/msr-2026-mining-challenge" target="_blank" rel="noopener noreferrer"><strong class="sg-paper-official">Official conference website ↗</strong><span id="sg-msr26-source">The Mining Challenge track, not the full MSR program.</span></a></li>
+      <li><a class="sg-scholar-card" href="https://dblp.org/db/conf/msr/msr2026.html" target="_blank" rel="noopener noreferrer"><strong class="sg-paper-dblp">DBLP proceedings directory ↗</strong><span id="sg-msr26-crosscheck">This DBLP directory covers all MSR tracks; only Mining Challenge papers belong in this collection.</span></a></li>
+    </ul>
+  </dialog>
 </main>
 <div class="wrap" id="meeting-content" hidden>
 
@@ -2152,6 +2336,220 @@
 </div>
 
 <!-- BEGIN INLINE SWECHAT DATA -->
+<script type="application/json" id="issta26-paper-data">
+[
+{"id": "6c208ecd-91ca-40e5-ae07-a272b72607dd", "title": "A Closer Look at the Use of Reinforcement Learning for Speeding Up Runtime Verification of Software Tests (Experience Paper)", "authors": ["Shinhae Kim", "Saikat Dutta", "Owolabi Legunsen"]},
+{"id": "0d0537a4-413c-4330-9bb0-b407ad8c83d0", "title": "A Comprehensive Empirical Analysis of Patch Presence Testing: Capabilities, Limitations, and Paths Forward", "authors": ["Xiaobei Zhang", "Yaowen Zheng", "Wu Luo", "Shijun Zhao", "Yongsheng Tao", "Dan Meng", "Rui Hou"]},
+{"id": "e976df3c-df05-48e0-beb3-478d30c9899a", "title": "AdaptAgent: A Multi-agent, Domain-Guided Reasoning Framework for Code Adaptation", "authors": ["Xiaokai Rong", "Hridya Dhulipala", "Aashish Yadavally", "Tien N. Nguyen"]},
+{"id": "6a6d2437-ffd8-42de-b517-462df933e9bc", "title": "A Dataset of Reproducible Flaky-Test Failures", "authors": ["Suzzana Rafi", "MAHBUB-UL-HOQUE SUMON", "Md Erfan", "Maruf Morshed Khan", "August Shi", "Wing Lam"]},
+{"id": "4236dda4-3454-423f-a074-c12743224f0d", "title": "AgentBreaker: Evaluating Context-Aware Indirect Prompt Injection Risks in Modern Web Agents", "authors": ["Yongbi Son", "Changoo Lee", "Dongwon Shin", "Byoungyoung Lee", "Sanghyun Hong", "Sooel Son"]},
+{"id": "0c821c5b-6ed7-4f54-8a69-44e4f4d3f44c", "title": "AgentInspect: Diagnosing Behavioral Failures in Artificial Intelligence Agents", "authors": ["Ruchira Manke", "Mohammad Wardat", "Foutse Khomh", "Hridesh Rajan"]},
+{"id": "a4808324-b072-4c34-801e-a3b4cb0404fa", "title": "An Empirical Study and Benchmark of Kubernetes Misconfiguration Scanners", "authors": ["Haeun Eom", "Bohyun Suk", "Sungjae Hwang"]},
+{"id": "368cd7a6-468f-4607-bc9e-7aaaa6fe9ef6", "title": "An Empirical Study of Speculative Decoding on Software Engineering Tasks", "authors": ["Yijia Li", "Junkai Chen", "Xing Hu", "Xin Xia"]},
+{"id": "aeb25ff4-aea6-47c9-816d-45308f9326fc", "title": "Answer is Cheap, Show Me the Evidence! Augmenting Automated Vulnerability Assessment with Evidence", "authors": ["Shengyi Pan", "Zelong Zheng", "Jiayuan Zhou", "Xing Hu", "Xin Xia", "Shanping Li"]},
+{"id": "996daa0a-d057-48ae-9699-0971969f70d8", "title": "Applying System Call Filtering to Real-World Binaries (Experience Paper)", "authors": ["Soumyakant Priyadarshan", "Seyedhamed Ghavamnia"]},
+{"id": "b706edb6-cfdd-47fc-85cd-f4ee32c1826c", "title": "Are We Stuck? Modeling and Detecting Deadlocks in Multi-Autonomous Vehicle Systems", "authors": ["Mingfei Cheng", "Xiaofei Xie", "Lili Quan", "Yuan Zhou"]},
+{"id": "7759d38a-5271-49ae-a40e-2ad7679f519c", "title": "ARQ: A Mixed-Precision Quantization Framework for Accurate and Certifiably Robust DNNs", "authors": ["Yuchen Yang", "Yifan Zhao", "Shubham Ugare", "Gagandeep Singh", "Sasa Misailovic"]},
+{"id": "35b3b827-8c72-4afb-ad43-da34f6d28921", "title": "AsyncLeakBench: A Curated Benchmark of Asynchronous Resource Leaks in Open-Source Java Projects", "authors": ["Jinyoung Kim", "Jinseok Heo", "Dongwook Choi", "Eunseok Lee"]},
+{"id": "ebe419eb-446f-4a51-b247-c2796cbaf3d3", "title": "A Temporal Reasoning Benchmarking Framework for LRMs via Difficulty-controlled and Dynamic Test Generation", "authors": ["shide zhou", "Kailong Wang", "Ling Shi", "Haoyu Wang"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/52/A-Temporal-Reasoning-Benchmarking-Framework-for-LRMs-via-Difficulty-controlled-and-Dy"},
+{"id": "868854da-d36f-40ac-bf09-2ea5b9afa101", "title": "Atropos: Improving Cost-Benefit Trade-off of LLM-based Agents under Self-Consistency with Early Termination and Model Hotswap", "authors": ["Naryeong Kim", "Shin Yoo"]},
+{"id": "93d772e0-b7f1-4c19-9823-5f67a28fc3d6", "title": "AttnCompress: Dynamic Attention-Guided Trajectory Compression for Software Engineering Agents", "authors": ["Zhengran Zeng", "Yixin Li", "Rui Xie", "Wei Ye", "Shikun Zhang"]},
+{"id": "779ecafc-fc36-4d28-885f-4f80db262c1e", "title": "Augmenting Multi-Technique Static Analysis with Large Language Models: A Neuro-Symbolic Approach to Smart Contract Vulnerability Detection", "authors": ["Junxiang Wang", "Fu Song", "Miaomiao Zhang", "Bowen Du", "Rongcan Pei"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/131/Augmenting-Multi-Technique-Static-Analysis-with-Large-Language-Models-A-Neuro-Symbol"},
+{"id": "2e020ecf-b173-49f3-894d-e3f50566085d", "title": "AutoCodeSherpa: Symbolic Explanations in AI Coding Agents", "authors": ["Sungmin Kang", "Haifeng Ruan", "Abhik Roychoudhury"]},
+{"id": "a063bd7b-6581-4b6a-b1d3-b72186e2db8d", "title": "AutoHIL: LLM-Based ECU Functional Test Generation through Domain Knowledge Augmentation", "authors": ["Sichen Gong", "Qicai Chen", "Bihuan Chen", "Wenzhuo Zhang", "Yukun Gao", "Xin Peng"]},
+{"id": "4d6e95a9-a2d3-4a88-b83d-ae94929d4e5e", "title": "Automated Classification, Root Cause Analysis, and Repair Recommendations for Failed Mobile Testing by Specialized LLM", "authors": ["Chun Li", "Fei Wang", "Minxue Pan", "Zhong Li", "Mengliang Zeng", "Bin Zhang", "Xuejiao Yu", "Boyun Wang", "Kaijian Hua", "Xuandong Li"]},
+{"id": "00ca8125-d84b-47a5-8b4b-54e32c21c90b", "title": "Automated Dependency Optimization for Artifact-Based Build Systems", "authors": ["Hongxu Xu", "Zhenyang Xu", "Shane McIntosh", "Chengnian Sun"]},
+{"id": "3184a37b-7c01-43ef-8db2-1be5a46e6417", "title": "Automated Modernization of Machine Learning Engineering Notebooks for Reproducibility", "authors": ["Bihui Jin", "Kaiyuan Wang", "Pengyu Nie"]},
+{"id": "450566d3-f424-4117-ad2e-f14d98cbbeb0", "title": "Automated Program Repair for UI-centric Android Bugs: How Far are We?", "authors": ["Junayed Mahmud", "Sparsh Pandey", "Nadeeshan De Silva", "Atish Kumar Dipongkor", "Jingjing Wu", "Oscar Chaparro", "Mattia Fazzini", "Kevin Moran"]},
+{"id": "abc574bf-6c51-40ac-b303-e555a18e9344", "title": "Automated Type-IV Clone Generation via LLMs and Deterministic Validation", "authors": ["Luciano Marchezan", "Eugene Syriani", "Kévin Delcourt", "Houari Sahraoui"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/62/Automated-Type-IV-Clone-Generation-via-LLMs-and-Deterministic-Validation", "doi": "https://doi.org/10.1145/3832153"},
+{"id": "c8bdb85a-008a-4871-af7e-342b4b27d1a2", "title": "avaCGs: Version-Aware Call Graphs for Efficient Version-Range Queries", "authors": ["Johannes Düsing", "Dominik Helm", "Ben Hermann"]},
+{"id": "2c67b90b-1fbf-40d1-aab2-9112f3ee8338", "title": "BashCoder-R1: Towards Robust and Explainable Bash Script Generation with Robustness-Aware Group Relative Policy Optimization", "authors": ["Lei Yu", "Peng Wang", "Jia Xu", "Jingyuan Zhang", "Xin Wang", "Jiajia Ma", "Li Yang", "Changzhi Deng", "Zenghua Wang", "Fengjun Zhang"]},
+{"id": "9791bf57-66f5-4e85-8f68-3dd29fbd82cd", "title": "BCaLLM: Call Graph-Guided Python Breaking Change Detection with Large Language Models", "authors": ["Wei Cheng", "Chen Shen", "Huan Zhang", "Yuhan Wu", "Jingyue Yang", "Wei Hu"]},
+{"id": "d3eaac14-2a20-4c51-9b2e-e7103621821a", "title": "Belobog: Move Language Fuzzing Framework For Real-World Smart Contracts", "authors": ["Ziqiao Kong", "Wanxu Xia", "Zhengwei Li", "Yi Lu", "Pan Li", "Liqun Yang", "Yang Liu", "Xiapu Luo", "Shaohua Li"]},
+{"id": "b8cbd546-2dea-457d-9525-5b8b717bb989", "title": "Better Call Grep: Evaluating and Improving Grep-Like Lexical Retrieval for Repository-Level Code Completion", "authors": ["baoyi wang", "Xingliang Wang", "Guochang Li", "Chen Zhi", "Junxiao Han", "Xinkui Zhao", "Nan Wang", "Shuiguang Deng", "Jianwei Yin"]},
+{"id": "93bc3932-26c7-43c5-828d-bba78fe75c7a", "title": "Beyond Similarity Scores: Evidence-Based Third-Party Library Detection for C/C++ Binaries", "authors": ["CHENGYUE LIU", "Zhengzi Xu", "Lyuye Zhang", "Wu Jiahui", "Kaixuan Li", "Yang Liu"]},
+{"id": "60f6010d-4e45-4d5a-83aa-767e380c2a3d", "title": "Beyond the Surface: Towards Feature-Driven Fuzzing on the Chrome Browser", "authors": ["Chaoyuan Peng", "Muhui Jiang", "Yajin Zhou", "Lei Wu"]},
+{"id": "c89ef95d-9961-4408-a5fe-decd4fc9d304", "title": "BinRAG: An RAG-Based Decompilation Framework Fusing Name Prediction and Calling Context", "authors": ["Wai Kin Wong", "Daoyuan Wu", "Zhibo Liu", "Huaijin Wang", "Li Zongjie", "Shuai Wang"]},
+{"id": "d1293b31-f297-4f9b-a37e-fe2f691a3350", "title": "Branch-Level Fault Localization in ADS Planning via Temporal Coverage Analysis", "authors": ["Sangmin Woo", "Dohyun Kim", "Donghwan Shin", "Yongdae Kim"]},
+{"id": "0bccba77-1ea6-4d4f-8d39-50631a13139d", "title": "Bridging User Feedback and System Diagnosis: Reproducing Mobile Performance Issues from Reviews", "authors": ["Zhengquan Li", "Zhenhao Li", "Sidong Feng", "Cuiyun Gao", "Tao Zhang", "Zishuo Ding"], "doi": "https://doi.org/10.1145/3832189"},
+{"id": "69d92e87-8363-4a96-b112-4ffbec22bf86", "title": "CAM: A Causality-based Analysis Framework for Multi-Agent Code Generation Systems", "authors": ["LYU ZONGYI", "Zhenlan Ji", "Songqiang Chen", "Liwen Wang", "Yuheng Huang", "Shuai Wang", "Shing-Chi Cheung"]},
+{"id": "adb90a29-6076-4855-ab37-8987aa4ebd43", "title": "CARE: Cascading Impact-Aware Compliance Test Suite Evolution under Regulatory Changes", "authors": ["Zhiyi Xue", "Xiaohong Chen", "Min Zhang"]},
+{"id": "65a85e12-6896-4cb1-b0ec-4f096f671c71", "title": "CAST: A Compiler-Based Framework for Systematically Testing LLM Compositional Safety", "authors": ["Lu Yan", "Zhuo Zhang", "Xiangzhe Xu", "Shengwei An", "Guangyu Shen", "Zhou Xuan", "Xuan Chen", "Xiangyu Zhang"]},
+{"id": "2ac27f0b-5a03-40f6-8f73-3e546445425f", "title": "CausalRepair: Bridging the Causality Gap in Large Language Model-based Automated Program Repair via Dual-Slicing", "authors": ["Linhao Wu", "Yizhou Chen", "Zhen Yang", "Pengyu Xue", "Dan Hao"]},
+{"id": "eeb4ab64-0fda-492e-9b9f-7d6d26ce87f2", "title": "Characterizing and Repairing Obsolete Android GUI Tests under UI Evolution", "authors": ["Shiwen Song", "Yiheng Xiong", "Wenbo Guo", "Manqi Sun", "Jiaolong Kong", "Xiaofei Xie"]},
+{"id": "bd12c0fa-5e93-4f00-b78c-6b34631de317", "title": "Characterizing Real-World Bugs in Tile Programs for Automated Bug Detection", "authors": ["Ravishka Rathnasuriya", "Zihe Song", "Nidhi Majoju", "Tingxi Li", "Aaryaa Moharir", "Wei Yang", "Tao Xie"]},
+{"id": "1d0ca4e5-3bd0-453d-a0eb-a0bdf18968c0", "title": "Checked-In Secret Detection: Strings are All You Need", "authors": ["Zhengdong Huang", "Kevin Li", "Jinqiu Yang", "Yepang Liu", "Lili Wei"]},
+{"id": "f560cb60-b50f-459a-981c-bb76578a0070", "title": "ChromaEyes: Detecting Inconsistencies of User Interface Elements between Light and Dark Modes of Web Applications", "authors": ["K C Shweta", "Byungchul Tak", "Tegawendé F. Bissyandé", "Dongsun Kim"]},
+{"id": "c6238397-7144-47b8-a919-e382ae4eb2df", "title": "CID: Clean-Seed-Free Backdoor Defense via Counterfactual Invariance for Neural Code Models", "authors": ["Junyao Ye", "Zhen Li", "Xi Tang", "Shulin Li", "Shi Liang", "Deqing Zou", "Hai Jin"]},
+{"id": "f94ea47e-d482-46fe-af7e-cc8ead8cb2ba", "title": "CLASScanner: Efficient C++ Class Recovery from Binaries Driven by Object Flow Graphs", "authors": ["Jiaming Wang", "GongMing Wang", "Songtao Yang", "Xi Cao", "Chao Zhang"]},
+{"id": "e1b36bbd-eb30-4b6c-8fc1-ce43e172a857", "title": "CLIR: Liveness-Driven and Structure-Aware Fuzzing for the Cranelift Compiler", "authors": ["Shangtong Cao", "Tianlei Song", "Qiuping Yi", "Tianyu Chen", "Guoai Xu", "Ningyu He", "Haoyu Wang"]},
+{"id": "8b596313-4b5f-4ca3-867e-f309998f82c9", "title": "Code-MUE: Measuring Code LLM' Uncertainty through Execution-based Semantic Interaction Graphs", "authors": ["xiaoning ren", "Yinxing Xue", "Lei Ma", "Yuheng Huang"]},
+{"id": "a17e5dc2-9f96-464c-974c-04993210ef66", "title": "COEUR : COhesion and Exhaustiveness of User stories Representations", "authors": ["Marius Ortega", "Hassan Imhah", "Nédra Mellouli", "Christophe Rodrigues", "Nicolas Travers"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/106/COEUR-COhesion-and-Exhaustiveness-of-User-stories-Representations"},
+{"id": "69538a39-5d8f-47e6-93ed-286ce49c2427", "title": "Compiling Large Multi-Modal Requirement Documents into Runnable Software Systems: From an Agentic Test-Driven Perspective", "authors": ["Weiyu Kong", "Yun Lin", "Xiwen Teoh", "Duc-Minh Nguyen", "Ruofei Ren", "Jiaxin Chang", "Haoxu Hu", "Haoyu Chen"]},
+{"id": "45565af4-5635-435b-8136-26d32ffcae73", "title": "CONCUR: Benchmarking LLMs for Concurrent Code Generation", "authors": ["Jue Huang", "Tarek Mahmud", "Corina S. Păsăreanu", "Guowei Yang"]},
+{"id": "884818f3-dd14-4b3c-bd63-2bfe98b68b30", "title": "ConFL: Explainable Concurrent Fault Localization via Hierarchy-Guided LLM Reasoning", "authors": ["Shuai Shao", "Dingbang Wang", "Yiming Zeng", "Tingting Yu"]},
+{"id": "34a4e6d2-8133-4d2b-80eb-255f27660ef4", "title": "Contamination Means Overestimation? A Fine-grained Empirical Study in Code Intelligence", "authors": ["Zhen Yang", "Hongyi Lin", "Yifan He", "Junqi Wang", "Zeyu Sun", "Shuo Liu", "Jie Xu", "Pengpeng Wang", "Zhongxing Yu", "Qingyuan Liang"]},
+{"id": "369eafa1-6a0a-430e-9f86-c80572955bcc", "title": "Context Matters: Improving the Practical Reliability of LLM-Based Unit Test Generation (Experience Paper)", "authors": ["Junjie Chen", "Ziqi Wang", "Lin Yang", "Chen Yang", "Xiao Chu", "Jianyi Zhou", "Guangtai Liang", "Qianxiang Wang", "Dong Wang"]},
+{"id": "770c1634-b547-4de3-924b-2c1665fc6bd4", "title": "ConUT: Condition-Aware Test Generation for Complex Java Code", "authors": ["RuiGuo Yu", "ruiqi dong", "Xi Xiao", "Xiaogang Zhu", "Shaohua Wang", "Sheng Wen", "Qingli"]},
+{"id": "0b68dbb7-7b9a-474a-963c-d63e056b195b", "title": "Cracking Query Bottlenecks: Towards Efficiency-Oriented Text-to-SQL Generation", "authors": ["Li Lin", "Yunfeng Shen", "Lingfeng Bao", "Rongxin Wu", "Yang Liu"]},
+{"id": "d9f9598b-aaf9-44c1-9f85-23bb0bb8769d", "title": "Datura: Progressive Red Teaming Testing for Tool Invocation Chain in LLM Agents", "authors": ["Yuchen Shao", "Ziqun Bao", "Yuheng Huang", "Yuling Shi", "Mingyu Weng", "Yiwen Sun", "Long Yang", "Lei Ma", "Ting Su", "Chengcheng Wan"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/10/Datura-Progressive-Red-Teaming-Testing-for-Tool-Invocation-Chain-in-LLM-Agents"},
+{"id": "b661d50c-e091-4c77-90e0-3d947209f2c9", "title": "DDOR: Delta Debugging for Explainable Overrefusal Testing and Repair", "authors": ["Zhou Qinyan", "Peixin Zhang", "Jun Sun", "Haonan Zhang", "Dongxia Wang"]},
+{"id": "7fdcd6ed-0ff1-4275-9cf5-7fc426e1f063", "title": "DeepSCA: Dependency-Aware Software Composition Analysis for C/C++ Based on a Curated Code Feature Database", "authors": ["Meiqiu Xu", "Xibin Zhao", "Wenxuan Yu", "Zhiliang Zhu", "Li Li", "Heqing Huang", "Ying Wang"]},
+{"id": "0cb00c73-249f-4a85-9ad0-cbcf2076f37b", "title": "Defusing Logic Bombs in Symbolic Execution with LLM-Generated Ghost Code", "authors": ["Dimitrios Stamatios Bouras", "Sergey Mechtaev"]},
+{"id": "5f5afd8a-2ff0-48f9-8cb2-1c2b7098b800", "title": "Deprecated but Not Abandoned: A Large-Scale Empirical Study on Growing-user-demand Deprecated NPM Packages", "authors": ["Zezhou Tang", "Yang Zhang", "Xinjun Mao", "Tanghaoran Zhang", "Changrong Xie", "Wenyu Xu", "Simeng Yao", "Yiwen Wu"]},
+{"id": "73ec6259-eb47-4dde-9bd6-5314a12491c3", "title": "Do Coverage and Mutation Scores of LLM-Generated Test Suites Correlate With Their Effectiveness? (Replicability Study)", "authors": ["Junda Zhao", "Shurui Zhou", "Eldan Cohen"]},
+{"id": "cb8e095b-15ec-439c-8dad-6afea792bf19", "title": "DocPrism: Multi-Lingual Detection of Incorrectness Inconsistencies Between Code and Documentation", "authors": ["Xiaomeng Xu", "Zahin Wahab", "Reid Holmes", "Caroline Lemieux"]},
+{"id": "679075fd-bd28-45b8-a005-5b5bf03fc44e", "title": "Do Large Language Models Understand Code like Humans?", "authors": ["Xiaokai Rong", "Aashish Yadavally", "Hridya Dhulipala", "Anh H. N. Nguyen", "Tien N. Nguyen"]},
+{"id": "47d85179-33c2-4fac-bc18-299ed30af443", "title": "Don’t Use a Cannon to Kill a Fly: Lightweight Model Editing for LLMs to Correct Deprecated API Recommendations", "authors": ["Guancheng Lin", "Xiao Yu", "Jacky Keung", "Xing Hu", "Xin Xia", "Alex X. Liu"]},
+{"id": "e11dfea2-9ea0-465e-bdd2-c8367afaeca9", "title": "E2WR: An Effective and Efficient Reduction Framework for WebAssembly Binaries", "authors": ["Shiyao Zhou", "Ningyu He", "David Lo", "Xiapu Luo"]},
+{"id": "00e0bb6a-dfdf-4fa0-903f-64750785d876", "title": "E4R-Reviewer: Effective and Explainable Automated Code Review via End-to-End Reasoning-Guided Alignment", "authors": ["Yifei Liu", "Xizhi Hou", "Li Yang", "Huan Liu", "Chen Zhu", "Fengjun Zhang", "Chun Zuo"]},
+{"id": "a33ff734-4ca3-4693-86f8-62e2bdfc7108", "title": "Efficient Grammar-Constrained Decoding via Parser Stack Classification", "authors": ["Yongmin Li", "Yihong Dong", "Jia Li", "Ge Li"]},
+{"id": "1aa779c5-185f-4be4-97a2-aac0abb4fc19", "title": "Efficient Predictive Monitoring of Message Passing Interface Programs", "authors": ["Jiaqiang Yao", "Haocheng Geng", "Zhenbang Chen"]},
+{"id": "a6cc0da1-e77e-497a-b6b8-938d399e34df", "title": "Empowering Lightweight Language Models for Security Code Review via Context-Aware Distillation", "authors": ["Zixiao Zhao", "Yanjie Jiang", "Hui Liu", "Lu Zhang"]},
+{"id": "0e17b439-5508-4411-8767-f1bc58cd2e19", "title": "Enhancing LLM-based Bug Reproduction via Code Entity Retrieval and Test Case Repair", "authors": ["Hao Ding", "Yanjie Jiang", "Yuxia Zhang", "Hui Liu"]},
+{"id": "b6317265-8c05-41a2-a08e-82922ef13724", "title": "Environmental Injection Attacks against GUI Agents in Realistic Dynamic Environments", "authors": ["Yitong Zhang", "Ximo Li", "Liyi Cai", "Jia Li"]},
+{"id": "d661ac0c-e722-44e3-95b1-f3e771f6a987", "title": "Evaluating and Mitigating the Misguidance Effect of Buggy Code in LLM-Generated Unit Tests", "authors": ["Junda Zhao", "Shurui Zhou", "Eldan Cohen"]},
+{"id": "cbd48670-7d2a-4720-8518-f88c7bd49ef8", "title": "Evaluating the Impact of Explainable AI on Trust in AI-Assisted Code Review", "authors": ["Zhenhan Gao", "Marvin Muñoz Barón", "Umm-e Habiba", "Daniel Graziotin", "Stefan Wagner"]},
+{"id": "6fcbff50-f3e2-4a67-bfe0-6be8368704dc", "title": "EventSpec: Defining and Detecting Event-Semantic Issues in Blockchain Ecosystems", "authors": ["Yixuan Liu", "Yuxin Dong", "Ye Liu", "Yin Wu", "Chengxuan Zhang", "Xiapu Luo", "Yi Li"]},
+{"id": "ab6c51a9-e45e-45a2-aa59-d098b9635d66", "title": "EvidenT: An Evidence-Preserving Framework for Iterative System-Level Package Repair", "authors": ["Chenyu Zhao", "Minghua Ma", "Shenglin Zhang", "Zeshun Huang", "Yongqian Sun", "Chetan Bansal", "Saravan Rajmohan", "Dan Pei"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/203/EvidenT-An-Evidence-Preserving-Framework-for-Iterative-System-Level-Package-Repair"},
+{"id": "60335ec6-21f3-4426-92d6-ddf046fee759", "title": "Exploiting Ethereum Rollback Semantics: Profit-Driven Attack Synthesis and Off-Chain Misinterpretation Testing", "authors": ["Yixuan Liu", "Xinlei Li", "Yi Li"]},
+{"id": "771695b7-49bf-420d-8e4d-ca0266b51e93", "title": "Fairness Invariants: A Relational Approach to Explaining and Mitigating Fairness Bugs", "authors": ["Ranit Debnath Akash", "Ashish Kumar", "Gang (Gary) Tan", "Saeid Tizpaz-Niari"]},
+{"id": "2d29fd75-f04e-46ba-ae09-fe15c34f2514", "title": "Finding and Understanding Missed Optimizations in WebAssembly Optimizer (Experience Paper)", "authors": ["Ruiyang Xu", "Zetao Fan", "Shan Huang", "Ting Su"]},
+{"id": "a8d28586-518d-47e8-81c9-1f990872d2b3", "title": "Fine-Grained Privacy Leakage Detection in OpenHarmony Apps", "authors": ["AOHAN MEI", "Guangliang Yang", "Xinming Guo", "Yi Wang", "Fuan Gui", "Min Yang"]},
+{"id": "cb7b3798-1e28-4036-aca0-077f89c07af6", "title": "Fixed-Point Guided ADS Scenario Generation via Multi-Modal LLM Reasoning and Software Testing", "authors": ["xudong zhang", "Shihao Zhu", "Yan Cai"]},
+{"id": "14d79c90-dba4-42e9-bf2a-c762ea3f1f79", "title": "From Custom Logic to APIs: Understanding and Recommending API Replacement Refactorings", "authors": ["Bridget Nyirongo", "Yanjie Jiang", "Yuxia Zhang", "Hui Liu"]},
+{"id": "021c7bd6-487c-4b6e-a87b-27267d603ed8", "title": "From Draft to Precision: Iterative Agentic Framework for Intent-Aware Code Summarization", "authors": ["Yifei Ge", "Chunrong Fang", "Zhenyu Chen", "Juan Zhai"]},
+{"id": "406d08de-0d97-4d2a-a121-07dee1eee773", "title": "From Greedy Steps to Global Optimization: Learning Sequential Test Suite Generation", "authors": ["Guoqing Wang", "Chengran Yang", "Xiaoxuan Zhou", "Zeyu Sun", "Bo Wang", "David Lo", "Dan Hao"]},
+{"id": "98bc7612-9254-400c-aa82-ae5c220604c8", "title": "From Natural Language to Executable Properties for Property-based Testing of Mobile Apps (Experience Paper)", "authors": ["Yiheng Xiong", "Ting Su", "Jingling Sun", "Jue Wang", "Qin Li", "Geguang Pu", "Zhendong Su"]},
+{"id": "f401e42d-fe38-4eb6-bf8a-f462a34e3593", "title": "From Static to Dynamic: Benchmarking Real-world Code Review with MCR-bench", "authors": ["Dewu Zheng", "Yanlin Wang", "Xiwen Wang", "Kefeng Duan", "Hongyu Zhang", "Xilin Liu", "Yuchi Ma", "Zibin Zheng"]},
+{"id": "b621d515-d2c2-4a00-bf7a-9e39e2f8bae6", "title": "FuncDroid: Towards Inter-Functional Flows for Comprehensive Mobile App GUI Testing", "authors": ["Jinlong He", "xiachangwei", "Binru Huang", "Jiwei Yan", "Jun Yan", "Jian Zhang"]},
+{"id": "aec3fc5d-49ac-48cf-83ff-a4ac51b4dfce", "title": "Function Calling as a Flexible LLM Defense Add-On: Capability and Application Exploration", "authors": ["Zhenlan Ji", "Daoyuan Wu", "Wenxuan Wang", "Pingchuan Ma", "Shuai Wang", "Lei Ma", "Juergen Rahmel"]},
+{"id": "b0ed564c-4fcc-4775-a70a-1b7c86a6aaf9", "title": "Fuzzing FPGA Synthesis and Simulation Tools via LLM-Generated Syntax-Valid HDL Codes", "authors": ["He Jiang", "Wen Zhao", "Shikai Guo", "Zhihao Xu", "Xiaochen Li", "Rubing Huang"]},
+{"id": "a05b53a9-96ad-48b0-a8a8-968196e18a0e", "title": "Fuzzing the Boundary Between Models and Code in Hybrid AI-enabled Systems", "authors": ["Xinyu Gao", "Yang Feng", "Yuchen Lu", "Zhenqian Liu", "Zhenyu Chen", "Baowen Xu"]},
+{"id": "81c1bdf1-bccc-4315-99d8-b1ef26432136", "title": "Generating Project-Specific Test Cases with Requirement Validation Intention", "authors": ["Binhang Qi", "Yun Lin", "Xinyi Weng", "Yuhuan Huang", "Chenyan Liu", "Hailong Sun", "Zhi Jin", "Jin Song Dong"]},
+{"id": "e84f2a94-ca2f-4ef0-97ce-1d1168909e0c", "title": "Ghosts in the Memory: Detecting Unintended Sensitive Data in Android Apps", "authors": ["Seonghyeon Song", "Taeyoung Kim", "Woojoo Kim", "Seojin Park", "Sungjae Hwang", "Hyoungshick Kim"]},
+{"id": "03ec21d3-daa1-4126-9d72-e6686f83ae4b", "title": "Gleaner: A Semantically-Rich and Efficient Online Sampler for Microservice Diagnostics", "authors": ["Yifan Yang", "Aoyang Fang", "Songhan Zhang", "Pinjia He"]},
+{"id": "4c6dcbd4-9081-4d8e-ae8c-58ca3dcc1a38", "title": "Guarding the Lifeline: A First Look and Automated Defect Diagnosis for ROS Central Index", "authors": ["Weijie Sun", "Huiyan Wang", "Ying Wang", "Chang Xu"]},
+{"id": "f9baaedc-ff41-42c1-b163-e9977dc84793", "title": "HELO-APR: Enhancing Low-Resource Program Repair through Cross-Lingual Knowledge Transfer", "authors": ["Zhipeng Wang", "Boyang Yang", "Yidong Wan", "Liuye Guo", "You Lv", "Tao Zheng", "Zhuowei Wang", "Tieke He"]},
+{"id": "cb1e15d5-e0f6-422e-9145-8d55a762428a", "title": "Hidden Licensing Risks in the PTMware Ecosystem", "authors": ["Bo Wang", "Yueyang Chen", "Jieke Shi", "Minghui Li", "Yunbo Lyu", "Yinan Wu", "Youfang Lin", "Zhou Yang"]},
+{"id": "260310d3-cbba-4f0a-ba04-fb9963d97a94", "title": "How Does Killing Surviving Mutants Help Detect Real Bugs with Assertion Generation? A Controlled Experiment", "authors": ["Hang Du", "Vijay Krishna Palepu", "James Jones"], "doi": "https://doi.org/10.1145/3832232"},
+{"id": "41952d85-b69e-43e3-9093-aa03f0335441", "title": "How Much Static Structure Do Code Agents Need? A Study of Deterministic Anchoring", "authors": ["Zhihao Lin", "Mingyi Zhou", "Yizhuo Yang", "Li Li"]},
+{"id": "c607ab9f-3bcf-41f4-94da-347b92f65d85", "title": "How Safe is Your Screen? Understanding and Detecting Privacy Leaks in Sensitive Activities", "authors": ["Youngseok Kim", "Sungho Lee", "Sungjae Hwang"]},
+{"id": "e0ae4fa1-8794-446c-bd55-e1f9f78908ce", "title": "Industrial Practice of LLM-based Test Case Carving and Assertion Generation (Experience Paper)", "authors": ["Haozhen You", "Zhen Dong", "Jingjing Wang", "Qiang Li", "Xin Peng"]},
+{"id": "396a67ed-5879-4499-8755-e9da2cf9aa50", "title": "Inferring 1-Minimal Trigger Configurations for Assessing Linux Kernel CVE Triggerability", "authors": ["Tongjie Wei", "Peng Zhang", "Zhiwen Hu", "Xupu Hu", "Chen Lyu", "Gangyan Zeng"]},
+{"id": "346139ef-0fff-45ef-b6a4-ad510b49a041", "title": "Insecure Coding Preferences in Long-Term Memory: Security Risks for LLM-based Code Generation", "authors": ["Yuchen Chen", "Wei Cheng", "Yuan Xiao", "Zhou Yang", "Weifeng Sun", "Chunrong Fang", "Xiang Chen", "Baowen Xu", "David Lo", "Zhenyu Chen"]},
+{"id": "6f8ba8e6-c701-4264-aa7f-d8e7d0a8bb01", "title": "Integrating Multiple Features for Weakly-Supervised False-Passing Products Detection in Software Product Lines", "authors": ["Tao Zhang", "Yan Lei", "Haoran Xia", "Huan Xie", "Chunyan Liu"]},
+{"id": "2512fdf7-8e83-4793-8f1b-ecc24cacbdfa", "title": "Intrusion Models for Security Assessment: Methodology and Case Study on Xen", "authors": ["Charles Gonçalves", "Marco Vieira"]},
+{"id": "f394942f-5a68-4b5f-8d17-722df61d43bc", "title": "Is \"Knowing It's Malicious'' Enough? Evaluating LLMs for Fine-Grained Malware Behavior Auditing", "authors": ["Xinran Zheng", "Xingzhi Qian", "Yiling He", "Shuo Yang", "Lorenzo Cavallaro"]},
+{"id": "ef39d180-599e-49be-b638-a2755de42fdf", "title": "IssueExec: A Test-Driven Approach for Localizing Software Engineering Issues", "authors": ["Jiawei Liu", "Yun Lin", "Chenyan Liu", "Yu Qian", "Liu Yiming", "Jiaxin Chang", "Weinan Zhang", "Linpeng Huang"]},
+{"id": "5dcd463b-41c2-4cee-90d9-1ac0f0471e9f", "title": "IterTestQ: Assembly-Level, Cross-Platform Testing of Quantum Computing Platforms", "authors": ["Matteo Paltenghi", "Michael Pradel"]},
+{"id": "77020196-50a7-4167-84c6-46ac03197d8e", "title": "Just Old Wine in a New Bottle: Improving Vulnerability Repair Robustness to Combat Homologous but Heterogeneous Vulnerabilities", "authors": ["Xin Peng", "Bo Lin", "Yihao Qin", "Jing Wang", "Xin Zhao", "Xiaoling Li", "Jun Ma", "Xiaoguang Mao", "Shangwen Wang"]},
+{"id": "fef3107d-1452-4f5f-8da6-6420b492b401", "title": "KaPilot: LLM-Assisted Generation of Kani Specifications for Unsafe Rust Verification", "authors": ["Minghua Wang", "Yuxi Ling", "Mingzhi Gao", "Yuwei Liu", "Lin Huang"]},
+{"id": "e632e35e-4dbb-4a2c-9690-37f046a20347", "title": "Learning from the Test: Self-Referential Differential Testing for Deep RL Agents", "authors": ["Junda He", "Jieke Shi", "Zhou Yang", "Mingfei Cheng", "David Lo"]},
+{"id": "37ec2056-be92-4f3c-87df-7537c954b402", "title": "Lingxi: Repository-Level Issue Resolution Framework Enhanced by Procedural Knowledge Guided Scaling", "authors": ["Xu Yang", "Jiayuan Zhou", "Michael Pacheco", "Wenhan Zhu", "Pengfei He", "Shaowei Wang", "Kui Liu", "Ruiqi Pan"]},
+{"id": "2a416530-239a-4adb-bfee-b4f86da43c54", "title": "LLM-Based Repair of Static Nullability Errors", "authors": ["Nima Karimipour", "Pascal Joos", "Michael Pradel", "Martin Kellogg", "Manu Sridharan"], "doi": "https://doi.org/10.1145/3832114"},
+{"id": "6a375378-8fd8-4bcf-884c-e07980c1977f", "title": "LLMutantKiller: Using Large Language Models to Generate Tests that Kill Mutants", "authors": ["Farideh Khalili", "Aidan Domondon", "Harshit Garg", "Frank Tip"], "doi": "https://doi.org/10.1145/3832098"},
+{"id": "5e39f5de-1da5-42bf-84e5-04f4e17a7cdc", "title": "LogicHunter: Testing LLM Agent Frameworks with an Agentic Oracle", "authors": ["Minghui Long", "Yanjie Zhao", "Haoyu Wang"]},
+{"id": "a425bd44-0b9e-4ed9-a836-3b9cc7479c53", "title": "LogNexus: Effective Log Compression via Unified Redundancy Encoding", "authors": ["Yang Liu", "Kaiming Zhang", "Zhuangbin Chen", "Zibin Zheng"]},
+{"id": "49281b13-d446-4196-821f-429caf073d3e", "title": "Lookahead-then-Verify: Reliable Constrained Decoding for Diffusion LLMs under Context-Free Grammars", "authors": ["Yitong Zhang", "Yongmin Li", "Yuetong Liu", "Jia Li", "Xiaoran Jia", "Zherui Li", "Ge Li"]},
+{"id": "2cb0eade-9be9-4a71-92a2-d94238d22872", "title": "MalTotal: Cost-Effective and Language-Agnostic Malicious Code Poisoning Detection for Millions of Repositories", "authors": ["Jian Zhao", "Shenao Wang", "Qingyang Wu", "Yanjie Zhao", "Xiao Cheng", "Haoyu Wang"]},
+{"id": "a3368a85-88e2-406d-9431-72dfd2bfadc2", "title": "Mathematically-Guided Detection of Floating-Point Errors", "authors": ["Youshuai Tan", "Zhanwei Zhang", "Haonan Zhang", "Lianyu Zheng", "Zishuo Ding", "Jinfu Chen", "Weiyi Shang"]},
+{"id": "cd212493-a3f9-401b-b432-7e1e34485d70", "title": "Metamorphic Coverage", "authors": ["Jinsheng Ba", "Yuancheng Jiang", "Manuel Rigger"]},
+{"id": "a5164371-936c-458f-b044-55e792b82b2f", "title": "MG-Fuzz: Model-Guided Fuzzing for Unsafe Scenario Discovery in Autonomous Driving Systems", "authors": ["Yulong Lyu", "Ruiqi Hong", "Jiawan Wang", "Jun Sun", "Lei Bu"]},
+{"id": "29d1532d-222f-463a-83da-014a7ee51de9", "title": "Mind the Gap: An Empirical Study of Synchronization Gaps, Delays, and Missed Opportunities in Software Forks", "authors": ["Jiaying Zhu", "Lyuye Zhang", "Wu Jiahui", "CHENGYUE LIU", "Yang Liu"]},
+{"id": "b9a6c331-f0e0-41ec-b7c5-eecd8926568e", "title": "MoT: Modularization-of-Thought Prompting for Effective Code Generation", "authors": ["Ruwei Pan", "Hongyu Zhang"]},
+{"id": "b4340d85-9122-4921-ab20-97677610eb01", "title": "Multi-Stage On-Demand Program Slicing for Modular Analysis of Multi-Threaded Programs", "authors": ["Jiawei Yang", "Xiao Cheng", "Jiawei Wang", "Xiapu Luo", "Yulei Sui"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/164/Multi-Stage-On-Demand-Program-Slicing-for-Modular-Analysis-of-Multi-Threaded-Programs"},
+{"id": "778f3f73-af1d-4d59-be0d-f361804721be", "title": "MuMuTestUp: Mutation-based Multi-Agent Test Case Update", "authors": ["Dawei Tian", "Jiakun Liu", "Yun Peng", "Yichen Zhang", "Jianlei Chi", "Jun Sun", "Xiaohong Su"]},
+{"id": "122cae41-49ab-4bb5-8f94-b95dd3396940", "title": "Names Are All You Need: Effective and Safe Regression Test Selection for Python", "authors": ["You Wang", "Michael Pradel", "Zhongxin Liu"]},
+{"id": "ff76dd16-69e1-430f-973e-77861a650a90", "title": "NCFuzz: Configuration-guided Network Service Fuzzing", "authors": ["Xuesong Bai", "Hengkai Ye", "Shenghan Zheng", "Fenglu Zhang", "Hong Hu", "Zhou Li"]},
+{"id": "5725629e-c43f-4f97-9e79-9fd8d41e1d12", "title": "No One-Size-Fits-All: Adaptive Code Editing with Feature-Based Strategy Selection", "authors": ["Jun Wan", "Zhongxin Liu", "Dajun Chen", "Wei Jiang", "Yong Li", "Xiaoxue Ren"]},
+{"id": "cc4b3eb8-8680-4be4-83e7-20fd56fde511", "title": "NSync: Automated Cloud Infrastructure-as-Code Reconciliation with AI Agents", "authors": ["Zhenning Yang", "Hui Guan", "Victor Nicolet", "Brandon Paulsen", "Joey Dodds", "Daniel Kroening", "Ang Chen"], "doi": "https://doi.org/10.1145/3832121"},
+{"id": "c2ca0fa4-8051-4f95-908b-d065132e1fee", "title": "On the Evaluation of Large Language Models in Unit Test Evolution (Experience Paper)", "authors": ["Weichang Liu", "Junwei Zhang", "Yuqing Niu", "Bo Zhou"]},
+{"id": "efbf5e8b-4abf-4de2-92be-6443d23cc954", "title": "On the Feasibility of Deduplicating Compiler Bugs with Bisection", "authors": ["Xintong Zhou", "Zhenyang Xu", "Yongqiang Tian", "Chengnian Sun"]},
+{"id": "f699be3f-3c9a-4305-af5e-5f83cfc37201", "title": "On the Role of Large Language Models in Robustness-Guided Requirement Falsification", "authors": ["Ali Kaya", "Ivan Porres"]},
+{"id": "39dfbe0e-466a-4fb4-b03e-84f79ed7c75d", "title": "OptiMine: Scalable and Precise Code Optimization for Android Apps via LLM-Driven Semantic Analysis", "authors": ["Pengbo Du", "Qiuping Yi", "Liangzheng Zhang", "Hongliang Liang"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/124/OptiMine-Scalable-and-Precise-Code-Optimization-for-Android-Apps-via-LLM-Driven-Sema"},
+{"id": "dbbc6c1d-f62f-4c3d-91c1-358ea4c8ed11", "title": "PackMonitor: Towards Zero Package Hallucinations via Decoding-Time Monitoring", "authors": ["Xiting Liu", "Yuetong Liu", "Yitong Zhang", "Jia Li", "Shi-Min Hu"]},
+{"id": "41818bfd-a1ea-47d7-8849-442f50245a3e", "title": "PAGENT: Program Analysis Guided LLM Agent for Proof-of-Concept Generation", "authors": ["Achintya Desai", "Md Shafiuzzaman", "Wenbo Guo", "Tevfik Bultan"]},
+{"id": "6a078aba-43b5-4466-b653-fdd75419900a", "title": "Paired Code Smells and Test Smells: A Fine-Grained Longitudinal Empirical Study", "authors": ["Ziwen Cai"]},
+{"id": "9037bc92-4711-4919-b89c-0339123a4ccd", "title": "PatchPorter: LLM-Driven Security Patch Porting via Version Tracing and Context Selection for NPM", "authors": ["Zeliang Yu", "Ming Wen", "Zichao Wei", "Yulun Wu", "Deqing Zou", "Hai Jin"]},
+{"id": "0d37006b-8fb8-42ca-989f-cee9ff082c8d", "title": "PoCE: Automated Proof-of-Concept Synthesis using Large Language Models for Robust Validation", "authors": ["Tanusree Das Tithy", "Lamia Hasan Rodoshi", "Ayman Rafid Azahar", "Amlan Abhidarshi", "Tabassum Faruk", "Fahmid Al Rifat", "Faysal Hossain Shezan"]},
+{"id": "9ec0ec3f-cd9d-461e-8975-c2af6d9873c0", "title": "Poirot: Automatic Root Cause Analysis of Safety Violations in ADS Simulation Testing via Hypothetical Reasoning", "authors": ["You Lu", "Dingji Wang", "Kun Zhang", "Bihuan Chen", "Jiyan Zhang", "Xin Peng"]},
+{"id": "1661a4ac-c549-44e1-869f-e4af43a76202", "title": "Profiling-Guided Bayesian Optimization of JVM Configurations", "authors": ["Abdelrahman Baz", "Wing Lam", "August Shi"]},
+{"id": "d18189e3-c192-4457-bce4-82c8e7b1c137", "title": "ProgSCA: Software Composition Analysis via Program-Level Modeling", "authors": ["Peihong Li", "Cheng Li", "guyuchen", "Yanzhe Hu", "Liheng Chen", "Zeyu Gao", "Hao Wang", "Chao Zhang"]},
+{"id": "c30977b3-ba24-4dbd-8377-3de13a25d1bb", "title": "Project-Scale Statement-Level Fault Localization via Multi-View Semantic Learning and Pairwise Reranking", "authors": ["Hongwei Yu", "Xu Wang", "Jian Zhang", "Xiangxin Meng", "Jiarui Li", "Yang Liu", "Chunming Hu"]},
+{"id": "ffa4fec7-c591-4913-8783-984361878c84", "title": "PropCov: Effective Coverage Reporting for Property-Based Testing", "authors": ["Jesse Coultas", "Joseph Wiseman", "Luís Pina"]},
+{"id": "34887a2a-6558-429c-9d38-216e9bcaebe9", "title": "Provably Lossless Acceleration of DNN Mutation Testing via Memoization", "authors": ["Ali Ghanbari", "Ben Greenman", "Sasan Tavakkol", "Shibbir Ahmed"]},
+{"id": "48ccf2a5-2e46-4593-9f8e-4546a5e681bb", "title": "RecurIC3: Exploiting Structural Lemma Reuse to Accelerate IC3", "authors": ["Yuhan Li", "Liangze Yin", "Xinyi Gong", "Liu Minghao", "Tun Li", "Wei Dong", "Ji Wang"]},
+{"id": "490aa0a8-e3e4-497b-9e9d-51ea9b76211d", "title": "Red-Teaming Coding Agents from a Tool-Invocation Perspective: An Empirical Security Assessment", "authors": ["Yuchong Xie", "Mingyu Luo", "Zesen Liu", "Zhixiang Zhang", "Kaikai Zhang", "Yu Liu", "Ci Tao", "Changhui Wang", "Zongjie Li", "Ping Chen", "Shuai Wang", "Dongdong She"]},
+{"id": "fd911d5d-a3e7-4bc0-855c-8b00e73308c2", "title": "Re-evaluating Detection of Equivalent Mutants Using LLMs: We Should Properly Measure How Far We Are", "authors": ["Arjun Tandon", "Mehmet Fırat Dündar", "Milkiyas Gebremichael Gebru", "Darko Marinov", "Yiling Lou", "Wenxi Wang"]},
+{"id": "7d26205f-64f8-4efd-9c2e-846007ccd843", "title": "Repair-Driven Greybox Fuzzing", "authors": ["Bachir Bendrissou", "Alastair F. Donaldson", "Cristian Cadar"]},
+{"id": "7865b23c-2c26-48f2-9858-2dadbe5b4c7c", "title": "RESTOR: Automated Test Oracle Generation for RESTful APIs via Reinforcement Learning", "authors": ["Xun Zhou", "Zhen Dong", "Mingyu Ren", "Qiang Li", "JunJie Li", "Sifan Wang", "Xiaolong Yu", "Chaofeng Sha", "Xin Peng"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/94/RESTOR-Automated-Test-Oracle-Generation-for-RESTful-APIs-via-Reinforcement-Learning"},
+{"id": "817f7a20-721d-4d76-83f0-4fba615a9dce", "title": "Rethinking Mixture-of-Experts for Vulnerability Detection: An Empirical Study and Improved Design", "authors": ["Rongze Jiang", "Chaofeng Sha", "Xin Peng"]},
+{"id": "57ec8419-b7c0-4844-9d18-85812203c67f", "title": "Revisiting Graph Representations for ML-based Binary Code Similarity Detection: A Systematic Study", "authors": ["Tengteng Yang", "Yikun Hu", "jican zhang", "Lei Xue", "Ming Fan", "Liang Zhang"]},
+{"id": "bd60da02-efdf-49f9-bac3-3145aed7e87c", "title": "RICE: Harnessing LLMs and Historical Issues to Discover Internal Rust Compiler Errors", "authors": ["Langyi Lu", "Wei You", "Bin Liang", "Jianjun Huang"]},
+{"id": "be2212ef-f1fb-4cfd-bef0-4f75abf12801", "title": "RippleGUItester: Change-Aware Exploratory Testing", "authors": ["Yanqi Su", "Michael Pradel", "Chunyang Chen"]},
+{"id": "55cfcf0e-851d-450b-8a29-855da62261c9", "title": "RPCSpecter: Detecting Blockchain RPC Bugs through a Specification-Driven, Constraint-Aware Fuzzing Approach", "authors": ["Yuming Xiao", "Yuhong Nan", "Zhijie Zhong", "Mingxi Ye", "Zibin Zheng"]},
+{"id": "092622c8-e8a8-425d-b4f0-4660bba99d18", "title": "Rust's Type Checker Implementation is Unsound: An Empirical Study on Soundness Bugs in rustc", "authors": ["Yusung Sim", "Sukyoung Ryu", "Jaemin Hong"]},
+{"id": "7352e01c-65e8-4706-ad99-cd3de7763653", "title": "SAGE: Signal-Amplified Guided Embeddings for Vulnerability Detection", "authors": ["Zhengyang Shan", "QianXu", "Jiayun Xin", "Minghui Xu", "Yue Zhang", "Zhen Yang", "Hao Wu", "Xiuzhen Cheng"]},
+{"id": "aae49847-9325-4a4c-ac73-b9586af53363", "title": "Sakura: An Approach for Generating Complex Tests from Natural Language Test Descriptions", "authors": ["Tyler Stennett", "Rangeet Pan", "Bridget McGinn", "Alessandro Orso", "Saurabh Sinha"]},
+{"id": "8f9d9287-410a-4899-a03f-ac5dc51e6665", "title": "Scitix: Scalable Constraint-Based Type Inference for Code Snippets with Missing Types", "authors": ["Yiwen Dong", "Zhenyang Xu", "Yongqiang Tian", "Edward Lee", "Ondřej Lhoták", "Chengnian Sun"]},
+{"id": "e6154318-368a-4be8-aa97-9ba47babfe93", "title": "ScratchNet: A Multi-modal Benchmark for Evaluating and Advancing LLMs on Scratch Programming Tasks", "authors": ["Yuan Si", "Simeng Han", "Daming Li", "Hanyuan Shi", "Jialu Zhang"]},
+{"id": "dcf71615-323a-4700-ac7f-646713762070", "title": "Secrets Unlocked: Evaluating LLMs for Secrets Detection in Android Apps", "authors": ["Marco Alecci", "Jordan Samhi", "Tegawendé F. Bissyandé", "Jacques Klein"]},
+{"id": "ab9d4ce6-182a-4963-bb86-245c1ff3d451", "title": "SEDCoT: Enhancing LLM-Based COBOL Code Translation via Symbolic Execution and Delta Debugging", "authors": ["Phillip Entin", "Wenchao Gu", "Alexander Knapp", "Chunyang Chen"]},
+{"id": "77c81766-127f-4eb4-9a1f-dde822560e94", "title": "Seeing is Coding: On the Effectiveness of Vision Language Models in Code Understanding", "authors": ["Yuling Shi", "Chaoxiang Xie", "Zhensu Sun", "Yeheng Chen", "Chenxu Zhang", "Longfei Yun", "Chengcheng Wan", "Hongyu Zhang", "David Lo", "Xiaodong Gu"]},
+{"id": "a7b75461-b387-462d-a762-970c91e144b5", "title": "SEER: Self-Enhancing Chain-of-Thought Compression for Reasoning Models", "authors": ["Kerui Huang", "Shuhan Liu", "Xing Hu", "Tongtong Xu", "Lingfeng Bao", "Xin Xia"]},
+{"id": "8a81f39e-5a63-4344-839c-72888bc2f847", "title": "Self-Adaptive Code Representation: Grammar-Guided or Token-Based?", "authors": ["Qingyuan Liang", "Zhao Zhang", "Chen Liu", "Zeyu Sun", "Zheng Lin", "Yueyi Xiao", "Haotian Zhang", "Yingfei Xiong", "Lu Zhang"]},
+{"id": "20914662-75dc-43dc-833f-19a00af583e4", "title": "SemantiX: A Compatibility Checker between Applications and Compositions of Distributed Systems", "authors": ["Yifei Sun", "Ji-Yong Shin"]},
+{"id": "ee837fe7-56cb-48d7-92f6-13e84442fa5b", "title": "Sifting the Noise: A Comparative Study of LLM Agents in Vulnerability False Positive Filtering", "authors": ["Yunpeng Xiong", "Ting Zhang"]},
+{"id": "7337aa8d-cf92-4953-853e-60723f4d891b", "title": "Signal Denoising based Kill Matrix Refinement for Mutation-based Fault Localization", "authors": ["Hengyuan Liu", "Xia Song", "Yong Liu", "Zheng Li"]},
+{"id": "6a62fb46-e96f-4469-b491-f940ffffc6cf", "title": "Silence of Commit Messages: An Empirical Study for Vulnerability Commit Message Generation using Large Language Models", "authors": ["Hao Shen", "Ming Hu", "JiayeLi", "Xiaofei Xie", "Mingsong Chen"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/208/Silence-of-Commit-Messages-An-Empirical-Study-for-Vulnerability-Commit-Message-Gener"},
+{"id": "ab0b465a-cd6d-4bb5-a106-b7a8b4d2f5de", "title": "SimiFuzz: Seed–Worker Scheduling for Parallel Fuzzing via Contextual Bandits", "authors": ["Yijia Guo", "Zhiguo Ding", "Hong Liang", "Ming Zhong", "Dandan Zhao", "Xuhong Zhang", "Bo Zhang", "Shouling Ji", "Hao Peng"]},
+{"id": "2393cc92-2d0c-4065-b3df-ef527e650448", "title": "SmartDecompiler-R1: Enhancing Faithful and Explainable Smart Contract Bytecode Decompilation with Reinforcement Learning", "authors": ["Yilun Ma", "Lingxiao Tang", "Li Lin", "Zhipeng Gao", "Jiachi Chen", "Xin Xia", "Lingfeng Bao"]},
+{"id": "4c9988b8-2799-4044-ba18-913e4ca6b288", "title": "Solving String Split Constraints via Structural Relaxation", "authors": ["Rui Han", "Ziheng Wang", "Baoquan Cui", "Yuhang Dong", "Fuqi Jia", "Feifei Ma", "Jian Zhang"]},
+{"id": "8199e5ab-2f89-40b4-8c06-a94ea79629c5", "title": "SpectraDL: A Historical Issue-Driven, Test Specification-Assisted Transfer Testing Approach for Deep Learning Frameworks via LLMs", "authors": ["Shifan Liu", "Chang-ai Sun", "Fulei Wu", "Wing-Kwong Chan"]},
+{"id": "a7c7c732-b8d8-4b03-a520-68c047bf830a", "title": "STARS: Static Analysis-guided Assertion Synthesis Using Large Language Models", "authors": ["Jialun Cao", "Haoyu Wang", "Haoran Yan", "Ming Wen", "Michael Pradel"]},
+{"id": "fa4e1259-9849-4717-affe-9f7a102299fc", "title": "StateTree: A Tree-Based Modeling Approach for Fault Detection in Recurrent Neural Networks", "authors": ["Xinyu Gao", "Shuoxiao Zhang", "Minghui Wei", "Xiao Zhang", "An Guo", "Enyi Tang"]},
+{"id": "414ba45a-a835-4761-9da5-c41ce1487080", "title": "Steering Tree-of-Thought Reasoning via Deductive Verification", "authors": ["Haoliang Cheng", "Enyi Tang", "Shuoxiao Zhang", "Jiahe Mao", "Yanling Fu", "Zhiyuan Ma", "Keyu Cui", "Yuchuan Liu", "Yu Tian", "Xinyu Gao", "Haibin Wang"]},
+{"id": "c9b53d39-8f33-4e8b-ae5a-d4d9214250d3", "title": "SWE-PDB: Teaching LLMs to Leverage Debugging Tools via Agentic Training", "authors": ["Jiaxing Liu", "Xing Hu", "Xin Xia"]},
+{"id": "65f3ab85-135a-4ca1-a57e-53fbe46c26af", "title": "SymWeb: Feedback-Driven Context Exploration and Context-Aware Symbolic Execution for Browser-Embedded WebAssembly Vulnerability Detection", "authors": ["Yuanpeng Wang", "Yeqi Fu", "Zhineng Zhong", "Zhenkai Liang", "Ding Li", "Yao Guo", "Xiangqun Chen"]},
+{"id": "1145d546-dbf1-4d9f-a9c3-c13f4ef6986f", "title": "Systematically Cover SQL Syntactic Structures via k-Sequence", "authors": ["Hongtao Zhou", "Yingying Zheng", "Yu Gao", "Jiansen Song", "Xudong Xie", "Rui Yang", "Ziyu Cui", "Wensheng Dou", "Jun Wei"]},
+{"id": "09065910-8816-457d-a896-3b7f85d2a40e", "title": "SyzDiversity: Diversity-Guided Linux Kernel Fuzzing", "authors": ["Kun Hu", "Jiaji Qin", "Chaofeng Sha", "Bihuan Chen", "Shuoran Bai", "Qicai Chen", "Chenglin Wang", "Xin Peng", "Wenyun Zhao"]},
+{"id": "4a7fa1f3-f096-42d0-8aa4-21d06843a602", "title": "TensorLock: Recovering Model Dependency for Model Supply Chain", "authors": ["Susheng Wu", "Ziqian Chen", "Chengyuan Li", "Kaifeng Huang", "Zekai Chen", "Yijian Wu", "Bihuan Chen", "Yiheng Cao", "Zhuotong Zhou", "Yiheng Huang", "Xin Peng"]},
+{"id": "2c2caf0a-b266-4782-b638-1f5e5248bd88", "title": "Test Case Prioritization for DNNs via Neural Collapse Instability", "authors": ["Chunyu Liu", "Mingyuan Li", "Yang LI", "Wenmin Li", "Fei Gao", "Tengfei Tu", "Su-Juan Qin"]},
+{"id": "80ae344d-b991-4d66-b316-a64fcd613b88", "title": "Test Case Selection for Deep Neural Networks: A Replication Study on LLMs for Code (Replicability Study)", "authors": ["Ali Asgari", "Mitchell Olsthoorn", "Annibale Panichella"], "doi": "https://doi.org/10.1145/3832236"},
+{"id": "4cbd34bb-59c2-401f-a4b7-e6e6dcd40d68", "title": "Testing Computation Pushdown in Distributed Database Systems", "authors": ["Jinsheng Ba", "Zuming Jiang", "Zhendong Su"]},
+{"id": "bbf07731-ef11-46f8-a79d-bc4e8d12f039", "title": "Testing Method Relocation Algorithms via Template-Based Systematic Structural Traversal and Precondition Filtering", "authors": ["Chunhao Dong", "Yanjie Jiang", "Yang Zhang", "Hui Liu"]},
+{"id": "6fead045-a4d4-4d72-94d3-aed170635bae", "title": "Testing Retrieval-Augmented Generation Systems with Chunk Coverage", "authors": ["Jinhan Kim", "Samuele Pasini", "Paolo Tonella"]},
+{"id": "d9290de9-7349-4504-9c31-8db4f138c682", "title": "Testing Static Taint Analyzers with Equivalence Modulo Taint", "authors": ["Maria Christakis", "Anastasia Isychev", "Samuel Pilz", "Florian Tesarek", "Valentin Wüstholz"]},
+{"id": "b5462e92-74ef-43f1-b9eb-e408e15d7532", "title": "Test vs Mutant: Adversarial LLM Agents for Robust Unit Test Generation", "authors": ["Pengyu Chang", "Yixiong Fang", "Silin Chen", "Yuling Shi", "Beijun Shen", "Xiaodong Gu"]},
+{"id": "f51f550b-37bc-44d2-9a12-fb33696f9f52", "title": "The Discreet Charm of the Bugeoisie: A First Look at Bug Reports Created by Researchers", "authors": ["Ji young Kim", "Jana Dragovic", "Alessandro Botta", "T. M. Rithwanul Islam", "Alaa Mohamad", "Karim Sharaf", "Sejuti Sharmin Siddiqui", "Divyanshi Joshi", "Harini Anand", "Nurjemal Saryyeva", "Shubham Chapagain", "Saad Nasir", "Darko Marinov", "Bogdan Alexandru Stoica"]},
+{"id": "bf8cb8aa-170c-43dd-9f20-4998a6308695", "title": "The Fix is Right at Hand: Fixing Incompatibility Errors Guided by Library Knowledge for Automatic Library Upgrade", "authors": ["Zhuotong Zhou", "Susheng Wu", "JunPeng Zhao", "Bihuan Chen", "YenQin Hoo", "Yiheng Huang", "Yiheng Cao", "Xin Peng"]},
+{"id": "ea7bd635-bfc3-4f0f-a135-37ff199f5b10", "title": "The Illusion of Success: Learning-Based Android Malware Detectors (Replicability Study)", "authors": ["Michael Tegegn", "Julia Rubin"]},
+{"id": "a0cf1582-3bc7-4131-a671-2aa6ebedb605", "title": "The Unseen Delta: Characterizing the Compiler Optimization Landscape via Top-Down Differential Analysis", "authors": ["Zhibo Liu", "Huaijin Wang", "Shuai Wang"]},
+{"id": "fadfc637-50d7-43a7-8e0b-3895a086663e", "title": "To Run or Not to Run: Analyzing the Cost-Effectiveness of Code Execution in LLM-Based Program Repair", "authors": ["Zhihao Lin", "Junhua Zhu", "Mingyi Zhou", "Xin Wang", "Zhensu Sun", "Renyu Yang", "David Lo", "Li Li"]},
+{"id": "6286e725-793f-43dd-ad65-49d5cd319cbf", "title": "Toward Secure Code Generation: Bridging Correctness and Security via Task-Adaptive Vulnerability Modeling and Execution-Based Benchmarking", "authors": ["Jiexin Wang", "Liuwen Cao", "Xitong Luo", "Yang Cao", "Zhenghao Li", "Yunyi Xiao", "Mengchen Zhao", "Adam Jatowt", "Yi Cai"]},
+{"id": "3f1f7474-411f-43ae-a93f-439c2f3c605f", "title": "Towards Explorative IRBL: Combining Semantic Retrieval with LLM-driven Iterative Code Exploration", "authors": ["Moumita Asad", "Rafed Muhammad Yasir", "Sam Malek"]},
+{"id": "8b86569c-0c0a-44e1-8735-b4cee0776a90", "title": "Towards Iterative End-to-End Software Development: A Feature-Driven Multi-Agent Framework", "authors": ["Junwei Liu", "Chen Xu", "Chong Wang", "Tong Bai", "Weitong Chen", "Kaseng Wong", "Yiling Lou", "Xin Peng"]},
+{"id": "86d5dbe2-6640-4441-8bea-5f32162c26b9", "title": "Towards More Realistic Assertion Generation under Mixed-Assertion Scenario", "authors": ["Hongyan Li", "Kunpeng E", "Weifeng Sun", "Quanjun Zhang", "Meng Yan"]},
+{"id": "ab6109f3-2080-49d3-92b0-ab0d74122f33", "title": "Towards Understanding the Bugs in Verilator, a Hardware Description Language Compiler", "authors": ["Songyan Jiang", "Maolin Sun", "Kang Chen", "Qingyang Li", "Yibiao Yang", "Yuming Zhou"]},
+{"id": "b81edf3c-3056-484d-be11-dabc8875ec1a", "title": "TraceDev: A Traceability-Driven Multi-Agent Framework for Requirement-to-Code Development", "authors": ["Mingyu Chen", "Yakun Zhang", "Zihao Xie", "Yixing Luo", "Jinrui Xu", "Cuiyun Gao", "Kaiqi Zhao", "Yunming Ye"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/80/TraceDev-A-Traceability-Driven-Multi-Agent-Framework-for-Requirement-to-Code-Develop"},
+{"id": "f9c6507a-2b52-4639-9aa3-8b9a99d07eb8", "title": "TracePilot: Self-verifiable Framework for Decentralized Applications Fault Localization across Transactions", "authors": ["Xuanyu Zhu", "Zhiying Wu", "Tao Wang", "Ying Yan", "Wei Zhou", "Jiajing Wu", "Zigui Jiang", "Zibin Zheng"]},
+{"id": "fc09870f-098e-449d-9e87-bc2104ebbdbf", "title": "Tracing the Shadows: Automatic Tracking and Analysis of Crypto Money Laundering via Transaction Semantic Analysis", "authors": ["Hao Wu", "Haijun Wang", "Shangwang Li", "Yin Wu", "Ming Fan", "Ting Liu", "Xiapu Luo"]},
+{"id": "55123774-330a-4147-8c1f-c3e4885139c3", "title": "TrapHunter: Exposing Covert Pathways in Trap Token Contracts", "authors": ["Yin Wu", "Yixuan Liu", "Yi Li", "Chenyang Peng", "Hao Wu", "Ming Fan", "Ting Liu", "Haijun Wang"]},
+{"id": "5249f36e-0b17-457f-b8d2-627fc51886b0", "title": "Uncovering Business Logic Bugs via Semantics-Driven Unit Test Generation (Experience Paper)", "authors": ["Chen Yang", "Junjie Chen"]},
+{"id": "fcd198a8-91de-4543-8337-2f7a170bc566", "title": "Understanding and Improving Model Editing for Secure Code Generation", "authors": ["Weifeng Sun", "Quanjun Zhang", "Yuchen Chen", "Chengran Yang", "Gou Tan", "David Lo"]},
+{"id": "f42657c3-18c2-4351-967c-e88c0e895a64", "title": "Understanding Automated Program Repair Agents Through the Lens of Traceability: An Empirical Study", "authors": ["Ira Ceka", "Hailie Mitchell", "Saurabh Pujar", "Luca Buratti", "Shyam Ramji", "Junfeng Yang", "Gail Kaiser", "Baishakhi Ray"]},
+{"id": "af21e441-7a6d-491f-a8a9-6ec86c79bdde", "title": "Uniting Bounded Verification and Transformer-Based Learning for Proactive IoT Security", "authors": ["Md Rashedul Hasan", "Hamid Bagheri"], "url": "https://conf.researchr.org/details/issta-2026/issta-2026-research-papers/38/Uniting-Bounded-Verification-and-Transformer-Based-Learning-for-Proactive-IoT-Securit", "doi": "https://doi.org/10.1145/3832129"},
+{"id": "1c4d43d7-aee7-49d0-9af0-5602f907dea5", "title": "Unpacking AI Agent Participation in Issue-Centered Collaboration in Open-Source Software Development", "authors": ["Kaiwen Zhi", "Guisheng Fan", "Wentao Chen"]},
+{"id": "7a898efc-a250-4431-9c80-551a4208c03c", "title": "Vbox: Efficient Black-Box Serializability Verification", "authors": ["Weihua Sun", "Zhaonian Zou"]},
+{"id": "c0818c42-919f-43ea-8dd5-31a5d12a1222", "title": "WASCII: Bridging WebAssembly Specifications and Implementations through LLM-Enhanced Validation", "authors": ["Yeqi Fu", "Kaihang Ji", "Yuanpeng Wang", "Zong Cao", "Jiahao Liu", "Ding Li", "Yao Guo", "Zhenkai Liang"]},
+{"id": "fc0cb63c-ed5e-4e72-8e88-93ede9ad884b", "title": "What Makes In-Context Examples Effective for Code Generation?", "authors": ["Dongze Li", "Songqiang Chen", "Jialun Cao", "Shing-Chi Cheung"]},
+{"id": "a6bd5663-70a9-4bd5-b9f8-ec4e56e73ae0", "title": "When Optimizations Backfire: The Paradox of Plaintext Optimizations in Privacy-Preserving ML Compilers", "authors": ["Yichen Li", "Jin Tan", "Dongwei Xiao", "Yiteng Peng", "Pingchuan Ma", "Junming Ma", "Shoumeng Yan", "Shuai Wang", "Fengwei Zhang"]},
+{"id": "dece749d-c312-478f-ab64-af8d468e2589", "title": "WITFuzz: Validity-Preserving Greybox Fuzzing for WebAssembly Interface Type Binding Generators", "authors": ["Hanqin Guan", "Ningyu He", "Shangtong Cao", "Yifeng Cai", "Yao Guo", "Ding Li"]},
+{"id": "4ff654f8-67cb-4ba8-9522-52e7ff3d731e", "title": "XSearch: Explainable Code Search via Concept-to-Code Alignment", "authors": ["Liu Yiming", "Ruofan Liu", "Yun Lin", "Zicong Zhang", "Weiyu Kong", "Pengnian Qi", "Xiao Cheng", "Weinan Zhang", "Qianxiang Wang", "Linpeng Huang"]},
+{"id": "eb849ca1-5ffa-49e9-8cf6-7bf412432668", "title": "You are deceived in the pocket: Intrusive Advertisements in Mobile Applications: An Exploratory Study", "authors": ["Miaoying Cai", "Dongsun Kim", "Lingling Fan", "Xiangyu Zhang", "Sen Chen"]}
+]
+</script>
 <script>
 /* SWE-chat dataset (COLM 2026). Shared by the Chinese and English chart pages. */
 window.SWECHAT_SOURCE = {
@@ -2810,9 +3208,30 @@ window.SWECHAT_SOURCE = {
 
   const STATIC_I18N = [
     {sel: "#meeting-home", attr: "aria-label", zh: "选择会议", en: "Select a meeting"},
-    {sel: ".meeting-choices", attr: "aria-label", zh: "会议导航", en: "Meetings"},
+    {sel: ".meeting-choices", attr: "aria-label", zh: "主页导航", en: "Home navigation"},
     {sel: '.meeting-choice[data-meeting="1"] .sg-entry-title', zh: "以前的 Meeting", en: "Previous Meetings"},
     {sel: '.meeting-choice[data-meeting="2"] .sg-entry-title', zh: "最新的 Meeting", en: "Latest Meeting"},
+    {sel: "#sg-scholars-open .sg-entry-title,#sg-scholars-title", zh: "相关学者", en: "Related Scholars"},
+    {sel: "#sg-scholars-close", attr: "aria-label", zh: "关闭学者列表", en: "Close scholars"},
+    {sel: "#sg-scholars-intro", zh: "关注 Skill 与智能体评估的相关学者。", en: "People working on skills and agent evaluation."},
+    {sel: ".sg-scholar-affiliation", zh: "俄亥俄州立大学 · 博士候选人", en: "The Ohio State University · Ph.D. Candidate"},
+    {sel: ".sg-scholar-summary", zh: "关注 Agent Skills、智能体评估基础设施与 AI for Science；相关工作包括 SkillsBench。", en: "Works on Agent Skills, agent evaluation infrastructure, and AI for Science. Related work includes SkillsBench."},
+    {sel: "#sg-scholars-note", zh: "简介根据学者个人主页整理；点击卡片将在新标签页打开个人网站。", en: "Summary based on the scholar's personal website. The card opens the website in a new tab."},
+    {sel: "#sg-papers-close", attr: "aria-label", zh: "关闭论文目录", en: "Close paper directory"},
+    {sel: "#sg-issta26-scope", zh: "官网 Research papers 赛道的 210 篇录用论文，含该赛道的经验论文与可复现性研究；不含其他赛道或研讨会。", en: "210 accepted papers from the official ISSTA 2026 Research papers track, including its experience and replicability studies. Other tracks and workshops are not included."},
+    {sel: "#sg-msr26-scope", zh: "整理范围：仅 MSR 2026 Mining Challenge 赛道论文，不包含 Technical Papers 等其他赛道。", en: "Scope: MSR 2026 Mining Challenge papers only, excluding the Technical Papers and other tracks."},
+    {sel: "#sg-papers-status-title", zh: "完整目录待导入", en: "Full directory pending import"},
+    {sel: "#sg-papers-status", zh: "MSR 2026 Mining Challenge 的完整论文清单尚未导入并核实；下方仅提供来源入口，不代表本站已整理全部论文。", en: "The full MSR 2026 Mining Challenge paper list has not been imported or verified. The links below are source entry points, not a complete local paper collection."},
+    {sel: ".sg-paper-official", zh: "会议官网 ↗", en: "Official conference website ↗"},
+    {sel: ".sg-paper-dblp", zh: "DBLP 论文目录 ↗", en: "DBLP proceedings directory ↗"},
+    {sel: "#sg-issta26-source", zh: "Research papers 赛道的官方 Accepted Papers 原始名单。", en: "The source Accepted Papers list for the Research papers track."},
+    {sel: "#sg-issta26-provenance", zh: "来源：官网 Accepted Papers · 2026-10-26 核对；含未排期论文，题名与作者按官网顺序。", en: "Official Accepted Papers · checked 2026-10-26 · includes unscheduled papers; titles and author order follow the source."},
+    {sel: "#sg-issta26-search-label", zh: "搜索论文标题或作者", en: "Search titles or authors"},
+    {sel: "#sg-issta26-search", attr: "placeholder", zh: "输入标题关键词或作者姓名", en: "Title or author name"},
+    {sel: "#sg-issta26-empty", zh: "没有匹配的论文，请尝试其他标题关键词或作者姓名。", en: "No matching papers. Try another title or author."},
+    {sel: ".sg-paper-crosscheck", zh: "辅助核对论文题名、作者及发表链接。", en: "Supporting source for checking titles, authors and publication links."},
+    {sel: "#sg-msr26-source", zh: "直接进入 Mining Challenge 赛道，而非 MSR 全会议日程。", en: "The Mining Challenge track, not the full MSR program."},
+    {sel: "#sg-msr26-crosscheck", zh: "此 DBLP 页面涵盖 MSR 全会议；本站仅整理其中的 Mining Challenge 论文。", en: "This DBLP directory covers all MSR tracks; only Mining Challenge papers belong in this collection."},
     {sel: "#sg-countdown-title", zh: "距 MSR 2027 摘要截止", en: "MSR 2027 · Abstract deadline"},
     {sel: "#sg-issta-countdown-title", zh: "距 ISSTA 2027 摘要截止", en: "ISSTA 2027 · Abstract deadline"},
     {sel: "#sg-days-label,.sg-days-unit", zh: "天", en: "D"},
@@ -2820,8 +3239,6 @@ window.SWECHAT_SOURCE = {
     {sel: "#sg-minutes-label,.sg-minutes-unit", zh: "分", en: "M"},
     {sel: "#sg-seconds-label,.sg-seconds-unit", zh: "秒", en: "S"},
     {sel: ".sg-countdown-expired", zh: "摘要截止时间已到", en: "Abstract deadline has passed"},
-    {sel: "#sg-pause", zh: "暂停漫游", en: "Pause journey"},
-    {sel: "#sg-play", zh: "继续漫游", en: "Resume journey"},
     {sel: "#meeting-home-button", zh: "返回会议选择", en: "Back to meetings"},
     {sel: ".meeting-bar", attr: "aria-label", zh: "会议选择", en: "Meeting selector"},
     {sel: "#meeting-bar-kicker", zh: "博士导师会议记录", en: "PHD ADVISOR MEETINGS"},
@@ -4071,8 +4488,74 @@ window.SWECHAT_SOURCE = {
   function renderSkills(){
     const root = document.getElementById("aidev-skills-panel");
     const zh = LANG === "zh";
-    const cite = number => `<button type="button" class="sk-cite" data-sk-target="sk-ref-${number}" aria-label="${zh ? "查看参考文献" : "View reference"} ${number}">[${number}]</button>`;
-    const reference = (number, body) => `<div class="sk-reference" id="sk-ref-${number}" tabindex="-1"><b>[${number}]</b><span>${body}</span></div>`;
+    const paperAuthors = {
+      skillsbench: {
+        title: "SkillsBench",
+        fullTitle: "SkillsBench: Benchmarking How Well Agent Skills Work Across Diverse Tasks",
+        version: "arXiv:2602.12670v3 · PDF p. 1",
+        source: "https://arxiv.org/pdf/2602.12670v3",
+        note: zh ? "以 v3 PDF 首页为准。原文两次列出 Kaixin Li（均署名 Independent），本页照录，不推断是否同一人。" : "Checked against the v3 PDF title page. Kaixin Li appears twice, both affiliated with Independent; both entries are preserved without assuming they are the same person.",
+        affiliations: ["BenchFlow", "Ohio State University", "Amazon", "Dartmouth College", "Stanford University", "UC Davis", "Carnegie Mellon University", "UC Berkeley", "Independent", "Princeton University", "Foxconn", "Boston University", "Zenity", "UC Santa Cruz", "USC", "ByteDance", "UT Dallas", "Michigan State University", "UT Austin", "UC San Diego", "Duke University", "Columbia University", "University of Oxford"],
+        authors: [
+          ["Xiangyi Li", [1]], ["Yimin Liu", [2]], ["Wenbo Chen", [3]], ["Shenghan Zheng", [4]],
+          ["Xiaokun Chen", [5]], ["Yifeng He", [6]], ["Yubo Li", [7]], ["Bingran You", [8]],
+          ["Haotian Shen", [9]], ["Jiankai Sun", [9]], ["Shuyi Wang", [9]], ["Binxu Li", [10]],
+          ["Qunhong Zeng", [9]], ["Di Wang", [11]], ["Xuandong Zhao", [8]], ["Yuanli Wang", [12]],
+          ["Roey Ben Chaim", [13]], ["Zonglin Di", [14]], ["Yipeng Gao", [15]], ["Junwei He", [16]],
+          ["Yizhuo He", [7]], ["Liqiang Jing", [17]], ["Luyang Kong", [9]], ["Xin Lan", [18]],
+          ["Jiachen Li", [19]], ["Songlin Li", [5]], ["Yijiang Li", [20]], ["Yueqian Lin", [21]],
+          ["Xinyi Liu", [9]], ["Xuanqing Liu", [9]], ["Haoran Lyu", [9]], ["Ze Ma", [22]],
+          ["Kaixin Li", [9]], ["Runhui Wang", [9]], ["Tianyu Wang", [9]], ["Wengao Ye", [23]],
+          ["Yue Zhang", [17]], ["Hanwen Xing", [9]], ["Kaixin Li", [9]], ["Yiqi Xue", [15]],
+          ["Steven Dillmann", [5]], ["Han-chung Lee", [9]]
+        ]
+      },
+      "raw-experience": {
+        title: "From Raw Experience",
+        fullTitle: "From Raw Experience to Skill Consumption: A Systematic Study of Model-Generated Agent Skills",
+        version: "arXiv:2605.23899v1 · title page",
+        source: "https://arxiv.org/html/2605.23899v1",
+        note: zh ? "Zisu Huang 同时署名复旦大学与微软研究院；原文注明相关工作在微软亚洲研究院实习期间完成。" : "Zisu Huang lists both Fudan University and Microsoft Research; the paper notes that the work was done during an internship at MSRA.",
+        affiliations: ["Fudan University", "Microsoft Research", "Shanghai Jiao Tong University"],
+        authors: [
+          ["Zisu Huang", [1, 2]], ["Jingwen Xu", [1]], ["Yifan Yang", [2]], ["Ziyang Gong", [3]],
+          ["Qihao Yang", [3]], ["Muzhao Tian", [1]], ["Xiaohua Wang", [1]], ["Changze Lv", [1]],
+          ["Xuemei Gao", [2]], ["Qi Dai", [2]], ["Bei Liu", [2]], ["Kai Qiu", [2]],
+          ["Xue Yang", [3]], ["Dongdong Chen", [2]], ["Xiaoqing Zheng", [1]], ["Chong Luo", [2]]
+        ]
+      },
+      skillrevise: {
+        title: "SkillRevise",
+        fullTitle: "SkillRevise: Improving LLM-Authored Agent Skills via Trace-Conditioned Skill Revision",
+        version: "Findings of EMNLP 2026 · PDF p. 1",
+        source: "https://aclanthology.org/2026.findings-emnlp.991.pdf",
+        note: zh ? "单位对应正式论文首页的数字标注；哈尔滨工业大学与哈尔滨工业大学（深圳）按原文分别列示。" : "Affiliations follow the numbered markers on the published PDF title page; Harbin Institute of Technology and its Shenzhen campus are listed separately, as in the paper.",
+        affiliations: ["The Hong Kong University of Science and Technology", "Harbin Institute of Technology", "Harbin Institute of Technology (Shenzhen)", "Nanjing University", "The University of Hong Kong"],
+        authors: [
+          ["Yuxuan Liu", [1]], ["Zhaochen Su", [1]], ["Lingyun Xie", [2]], ["Yuhao Zhang", [3]],
+          ["Qing Zong", [1]], ["Jiahe Guo", [2]], ["Zhongwei Xie", [1]], ["Yiyan Ji", [4]],
+          ["Yauwai Yim", [1]], ["Hongyu Luo", [1]], ["Xiyu Ren", [1]], ["Ruan Chenyu", [5]],
+          ["Haoran Li", [1]], ["Yangqiu Song", [1]]
+        ]
+      },
+      evoskill: {
+        title: "EvoSkill",
+        fullTitle: "EvoSkill: Automated Skill Discovery for Agents",
+        version: zh ? "所提供的 PDF · 首页" : "Provided PDF · title page",
+        source: "https://openreview.net/forum?id=i4b4As7RFX",
+        note: zh ? "姓名与单位核对所提供的 PDF 首页；下方为 OpenReview 论文入口。该文的正式发表状态及会议／Workshop 归属仍待核实。" : "Names and affiliations were checked against the provided PDF title page; the link below is its OpenReview entry. Formal publication status and conference/workshop affiliation remain unverified.",
+        affiliations: ["Sentient", "Virginia Tech"],
+        authors: [
+          ["Salaheddin Alzubi", [1]], ["Noah Provenzano", [2]], ["Christian Calvo", [2]],
+          ["Jaydon Bingham", [2]], ["Weiyuan Chen", [2]], ["Himanshu Tyagi", [1]],
+          ["Dastin Huang", [1]], ["Tu Vu", [2]]
+        ]
+      }
+    };
+    const citedPapers = ["skillsbench", "raw-experience", "skillrevise", "evoskill"];
+    const authorsButton = number => `<button type="button" class="sk-author-button" data-paper-authors="${citedPapers[number - 1]}" aria-controls="ev-paper-authors" aria-label="${zh ? "查看作者与单位：" : "View authors and affiliations: "}${paperAuthors[citedPapers[number - 1]].title}">${zh ? "作者" : "Authors"}</button>`;
+    const cite = number => `<button type="button" class="sk-cite" data-sk-target="sk-ref-${number}" aria-label="${zh ? "查看参考文献" : "View reference"} ${number}">[${number}]</button>${authorsButton(number)}`;
+    const reference = (number, body) => `<div class="sk-reference" id="sk-ref-${number}" tabindex="-1"><b>[${number}]</b><span>${body}${authorsButton(number)}</span></div>`;
     const heading = (number, id, title, citation = "") => `<div class="sk-heading"><span class="sk-number">${number}</span><h2 id="${id}">${title}${citation}</h2></div>`;
     const comparisons = [
       {model: "Claude Opus 4.5", harness: "Claude Code", base: 22.0, curated: 45.3, ai: 21.6},
@@ -4106,24 +4589,28 @@ window.SWECHAT_SOURCE = {
     ];
     const paperGroups = [
       {id: "overview", title: zh ? "综合概览 / 引用" : "Overview / Sources", ids: ["sk-overview", "sk-highlights", "sk-boundaries", "sk-references"]},
-      {id: "skillsbench", title: "SkillsBench", publication: zh ? "2026 · arXiv 预印本" : "2026 · arXiv preprint", ids: ["sk-result", "sk-data-appendix"]},
+      {id: "skillsbench", title: "SkillsBench", publication: "2026 · NeurIPS · Poster", ids: ["sk-result", "sk-data-appendix"]},
       {id: "raw-experience", title: "From Raw Experience", publication: zh ? "2026 · arXiv 预印本" : "2026 · arXiv preprint", ids: ["sk-transfer", "sk-transfer-cases", "sk-cross-model"]},
       {id: "skillrevise", title: "SkillRevise", publication: "2026 · EMNLP Findings", ids: ["sk-revision"]},
       {id: "evoskill", title: "EvoSkill", publication: zh ? "2026 · AgentSkills（待核实）" : "2026 · AgentSkills (unverified)", ids: ["sk-evo-matrix", "sk-evo-transfer"]}
     ];
     const flowNodes = [
-      {id:"A", x:80, y:65, tag:"GENERATE", title:zh ? "A · Harness A + 模型 A" : "A · Harness A + model A", detail:zh ? "在源任务与开发环境中生成 AI Skill，可使用训练侧轨迹和验证反馈；最终测试题始终不可见。人类组获得相同资料与验证机会。" : "Generate AI Skills from source tasks, training traces and development feedback. Final test tasks remain unseen; humans receive matching evidence and validation access."},
-      {id:"H", x:80, y:205, tag:"HUMAN", title:zh ? "H · 人工编写" : "H · Human author", detail:zh ? "人工作者基于同一批源任务与资料编写 Skill。独立保存人工产物；记录工时与修订预算，不默认 AI 或人工哪一组更好。" : "Humans author Skills from the same source tasks and evidence. Store artifacts separately and record authoring time and revision budget; neither condition is assumed superior."},
-      {id:"F", x:300, y:130, tag:"FREEZE", title:zh ? "F · 独立文件夹 / 冻结产物" : "F · Separate folders / frozen artifacts", detail:zh ? "AI 与人工 Skill 分开保存，记录版本与哈希，只读传递给 B，测试时不得修改。文件夹用于保存产物，本身不是隔离沙箱。" : "Keep AI and human Skills in separate versioned, hashed folders. Pass them read-only to B with no test-time edits. Storage folders alone are not isolation sandboxes."},
-      {id:"N", x:400, y:235, tag:"NO SKILL", title:zh ? "N · 无 Skill 基线" : "N · No-Skill baseline", detail:zh ? "不加载任何额外 Skill，但使用与其他两组相同的目标模型、harness、工具、执行预算和未见测试题。" : "Load no added Skills. Keep the target model, harness, tools, execution budget and unseen tasks identical to both Skill conditions."},
-      {id:"B", x:560, y:130, tag:"EXECUTE", title:zh ? "B · Harness B + 模型 B" : "B · Harness B + model B", detail:zh ? "三种条件分别执行，而非混入同一次运行。每个任务 × 条件 × 重复运行使用干净会话与独立工作区；执行代码时使用独立容器，隔离缓存与记忆。" : "Run each condition separately, never mixed in one run. Use a fresh session and isolated workspace per task × condition × repeat, with separate containers for code and isolated caches and memory."},
-      {id:"R", x:760, y:130, tag:"COMPARE", title:zh ? "R · 统一评分 / 配对比较" : "R · Shared scorer / paired comparison", detail:zh ? "在同一批未见任务上比较三组成功率、相对无 Skill 的净收益、token、耗时与工具调用。动画仅示意数据传递，不代表已运行或任何实验结果。" : "Compare success rates, gain over no Skill, tokens, latency and tool calls on the same held-out tasks. Animation illustrates data flow only, not execution or measured results."}
+      {id:"A", title:zh ? "A · AI 生成的独立 Skill" : "A · Separate AI-authored Skill", detail:zh ? "示例：用 Copilot + GPT-6.1 Sol 根据源任务与开发资料生成 AI Skill，独立保存于 ai/，记录自己的版本与哈希。它与 human/ 中的人类 Skill 是不同产物，不能混合加载；最终测试题始终不可见，人类组获得同等资料与验证机会。此处是拟议配置，不代表已完成实验。" : "Example: use Copilot + GPT-6.1 Sol to generate the AI Skill from source tasks and development evidence. Store it separately in ai/ with its own version and hash. It is a different artifact from the human Skill in human/; never load both together. Final test tasks remain unseen; humans receive matched evidence and validation access. This is a proposed configuration, not a completed experiment."},
+      {id:"H", title:zh ? "H · 人类编写的独立 Skill" : "H · Separate human-authored Skill", detail:zh ? "人工作者基于同一批源任务与资料编写另一份 Skill，独立保存于 human/，记录自己的版本、哈希、工时和修订预算。它不是 AI Skill 的同一文件或共享副本；在另一组干净容器中单独加载，不默认哪种来源更好。" : "Humans author a separate Skill from matched source evidence. Store it in human/ with its own version, hash, authoring time and revision budget. It is not the same file or a shared copy of the AI Skill. Load it alone in a separate clean condition; neither source is assumed superior."},
+      {id:"F", title:zh ? "F · 相同检查规则 / 两份独立冻结产物" : "F · Same checks / separately frozen artifacts", detail:zh ? "按相同且预先固定的规则检查两类产物的格式、依赖、可执行性与泄漏风险，记录失败产物，不用测试成绩筛选。统一的是检查规则，不是 Skill 内容：ai/ 与 human/ 分别保存版本与哈希，只读传递，互不覆盖或合并；文件夹本身不是沙箱。" : "Apply the same predeclared format, dependency, executability and leakage checks to both sources. Log failures without selecting on test scores. The checks are shared, not the Skill content: version and hash ai/ and human/ separately, pass them read-only, and never overwrite or merge them. Folders are not sandboxes."},
+      {id:"N", title:zh ? "N · 无 Skill 基线" : "N · No-Skill baseline", detail:zh ? "不加载任何额外 Skill，但使用与其他两组相同的目标模型、harness、工具、执行预算和未见测试题。" : "Load no added Skills. Keep the target model, harness, tools, execution budget and unseen tasks identical to both Skill conditions."},
+      {id:"B", title:zh ? "B · 示例测试配置：Claude Code + Claude Haiku 4.5" : "B · Example test setup: Claude Code + Claude Haiku 4.5", detail:zh ? "示例：三组统一使用 Claude Code 作为测试 harness、Claude Haiku 4.5 作为执行模型，不沿用生成端的 Copilot + GPT-6.1 Sol。执行器通过工具访问公开工作区，不接触私有 oracle。No Skill、AI Skill、Human Skill 分别新建执行容器，固定任务镜像、工具与执行预算，并隔离会话、缓存和记忆。此处是拟议配置，不代表已完成实验。" : "Example: all three conditions use Claude Code as the test harness and Claude Haiku 4.5 as the execution model, not the generator's Copilot + GPT-6.1 Sol. The executor accesses the public workspace through tools, never the private oracle. Create fresh execution containers for no Skill, AI Skill and human Skill; fix the task image, tools and run budget, and isolate sessions, caches and memory. This is a proposed configuration, not a completed experiment."},
+      {id:"T", title:zh ? "T · 题目描述与任务环境" : "T · Task description and environment", detail:zh ? "一个题目对应一个可复现任务单元：题目描述、仓库与 base_commit、依赖镜像，以及独立保存的 oracle。agent 只看到问题、约束和公开代码；镜像版本与任务 ID 固定，三组使用同一任务定义。" : "Each reproducible task unit defines a problem statement, repository and base commit, dependency image, and separately stored oracle. The agent sees only the problem, constraints and public code. Pin the image and instance ID; all three conditions share the same task definition."},
+      {id:"O", title:zh ? "O · 受保护的评测 Oracle" : "O · Protected evaluation oracle", detail:zh ? "做题结束后停止 agent，将其提交的 patch / output 交给新的干净评测容器，再注入私有测试与判定规则。oracle 不进入 agent 上下文或可访问文件系统，也不接受 agent 的自评分。各组使用同一冻结 oracle；图中执行与评测属于同一任务单元的不同阶段。" : "After stopping the agent, apply its patch / output in a fresh evaluation container and inject private tests and grading rules. Keep the oracle out of the agent's context and accessible filesystem; do not trust agent self-scores. Use one frozen oracle across conditions. Execution and evaluation are separate stages of the same task unit."},
+      {id:"R", title:zh ? "R · Oracle 结果与配对比较" : "R · Oracle results and paired comparison", detail:zh ? "收集 oracle 的通过 / 失败、测试日志与执行错误，再对相同任务比较 No Skill、AI Skill、Human Skill 的成功率与净收益；同时记录 token、耗时和工具调用。错误与失败单独报告，不能当作成功；图中没有预设实验结果。" : "Collect oracle pass / fail decisions, test logs and execution errors, then compare success rates and net gains for no Skill, AI Skill and human Skill on matched tasks. Also log tokens, latency and tool calls. Report errors and failures explicitly, never as successes. No outcomes are assumed."}
     ];
-    const flowRoutes = [
-      {path:"M112 65 C190 65 210 110 268 110 L332 110 H528", color:"#7399C8", label:"AI Skill", x:400, y:96, delay:"0s", packet:"SKILL"},
-      {path:"M112 205 C190 205 210 150 268 150 L332 150 H528", color:"#3D9F83", label:"Human Skill", x:400, y:179, delay:"-2s", packet:"SKILL"},
-      {path:"M432 235 H485 Q560 235 560 195 V162", color:"#99A6B4", label:"No Skill", x:480, y:282, delay:"-4s", packet:"∅"},
-      {path:"M592 130 H728", color:"#B49A63", label:zh ? "评估记录" : "Run logs", x:660, y:107, delay:"-1s", packet:"LOG"}
+    const flowButton = (id, content) => `<button type="button" class="ev-flow-node" data-flow-node="${id}" aria-label="${flowNodes.find(node => node.id === id).title}" aria-pressed="false" aria-controls="ev-flow-detail">${content}</button>`;
+    const flowConnector = (delay, condition = "") => `<svg class="ev-pipeline-connector${condition ? ` ev-condition-${condition}` : ""}" viewBox="0 0 20 36" aria-hidden="true"><path d="M1 18H18M12 12L18 18L12 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle class="ev-flow-packet" r="2.5" fill="currentColor"><animateMotion dur="2.6s" begin="${delay}" repeatCount="indefinite" path="M1 18H17"/></circle></svg>`;
+    const dockerIcon = `<svg viewBox="0 0 32 28" aria-hidden="true"><path d="M2 9L16 2L30 9V22L16 27L2 22ZM2 9L16 15L30 9M16 15V27M9 5L23 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>`;
+    const dockerConditions = [
+      {id: "ai", number: "01", label: "AI Skill", mount: "ai/SKILL.md"},
+      {id: "human", number: "02", label: "Human Skill", mount: "human/SKILL.md"},
+      {id: "none", number: "03", label: "No Skill", mount: null}
     ];
     const researchQuestions = [
       {
@@ -4150,6 +4637,11 @@ window.SWECHAT_SOURCE = {
         title: zh ? "如何改进 Skill 生成" : "Improving Skill generation",
         question: zh ? "如何改进大模型生成 Skill 的方法与效果？" : "How can we improve the methods and outcomes of LLM Skill generation?",
         description: zh ? "探索反馈、验证和迭代修订，能否提高 Skill 质量与迁移收益。" : "Investigate whether feedback, validation and iterative revision improve Skill quality and transfer utility."
+      },
+      {
+        title: zh ? "不同生成 harness 的产物差异" : "Differences across generator harnesses",
+        question: zh ? "不同 harness 生成的 Skill，有哪些特点与差异？" : "What characteristics and differences emerge in Skills generated by different harnesses?",
+        description: zh ? "固定生成模型、源任务、可见资料与预算，比较 Skill 的内容结构、流程和工具依赖，再在同一目标环境检验迁移表现。" : "Fix the generator model, source tasks, visible evidence and budget. Compare artifact structure, procedures and tool dependencies, then evaluate transfer in the same target environment."
       }
     ];
     const skillSources = {
@@ -4234,12 +4726,22 @@ description: Check reported metrics when
           ${basicsSources("overview", "specification", "anthropic")}`
       }
     ];
+    const experimentTasks = [{
+      id: "debug-trl-grpo",
+      title: "debug-trl-grpo",
+      rows: [
+        {id: "ai", label: zh ? "AI 生成 Skill" : "AI-generated Skill", artifact: zh ? "Kimi · 单文件" : "Kimi · single file", reward: 0.60, seconds: 217.712, outputTokens: 30813},
+        {id: "human", label: zh ? "官方人工 Skill 包" : "Official human-curated Skills", artifact: zh ? "3 份 Skill + 参考文档与脚本" : "3 Skills + references and scripts", reward: 0.60, seconds: 148.609, outputTokens: 20324},
+        {id: "none", label: zh ? "无 Skill" : "No Skill", artifact: zh ? "不提供额外 Skill" : "No added Skills", reward: 0.60, seconds: 212.034, outputTokens: 27577}
+      ]
+    }];
     const slideTitles = [
       ...(zh
-        ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "反馈与修订", "结论与证据边界", "我的实验：三组对照", "实验控制与评价指标", "原始论文", "附录：完整对照数据", "EvoSkill：跨模型矩阵", "EvoSkill：迁移收益与边界"]
-        : ["Research question", "Three key figures", "Curated vs. AI-generated", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "Feedback and revision", "Conclusions and limits", "My experiment: three conditions", "Controls and evaluation metrics", "Primary sources", "Appendix: full comparison", "EvoSkill: cross-model matrix", "EvoSkill: transfer gains and limits"]),
+        ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "反馈与修订", "结论与证据边界", "我的实验：任务容器与 Oracle", "实验控制与评价指标", "原始论文", "附录：完整对照数据", "EvoSkill：跨模型矩阵", "EvoSkill：迁移收益与边界"]
+        : ["Research question", "Three key figures", "Curated vs. AI-generated", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "Feedback and revision", "Conclusions and limits", "My experiment: task container & oracle", "Controls and evaluation metrics", "Primary sources", "Appendix: full comparison", "EvoSkill: cross-model matrix", "EvoSkill: transfer gains and limits"]),
       ...researchQuestions.map((question, i) => `RQ${i + 1} · ${question.title}`),
-      ...basicsPages.map(page => `${zh ? "什么是 Skill" : "What is a Skill"} · ${page.title}`)
+      ...basicsPages.map(page => `${zh ? "什么是 Skill" : "What is a Skill"} · ${page.title}`),
+      ...experimentTasks.map(task => `${zh ? "实验结果" : "Experiment results"} · ${task.title}`)
     ];
     root.innerHTML = `
       <div class="ev-topic-tabs" role="tablist" aria-label="${zh ? "第二次 Meeting 内容" : "Meeting 2 topics"}">
@@ -4247,12 +4749,16 @@ description: Check reported metrics when
         <button type="button" id="ev-topic-evidence" role="tab" data-ev-topic="evidence" aria-controls="ev-paper-tabs ev-topic-panel" aria-selected="true">${zh ? "论文证据" : "Paper evidence"}</button>
         <button type="button" id="ev-topic-method" role="tab" data-ev-topic="method" aria-controls="ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "我的想法 / 我的方法" : "My ideas / My method"}</button>
         <button type="button" id="ev-topic-research" role="tab" data-ev-topic="research" aria-controls="ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "研究问题" : "Research questions"}</button>
+        <button type="button" id="ev-topic-results" role="tab" data-ev-topic="results" aria-controls="ev-task-tabs ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "实验结果" : "Experiment results"}</button>
       </div>
       <div class="ev-paper-tabs" id="ev-paper-tabs" role="tablist" aria-label="${zh ? "论文证据：按论文浏览" : "Paper evidence: browse by paper"}">
         ${paperGroups.map((paper, i) => `<button type="button" id="ev-paper-${paper.id}" role="tab" data-ev-paper="${paper.id}" aria-controls="ev-topic-panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}"><span>${paper.title}</span>${paper.publication ? `<small>${paper.publication}</small>` : ""}</button>`).join("")}
       </div>
       <div class="ev-paper-tabs" id="ev-basics-tabs" role="tablist" aria-label="${zh ? "什么是 Skill：概念导航" : "What is a Skill: concepts"}" hidden>
         ${basicsPages.map((page, i) => `<button type="button" id="ev-basic-${page.id}" role="tab" data-ev-basic="${i}" aria-controls="ev-topic-panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${page.title}</button>`).join("")}
+      </div>
+      <div class="ev-paper-tabs" id="ev-task-tabs" role="tablist" aria-label="${zh ? "实验结果：按测试题目浏览" : "Experiment results: browse by task"}" hidden>
+        ${experimentTasks.map((task, i) => `<button type="button" id="ev-task-${task.id}" role="tab" data-ev-task="${i}" aria-controls="ev-topic-panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${task.title}</button>`).join("")}
       </div>
       <div class="ev-deck-frame">
       <button type="button" class="ev-side-nav" id="ev-prev" aria-label="${zh ? "上一页" : "Previous slide"}" title="${zh ? "上一页" : "Previous slide"}" aria-controls="ev-topic-panel" aria-keyshortcuts="ArrowLeft PageUp"><span aria-hidden="true">‹</span></button>
@@ -4271,9 +4777,9 @@ description: Check reported metrics when
         </aside>
       </section>
       <section class="ev-highlights ev-slide" id="sk-highlights" tabindex="-1" aria-label="${zh ? "关键数据摘要" : "Key figures"}">
-        <article class="ev-highlight"><span class="ev-eyebrow">01 / ${zh ? "人工对照" : "CURATED VS. AI"}</span><b>12.5–23.7<small>${pp}</small></b><h2>${zh ? "人工整理领先 AI 自生成" : "Curated Skills outperform self-generation"}</h2><p>SkillsBench v3 · Table 3<br>${zh ? "5 组配对配置 · 当前任务表现，非迁移率" : "5 paired configurations · current-task performance, not transfer"}</p></article>
-        <article class="ev-highlight"><span class="ev-eyebrow">02 / ${zh ? "未见任务" : "HELD-OUT TASKS"}</span><b>≈25<small>%</small></b><h2>${zh ? "评估组合出现负迁移" : "Evaluated combinations show negative transfer"}</h2><p>From Raw Experience · Table 1<br>${zh ? "不是单个任务失败率，也不是人机差距" : "Not a per-task failure rate or a human–AI gap"}</p></article>
-        <article class="ev-highlight"><span class="ev-eyebrow">03 / ${zh ? "跨模型复用" : "CROSS-MODEL REUSE"}</span><b>+1.8–9.5<small>${pp}</small></b><h2>${zh ? "同一份 Skill，收益因模型而变" : "One fixed Skill, different benefits"}</h2><p>From Raw Experience · Figure 4<br>${zh ? "强经验池产物 · 两个执行模型的收益端点" : "Strong-pool artifact · gain endpoints across consumers"}</p></article>
+        <article class="ev-highlight"><span class="ev-eyebrow">01 / ${zh ? "人工对照" : "CURATED VS. AI"}</span><b>12.5–23.7<small>${pp}</small></b><h2>${zh ? "人工整理领先 AI 自生成" : "Curated Skills outperform self-generation"}</h2><p>SkillsBench v3 · Table 3<br>${zh ? "5 组配对配置 · 当前任务表现，非迁移率" : "5 paired configurations · current-task performance, not transfer"}</p>${authorsButton(1)}</article>
+        <article class="ev-highlight"><span class="ev-eyebrow">02 / ${zh ? "未见任务" : "HELD-OUT TASKS"}</span><b>≈25<small>%</small></b><h2>${zh ? "评估组合出现负迁移" : "Evaluated combinations show negative transfer"}</h2><p>From Raw Experience · Table 1<br>${zh ? "不是单个任务失败率，也不是人机差距" : "Not a per-task failure rate or a human–AI gap"}</p>${authorsButton(2)}</article>
+        <article class="ev-highlight"><span class="ev-eyebrow">03 / ${zh ? "跨模型复用" : "CROSS-MODEL REUSE"}</span><b>+1.8–9.5<small>${pp}</small></b><h2>${zh ? "同一份 Skill，收益因模型而变" : "One fixed Skill, different benefits"}</h2><p>From Raw Experience · Figure 4<br>${zh ? "强经验池产物 · 两个执行模型的收益端点" : "Strong-pool artifact · gain endpoints across consumers"}</p>${authorsButton(2)}</article>
       </section>
 
       <section class="sk-panel ev-slide" id="sk-result" tabindex="-1" aria-labelledby="sk-result-title">
@@ -4361,39 +4867,90 @@ description: Check reported metrics when
       <section class="sk-panel ev-conclusion ev-slide" id="sk-boundaries" tabindex="-1" aria-labelledby="sk-boundary-title">
         ${heading("04", "sk-boundary-title", zh ? "数据已经回答什么，还没回答什么？" : "What do the data establish—and leave open?")}
         <div class="ev-verdicts">
-          <div><span>01 / ${zh ? "已有对照" : "MEASURED"}</span><h3>${zh ? "当前任务效果，AI 自生成明显落后。" : "Self-generation trails curated Skills on current tasks."}</h3><p>${zh ? "SkillsBench 五组配对配置：低 12.5–23.7 个百分点。结论限定在对应版本、模型与生成协议。" : "Five paired SkillsBench configurations: 12.5–23.7 pp lower, within the tested version, models, and protocol."}</p></div>
-          <div><span>02 / ${zh ? "已有迁移实验" : "TRANSFER TESTED"}</span><h3>${zh ? "AI 生成产物可以迁移，但不保证有益。" : "AI-generated artifacts can transfer, but not always help."}</h3><p>${zh ? "From Raw Experience：未见任务约 25% 的组合负迁移。EvoSkill：跨模型有正负收益；SealQA → BrowseComp 为 +5.3 个百分点。两篇研究的协议与分母不合并。" : "From Raw Experience: about 25% of held-out combinations regress. EvoSkill: cross-model gains vary in sign; SealQA → BrowseComp gains +5.3 pp. The studies' protocols and denominators are not pooled."}</p></div>
+          <div><span>01 / ${zh ? "已有对照" : "MEASURED"}</span><h3>${zh ? "当前任务效果，AI 自生成明显落后。" : "Self-generation trails curated Skills on current tasks."}</h3><p>SkillsBench${authorsButton(1)}${zh ? " 五组配对配置：低 12.5–23.7 个百分点。结论限定在对应版本、模型与生成协议。" : ": five paired configurations, 12.5–23.7 pp lower, within the tested version, models, and protocol."}</p></div>
+          <div><span>02 / ${zh ? "已有迁移实验" : "TRANSFER TESTED"}</span><h3>${zh ? "AI 生成产物可以迁移，但不保证有益。" : "AI-generated artifacts can transfer, but not always help."}</h3><p>From Raw Experience${authorsButton(2)}${zh ? "：未见任务约 25% 的组合负迁移。" : ": about 25% of held-out combinations regress. "}EvoSkill${authorsButton(4)}${zh ? "：跨模型有正负收益；SealQA → BrowseComp 为 +5.3 个百分点。两篇研究的协议与分母不合并。" : ": cross-model gains vary in sign; SealQA → BrowseComp gains +5.3 pp. The studies' protocols and denominators are not pooled."}</p></div>
           <div><span>03 / ${zh ? "尚缺直接对照" : "STILL OPEN"}</span><h3>${zh ? "不能量化“AI 的迁移率比人类低多少”。" : "The human–AI transfer gap is not quantified here."}</h3><p>${zh ? "需要相同信息、相同预算、人类与 AI 分别编写，冻结产物后在同一批未见任务上测试。" : "A direct test needs matched evidence and budgets, human- and AI-authored artifacts, then frozen-artifact evaluation on the same held-out tasks."}</p></div>
         </div>
       </section>
 
       <section class="sk-panel ev-slide" id="sk-experiment" tabindex="-1" aria-labelledby="sk-experiment-title">
-        ${heading("05", "sk-experiment-title", zh ? "让 Skill 流动起来" : "Follow the Skill")}
-        <div class="ev-section-meta"><span class="ev-plan-status">${zh ? "研究设想 · 动画示意，非实验结果" : "Proposed study · illustrative, not measured"}</span></div>
-        <div class="ev-flow-toolbar"><span>${zh ? "点击节点查看内部 · 小屏可横向滑动" : "Select a node to inspect · swipe horizontally on small screens"}</span><button type="button" id="ev-flow-toggle" aria-controls="ev-flow-svg"></button></div>
-        <div class="ev-flow-scroll" tabindex="0" role="region" aria-label="${zh ? "可交互的实验数据流图，可横向滚动" : "Interactive experiment data flow; horizontally scrollable"}">
-          <div class="ev-flow">
-            <svg id="ev-flow-svg" viewBox="0 0 840 300" preserveAspectRatio="none" aria-hidden="true">
-              <defs><marker id="ev-flow-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10" fill="none" stroke="#8FA8BC" stroke-width="1.5"/></marker></defs>
-              <rect x="242" y="35" width="116" height="185" rx="20" fill="#EAF1F8" stroke="#C7D8E8" stroke-dasharray="5 5"/>
-              <rect x="505" y="35" width="110" height="185" rx="20" fill="#E5F1ED" stroke="#BBD6CD" stroke-dasharray="5 5"/>
-              <text x="300" y="58" text-anchor="middle" fill="#6C859C" font-size="10">READ ONLY</text>
-              <text x="560" y="58" text-anchor="middle" fill="#5C877A" font-size="10">ISOLATED RUNS</text>
-              ${flowRoutes.map(route => `<path d="${route.path}" fill="none" stroke="${route.color}" stroke-width="2" opacity=".55" marker-end="url(#ev-flow-arrow)"/><text x="${route.x}" y="${route.y}" text-anchor="middle" fill="${route.color}" font-size="11" font-family="sans-serif">${route.label}</text>
-                <g class="ev-flow-packet"><rect x="-20" y="-9" width="40" height="18" rx="5" fill="${route.color}" stroke="#FFF" stroke-width="1.5"/><text text-anchor="middle" y="3" fill="#FFF" font-size="8" font-weight="600" font-family="sans-serif">${route.packet}</text><animateMotion dur="6s" begin="${route.delay}" repeatCount="indefinite" path="${route.path}"/></g>`).join("")}
-            </svg>
-            ${flowNodes.map(node => `<button type="button" class="ev-flow-node" data-flow-node="${node.id}" style="--x:${node.x / 840 * 100}%;--y:${node.y / 300 * 100}%" aria-label="${node.title}" aria-pressed="false" aria-controls="ev-flow-detail"><strong>${node.id}</strong><small>${node.tag}</small></button>`).join("")}
+        <div class="ev-task-heading">
+          ${heading("05", "sk-experiment-title", zh ? "以任务容器为核心的实验" : "A task-container-centered experiment", `<span class="ev-plan-status">${zh ? "研究方案" : "Proposed study"}</span>`)}
+          <button type="button" id="ev-flow-toggle" aria-controls="ev-flow-diagram"></button>
+        </div>
+        <div class="ev-flow-scroll" tabindex="0" role="region" aria-label="${zh ? "三组独立 Docker 实验；点击容器查看题目与 Oracle，小屏可横向滚动" : "Three isolated Docker conditions; select a container to inspect its task and oracle, horizontally scrollable"}">
+          <div class="ev-flow" id="ev-flow-diagram">
+            <section class="ev-task-inputs" aria-labelledby="ev-task-inputs-title">
+              <div class="ev-task-inputs-header">
+                <span class="ev-task-kicker">INPUT / SKILLS</span>
+                <h3 id="ev-task-inputs-title">${zh ? "三组独立输入" : "Three separate inputs"}</h3>
+              </div>
+              <div class="ev-condition-input" data-input-condition="ai">
+                ${flowButton("A", `<strong>AI</strong><small>(Copilot + GPT-6.1 Sol)</small><small>${zh ? "AI 生成 · 独立版本与哈希" : "AI-authored · own version & hash"}</small>`)}
+                ${flowConnector("0s", "ai")}
+              </div>
+              <div class="ev-condition-input" data-input-condition="human">
+                ${flowButton("H", `<strong>Human</strong><code>human/SKILL.md</code><small>${zh ? "人类编写 · 独立版本与哈希" : "Human-authored · own version & hash"}</small>`)}
+                ${flowConnector("-.85s", "human")}
+              </div>
+              <div class="ev-condition-input" data-input-condition="none">
+                ${flowButton("N", `<strong>NA</strong><small>${zh ? "不挂载任何 Skill" : "No Skill mounted"}</small>`)}
+                ${flowConnector("-1.7s", "none")}
+              </div>
+              <div class="ev-task-common">
+                ${flowButton("F", `<strong>${zh ? "同源资料 · 分别检查与冻结" : "Same evidence; freeze apart"}</strong>`)}
+                ${flowButton("B", zh ? "同一测试配置 · 同预算" : "Same test setup & budget")}
+              </div>
+            </section>
+            <section class="ev-task-containers" aria-label="${zh ? "三个独立 Docker 实例及其内部结构" : "Three independent Docker instances and their internals"}">
+              <div class="ev-docker-overview" id="ev-docker-overview">
+                <h3>${zh ? "同一题目，三个独立 Docker" : "Same task, three independent Dockers"}</h3>
+                ${dockerConditions.map(condition => `
+                  <button class="ev-docker-row" type="button" data-docker-condition="${condition.id}" aria-controls="ev-docker-detail" aria-expanded="false" aria-label="${zh ? "查看" : "Inspect"} Docker ${condition.number} · ${condition.label}">
+                    ${dockerIcon}
+                    <span><small>DOCKER ${condition.number} · ${zh ? "独立会话与工作区" : "Isolated session & workspace"}</small><strong>${condition.label}</strong><span class="ev-docker-executor">Claude Code + Claude Haiku 4.5</span></span>
+                    <span class="ev-docker-open-arrow" aria-hidden="true">›</span>
+                  </button>`).join("")}
+                <p class="ev-task-copy">${zh ? "点击任一容器，查看内部题目、工作区与 Oracle。" : "Select a container to inspect its task, workspace and oracle."}</p>
+              </div>
+              <div class="ev-task-container ev-docker-detail" id="ev-docker-detail" hidden>
+                <div class="ev-task-container-header">
+                  ${dockerIcon}
+                  <div><h3 id="ev-task-container-title" tabindex="-1">${zh ? "Docker · 题目实例" : "Docker · Task instance"}</h3><small>Claude Code + Claude Haiku 4.5</small></div>
+                  <button class="ev-docker-back" id="ev-docker-back" type="button">${zh ? "← 三个实例" : "← All three"}</button>
+                </div>
+                <div class="ev-task-container-body">
+                  ${flowButton("T", `<strong>${zh ? "题目描述" : "Task description"}</strong><small>${zh ? "问题说明 · 完成目标 · 约束条件" : "Problem statement · objective · constraints"}</small>`)}
+                  <div class="ev-task-workspace">
+                    <h4>${zh ? "公开代码与依赖" : "Public code & dependencies"}<code>repo@base_commit</code></h4>
+                    <p id="ev-docker-workspace-note"></p>
+                  </div>
+                  <div class="ev-task-eval-stage">
+                    <span class="ev-task-stage-label">${zh ? "提交产物 → 结束 agent → 新建干净评测容器" : "Submit output → stop agent → fresh evaluation container"}</span>
+                    ${flowButton("O", `<span class="ev-task-oracle-title"><strong>${zh ? "评测 Oracle" : "Evaluation oracle"}</strong><span>${zh ? "Agent 不可见" : "Hidden from agent"}</span></span><small>${zh ? "评测阶段注入私有测试与判定规则，验证提交产物。" : "Inject private tests & grading rules only at evaluation; verify the submitted artifact."}</small>`)}
+                  </div>
+                  <div class="ev-docker-mount"><strong id="ev-docker-condition-label"></strong><code id="ev-docker-mount-path"></code></div>
+                </div>
+              </div>
+              ${flowConnector("-1.3s")}
+            </section>
+            <section class="ev-task-results" aria-labelledby="ev-task-results-title">
+              <span class="ev-task-kicker">OUTPUT / EVIDENCE</span>
+              <h3 id="ev-task-results-title">${zh ? "评测记录" : "Evaluation record"}</h3>
+              ${flowButton("R", `<strong>Pass / Fail</strong><small>${zh ? "Oracle 判定<br>不是 agent 自评分" : "Oracle verdict<br>Not agent self-scoring"}</small>`)}
+              <ul class="ev-task-metrics"><li>${zh ? "成功率 / 净收益" : "Success rate / net gain"}</li><li>${zh ? "Token / 耗时" : "Tokens / latency"}</li><li>${zh ? "工具调用 / 日志" : "Tool calls / logs"}</li></ul>
+              <p class="ev-task-copy">${zh ? "同题配对比较<br>失败与错误如实保留" : "Paired by task<br>Keep failures & errors"}</p>
+            </section>
           </div>
         </div>
-        <div class="ev-flow-key"><span>AI Skill</span><span>Human Skill</span><span>No Skill</span></div>
-        <div class="ev-flow-detail" id="ev-flow-detail" aria-live="polite" aria-atomic="true"><h3>${zh ? "A → F → B → R" : "A → F → B → R"}</h3><p>${zh ? "生成 → 冻结 → 独立执行 → 配对比较。点击 A、H、F、N、B 或 R，展开对应设计。" : "Generate → freeze → isolated execution → paired comparison. Select A, H, F, N, B or R to inspect the design."}</p></div>
+        <div class="ev-flow-detail" id="ev-flow-detail" aria-live="polite" aria-atomic="true"><h3>${zh ? "三个独立容器：同一模型、同一 Harness、同一题目与 Oracle，仅 Skill 条件不同" : "Three isolated containers: same model, harness, task and oracle; only the Skill condition changes"}</h3><p>${zh ? "借鉴" : "Inspired by"} <a href="https://www.swebench.com/SWE-bench/guides/evaluation/" target="_blank" rel="noopener">SWE-bench ${zh ? "容器化评测" : "containerized evaluation"}</a>${zh ? "；配置仅为研究示例，非实测结果。点击 Docker 查看内部。" : "; illustrative setup, not measured results. Select a Docker to inspect it."}</p></div>
       </section>
 
       <section class="sk-panel ev-slide" id="sk-experiment-controls" tabindex="-1" aria-labelledby="sk-controls-title">
         ${heading("06", "sk-controls-title", zh ? "如何分清“写得差”与“迁移后变差”？" : "Separate initial quality from transfer degradation")}
         <div class="ev-section-meta"><span class="ev-plan-status">${zh ? "实验提案 · 控制与度量" : "Proposed study · controls and metrics"}</span><span>${zh ? "先做三组 pilot，再补源环境三组评估" : "Start with a three-condition pilot, then add source-environment evaluation"}</span></div>
         <div class="ev-plan-checks">
-          <article class="ev-plan-card"><h3>${zh ? "01 / 隔离与防泄漏" : "01 / Isolation"}</h3><p>${zh ? "每个任务 × 条件 × 重复运行使用干净会话与工作区；执行代码时用独立容器。文件夹本身不等于沙箱。" : "Fresh session and workspace per task × condition × repeat; separate containers for code execution. A folder alone is not a sandbox."}</p></article>
+          <article class="ev-plan-card"><h3>${zh ? "01 / 任务与 Oracle 隔离" : "01 / Task–oracle isolation"}</h3><p>${zh ? "固定任务镜像，agent 仅见题目与公开工作区。结束后在新的干净评测容器中注入私有 oracle；每个任务 × 条件 × 重复运行独立重置，不向 agent 暴露评测测试。" : "Pin the task image; expose only the problem and public workspace to the agent. After stopping it, inject the private oracle in a fresh evaluation container. Reset per task × condition × repeat; never expose grading tests to the agent."}</p></article>
           <article class="ev-plan-card"><h3>${zh ? "02 / 公平生成与执行" : "02 / Fair comparison"}</h3><p>${zh ? "匹配可见资料、工具与验证机会；分别记录人类工时、AI token 与修订预算。随机运行顺序，用统一评分器。" : "Match evidence, tools and validation access; record human hours, AI tokens and revision budgets separately. Randomize run order; use one scorer."}</p></article>
           <article class="ev-plan-card"><h3>${zh ? "03 / 重复与归因" : "03 / Replication"}</h3><p>${zh ? "多份独立 Skill、多位人工作者、重复运行并报告配对置信区间。后续拆分只换模型 / 只换 harness / 两者都换。" : "Use independent Skills, multiple human authors, repeated runs and paired confidence intervals. Later vary model only, harness only, or both."}</p></article>
         </div>
@@ -4406,7 +4963,7 @@ description: Check reported metrics when
 
       <section class="sk-panel ev-slide" id="sk-revision" tabindex="-1" aria-labelledby="sk-revision-title">
         ${heading("+", "sk-revision-title", zh ? "补充：有执行反馈，生成质量可以改善" : "Supplement: execution feedback can improve generation", cite(3))}
-        <p class="ev-intro">${zh ? "SkillRevise · Table 1 · GPT-5.5 / Codex · SkillsBench 86 个任务。这里是生成与修订效果，不是人机迁移对照。" : "SkillRevise · Table 1 · GPT-5.5 / Codex · 86 SkillsBench tasks. This measures generation and revision, not human–AI transfer."}</p>
+        <p class="ev-intro">SkillRevise · Table 1 · GPT-5.5 / Codex · SkillsBench${authorsButton(1)} ${zh ? "86 个任务。这里是生成与修订效果，不是人机迁移对照。" : "86 tasks. This measures generation and revision, not human–AI transfer."}</p>
         <div class="ev-revision">
           ${[
             [zh ? "无 Skill" : "No Skill", "31/86", "36.05%"],
@@ -4421,7 +4978,7 @@ description: Check reported metrics when
       <section class="sk-panel ev-slide" id="sk-references" tabindex="-1" aria-labelledby="sk-refs-title">
         <div class="sk-heading"><h2 id="sk-refs-title">${zh ? "原始论文与数据定位" : "Primary sources and table locations"}</h2></div>
         <div class="sk-references">
-          ${reference(1, `<b>SkillsBench: Benchmarking How Well Agent Skills Work Across Diverse Tasks.</b><br>2026 · arXiv:2602.12670v3 · ${zh ? "预印本；未核实正式会议发表" : "Preprint; conference publication not verified"}<br>Table 3 · §4.1.1 · Appendix C.6<br><a href="https://arxiv.org/html/2602.12670v3" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2602.12670v3" target="_blank" rel="noopener">PDF ↗</a>`)}
+          ${reference(1, `<b>SkillsBench: Benchmarking How Well Agent Skills Work Across Diverse Tasks.</b><br>NeurIPS 2026 · Evaluations and Datasets Track · Poster<br><a href="https://www.yiminl.com/" target="_blank" rel="noopener">${zh ? "据作者主页：2026 年 9 月录用公告" : "Source: author's September 2026 acceptance announcement"} ↗</a><br>${zh ? "本页对照数据固定为" : "Comparison data pinned to"} arXiv:2602.12670v3 · Table 3 · §4.1.1 · Appendix C.6<br><a href="https://arxiv.org/html/2602.12670v3" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2602.12670v3" target="_blank" rel="noopener">PDF ↗</a>`)}
           ${reference(2, `<b>Huang et al. From Raw Experience to Skill Consumption: A Systematic Study of Model-Generated Agent Skills.</b><br>2026 · arXiv:2605.23899v1 · ${zh ? "预印本；未核实正式会议发表" : "Preprint; conference publication not verified"}<br>Table 1 · §4.1–4.2 · §5.3 / Figure 4<br><a href="https://arxiv.org/html/2605.23899v1" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2605.23899v1" target="_blank" rel="noopener">PDF ↗</a>`)}
           ${reference(3, `<b>Liu et al. SkillRevise: Improving LLM-Authored Agent Skills via Trace-Conditioned Skill Revision.</b><br>Findings of EMNLP 2026 · Table 1 / §4.2<br><a href="https://aclanthology.org/2026.findings-emnlp.991/" target="_blank" rel="noopener">${zh ? "正式论文条目" : "Proceedings entry"} ↗</a> · <a href="https://aclanthology.org/2026.findings-emnlp.991.pdf" target="_blank" rel="noopener">PDF ↗</a>`)}
           ${reference(4, `<b>Alzubi et al. EvoSkill: Automated Skill Discovery for Agents.</b><br>${zh ? "依据本地 PDF：§3.4 / Table 4（PDF 第 7 页）、§3.5（PDF 第 6 页）。文档标注 AgentSkills 2026（2026-05-26，San Jose），ISBN 和 DOI 均为占位符；正式发表状态及会议／Workshop 归属待核实，不视为已确认的顶会主会论文。" : "Checked against the local PDF: §3.4 / Table 4 (PDF p. 7), §3.5 (PDF p. 6). The document lists AgentSkills 2026 (May 26, San Jose), with placeholder ISBN and DOI. Formal publication status and conference/workshop affiliation remain unverified; this is not a confirmed main-track paper."}<br><a href="https://openreview.net/forum?id=i4b4As7RFX" target="_blank" rel="noopener">OpenReview ↗</a>`)}
@@ -4477,6 +5034,23 @@ description: Check reported metrics when
           ${heading(`S${i + 1}`, `sk-basics-${page.id}-title`, page.title)}
           ${page.content}
         </section>`).join("")}
+      ${experimentTasks.map((task, i) => `
+        <section class="sk-panel ev-slide ev-results-slide" data-experiment-task="${task.id}" id="sk-result-${task.id}" tabindex="-1" aria-labelledby="sk-result-${task.id}-title">
+          ${heading(`E${i + 1}`, `sk-result-${task.id}-title`, zh ? "TRL GRPO 调试：三组对照试运行" : "TRL GRPO debugging: three-arm pilot")}
+          <div class="ev-results-config">
+            <p><b>${zh ? "生成端：" : "Generator: "}</b>Kimi K3.1 Pro <code>kimi-k3.1-pro</code></p>
+            <p><b>${zh ? "三组共同执行器：" : "Shared executor: "}</b>Claude Code 2.1.270 + DeepSeek Flash <code>deepseek-flash</code></p>
+          </div>
+          <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "debug-trl-grpo 三组实验结果，可横向滚动" : "debug-trl-grpo three-arm results; horizontally scrollable"}">
+            <table class="ev-table" id="ev-pilot-${task.id}">
+              <caption>SkillsBench${authorsButton(1)} · ${task.title} · 2026-10-26 · ${zh ? "任务版本" : "task commit"} <code>b63b7b285022</code></caption>
+              <thead><tr><th scope="col">${zh ? "实验条件" : "Condition"}</th><th scope="col">${zh ? "官方 reward" : "Official reward"}</th><th scope="col">${zh ? "执行耗时（秒）" : "Execution time (s)"}</th><th scope="col">${zh ? "输出 tokens" : "Output tokens"}</th></tr></thead>
+              <tbody>${task.rows.map(row => `<tr data-result-arm="${row.id}"><th scope="row">${row.label}<small>${row.artifact}</small></th><td>${row.reward.toFixed(2)}</td><td>${row.seconds.toFixed(3)}</td><td>${fmtCount(row.outputTokens)}</td></tr>`).join("")}</tbody>
+            </table>
+          </div>
+          <p class="ev-results-note">${zh ? "每组仅 1 次，展示统一关闭内置 Skill discovery 后的有效轮次。0.60 是官方加权 reward，不是全部测试的通过率；耗时不含 Skill 生成、镜像构建和外部评分。" : "One run per arm, using the corrected protocol with built-in Skill discovery disabled in every arm. 0.60 is the official weighted reward, not a test pass rate. Time excludes Skill generation, image build and external grading."}</p>
+          <p class="ev-results-note">${zh ? "来源：本地冻结实验汇总与 comparison.csv。AI 单文件与官方多文件资源包并非等资源对照，不能据此认定两类 Skill 等效或某类更优。" : "Source: frozen local experiment summary and comparison.csv. The AI single-file artifact and official multi-file package are not resource-matched; this pilot does not establish equivalence or superiority."}</p>
+        </section>`).join("")}
       </div>
       <button type="button" class="ev-side-nav" id="ev-next" aria-label="${zh ? "下一页" : "Next slide"}" title="${zh ? "下一页" : "Next slide"}" aria-controls="ev-topic-panel" aria-keyshortcuts="ArrowRight PageDown"><span aria-hidden="true">›</span></button>
       </div>
@@ -4493,16 +5067,18 @@ description: Check reported metrics when
       <p class="ev-deck-hint">${zh ? "两侧箭头翻页 · 上方切换标签 · ← → / PageUp PageDown 翻页 · Home / End 首尾页" : "Use side arrows to navigate · Switch topics above · ← → / PageUp PageDown · Home / End for first / last"}</p>
       <p class="ev-deck-message" id="ev-deck-message" role="alert" hidden></p>`;
 
-    const flowSvg = document.getElementById("ev-flow-svg");
+    const flowSvgs = Array.from(root.querySelectorAll(".ev-pipeline-connector"));
     const flowToggle = document.getElementById("ev-flow-toggle");
     let flowPaused = matchMedia("(prefers-reduced-motion: reduce)").matches;
     flowToggle.disabled = flowPaused;
     const updateFlowPlayback = () => {
-      if (flowPaused) flowSvg.pauseAnimations();
-      else flowSvg.unpauseAnimations();
+      flowSvgs.forEach(svg => {
+        if (flowPaused) svg.pauseAnimations();
+        else svg.unpauseAnimations();
+      });
       flowToggle.textContent = flowToggle.disabled ? (zh ? "静态模式" : "Reduced motion") : flowPaused ? (zh ? "播放动画" : "Play animation") : (zh ? "暂停动画" : "Pause animation");
     };
-    flowSvg.setCurrentTime(1.5);
+    flowSvgs.forEach(svg => svg.setCurrentTime(1.5));
     updateFlowPlayback();
     flowToggle.addEventListener("click", () => {
       flowPaused = !flowPaused;
@@ -4525,6 +5101,52 @@ description: Check reported metrics when
         } else flowDetail.innerHTML = flowOverview;
       });
     });
+    const dockerOverview = document.getElementById("ev-docker-overview");
+    const dockerDetail = document.getElementById("ev-docker-detail");
+    const dockerButtons = Array.from(root.querySelectorAll("[data-docker-condition]"));
+    let selectedDockerCondition = null;
+    const showDockerCondition = (condition, focus = false) => {
+      const previous = selectedDockerCondition;
+      selectedDockerCondition = condition;
+      dockerOverview.hidden = Boolean(condition);
+      dockerDetail.hidden = !condition;
+      const diagram = document.getElementById("ev-flow-diagram");
+      if (condition) diagram.dataset.activeCondition = condition.id;
+      else delete diagram.dataset.activeCondition;
+      dockerButtons.forEach(button => button.setAttribute("aria-expanded", String(button.dataset.dockerCondition === condition?.id)));
+      root.querySelectorAll("[data-flow-node]").forEach(button => button.setAttribute("aria-pressed", "false"));
+      flowDetail.innerHTML = flowOverview;
+      if (condition) {
+        dockerDetail.dataset.condition = condition.id;
+        document.getElementById("ev-task-container-title").textContent = `Docker ${condition.number} · ${condition.label}`;
+        document.getElementById("ev-docker-condition-label").textContent = condition.label;
+        document.getElementById("ev-docker-mount-path").textContent = condition.mount || (zh ? "不挂载任何 Skill" : "No Skill mounted");
+        document.getElementById("ev-docker-workspace-note").textContent = condition.mount
+          ? (zh ? `仅只读挂载 ${condition.mount}，不加载另一来源的 Skill。` : `Mount only ${condition.mount} read-only; never load the other source's Skill.`)
+          : (zh ? "不挂载任何 Skill；任务代码、依赖、工具与执行预算保持一致。" : "Mount no Skill; keep task code, dependencies, tools and run budget identical.");
+      }
+      const url = new URL(location.href);
+      if (condition) url.searchParams.set("container", condition.id);
+      else url.searchParams.delete("container");
+      history.replaceState(null, "", url);
+      if (focus) {
+        if (condition) document.getElementById("ev-task-container-title").focus({preventScroll: true});
+        else dockerButtons.find(button => button.dataset.dockerCondition === previous?.id)?.focus({preventScroll: true});
+      }
+    };
+    dockerButtons.forEach(button => button.addEventListener("click", () => {
+      showDockerCondition(dockerConditions.find(condition => condition.id === button.dataset.dockerCondition), true);
+    }));
+    document.getElementById("ev-docker-back").addEventListener("click", () => showDockerCondition(null, true));
+    dockerDetail.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        event.stopPropagation();
+        showDockerCondition(null, true);
+      }
+    });
+    const requestedDocker = new URLSearchParams(location.search).get("container");
+    showDockerCondition(dockerConditions.find(condition => condition.id === requestedDocker) || null);
     const stage = root.querySelector(".ev-stage");
     stage.insertBefore(document.getElementById("sk-revision"), document.getElementById("sk-boundaries"));
     const result = document.getElementById("sk-result");
@@ -4533,31 +5155,98 @@ description: Check reported metrics when
     fullData.open = true;
     appendix.append(fullData, result.querySelector(".ev-caution"));
     result.insertAdjacentHTML("beforeend", `<button type="button" class="ev-slide-link" data-sk-target="sk-data-appendix">${zh ? "完整数据与实验边界 → 附录" : "Full data and protocol boundaries → Appendix"}</button>`);
+    stage.insertAdjacentHTML("beforeend", `
+      <section class="ev-author-page" id="ev-paper-authors" hidden aria-labelledby="ev-authors-title">
+        <div class="ev-author-top">
+          <h2 id="ev-authors-title" tabindex="-1">${zh ? "作者与单位" : "Authors and affiliations"}</h2>
+          <button type="button" class="ev-slide-link" id="ev-authors-back">${zh ? "← 返回原页" : "← Back to slide"}</button>
+        </div>
+        <p id="ev-authors-paper-title"></p>
+        <p>${zh ? "单位按该版本论文署名记录，保留机构原名，不代表作者当前任职。作者顺序与原文一致。" : "Affiliations retain the institution names listed in this paper version, not necessarily current employment. Author order follows the paper."}</p>
+        <p id="ev-authors-note"></p>
+        <p><a id="ev-authors-source" target="_blank" rel="noopener"></a> · ${zh ? "核对日期：2026-10-26" : "Checked: 2026-10-26"}</p>
+        <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "作者与署名单位，可横向滚动" : "Authors and affiliations; horizontally scrollable"}">
+          <table class="ev-table">
+            <caption id="ev-authors-count"></caption>
+            <thead><tr><th scope="col">#</th><th scope="col">${zh ? "作者姓名" : "Author"}</th><th scope="col">${zh ? "论文署名单位" : "Affiliations in the paper"}</th></tr></thead>
+            <tbody id="ev-authors-rows"></tbody>
+          </table>
+        </div>
+      </section>`);
     const allSlides = Array.from(stage.querySelectorAll(".ev-slide"));
     const methodSlides = new Set(["sk-experiment", "sk-experiment-controls"]);
-    const topicForSlide = slide => methodSlides.has(slide.id) ? "method" : slide.hasAttribute("data-research-question") ? "research" : slide.hasAttribute("data-skill-basics") ? "basics" : "evidence";
+    const topicForSlide = slide => methodSlides.has(slide.id) ? "method" : slide.hasAttribute("data-research-question") ? "research" : slide.hasAttribute("data-skill-basics") ? "basics" : slide.hasAttribute("data-experiment-task") ? "results" : "evidence";
     const topics = {
       evidence: allSlides.filter(slide => topicForSlide(slide) === "evidence"),
       method: allSlides.filter(slide => topicForSlide(slide) === "method"),
       research: allSlides.filter(slide => topicForSlide(slide) === "research"),
-      basics: allSlides.filter(slide => topicForSlide(slide) === "basics")
+      basics: allSlides.filter(slide => topicForSlide(slide) === "basics"),
+      results: allSlides.filter(slide => topicForSlide(slide) === "results")
     };
     const papers = Object.fromEntries(paperGroups.map(paper => [paper.id, paper.ids.map(id => document.getElementById(id))]));
     const paperForSlide = slide => paperGroups.find(paper => paper.ids.includes(slide.id)).id;
     let currentTopic = "evidence";
     let currentPaper = "overview";
     let slides = papers.overview;
-    const rememberedSlides = {method: 0, research: 0, basics: 0, ...Object.fromEntries(paperGroups.map(paper => [paper.id, 0]))};
+    const rememberedSlides = {method: 0, research: 0, basics: 0, results: 0, ...Object.fromEntries(paperGroups.map(paper => [paper.id, 0]))};
     const topicTabs = Array.from(root.querySelectorAll("[data-ev-topic]"));
     const paperTabs = Array.from(root.querySelectorAll("[data-ev-paper]"));
     const paperTablist = document.getElementById("ev-paper-tabs");
     const basicsTabs = Array.from(root.querySelectorAll("[data-ev-basic]"));
     const basicsTablist = document.getElementById("ev-basics-tabs");
+    const taskTabs = Array.from(root.querySelectorAll("[data-ev-task]"));
+    const taskTablist = document.getElementById("ev-task-tabs");
     const slideSelect = document.getElementById("ev-slide-select");
     const prev = document.getElementById("ev-prev");
     const next = document.getElementById("ev-next");
     let slideIndex = 0;
+    const authorPage = document.getElementById("ev-paper-authors");
+    let authorOpener = null;
+    let authorOriginScroll = 0;
+    const clearAuthors = () => {
+      authorPage.hidden = true;
+      root.classList.remove("ev-reading-authors");
+      stage.removeAttribute("data-author-view");
+      authorOpener = null;
+    };
+    const showAuthors = (paperId, opener = null, focus = false) => {
+      const paper = paperAuthors[paperId];
+      authorOpener = opener || slides[slideIndex].querySelector(`[data-paper-authors="${paperId}"]`);
+      authorOriginScroll = slides[slideIndex].scrollTop;
+      document.getElementById("ev-authors-title").textContent = `${paper.title} · ${zh ? "作者与单位" : "Authors and affiliations"}`;
+      document.getElementById("ev-authors-paper-title").textContent = paper.fullTitle;
+      document.getElementById("ev-authors-note").textContent = paper.note;
+      const source = document.getElementById("ev-authors-source");
+      source.href = paper.source;
+      source.textContent = `${paper.version} ↗`;
+      document.getElementById("ev-authors-count").textContent = zh ? `${paper.authors.length} 条署名 · 按论文顺序` : `${paper.authors.length} author entries · in paper order`;
+      const rows = document.getElementById("ev-authors-rows");
+      rows.replaceChildren(...paper.authors.map(([name, affiliations], index) => {
+        const row = document.createElement("tr");
+        const number = document.createElement("td");
+        number.textContent = String(index + 1);
+        const author = document.createElement("th");
+        author.scope = "row";
+        author.textContent = name;
+        const units = document.createElement("td");
+        units.textContent = affiliations.map(id => paper.affiliations[id - 1]).join(" · ");
+        row.append(number, author, units);
+        return row;
+      }));
+      root.classList.add("ev-reading-authors");
+      stage.dataset.authorView = paperId;
+      stage.setAttribute("aria-labelledby", "ev-authors-title");
+      authorPage.hidden = false;
+      authorPage.scrollTop = 0;
+      prev.disabled = true;
+      next.disabled = true;
+      const url = new URL(location.href);
+      url.searchParams.set("authors", paperId);
+      history.replaceState(null, "", url);
+      if (focus) document.getElementById("ev-authors-title").focus({preventScroll: true});
+    };
     const showSlide = (index, focus = false) => {
+      clearAuthors();
       slideIndex = Math.max(0, Math.min(slides.length - 1, index));
       rememberedSlides[currentTopic === "evidence" ? currentPaper : currentTopic] = slideIndex;
       allSlides.forEach(slide => { slide.hidden = true; });
@@ -4569,36 +5258,54 @@ description: Check reported metrics when
       });
       const active = slides[slideIndex];
       active.scrollTop = 0;
-      if (currentTopic === "basics") {
-        basicsTabs.forEach((tab, i) => {
+      const localTabs = currentTopic === "basics" ? basicsTabs : currentTopic === "results" ? taskTabs : null;
+      if (localTabs) {
+        localTabs.forEach((tab, i) => {
           const selected = i === slideIndex;
           tab.setAttribute("aria-selected", String(selected));
           tab.tabIndex = selected ? 0 : -1;
         });
-        stage.setAttribute("aria-labelledby", basicsTabs[slideIndex].id);
-        basicsTabs[slideIndex].scrollIntoView({block: "nearest", inline: "nearest"});
-      }
+        stage.setAttribute("aria-labelledby", localTabs[slideIndex].id);
+        localTabs[slideIndex].scrollIntoView({block: "nearest", inline: "nearest"});
+      } else stage.setAttribute("aria-labelledby", currentTopic === "evidence" ? `ev-paper-${currentPaper}` : `ev-topic-${currentTopic}`);
       slideSelect.value = String(slideIndex);
       prev.disabled = slideIndex === 0;
       next.disabled = slideIndex === slides.length - 1;
       document.getElementById("ev-slide-count").textContent = `${slideIndex + 1} / ${slides.length}`;
       document.getElementById("ev-slide-progress").value = slideIndex + 1;
       const url = new URL(location.href);
+      url.searchParams.delete("authors");
       url.searchParams.set("section", currentTopic);
       if (currentTopic === "evidence") url.searchParams.set("paper", currentPaper);
       else url.searchParams.delete("paper");
+      if (currentTopic === "results") url.searchParams.set("task", experimentTasks[slideIndex].id);
+      else url.searchParams.delete("task");
       url.searchParams.set("slide", String(slideIndex + 1));
+      if (active.id === "sk-experiment" && selectedDockerCondition) url.searchParams.set("container", selectedDockerCondition.id);
+      else url.searchParams.delete("container");
       history.replaceState(null, "", url);
       if (focus || (stage.contains(document.activeElement) && !active.contains(document.activeElement))) {
         active.focus({preventScroll: true});
       }
     };
+    const closeAuthors = () => {
+      const opener = authorOpener;
+      const scroll = authorOriginScroll;
+      showSlide(slideIndex);
+      slides[slideIndex].scrollTop = scroll;
+      (opener || slides[slideIndex]).focus({preventScroll: true});
+    };
+    root.querySelectorAll("[data-paper-authors]").forEach(button => {
+      button.addEventListener("click", () => showAuthors(button.dataset.paperAuthors, button, true));
+    });
+    document.getElementById("ev-authors-back").addEventListener("click", closeAuthors);
     const showTopic = (topic, index, paper = currentPaper) => {
       currentTopic = topic;
       currentPaper = paper;
       slides = topic === "evidence" ? papers[paper] : topics[topic];
       paperTablist.hidden = topic !== "evidence";
       basicsTablist.hidden = topic !== "basics";
+      taskTablist.hidden = topic !== "results";
       topicTabs.forEach(tab => {
         const selected = tab.dataset.evTopic === topic;
         tab.setAttribute("aria-selected", String(selected));
@@ -4619,6 +5326,10 @@ description: Check reported metrics when
     let initialIndex = Number.isInteger(requestedSlide) && requestedSlide > 0 ? requestedSlide - 1 : 0;
     let initialTopic = Object.hasOwn(topics, params.get("section")) ? params.get("section") : "evidence";
     let initialPaper = Object.hasOwn(papers, params.get("paper")) ? params.get("paper") : "overview";
+    if (initialTopic === "results") {
+      const taskIndex = experimentTasks.findIndex(task => task.id === params.get("task"));
+      if (taskIndex >= 0) initialIndex = taskIndex;
+    }
     if (!params.has("section") && initialIndex < allSlides.length) {
       const requested = allSlides[initialIndex];
       initialTopic = topicForSlide(requested);
@@ -4630,6 +5341,7 @@ description: Check reported metrics when
       initialIndex = papers[initialPaper].indexOf(requested);
     }
     showTopic(initialTopic, initialIndex, initialPaper);
+    if (Object.hasOwn(paperAuthors, params.get("authors"))) showAuthors(params.get("authors"));
     const bindTabs = (tabs, activate) => tabs.forEach((tab, i) => {
       tab.addEventListener("click", () => activate(tab));
       tab.addEventListener("keydown", event => {
@@ -4646,6 +5358,7 @@ description: Check reported metrics when
     });
     bindTabs(paperTabs, tab => showTopic("evidence", undefined, tab.dataset.evPaper));
     bindTabs(basicsTabs, tab => showTopic("basics", Number(tab.dataset.evBasic)));
+    bindTabs(taskTabs, tab => showTopic("results", Number(tab.dataset.evTask)));
     bindTabs(topicTabs, tab => showTopic(tab.dataset.evTopic));
     prev.addEventListener("click", () => showSlide(slideIndex - 1, true));
     next.addEventListener("click", () => showSlide(slideIndex + 1, true));
@@ -4665,7 +5378,15 @@ description: Check reported metrics when
       document.getElementById("ev-fullscreen").textContent = document.fullscreenElement ? (zh ? "退出全屏" : "Exit full screen") : (zh ? "全屏" : "Full screen");
     };
     root.onkeydown = event => {
-      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.target.closest("input,select,textarea,[contenteditable],.ev-table-wrap,.ev-basics-split pre,[role=tablist]")) return;
+      if (!authorPage.hidden) {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          event.stopPropagation();
+          closeAuthors();
+        }
+        return;
+      }
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey || event.target.closest("input,select,textarea,[contenteditable],.ev-table-wrap,.ev-flow-scroll,.ev-basics-split pre,[role=tablist]")) return;
       const destination = {ArrowLeft: slideIndex - 1, PageUp: slideIndex - 1, ArrowRight: slideIndex + 1, PageDown: slideIndex + 1, Home: 0, End: slides.length - 1}[event.key];
       if (destination === undefined) return;
       event.preventDefault();
@@ -5513,6 +6234,80 @@ description: Check reported metrics when
   const meetingSelect = document.getElementById("meeting-select");
   const meetingHome = document.getElementById("meeting-home");
   const meetingContent = document.getElementById("meeting-content");
+  const scholarsDialog = document.getElementById("sg-scholars");
+  const papersDialog = document.getElementById("sg-papers");
+  const homeDialogs = [scholarsDialog, papersDialog];
+  const isstaPapers = JSON.parse(document.getElementById("issta26-paper-data").textContent);
+  const isstaSearch = document.getElementById("sg-issta26-search");
+  const isstaList = document.getElementById("sg-issta26-list");
+  const isstaSource = "https://conf.researchr.org/track/issta-2026/issta-2026-research-papers";
+  function renderIsstaPapers(){
+    const query = isstaSearch.value.trim().toLocaleLowerCase();
+    const matches = isstaPapers.map((paper, index) => ({paper, index}))
+      .filter(({paper}) => `${paper.title} ${paper.authors.join(" ")}`.toLocaleLowerCase().includes(query));
+    isstaList.replaceChildren(...matches.map(({paper, index}) => {
+      const item = document.createElement("li");
+      const title = document.createElement("h4");
+      const number = document.createElement("span");
+      number.className = "sg-paper-index";
+      number.textContent = String(index + 1).padStart(3, "0");
+      title.append(number, paper.title);
+      const authors = document.createElement("p");
+      authors.className = "sg-paper-authors";
+      authors.textContent = paper.authors.join(", ");
+      const links = document.createElement("div");
+      links.className = "sg-paper-record-links";
+      const official = document.createElement("a");
+      official.href = paper.url || `${isstaSource}#event-overview:~:text=${encodeURIComponent(paper.title)}`;
+      official.target = "_blank";
+      official.rel = "noopener noreferrer";
+      official.textContent = paper.url
+        ? (LANG === "zh" ? "官网论文条目 ↗" : "Official paper entry ↗")
+        : (LANG === "zh" ? "在官方名单中定位 ↗" : "Find in the official list ↗");
+      links.append(official);
+      if (paper.doi) {
+        const doi = document.createElement("a");
+        doi.href = paper.doi;
+        doi.target = "_blank";
+        doi.rel = "noopener noreferrer";
+        doi.textContent = "DOI ↗";
+        links.append(doi);
+      }
+      item.append(title, authors, links);
+      return item;
+    }));
+    document.getElementById("sg-issta26-results").textContent = LANG === "zh"
+      ? `显示 ${fmtCount(matches.length)} / ${fmtCount(isstaPapers.length)} 篇`
+      : `Showing ${fmtCount(matches.length)} / ${fmtCount(isstaPapers.length)} papers`;
+    document.getElementById("sg-issta26-empty").hidden = matches.length > 0;
+  }
+  isstaSearch.addEventListener("input", renderIsstaPapers);
+
+  document.getElementById("sg-scholars-open").addEventListener("click", () => scholarsDialog.showModal());
+  document.querySelectorAll(".meeting-choice[data-conference]").forEach(button => {
+    button.addEventListener("click", () => {
+      papersDialog.querySelectorAll("[data-conference-panel]").forEach(panel => {
+        panel.hidden = panel.dataset.conferencePanel !== button.dataset.conference;
+      });
+      papersDialog.setAttribute("aria-describedby", `sg-${button.dataset.conference}-scope`);
+      if (button.dataset.conference === "issta26") renderIsstaPapers();
+      papersDialog.showModal();
+    });
+  });
+  homeDialogs.forEach(dialog => {
+    dialog.querySelector(".sg-scholars-close").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("keydown", event => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        dialog.close();
+      }
+    });
+    dialog.addEventListener("click", event => {
+      if (event.target !== dialog) return;
+      const rect = dialog.getBoundingClientRect();
+      if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) dialog.close();
+    });
+  });
 
   function showMeetingHome(options = {}){
     meetingContent.hidden = true;
@@ -5529,7 +6324,7 @@ description: Check reported metrics when
     if (options.focus) meetingHome.querySelector(`[data-meeting="${currentMeeting}"]`).focus();
   }
 
-  document.querySelectorAll(".meeting-choice").forEach(button => {
+  document.querySelectorAll(".meeting-choice[data-meeting]").forEach(button => {
     button.addEventListener("click", () => {
       currentMeeting = button.dataset.meeting;
       meetingSelect.value = currentMeeting;
@@ -5704,6 +6499,9 @@ description: Check reported metrics when
   }
 
   function applyHash(){
+    homeDialogs.forEach(dialog => {
+      if (dialog.open) dialog.close();
+    });
     const params = new URLSearchParams(location.search);
     if (!location.hash && !["1", "2"].includes(params.get("meeting")) && !SOURCES[params.get("source")]) {
       showMeetingHome();
@@ -5783,7 +6581,6 @@ description: Check reported metrics when
   setInterval(updateCountdown, 1000);
   document.addEventListener("visibilitychange", updateCountdown);
   const canvas = document.getElementById("sg-canvas");
-  const motion = document.getElementById("sg-motion");
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)");
   let paused = reduceMotion.matches;
   let frame = 0;
@@ -6144,14 +6941,7 @@ description: Check reported metrics when
       if(!paused)frame=requestAnimationFrame(draw);
     };
     const wake=()=>{if(!frame&&!failed&&!contextLost&&!home.hidden&&!document.hidden)frame=requestAnimationFrame(draw);};
-    const syncMotion=()=>{
-      document.getElementById("sg-pause").hidden=paused;
-      document.getElementById("sg-play").hidden=!paused;
-      motion.setAttribute("aria-pressed",String(paused));
-      lastTime=0;wake();
-    };
-    motion.addEventListener("click",()=>{paused=!paused;syncMotion();});
-    reduceMotion.addEventListener("change",event=>{paused=event.matches;syncMotion();});
+    reduceMotion.addEventListener("change",event=>{paused=event.matches;lastTime=0;wake();});
     home.addEventListener("pointermove",event=>{
       if(event.target===canvas)canvas.style.cursor=pickLandmark(event.clientX,event.clientY)?"pointer":"default";
       if(event.pointerType==="touch"||paused)return;
@@ -6168,7 +6958,7 @@ description: Check reported metrics when
     canvas.addEventListener("webglcontextlost",event=>{
       event.preventDefault();contextLost=true;showError(new Error("WebGL context lost. Reload to restore the scene."));
     });
-    syncMotion();
+    wake();
   } catch(error) {
     showError(error);
   }
