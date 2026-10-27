@@ -1293,8 +1293,9 @@
   .sk-heading h2{margin:0;font-size:clamp(18px,2vw,23px);line-height:1.5}
   .sk-number{display:grid;place-items:center;flex:none;width:34px;height:34px;border-radius:50%;background:var(--sk-blue);color:white;font-size:15px;font-weight:700}
   .sk-cite{vertical-align:super;margin-left:5px;padding:3px;border:0;background:none;color:var(--sk-blue);font:600 10px var(--sans);cursor:pointer}
-  .sk-author-button{vertical-align:middle;margin-left:8px;padding:3px 8px;border:1px solid var(--sk-line);border-radius:6px;background:#F5F8FB;color:var(--sk-blue);font:500 10px/1.6 var(--sans);cursor:pointer;white-space:nowrap}
-  .sk-author-button:focus-visible{outline:2px solid #36786D;outline-offset:2px}
+  .sk-author-button,.sk-paper-link{vertical-align:middle;margin-left:8px;padding:3px 8px;border:1px solid var(--sk-line);border-radius:6px;background:#F5F8FB;color:var(--sk-blue);font:500 10px/1.6 var(--sans);cursor:pointer;white-space:nowrap}
+  .sk-author-button:focus-visible,.sk-paper-link:focus-visible{outline:2px solid #36786D;outline-offset:2px}
+  .sk-paper-link{display:inline-block;text-decoration:none}
   .ev-highlight .sk-author-button{margin:10px 0 0}
   .ev-author-page{height:100%;overflow-y:auto;overscroll-behavior:contain;padding:16px 24px;box-sizing:border-box}
   .ev-author-page[hidden]{display:none}
@@ -1314,7 +1315,7 @@
     .ev-author-top h2{font-size:20px}
   }
   @media screen{.ev-stage[data-author-view]>.ev-slide{display:none!important}}
-  @media print{.ev-author-page{display:none!important}.sk-author-button{display:none!important}}
+  @media print{.ev-author-page{display:none!important}.sk-author-button,.sk-paper-link{display:none!important}}
   .sk-note{font-size:11px;line-height:1.8;color:var(--sk-muted);margin:14px 0 0}
   .sk-references{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
   .sk-reference{display:grid;grid-template-columns:24px 1fr;gap:6px;font-size:11px;line-height:1.8;color:var(--sk-muted);scroll-margin-top:30px}
@@ -1421,13 +1422,6 @@
   .ev-verdicts span{font-size:9px;letter-spacing:.1em;color:#9EBFC4}
   .ev-verdicts h3{font-size:16px;line-height:1.8;font-weight:500;margin:12px 0}
   .ev-verdicts p{font-size:11px;color:#B2C6D1;line-height:1.9;margin:0}
-  .ev-revision{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-  .ev-revision>div{padding:19px 16px;border:1px solid var(--sk-line);border-radius:12px;background:#F8FAFC}
-  .ev-revision>div:last-child{background:#ECF6F1;border-color:#CEE2D7}
-  .ev-revision span{font-size:11px;color:var(--sk-muted)}
-  .ev-revision b{display:block;font-size:28px;color:var(--sk-blue);margin:12px 0}
-  .ev-revision>div:last-child b{color:#24745F}
-  .ev-revision small{color:var(--sk-muted);font-size:10px}
   #aidev-skills-panel button:focus-visible{outline:2px solid var(--sk-blue);outline-offset:3px}
   @media(hover:hover){
     .sk-nav button:hover{border-color:#7EA3CD;background:#E7EFFB}
@@ -1453,7 +1447,6 @@
     .ev-protocol>div{padding:15px 12px}
     .ev-verdicts{grid-template-columns:1fr;gap:20px}
     .ev-verdicts>div+div{border-left:0;border-top:1px solid #476071;padding:20px 0 0}
-    .ev-revision{grid-template-columns:1fr 1fr}
     .sk-references{grid-template-columns:1fr}
   }
   @media(max-width:520px){
@@ -1477,7 +1470,6 @@
     .ev-artifact{padding:20px}
     .ev-endpoints b{font-size:32px}
     .ev-endpoints b small{display:block;margin:5px 0 0}
-    .ev-revision b{font-size:24px}
   }
   @media (max-width:560px){
     .meeting-bar{align-items:flex-start;flex-direction:column;gap:10px}
@@ -1512,7 +1504,6 @@
   .ev-paper-tabs small{display:block;margin-top:4px;font-size:9px;font-weight:400;line-height:1.4;white-space:nowrap;color:var(--sk-muted)}
   .ev-paper-tabs button[aria-selected="true"] small{color:#C5D9E7}
   .ev-paper-tabs button:focus-visible,.ev-topic-tabs button:focus-visible{outline:2px solid #36786D;outline-offset:2px}
-  .ev-evo-table td small{display:inline;margin-left:6px}
   .ev-slide{height:100%;overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable;padding:clamp(24px,3vw,42px);box-sizing:border-box;animation:ex-in .22s ease both}
   .ev-slide[hidden]{display:none!important}
   .ev-slide.sk-panel{margin:0;border:0;border-radius:0;box-shadow:none}
@@ -1534,18 +1525,36 @@
   .ev-slide .ev-verdicts{margin-top:clamp(24px,6vh,64px)}
   .ev-slide .ev-verdicts h3{font-size:20px}
   .ev-slide .ev-verdicts p{font-size:14px}
-  .ev-slide .ev-revision{margin:40px 0 28px}
-  .ev-slide .ev-revision b{font-size:clamp(28px,3vw,42px)}
+  .ev-slide.ev-explainer-slide{padding:14px 22px}
+  .ev-slide.ev-explainer-slide .sk-heading{margin-bottom:8px}
+  .ev-slide.ev-explainer-slide .ev-intro{font-size:12px;line-height:1.75;margin:10px 0}
+  .ev-explainer-slide .ev-section-meta{margin:8px 0;font-size:10px}
+  .ev-slide.ev-explainer-slide .ev-table{font-size:11px;min-width:620px}
+  .ev-slide.ev-explainer-slide .ev-table th,.ev-slide.ev-explainer-slide .ev-table td{padding:7px 10px}
+  .ev-slide.ev-explainer-slide .ev-table tbody th{font-size:11px;min-width:150px}
+  .ev-explainer-slide .ev-table td:nth-child(2){white-space:normal;line-height:1.6}
+  .ev-explainer-slide .ev-table tr[data-sr-condition="maxrev3"]{background:#ECF6F1}
+  .ev-explainer-slide .sk-note,.ev-sr-source{font-size:10px;line-height:1.7;margin:10px 0 0;color:var(--sk-muted)}
+  .ev-sr-source a{color:var(--sk-blue)}
+  .ev-sr-components,.ev-sr-budget{display:grid;gap:12px;margin:12px 0}
+  .ev-sr-components{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .ev-sr-budget{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ev-sr-components article,.ev-sr-budget article,.ev-sr-example{min-width:0;padding:10px;border:1px solid var(--sk-line);border-radius:12px;background:#F6F9FC}
+  .ev-slide.ev-explainer-slide h3{margin:0 0 8px;color:var(--sk-blue);font-size:13px;line-height:1.6}
+  .ev-sr-components p,.ev-sr-budget p,.ev-sr-example p,.ev-sr-budget li{margin:0;font-size:11px;line-height:1.65;color:var(--sk-muted)}
+  .ev-sr-budget ul{padding-left:18px;margin:0}
+  .ev-sr-example{background:#EFF7F3}
+  .ev-sr-versions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+  .ev-sr-versions span{padding:8px;border:1px solid var(--sk-line);border-radius:8px;background:#FFF;color:var(--sk-blue);font-size:12px;text-align:center}
+  .ev-sr-versions small{display:block;margin-top:3px;color:var(--sk-muted);font-size:10px;line-height:1.6}
+  .ev-selfgen-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:8px 0}
+  .ev-selfgen-flow>div{min-width:0;padding:8px;border:1px solid var(--sk-line);border-radius:10px;background:#F0F6FA}
+  .ev-slide.ev-explainer-slide .ev-selfgen-flow h3{margin-bottom:4px;font-size:12px}
+  .ev-selfgen-flow p{margin:0;font-size:10px;line-height:1.6;color:var(--sk-muted)}
   .ev-slide .sk-references{margin:32px 0}
   .ev-slide .sk-reference{font-size:13px}
   .ev-slide .ev-table{font-size:14px}
   .ev-slide .ev-table tbody th{font-size:13px}
-  #sk-evo-matrix{padding:12px 24px}
-  #sk-evo-matrix .ev-intro{font-size:12px;margin:10px 0 12px}
-  #sk-evo-matrix .ev-table{font-size:12px}
-  #sk-evo-matrix .ev-table tbody th{font-size:12px}
-  #sk-evo-matrix .ev-table th,#sk-evo-matrix .ev-table td{padding:7px 12px}
-  #sk-evo-matrix .ev-table caption{padding:8px 12px}
   .ev-slide.ev-results-slide{padding:14px 20px}
   .ev-slide.ev-results-slide .sk-heading{margin-bottom:10px}
   .ev-results-config{margin:0 0 10px;color:var(--sk-muted);font-size:12px;line-height:1.8}
@@ -1553,7 +1562,6 @@
   .ev-slide.ev-results-slide .ev-table th,.ev-slide.ev-results-slide .ev-table td{padding:8px 12px}
   .ev-results-slide .ev-table caption{padding:8px 12px}
   .ev-results-note{margin:8px 0 0;color:var(--sk-muted);font-size:11px;line-height:1.6}
-  #sk-evo-matrix .sk-note{font-size:10px;line-height:1.7;margin-top:10px}
   .ev-research-slide{display:grid;align-content:center;gap:22px;background:linear-gradient(125deg,#EDF4F8,#FFF 70%)}
   .ev-research-label{margin:0;color:var(--sk-blue);font-size:12px;font-weight:600;letter-spacing:.08em}
   .ev-research-slide h2{margin:0;max-width:25em;font-size:clamp(24px,3.5vw,46px);font-weight:500;line-height:1.5;letter-spacing:-.025em;color:#29465C}
@@ -1727,7 +1735,6 @@
     .ev-side-nav{width:36px;height:44px;font-size:28px}
     .ev-slide{padding:24px 16px}
     .ev-slide.sk-hero{padding:24px 16px}
-    #sk-evo-matrix{padding:12px 16px}
     .ev-basics-grid,.ev-basics-split{grid-template-columns:1fr}
     .ev-slide[data-skill-basics]{padding:20px 16px}
     .ev-slide.ev-highlights{grid-template-columns:1fr;align-content:start;gap:12px}
@@ -1740,10 +1747,10 @@
     .ev-deck-position{gap:6px;width:100%}
     .ev-deck-controls select{font-size:11px;padding:8px 4px}
     .ev-slide .ev-verdicts{margin-top:20px}
-  }
-  @media(max-width:520px){
-    .ev-slide .ev-revision>div{min-width:0;padding:16px 10px}
-    .ev-slide .ev-revision b{font-size:24px}
+    .ev-sr-components,.ev-sr-budget{grid-template-columns:1fr}
+    .ev-slide.ev-explainer-slide{padding:16px}
+    .ev-sr-versions{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .ev-selfgen-flow{grid-template-columns:1fr}
   }
   @media print{
     body.is-aidev-skills .wrap{height:auto;display:block}
@@ -4537,24 +4544,15 @@ window.SWECHAT_SOURCE = {
           ["Yauwai Yim", [1]], ["Hongyu Luo", [1]], ["Xiyu Ren", [1]], ["Ruan Chenyu", [5]],
           ["Haoran Li", [1]], ["Yangqiu Song", [1]]
         ]
-      },
-      evoskill: {
-        title: "EvoSkill",
-        fullTitle: "EvoSkill: Automated Skill Discovery for Agents",
-        version: zh ? "所提供的 PDF · 首页" : "Provided PDF · title page",
-        source: "https://openreview.net/forum?id=i4b4As7RFX",
-        note: zh ? "姓名与单位核对所提供的 PDF 首页；下方为 OpenReview 论文入口。该文的正式发表状态及会议／Workshop 归属仍待核实。" : "Names and affiliations were checked against the provided PDF title page; the link below is its OpenReview entry. Formal publication status and conference/workshop affiliation remain unverified.",
-        affiliations: ["Sentient", "Virginia Tech"],
-        authors: [
-          ["Salaheddin Alzubi", [1]], ["Noah Provenzano", [2]], ["Christian Calvo", [2]],
-          ["Jaydon Bingham", [2]], ["Weiyuan Chen", [2]], ["Himanshu Tyagi", [1]],
-          ["Dastin Huang", [1]], ["Tu Vu", [2]]
-        ]
       }
     };
-    const citedPapers = ["skillsbench", "raw-experience", "skillrevise", "evoskill"];
+    const citedPapers = ["skillsbench", "raw-experience", "skillrevise"];
     const authorsButton = number => `<button type="button" class="sk-author-button" data-paper-authors="${citedPapers[number - 1]}" aria-controls="ev-paper-authors" aria-label="${zh ? "查看作者与单位：" : "View authors and affiliations: "}${paperAuthors[citedPapers[number - 1]].title}">${zh ? "作者" : "Authors"}</button>`;
-    const cite = number => `<button type="button" class="sk-cite" data-sk-target="sk-ref-${number}" aria-label="${zh ? "查看参考文献" : "View reference"} ${number}">[${number}]</button>${authorsButton(number)}`;
+    const paperLink = number => {
+      const paper = paperAuthors[citedPapers[number - 1]];
+      return `<a class="sk-paper-link" href="${paper.source}" target="_blank" rel="noopener" aria-label="${zh ? "在新标签页打开论文原文：" : "Open paper in a new tab: "}${paper.title}">${zh ? "论文原文" : "Paper"} ↗</a>`;
+    };
+    const cite = number => `<button type="button" class="sk-cite" data-sk-target="sk-ref-${number}" aria-label="${zh ? "查看参考文献" : "View reference"} ${number}">[${number}]</button>${authorsButton(number)}${paperLink(number)}`;
     const reference = (number, body) => `<div class="sk-reference" id="sk-ref-${number}" tabindex="-1"><b>[${number}]</b><span>${body}${authorsButton(number)}</span></div>`;
     const heading = (number, id, title, citation = "") => `<div class="sk-heading"><span class="sk-number">${number}</span><h2 id="${id}">${title}${citation}</h2></div>`;
     const comparisons = [
@@ -4564,6 +4562,7 @@ window.SWECHAT_SOURCE = {
       {model: "Claude Sonnet 4.5", harness: "Claude Code", base: 17.3, curated: 31.8, ai: 15.2},
       {model: "Claude Haiku 4.5", harness: "Claude Code", base: 11.0, curated: 27.7, ai: 11.0}
     ];
+    const selfGenerationExample = comparisons.find(item => item.model === "GPT-5.2");
     const risks = [
       {label: zh ? "全部领域" : "All domains", value: 25, note: zh ? "总体负迁移" : "Overall negative transfer"},
       {label: "SWE-bench-Verified", value: 13, note: zh ? "软件工程" : "Software engineering"},
@@ -4579,20 +4578,11 @@ window.SWECHAT_SOURCE = {
     const signed = value => `${value > 0 ? "+" : value < 0 ? "−" : ""}${Math.abs(value).toFixed(2)}`;
     const gap = item => (item.curated - item.ai).toFixed(1);
     const pp = zh ? "个百分点" : "pp";
-    const evoExecutors = ["Sonnet 4.5", "GPT-OSS-120B", "Kimi K2.5", "GPT-OSS-20B"];
-    const evoBaseline = [24.1, 22.9, 27.7, 1.2];
-    const evoOrigins = [
-      {model: "Opus 4.5", values: [21.7, 12.0, 36.1, 1.2]},
-      {model: "Sonnet 4.5", values: [39.8, 30.1, 34.9, 2.4]},
-      {model: "GPT-OSS-120B", values: [19.3, 24.1, 18.1, 1.2]},
-      {model: "Kimi K2.5", values: [8.4, 28.9, 32.5, 1.2]}
-    ];
     const paperGroups = [
       {id: "overview", title: zh ? "综合概览 / 引用" : "Overview / Sources", ids: ["sk-overview", "sk-highlights", "sk-boundaries", "sk-references"]},
-      {id: "skillsbench", title: "SkillsBench", publication: "2026 · NeurIPS · Poster", ids: ["sk-result", "sk-data-appendix"]},
+      {id: "skillsbench", title: "SkillsBench", publication: "2026 · NeurIPS", ids: ["sk-result", "sk-self-generation", "sk-data-appendix"]},
       {id: "raw-experience", title: "From Raw Experience", publication: zh ? "2026 · arXiv 预印本" : "2026 · arXiv preprint", ids: ["sk-transfer", "sk-transfer-cases", "sk-cross-model"]},
-      {id: "skillrevise", title: "SkillRevise", publication: "2026 · EMNLP Findings", ids: ["sk-revision"]},
-      {id: "evoskill", title: "EvoSkill", publication: zh ? "2026 · AgentSkills（待核实）" : "2026 · AgentSkills (unverified)", ids: ["sk-evo-matrix", "sk-evo-transfer"]}
+      {id: "skillrevise", title: "SkillRevise", publication: "2026 · EMNLP Findings", ids: ["sk-revision", "sk-revision-method", "sk-revision-budget"]}
     ];
     const flowNodes = [
       {id:"A", title:zh ? "A · AI 生成的独立 Skill" : "A · Separate AI-authored Skill", detail:zh ? "示例：用 Copilot + GPT-6.1 Sol 根据源任务与开发资料生成 AI Skill，独立保存于 ai/，记录自己的版本与哈希。它与 human/ 中的人类 Skill 是不同产物，不能混合加载；最终测试题始终不可见，人类组获得同等资料与验证机会。此处是拟议配置，不代表已完成实验。" : "Example: use Copilot + GPT-6.1 Sol to generate the AI Skill from source tasks and development evidence. Store it separately in ai/ with its own version and hash. It is a different artifact from the human Skill in human/; never load both together. Final test tasks remain unseen; humans receive matched evidence and validation access. This is a proposed configuration, not a completed experiment."},
@@ -4737,8 +4727,8 @@ description: Check reported metrics when
     }];
     const slideTitles = [
       ...(zh
-        ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "反馈与修订", "结论与证据边界", "我的实验：任务容器与 Oracle", "实验控制与评价指标", "原始论文", "附录：完整对照数据", "EvoSkill：跨模型矩阵", "EvoSkill：迁移收益与边界"]
-        : ["Research question", "Three key figures", "Curated vs. AI-generated", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "Feedback and revision", "Conclusions and limits", "My experiment: task container & oracle", "Controls and evaluation metrics", "Primary sources", "Appendix: full comparison", "EvoSkill: cross-model matrix", "EvoSkill: transfer gains and limits"]),
+        ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "SkillsBench：同模型自写自用", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "SkillRevise：条件与结果", "SkillRevise：方法流程", "SkillRevise：修订预算与边界", "结论与证据边界", "我的实验：任务容器与 Oracle", "实验控制与评价指标", "原始论文", "附录：完整对照数据"]
+        : ["Research question", "Three key figures", "Curated vs. AI-generated", "SkillsBench: self-generation protocol", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "SkillRevise: conditions and results", "SkillRevise: method", "SkillRevise: budget and boundaries", "Conclusions and limits", "My experiment: task container & oracle", "Controls and evaluation metrics", "Primary sources", "Appendix: full comparison"]),
       ...researchQuestions.map((question, i) => `RQ${i + 1} · ${question.title}`),
       ...basicsPages.map(page => `${zh ? "什么是 Skill" : "What is a Skill"} · ${page.title}`),
       ...experimentTasks.map(task => `${zh ? "实验结果" : "Experiment results"} · ${task.title}`)
@@ -4819,6 +4809,27 @@ description: Check reported metrics when
         <div class="ev-caution">${zh ? "<b>实验边界：</b>AI 先看到当前任务，再生成 1–5 份 Skill 并解题（附录 C.6）；这不是迁移实验。“人工整理”也不保证全部由人类从零独立编写。固定使用 v3 Table 3，不混用 v4 的任务规模与汇总结果。" : "<b>Protocol boundary:</b> AI sees the current task, generates 1–5 Skills, then solves it (Appendix C.6). This is not a transfer test. Curated does not guarantee wholly human-written authorship. Figures are pinned to v3 Table 3, not mixed with v4."}</div>
       </section>
 
+      <section class="sk-panel ev-slide ev-explainer-slide" id="sk-self-generation" tabindex="-1" aria-labelledby="sk-self-generation-title">
+        ${heading("1B", "sk-self-generation-title", zh ? "自生成：同模型、同 Harness 自写自用" : "Self-generation: same model and harness", cite(1))}
+        <div class="ev-selfgen-flow" aria-label="${zh ? "GPT-5.2 在 Codex 中先写 Skill 再解决当前题目" : "GPT-5.2 in Codex writes Skills before solving the current task"}">
+          <div><h3>${zh ? "01 / 看到当前题目" : "01 / Read the task"}</h3><p>${zh ? "GPT-5.2 + Codex 先看到任务；Skill 目录为空，不提供人工整理的 Skill。" : "GPT-5.2 + Codex sees the task; the Skills directory starts empty."}</p></div>
+          <div><h3>${zh ? "02 / 自己编写 Skill" : "02 / Write Skills"}</h3><p>${zh ? "生成 1–5 份模块化 Markdown：准备步骤、代码示例与可复用指导，保存到 environment/skills/。" : "Write 1–5 modular Markdown Skills with setup, examples and reusable guidance; save to environment/skills/."}</p></div>
+          <div><h3>${zh ? "03 / 自己参考后解题" : "03 / Use its own Skills"}</h3><p>${zh ? "仍由 GPT-5.2 + Codex 参考刚生成的文档，继续完成同一道任务。" : "The same GPT-5.2 + Codex uses those files to solve the same task."}</p></div>
+        </div>
+        <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "GPT-5.2 与 Codex 的三个 Skill 条件，可横向滚动" : "Three Skill conditions for GPT-5.2 with Codex; horizontally scrollable"}">
+          <table class="ev-table" id="ev-selfgen-example">
+            <thead><tr><th scope="col">${zh ? "条件" : "Condition"}</th><th scope="col">${zh ? "Skill 来源（执行端固定 GPT-5.2 + Codex）" : "Skill source (executor fixed: GPT-5.2 + Codex)"}</th><th scope="col">${zh ? "通过率" : "Pass rate"}</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">${zh ? "无 Skill" : "No Skill"}</th><td>${zh ? "不提供额外 Skill" : "No added Skill"}</td><td>${selfGenerationExample.base.toFixed(1)}%</td></tr>
+              <tr><th scope="row">${zh ? "人工整理" : "Curated"}</th><td>${zh ? "预先准备的 curated Skill 包" : "Pre-prepared curated Skill package"}</td><td>${selfGenerationExample.curated.toFixed(1)}%</td></tr>
+              <tr><th scope="row">${zh ? "AI 自生成" : "Self-generated"}</th><td>${zh ? "GPT-5.2 看到当前题目后自己编写" : "GPT-5.2 authors Skills after seeing this task"}</td><td>${selfGenerationExample.ai.toFixed(1)}%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="sk-note">${zh ? "<b>边界：</b>其余四个 Claude + Claude Code 配置同理；v3 未评估 Gemini 的自生成。这不是跨模型迁移、冻结 Skill 后的未见任务复用，也不是 SkillRevise 的 verifier 反馈修订循环。结论限于这一自生成协议，不代表所有 AI 写作方法。" : "<b>Boundary:</b> the four Claude + Claude Code configurations follow the same setup; Gemini self-generation was not evaluated in v3. This is not cross-model transfer, frozen-Skill reuse on unseen tasks, or SkillRevise's verifier-driven revision. Conclusions apply to this generation protocol."}</p>
+        <p class="ev-sr-source">SkillsBench v3 · §3.3 / Table 3 · <a href="${paperAuthors.skillsbench.source}#page=19" target="_blank" rel="noopener">${zh ? "附录 C.6：原始生成指令（PDF 第 19–20 页）" : "Appendix C.6: generation instructions (PDF pp. 19–20)"} ↗</a></p>
+      </section>
+
       <section class="sk-panel ev-slide" id="sk-transfer" tabindex="-1" aria-labelledby="sk-transfer-title">
         ${heading("02", "sk-transfer-title", zh ? "换成未见任务，AI 生成的 Skill 还能用吗？" : "Do AI-generated Skills help on unseen tasks?", cite(2))}
         <div class="ev-section-meta"><span>From Raw Experience · Table 1 / §4.1–4.2</span><span>${zh ? "5 领域 × 5 生成模型 × 6 执行模型" : "5 domains × 5 extractors × 6 executors"}</span></div>
@@ -4868,7 +4879,7 @@ description: Check reported metrics when
         ${heading("04", "sk-boundary-title", zh ? "数据已经回答什么，还没回答什么？" : "What do the data establish—and leave open?")}
         <div class="ev-verdicts">
           <div><span>01 / ${zh ? "已有对照" : "MEASURED"}</span><h3>${zh ? "当前任务效果，AI 自生成明显落后。" : "Self-generation trails curated Skills on current tasks."}</h3><p>SkillsBench${authorsButton(1)}${zh ? " 五组配对配置：低 12.5–23.7 个百分点。结论限定在对应版本、模型与生成协议。" : ": five paired configurations, 12.5–23.7 pp lower, within the tested version, models, and protocol."}</p></div>
-          <div><span>02 / ${zh ? "已有迁移实验" : "TRANSFER TESTED"}</span><h3>${zh ? "AI 生成产物可以迁移，但不保证有益。" : "AI-generated artifacts can transfer, but not always help."}</h3><p>From Raw Experience${authorsButton(2)}${zh ? "：未见任务约 25% 的组合负迁移。" : ": about 25% of held-out combinations regress. "}EvoSkill${authorsButton(4)}${zh ? "：跨模型有正负收益；SealQA → BrowseComp 为 +5.3 个百分点。两篇研究的协议与分母不合并。" : ": cross-model gains vary in sign; SealQA → BrowseComp gains +5.3 pp. The studies' protocols and denominators are not pooled."}</p></div>
+          <div><span>02 / ${zh ? "已有迁移实验" : "TRANSFER TESTED"}</span><h3>${zh ? "AI 生成产物可以迁移，但不保证有益。" : "AI-generated artifacts can transfer, but not always help."}</h3><p>From Raw Experience${authorsButton(2)}${zh ? "：未见任务约 25% 的组合负迁移。这是 AI 生成 Skill 的实验，不能据此推断与人类 Skill 的迁移差距。" : ": about 25% of held-out combinations regress. This evaluates AI-generated Skills, not the human–AI transfer gap."}</p></div>
           <div><span>03 / ${zh ? "尚缺直接对照" : "STILL OPEN"}</span><h3>${zh ? "不能量化“AI 的迁移率比人类低多少”。" : "The human–AI transfer gap is not quantified here."}</h3><p>${zh ? "需要相同信息、相同预算、人类与 AI 分别编写，冻结产物后在同一批未见任务上测试。" : "A direct test needs matched evidence and budgets, human- and AI-authored artifacts, then frozen-artifact evaluation on the same held-out tasks."}</p></div>
         </div>
       </section>
@@ -4961,66 +4972,63 @@ description: Check reported metrics when
         <p class="sk-note">${zh ? "待 pilot 决定：基准、模型与 harness 组合、作者人数及重复次数。全部在正式测试前固定，不预设或补造实验结果。" : "Pilot decisions: benchmark, model–harness pairs, author count and repeats. Freeze the protocol before final testing; no results are assumed or fabricated."}</p>
       </section>
 
-      <section class="sk-panel ev-slide" id="sk-revision" tabindex="-1" aria-labelledby="sk-revision-title">
-        ${heading("+", "sk-revision-title", zh ? "补充：有执行反馈，生成质量可以改善" : "Supplement: execution feedback can improve generation", cite(3))}
-        <p class="ev-intro">SkillRevise · Table 1 · GPT-5.5 / Codex · SkillsBench${authorsButton(1)} ${zh ? "86 个任务。这里是生成与修订效果，不是人机迁移对照。" : "86 tasks. This measures generation and revision, not human–AI transfer."}</p>
-        <div class="ev-revision">
-          ${[
-            [zh ? "无 Skill" : "No Skill", "31/86", "36.05%"],
-            [zh ? "一次性生成" : "One-shot generation", "34/86", "39.53%"],
-            [zh ? "初始 Skill v0" : "Initial Skill v0", "35/86", "40.70%"],
-            [zh ? "最多三轮修订" : "Up to 3 revisions", "53/86", "61.63%"]
-          ].map(([label, count, rate]) => `<div><span>${label}</span><b>${rate}</b><small>${count}</small></div>`).join("")}
+      <section class="sk-panel ev-slide ev-explainer-slide" id="sk-revision" tabindex="-1" aria-labelledby="sk-revision-title">
+        ${heading("S1", "sk-revision-title", zh ? "先分清：独立基线与修订链" : "Separate baselines from the revision chain", cite(3))}
+        <div class="ev-section-meta"><span>SkillsBench${authorsButton(1)} · 86 ${zh ? "题" : "tasks"} · Table 1</span><span>GPT-5.5 · Codex ACP · Docker BenchFlow</span></div>
+        <p class="ev-intro">${zh ? "<b>不是 39.53% → 40.70% → 61.63% 连续升级。</b>Skill-Creator 是独立基线；SkillRevise 从自己生成的 v0 出发，才进入反馈修订。" : "<b>39.53% → 40.70% → 61.63% is not one improvement chain.</b> Skill-Creator is a separate baseline; SkillRevise revises its own initial v0."}</p>
+        <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "SkillRevise 五个评估条件与定义，可横向滚动" : "Five SkillRevise evaluation conditions and definitions; horizontally scrollable"}">
+          <table class="ev-table" id="ev-sr-results">
+            <thead><tr><th scope="col">${zh ? "实验条件" : "Condition"}</th><th scope="col">${zh ? "实际流程" : "What is evaluated"}</th><th scope="col">${zh ? "成功数 · 成功率" : "Successes · rate"}</th></tr></thead>
+            <tbody>${[
+              ["none", zh ? "无 Skill" : "No Skill", zh ? "不安装 Skill，直接执行一次。" : "One execution without an installed Skill.", 31],
+              ["creator", "Skill-Creator", zh ? "独立的一次性生成基线：写 Skill → 执行；不根据执行反馈修订。" : "Separate one-shot baseline: author a Skill, then execute; no feedback-grounded revision.", 34],
+              ["v0", zh ? "SkillRevise · 初始 v0" : "SkillRevise · initial v0", zh ? "本方法自己生成的起点；尚未看到执行反馈、诊断或修订。" : "This method's own initial artifact, before execution feedback, diagnosis or revision.", 35],
+              ["maxrev1", zh ? "Revision v1 · 最多 1 轮" : "Revision v1 · at most 1 round", zh ? "从 v0 出发，最多修订并重跑一次；在已评测历史中择优。" : "Start from v0; allow one repair and re-execution, then select the best observed version.", 47],
+              ["maxrev3", zh ? "Revision v3 · 最多 3 轮" : "Revision v3 · at most 3 rounds", zh ? "从 v0 出发，最多修订并重跑三次；成功即停，返回历史最佳。" : "Start from v0; allow three repairs and re-executions, stop on success, return the best observed version.", 53]
+            ].map(([id, label, description, successes]) => `<tr data-sr-condition="${id}"><th scope="row">${label}</th><td>${description}</td><td><b>${successes}/86</b> · ${(successes / 86 * 100).toFixed(2)}%</td></tr>`).join("")}</tbody>
+          </table>
         </div>
-        <p class="sk-note">${zh ? "纠正口径：36.05% 是无 Skill 基线，不是“修订前 Skill”。61.63% 相对无 Skill 提升 25.58 个百分点，相对一次性生成提升 22.10 个百分点。修订使用额外执行与验证预算，不能据此宣称超过人工或具有更强迁移性。" : "Correct baseline: 36.05% is no Skill, not the initial Skill. 61.63% is +25.58 pp over no Skill and +22.10 pp over one-shot generation. Revision uses extra execution and verification budget; this is not evidence of superiority to humans or stronger transfer."}</p>
+        <p class="sk-note">${zh ? "Skill-Creator 与 v0 都是反馈修订前的 AI 产物，不是人类 Skill，也不是同一份文件的前后版本。34 与 35 只差一题，不能据此归因某个提示技巧。“一次性”限制的是生成／修订流程，不是 agent 的工具调用次数。" : "Skill-Creator and v0 are both pre-revision AI artifacts, not human Skills or successive versions of one file. Their one-task gap does not isolate a prompting effect. One-shot refers to authoring/revision, not the executor's tool-call count."}</p>
+        <p class="ev-sr-source"><a href="https://aclanthology.org/2026.findings-emnlp.991.pdf#page=7" target="_blank" rel="noopener">Table 1 ↗</a> · §4.1–4.2 / Appendix B.2 · ${zh ? "编写、修订、执行均用 GPT-5.5；相同任务接口与 verifier。" : "GPT-5.5 authors, revises and executes; task interface and verifier are shared."}</p>
+      </section>
+      <section class="sk-panel ev-slide ev-explainer-slide" id="sk-revision-method" tabindex="-1" aria-labelledby="sk-revision-method-title">
+        ${heading("S2", "sk-revision-method-title", zh ? "SkillRevise 如何把失败变成 Skill 修改？" : "How does SkillRevise turn failure into a Skill edit?", cite(3))}
+        <p class="ev-intro">${zh ? "<b>优化的是 Skill 文档／流程，不是模型权重。</b>先执行当前 Skill，再用真实轨迹与 verifier 反馈定位缺陷；候选修改必须重跑验证。" : "<b>The optimized object is the Skill artifact, not model weights.</b> Execute it, diagnose defects from real traces and verifier feedback, then re-execute each candidate edit."}</p>
+        <div class="ev-sr-components">
+          <article><h3>01 / Diagnosis<br>${zh ? "诊断：改什么、保留什么" : "Diagnose and preserve"}</h3><p>${zh ? "列出可观察的验证要求、失败证据与归因，以及已通过且必须保留的行为。没有证据支持 Skill 层面的缺陷，就停止修订，不把所有失败都归咎于 Skill。" : "Record verifier requirements, evidence-backed failure causes and behavior that already passes. Stop if no Skill-level defect is supported."}</p></article>
+          <article><h3>02 / Principle Memory<br>${zh ? "检索可复用的修复原则" : "Retrieve repair principles"}</h3><p>${zh ? "主实验使用七条人工归纳的通用种子原则，如流程检查点、schema 验证、环境定位与失败 fallback。原则库在评测前冻结，不吸收测试题反馈供后续题使用。" : "Retrieve from seven human-curated seed principles: checkpoints, schema checks, environment grounding and fallbacks. Freeze the bank; never absorb test-task feedback."}</p></article>
+          <article><h3>03 / Revision Operator<br>${zh ? "用执行锚点落实修改" : "Anchor each edit"}</h3><p>${zh ? "将诊断和适用原则转成局部修改，明确下一次要采取的动作、检查的证据及指令位置。保留已经正确的步骤；不是泛泛增加一句“仔细检查”。" : "Make targeted edits with concrete actions, expected evidence and instruction placement. Preserve correct steps; do not merely add vague advice to be careful."}</p></article>
+        </div>
+        <div class="ev-sr-example"><h3>${zh ? "教学示例（非论文原句）：缺少 JSON 字段" : "Teaching example, not a paper quote: missing JSON fields"}</h3><p>${zh ? "<b>原指令：</b>生成 JSON 并提交。<br><b>修订：</b>写入 → 重新读取并解析 → 按任务声明的 schema 检查字段／类型 → 验证通过后提交。" : "<b>Before:</b> generate and submit JSON.<br><b>After:</b> write → reload and parse → check fields/types against the task-declared schema → submit after validation."}</p></div>
+        <p class="sk-note">${zh ? "原则是修复操作，不是答案库。保留产物应表达可复用的发现、校验与恢复流程，不保存本题答案或隐藏 oracle 值。此方法含人工整理的原则知识，不是完全无人工先验的 AI 生成。" : "The frozen bank contributes human-curated knowledge. Retain reusable discovery, validation and recovery—not task answers or hidden oracle values."}</p>
+        <p class="ev-sr-source"><a href="https://aclanthology.org/2026.findings-emnlp.991.pdf#page=4" target="_blank" rel="noopener">§3 / Figure 2 / Appendices K–L ↗</a></p>
+      </section>
+      <section class="sk-panel ev-slide ev-explainer-slide" id="sk-revision-budget" tabindex="-1" aria-labelledby="sk-revision-budget-title">
+        ${heading("S3", "sk-revision-budget-title", zh ? "v3 是修订预算，不是最终文件版本" : "v3 is a revision budget, not the returned version", cite(3))}
+        <p class="ev-intro">${zh ? "每题先评估 v0，再最多生成并评估三个修订候选：最多四次带 Skill 的执行。第一次通过 verifier 就停止；缺乏 Skill 缺陷证据也可提前停止。" : "Evaluate v0, then allow up to three evaluated repairs: at most four Skill-conditioned executions per task. Stop at the first verifier pass, or earlier if no Skill-level defect is supported."}</p>
+        <div class="ev-sr-versions">
+          <span>v0<small>${zh ? "初始执行" : "Initial execution"}</small></span><span>→ v1<small>${zh ? "修订＋重跑" : "Repair + re-execute"}</small></span><span>→ v2<small>${zh ? "仍失败才继续" : "Continue if warranted"}</small></span><span>→ v3<small>${zh ? "预算上限，不强制到达" : "Budget limit, not mandatory"}</small></span>
+        </div>
+        <div class="ev-sr-budget">
+          <article><h3>${zh ? "最终交付历史最佳，不一定是 v3" : "Return the best observed, not necessarily v3"}</h3><p>${zh ? "搜索可沿最新候选继续，返回时按实测效用选择历史最佳；不回退到无 Skill 基线。86 题最终选中版本：" : "Search follows the latest candidate; return the highest-utility observed version, with no fallback to no Skill. Selected versions across 86 tasks:"}</p><p id="ev-sr-selected-versions"><b>v0: 42 · v1: 19 · v2: 13 · v3: 12</b></p></article>
+          <article><h3>${zh ? "61.63% 不代表什么？" : "What does 61.63% not mean?"}</h3><ul><li>${zh ? "不是每道题都修订了三次。" : "Not three repairs on every task."}</li><li>${zh ? "不是冻结 Skill 后，在全新任务上只测一次的泛化成绩。" : "Not one-shot evaluation of frozen Skills on unseen tasks."}</li><li>${zh ? "不是人类 Skill 与 AI Skill 的配对比较。" : "Not a paired human–AI Skill comparison."}</li></ul></article>
+        </div>
+        <p class="sk-note">${zh ? "<b>正确结论：</b>v0 的 35/86 → 三轮预算择优的 53/86，多成功 18 题（+20.93 个百分点）。主实验在当前任务上使用反馈、修订、重跑后选择，跨任务／模型迁移另行评估。你的研究应匹配人类与 AI 的信息、反馈机会和修订预算，而不只统一最终执行模型。" : "<b>Supported conclusion:</b> 35/86 at v0 → 53/86 after budgeted selection: 18 additional successes (+20.93 pp). Main runs revise and select using current-task feedback; transfer is evaluated separately. A human–AI study should match evidence, feedback access and revision budgets, not only the final executor."}</p>
+        <p class="ev-sr-source"><a href="https://aclanthology.org/2026.findings-emnlp.991.pdf#page=13" target="_blank" rel="noopener">Appendix B.2–B.4 / Algorithm 1 ↗</a> · <a href="https://github.com/HKUST-KnowComp/skillrevise/blob/main/docs/overview.md" target="_blank" rel="noopener">${zh ? "官方方法说明" : "Official method overview"} ↗</a></p>
       </section>
 
       <section class="sk-panel ev-slide" id="sk-references" tabindex="-1" aria-labelledby="sk-refs-title">
         <div class="sk-heading"><h2 id="sk-refs-title">${zh ? "原始论文与数据定位" : "Primary sources and table locations"}</h2></div>
         <div class="sk-references">
-          ${reference(1, `<b>SkillsBench: Benchmarking How Well Agent Skills Work Across Diverse Tasks.</b><br>NeurIPS 2026 · Evaluations and Datasets Track · Poster<br><a href="https://www.yiminl.com/" target="_blank" rel="noopener">${zh ? "据作者主页：2026 年 9 月录用公告" : "Source: author's September 2026 acceptance announcement"} ↗</a><br>${zh ? "本页对照数据固定为" : "Comparison data pinned to"} arXiv:2602.12670v3 · Table 3 · §4.1.1 · Appendix C.6<br><a href="https://arxiv.org/html/2602.12670v3" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2602.12670v3" target="_blank" rel="noopener">PDF ↗</a>`)}
+          ${reference(1, `<b>SkillsBench: Benchmarking How Well Agent Skills Work Across Diverse Tasks.</b><br>NeurIPS 2026 · Evaluations and Datasets Track<br>${zh ? "会议轨道，非 Workshop；作者注明展示形式为 Poster。Poster 是展示形式，不是与会议录用对立的发表级别。" : "A conference track, not a workshop; the author reports a poster presentation. Poster describes presentation format, not a separate publication tier."}<br><a href="https://www.yiminl.com/" target="_blank" rel="noopener">${zh ? "据作者主页：2026 年 9 月录用公告" : "Source: author's September 2026 acceptance announcement"} ↗</a><br>${zh ? "本页对照数据固定为" : "Comparison data pinned to"} arXiv:2602.12670v3 · Table 3 · §4.1.1 · Appendix C.6<br><a href="https://arxiv.org/html/2602.12670v3" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2602.12670v3" target="_blank" rel="noopener">PDF ↗</a>`)}
           ${reference(2, `<b>Huang et al. From Raw Experience to Skill Consumption: A Systematic Study of Model-Generated Agent Skills.</b><br>2026 · arXiv:2605.23899v1 · ${zh ? "预印本；未核实正式会议发表" : "Preprint; conference publication not verified"}<br>Table 1 · §4.1–4.2 · §5.3 / Figure 4<br><a href="https://arxiv.org/html/2605.23899v1" target="_blank" rel="noopener">${zh ? "固定版本原文" : "Version-pinned paper"} ↗</a> · <a href="https://arxiv.org/pdf/2605.23899v1" target="_blank" rel="noopener">PDF ↗</a>`)}
           ${reference(3, `<b>Liu et al. SkillRevise: Improving LLM-Authored Agent Skills via Trace-Conditioned Skill Revision.</b><br>Findings of EMNLP 2026 · Table 1 / §4.2<br><a href="https://aclanthology.org/2026.findings-emnlp.991/" target="_blank" rel="noopener">${zh ? "正式论文条目" : "Proceedings entry"} ↗</a> · <a href="https://aclanthology.org/2026.findings-emnlp.991.pdf" target="_blank" rel="noopener">PDF ↗</a>`)}
-          ${reference(4, `<b>Alzubi et al. EvoSkill: Automated Skill Discovery for Agents.</b><br>${zh ? "依据本地 PDF：§3.4 / Table 4（PDF 第 7 页）、§3.5（PDF 第 6 页）。文档标注 AgentSkills 2026（2026-05-26，San Jose），ISBN 和 DOI 均为占位符；正式发表状态及会议／Workshop 归属待核实，不视为已确认的顶会主会论文。" : "Checked against the local PDF: §3.4 / Table 4 (PDF p. 7), §3.5 (PDF p. 6). The document lists AgentSkills 2026 (May 26, San Jose), with placeholder ISBN and DOI. Formal publication status and conference/workshop affiliation remain unverified; this is not a confirmed main-track paper."}<br><a href="https://openreview.net/forum?id=i4b4As7RFX" target="_blank" rel="noopener">OpenReview ↗</a>`)}
         </div>
         <p class="sk-method-note">${zh ? "核查日期：2026-10-26。数值依据原始 PDF 表格与实验协议整理，非本页重新运行实验；差值与“使用后”通过率由论文已舍入数值计算。≈ 表示论文汇总的近似比例。不同研究、版本和分母不合并，效果差距不冒充迁移差距；未报告的数据不补造。" : "Checked 2026-10-26 against primary PDF tables and protocols; experiments were not rerun here. Gaps and with-Skill rates are computed from rounded reported values. ≈ denotes approximate study aggregates. Studies, versions, and denominators are not pooled; performance gaps are not transfer gaps, and unreported data are not imputed."}</p>
       </section>
       <section class="sk-panel ev-slide" id="sk-data-appendix" tabindex="-1" aria-labelledby="sk-appendix-title">
         ${heading("A", "sk-appendix-title", zh ? "附录：完整数据与实验边界" : "Appendix: full data and protocol boundaries", cite(1))}
         <button type="button" class="ev-slide-link" data-sk-target="sk-result">${zh ? "← 返回对照图" : "← Back to comparison chart"}</button>
-      </section>
-      <section class="sk-panel ev-slide" id="sk-evo-matrix" tabindex="-1" aria-labelledby="sk-evo-matrix-title">
-        ${heading("E1", "sk-evo-matrix-title", zh ? "EvoSkill：同一来源的 Skill，能跨模型复用吗？" : "EvoSkill: do evolved Skill libraries transfer across models?", cite(4))}
-        <div class="ev-section-meta"><span>SealQA · §3.4 / Table 4</span><span>${zh ? "行：Skill 演化来源 · 列：测试执行模型" : "Rows: Skill evolution origin · Columns: test executor"}</span></div>
-        <p class="ev-intro">${zh ? "在一个模型上演化 Skill 库，再零样本交给另一个模型执行。每格先显示准确率，再显示相对该列无 Skill 基线的变化（百分点）。" : "Evolve a Skill library with one model, then use it zero-shot with another executor. Each cell shows accuracy, followed by change in percentage points against that column's no-Skill baseline."}</p>
-        <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "EvoSkill 完整跨模型矩阵，可横向滚动" : "Complete EvoSkill cross-model matrix; horizontally scrollable"}">
-          <table class="ev-table ev-evo-table" id="ev-evo-matrix">
-            <caption>${zh ? "Table 4 原始准确率（%）；Δ = 使用 Skill − 同执行模型的无 Skill 基线。同名行列是同模型结果，不算跨模型迁移。" : "Table 4 accuracy (%); Δ = with Skill − no Skill for the same executor. Matching row and column models are same-model results, not cross-model transfer."}</caption>
-            <thead><tr><th scope="col">${zh ? "Skill 来源 ↓ / 执行模型 →" : "Skill origin ↓ / Executor →"}</th>${evoExecutors.map(model => `<th scope="col">${model}</th>`).join("")}</tr></thead>
-            <tbody>
-              <tr><th scope="row">${zh ? "无 Skill 基线" : "No-Skill baseline"}</th>${evoBaseline.map(value => `<td>${value.toFixed(1)}%</td>`).join("")}</tr>
-              ${evoOrigins.map(origin => `<tr><th scope="row">${origin.model}</th>${origin.values.map((value, i) => `<td>${value.toFixed(1)}%<small class="${value > evoBaseline[i] ? "ev-positive" : value < evoBaseline[i] ? "ev-negative" : ""}">Δ ${signed(value - evoBaseline[i])}</small></td>`).join("")}</tr>`).join("")}
-            </tbody>
-          </table>
-        </div>
-        <p class="sk-note">${zh ? "来源模型 × 执行模型存在兼容性差异。论文还指出 OpenCode 与 Claude Code SDK 等 harness 差异会影响可移植性；不能把所有变化归因于模型本身。GPT-OSS-20B 的工具使用能力限制了结果。" : "Compatibility depends on both origin and executor. The paper also flags harness differences (e.g. OpenCode vs. Claude Code SDK) as portability factors; changes cannot be attributed solely to model identity. GPT-OSS-20B's tool-use limitations constrain its results."}</p>
-      </section>
-      <section class="sk-panel ev-slide" id="sk-evo-transfer" tabindex="-1" aria-labelledby="sk-evo-transfer-title">
-        ${heading("E2", "sk-evo-transfer-title", zh ? "EvoSkill：正迁移、负迁移与跨数据集证据" : "EvoSkill: positive, negative and cross-dataset transfer", cite(4))}
-        <div class="ev-plan-metrics">
-          <div><h3>${zh ? "跨模型 · 同一执行模型对照" : "Cross-model · matched executor"} · Table 4</h3>
-            <p>Opus 4.5 → GPT-OSS-120B<br><b>22.9% → 12.0% · −10.9 ${pp}</b></p>
-            <p>Sonnet 4.5 → GPT-OSS-120B<br><b>22.9% → 30.1% · +7.2 ${pp}</b></p>
-            <p>${zh ? "同一个目标模型，不同来源的 Skill 库可带来相反收益；不是 AI 对人工的比较。" : "The same target model gains or regresses with different-origin libraries; this is not AI versus human authorship."}</p>
-          </div>
-          <div><h3>${zh ? "跨数据集 · Skill 不修改" : "Cross-dataset · unchanged Skill"} · §3.5</h3>
-            <p>SealQA → BrowseComp · 128 ${zh ? "个样例" : "examples"}</p>
-            <p><b>43.5% → 48.8% · +5.3 ${pp}</b></p>
-            <p>Opus 4.5 · <code>search-persistence-protocol</code></p>
-            <p>${zh ? "在 SealQA 演化后，未修改直接迁移到 BrowseComp。这是特定产物与目标集上的准确率提升，不是普遍的迁移成功率。" : "Evolved on SealQA and applied unchanged to BrowseComp. This is an accuracy gain for a specific artifact and target dataset, not a universal transfer success rate."}</p>
-          </div>
-        </div>
-        <div class="ev-caution">${zh ? "<b>证据边界：</b>没有人工编写 Skill 的配对对照，也没有统一消除 harness 差异。不能据此宣称 AI Skill 比人工更难／更易迁移；更不能把 48.8% 称为“迁移率”。" : "<b>Evidence boundary:</b> there is no paired human-authored Skill condition, and harness differences are not uniformly removed. The study does not quantify whether AI Skills transfer better or worse than human Skills; 48.8% is accuracy, not a transfer rate."}</div>
       </section>
       ${researchQuestions.map((question, i) => `
         <section class="sk-panel ev-slide ev-research-slide" data-research-question="${i + 1}" id="${i === 0 ? "sk-research-questions" : `sk-research-${i + 1}`}" tabindex="-1" aria-labelledby="sk-rq-${i + 1}-title">
@@ -5148,13 +5156,15 @@ description: Check reported metrics when
     const requestedDocker = new URLSearchParams(location.search).get("container");
     showDockerCondition(dockerConditions.find(condition => condition.id === requestedDocker) || null);
     const stage = root.querySelector(".ev-stage");
-    stage.insertBefore(document.getElementById("sk-revision"), document.getElementById("sk-boundaries"));
+    for (const id of paperGroups.find(paper => paper.id === "skillrevise").ids) {
+      stage.insertBefore(document.getElementById(id), document.getElementById("sk-boundaries"));
+    }
     const result = document.getElementById("sk-result");
     const appendix = document.getElementById("sk-data-appendix");
     const fullData = result.querySelector(".ev-details");
     fullData.open = true;
     appendix.append(fullData, result.querySelector(".ev-caution"));
-    result.insertAdjacentHTML("beforeend", `<button type="button" class="ev-slide-link" data-sk-target="sk-data-appendix">${zh ? "完整数据与实验边界 → 附录" : "Full data and protocol boundaries → Appendix"}</button>`);
+    result.insertAdjacentHTML("beforeend", `<button type="button" class="ev-slide-link" data-sk-target="sk-self-generation">${zh ? "自生成是什么意思？→ 协议说明" : "What does self-generation mean? → Protocol"}</button> · <button type="button" class="ev-slide-link" data-sk-target="sk-data-appendix">${zh ? "完整数据与实验边界 → 附录" : "Full data and protocol boundaries → Appendix"}</button>`);
     stage.insertAdjacentHTML("beforeend", `
       <section class="ev-author-page" id="ev-paper-authors" hidden aria-labelledby="ev-authors-title">
         <div class="ev-author-top">
