@@ -1297,25 +1297,29 @@
   .sk-author-button:focus-visible,.sk-paper-link:focus-visible{outline:2px solid #36786D;outline-offset:2px}
   .sk-paper-link{display:inline-block;text-decoration:none}
   .ev-highlight .sk-author-button{margin:10px 0 0}
-  .ev-author-page{height:100%;overflow-y:auto;overscroll-behavior:contain;padding:16px 24px;box-sizing:border-box}
-  .ev-author-page[hidden]{display:none}
+  .ev-paper-page{height:100%;overflow-y:auto;overscroll-behavior:contain;padding:16px 24px;box-sizing:border-box}
+  .ev-paper-page[hidden]{display:none}
   .ev-author-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
   .ev-author-top h2{margin:0;color:var(--sk-blue);font-size:22px;line-height:1.5}
-  .ev-author-page p{margin:8px 0;color:var(--sk-muted);font-size:11px;line-height:1.8}
-  .ev-author-page a{color:var(--sk-blue)}
-  .ev-author-page .ev-table{min-width:440px}
-  .ev-author-page .ev-table th,.ev-author-page .ev-table td{padding:8px 12px}
-  .ev-author-page .ev-table td{white-space:normal;overflow-wrap:anywhere}
-  .ev-author-page .ev-table td:first-child{width:40px}
-  .ev-reading-authors .ev-deck-frame{grid-template-columns:minmax(0,1fr)}
-  .ev-reading-authors .ev-side-nav,.ev-reading-authors .ev-deck-controls,.ev-reading-authors .ev-deck-hint{display:none}
+  .ev-paper-page p{margin:8px 0;color:var(--sk-muted);font-size:11px;line-height:1.8}
+  .ev-paper-page a{color:var(--sk-blue)}
+  .ev-paper-page .ev-table{min-width:440px}
+  .ev-paper-page .ev-table th,.ev-paper-page .ev-table td{padding:8px 12px}
+  .ev-paper-page .ev-table td{white-space:normal;overflow-wrap:anywhere}
+  .ev-paper-page .ev-table td:first-child{width:40px}
+  .ev-benchmark-card{padding:16px;margin:14px 0;border:1px solid var(--sk-line);border-radius:12px;background:#F6F9FC;overflow-wrap:anywhere}
+  .ev-benchmark-card h3{margin:0 0 8px;color:var(--sk-blue);font-size:17px}
+  .ev-benchmark-card p{font-size:12px}
+  .ev-benchmark-card a{display:inline-block;margin:4px 16px 0 0}
+  .ev-reading-paper .ev-deck-frame{grid-template-columns:minmax(0,1fr)}
+  .ev-reading-paper .ev-side-nav,.ev-reading-paper .ev-deck-controls,.ev-reading-paper .ev-deck-hint{display:none}
   @media(max-width:760px){
-    .ev-author-page{padding:12px 16px}
+    .ev-paper-page{padding:12px 16px}
     .ev-author-top{flex-direction:column;align-items:flex-start;gap:4px}
     .ev-author-top h2{font-size:20px}
   }
-  @media screen{.ev-stage[data-author-view]>.ev-slide{display:none!important}}
-  @media print{.ev-author-page{display:none!important}.sk-author-button,.sk-paper-link{display:none!important}}
+  @media screen{.ev-stage[data-paper-view]>.ev-slide{display:none!important}}
+  @media print{.ev-paper-page{display:none!important}.sk-author-button,.sk-paper-link{display:none!important}}
   .sk-note{font-size:11px;line-height:1.8;color:var(--sk-muted);margin:14px 0 0}
   .sk-references{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
   .sk-reference{display:grid;grid-template-columns:24px 1fr;gap:6px;font-size:11px;line-height:1.8;color:var(--sk-muted);scroll-margin-top:30px}
@@ -3982,7 +3986,7 @@ window.SWECHAT_SOURCE = {
           en: 'AI-generated Skills: <span class="q">how well do they work and transfer?</span>'
         },
         dek: {
-          zh: "人工整理与 AI 自生成的实测对照 · 未见任务与跨模型迁移（2026）",
+          zh: "人工整理与 AI 自生成的实测对照 · 独立测试任务与跨模型迁移（2026）",
           en: "Curated vs. AI-generated Skills · held-out tasks and cross-model transfer (2026)"
         },
         footerData: {
@@ -4542,13 +4546,139 @@ window.SWECHAT_SOURCE = {
       }
     };
     const citedPapers = ["skillsbench", "raw-experience", "skillrevise"];
+    const benchmarkLinks = {
+      skillsbench: [
+        ["https://www.skillsbench.ai/", zh ? "项目主页" : "Project"],
+        ["https://github.com/benchflow-ai/skillsbench", zh ? "官方仓库与评测器" : "Official code and evaluator"],
+        ["https://huggingface.co/datasets/benchflow/skillsbench", zh ? "Hugging Face 数据" : "Hugging Face data"]
+      ],
+      alfworld: [
+        ["https://alfworld.github.io/", zh ? "项目主页" : "Project"],
+        ["https://github.com/alfworld/alfworld", zh ? "环境、数据下载与代码" : "Environment, data and code"]
+      ],
+      bfcl: [
+        ["https://github.com/ShishirPatil/gorilla/tree/main/berkeley-function-call-leaderboard", zh ? "官方数据与评测器" : "Official data and evaluator"]
+      ]
+    };
+    const paperBenchmarks = {
+      skillsbench: {
+        overview: zh ? "跨领域、可执行的 Agent 工作流基准：不是一套知识问答题，而是让 agent 在真实工作区中操作文件、调用工具并产出可检验的结果。" : "An executable, cross-domain agent-workflow benchmark: agents manipulate files and tools in a workspace to produce verifiable outputs, rather than only answering knowledge questions.",
+        protocol: zh ? "本页图表固定使用 v3 的 84 个实际评测任务、11 个领域。v3 摘要写 86 题，但 §2.5、图表与本文引用的结果使用 84 题；不能将两个口径合并。官方仓库与数据集持续更新，不等于这一历史评测快照。" : "The charts use the 84 evaluated tasks across 11 domains in v3. Its abstract says 86 tasks, whereas §2.5 and the cited results use 84; these scopes must not be conflated. The live repository and dataset are not a frozen copy of that historical evaluation.",
+        source: "https://arxiv.org/pdf/2602.12670v3",
+        sourceLabel: "SkillsBench v3 · §2–3 / Table 3",
+        items: [{
+          name: "SkillsBench",
+          description: zh ? "覆盖软件工程、数据分析、医疗等专业工作流。每个任务包含题目、输入资产、隔离运行环境、参考解法（oracle）、程序化 verifier，以及整理好的 Skill 包。" : "Covers professional workflows such as software engineering, data analysis and healthcare. Tasks pair instructions and input assets with an isolated environment, reference solution (oracle), programmatic verifier and curated Skill package.",
+          use: zh ? "同一任务比较无 Skill、人工整理的 Skill、同模型自生成 Skill。Skill 是程序性知识，可包含说明、脚本与资源；不是该题的标准答案。" : "Compares no Skill, curated Skills and same-model self-generated Skills on the same tasks. A Skill is procedural guidance, potentially with scripts and resources, not the task's answer key.",
+          metric: zh ? "由确定性测试判断任务是否完成，汇总为成功率；本文展示的 45.3%、44.7% 等是任务成功率，不是 Skill 文本质量分。" : "Deterministic tests determine task success, aggregated as pass rate. Values such as 45.3% and 44.7% measure task success, not Skill text quality.",
+          links: benchmarkLinks.skillsbench
+        }]
+      },
+      "raw-experience": {
+        overview: zh ? "这篇论文不是新提出一个统一题库，而是在五类已有 benchmark 上研究“执行经验 → 提取领域 Skill → 在独立测试任务上使用”的完整流程。目前网页的负迁移示例侧重其中三个领域。" : "Rather than introducing one unified task set, this paper studies experience collection, domain-Skill extraction and held-out consumption across five existing benchmarks. The negative-transfer examples elsewhere in this deck emphasize three of them.",
+        protocol: zh ? "每个领域按 1:1 准备经验生成集与独立测试集；存在官方训练集时，从训练集采样经验。“独立测试”指这些任务未用于本次经验收集与 Skill 提取，并非换用新数据集，也不保证模型预训练时从未接触过。各提取器 × 目标模型共享同一划分，评估重复三次。不同领域采用各自任务指标，再比较有 / 无 Skill 的性能差 Δ；不是把五类原始分数直接混合。以下原始全集规模不代表论文实际测试题数；未明确核对的逐域样本数不填造。" : "Experience and held-out evaluation sets are balanced 1:1, drawing experience from official training data where available. Held-out tasks are excluded from this study's experience collection and Skill extraction; this does not imply a new dataset or absence from model pretraining. Extractor–target pairs share splits; evaluation is repeated three times. Each domain uses its own metric before computing the with-/without-Skill delta. Upstream dataset sizes below are not paper-specific evaluation counts; unverified per-domain counts are not invented.",
+        source: "https://arxiv.org/html/2605.23899v1#S4.SS1",
+        sourceLabel: "From Raw Experience v1 · §4.1 / Appendix B",
+        items: [
+          {
+            name: "ALFWorld",
+            description: zh ? "与 ALFRED 家庭环境对应的交互式文本环境，任务包括寻找、移动、清洗、加热或冷却物品，考查探索与多步规划。" : "Interactive text environments aligned with ALFRED household worlds: finding, moving, cleaning, heating or cooling objects tests exploration and multi-step planning.",
+            use: zh ? "先从环境交互的成功 / 失败轨迹提取 Skill，再在独立测试任务上执行；网页约 47% 的负迁移组合来自这一领域，不是 47% 的任务失败率。" : "Extracts Skills from successful and failed interaction traces, then evaluates held-out tasks. The roughly 47% negative-transfer figure concerns extractor–target combinations in this domain, not the fraction of tasks failed.",
+            metric: zh ? "环境判定目标是否完成，汇总为任务成功表现并比较 Δ。" : "Environment-defined goal completion, aggregated before comparing the Skill-induced delta.",
+            links: benchmarkLinks.alfworld
+          },
+          {
+            name: "SpreadsheetBench",
+            description: zh ? "来自真实 Excel 用户问题的电子表格操作任务，包括表格检查、公式推理、筛选与修改单元格。原始完整版有 912 条指令；这不是本文测试集题数。" : "Real Excel-user problems involving table inspection, formulas, filtering and cell edits. The original full release has 912 instructions; this is not the paper's evaluation-set size.",
+            use: zh ? "从表格操作经验提取可复用流程，在独立测试的表格任务上验证。原始 912 题版与后来发布的 400 题 Verified 子集也不能自动视为同一版本。" : "Distills reusable procedures from spreadsheet experience and tests held-out tasks. The original 912-task release must not be silently equated with the later 400-task Verified subset.",
+            metric: zh ? "检查输出工作簿是否满足要求；原基准使用类似在线评测的多输入测试，而非只看最终回答是否像正确答案。" : "Checks output workbooks against requirements, with online-judge-style tests over multiple inputs rather than judging answer plausibility.",
+            links: [
+              ["https://spreadsheetbench.github.io/", zh ? "项目主页" : "Project"],
+              ["https://github.com/RUCKBReasoning/SpreadsheetBench/tree/main/data", zh ? "官方数据下载" : "Official data"],
+              ["https://github.com/RUCKBReasoning/SpreadsheetBench", zh ? "代码与评测说明" : "Code and evaluation"]
+            ]
+          },
+          {
+            name: "SWE-bench Verified",
+            description: zh ? "给定真实 GitHub issue 和对应代码仓库，要求生成修复补丁。Verified 原始全集包含 500 个人工确认可解的问题；不代表论文把 500 题全部用于测试。" : "Given a real GitHub issue and repository, produce a repair patch. The full Verified release contains 500 human-validated solvable issues, not necessarily 500 test tasks in this study.",
+            use: zh ? "研究从代码理解、定位错误和修复轨迹中提取的 Skill，能否帮助目标模型解决独立测试集中的 issue。" : "Tests whether Skills distilled from code understanding, fault localization and repair traces help solve held-out issues.",
+            metric: zh ? "通过仓库测试判断 issue 是否修复，同时避免破坏原有行为；汇总解决率并计算 Δ。" : "Repository tests check issue resolution and preserved behavior; resolved rates are compared through the Skill-induced delta.",
+            links: [
+              ["https://huggingface.co/datasets/princeton-nlp/SWE-bench_Verified", zh ? "Verified 数据集" : "Verified dataset"],
+              ["https://github.com/SWE-bench/SWE-bench", zh ? "官方 Docker 评测器" : "Official Docker evaluator"]
+            ]
+          },
+          {
+            name: "SEAL-0 / SealQA",
+            description: zh ? "搜索增强问答：需要在带噪声、冲突或无帮助的网页结果中检索、综合证据并回答事实问题，考查搜索与推理的结合。" : "Search-augmented fact-seeking QA with noisy, conflicting or unhelpful search results, testing retrieval, evidence synthesis and reasoning.",
+            use: zh ? "使用 SealQA 中的 SEAL-0 配置，而不是 SEAL-Hard 或 LongSeal；从搜索轨迹提取领域级 Skill，再评估独立测试集中的问题。" : "Uses SealQA's SEAL-0 configuration, not SEAL-Hard or LongSeal, to study Skills extracted from search traces on held-out questions.",
+            metric: zh ? "按问答正确性评估有 / 无 Skill 的差异。数据持续更新，复现时需固定版本；不能把当前 Hugging Face 内容直接当作论文快照。" : "Compares answer correctness with and without Skills. The dataset changes over time, so reproduction requires a pinned version rather than assuming the live release matches the paper.",
+            links: [["https://huggingface.co/datasets/vtllms/sealqa", zh ? "官方数据与 seal_0 加载说明" : "Official data and seal_0 loading instructions"]]
+          },
+          {
+            name: "BFCL-v4 · multi-turn",
+            description: zh ? "Berkeley Function Calling Leaderboard：评估函数选择、参数提取、类型匹配及多步工具调用，提供可执行的函数接口与评测器。" : "The Berkeley Function Calling Leaderboard evaluates function selection, argument extraction, type matching and multi-step tool use through executable interfaces.",
+            use: zh ? "这篇论文使用 BFCL-v4 的多轮子集，研究长程工具调用经验能否转化成可复用 Skill；不是整个 BFCL-v4 榜单的总分。" : "Uses the multi-turn subset of BFCL-v4 to study reusable Skills from long-horizon tool-use experience, not the aggregate score across the entire leaderboard.",
+            metric: zh ? "由对应类别的官方函数调用评测器判断正确性；比较同一划分上的 Skill 增益。" : "Correctness is determined by the relevant official function-calling evaluator; Skill gains are compared on matched splits.",
+            links: benchmarkLinks.bfcl
+          }
+        ]
+      },
+      skillrevise: {
+        overview: zh ? "主实验在三组带 verifier 的任务上进行，并统一转换为 SkillsBench 风格的独立任务目录。下面单独列出两类“校准后冻结”的扩展实验，避免与主实验的反馈修订混为一谈。" : "The main experiments use three verifier-driven suites normalized into standalone SkillsBench-style task directories. Two calibration-then-freeze extensions are listed separately to distinguish them from main-task feedback revision.",
+        protocol: zh ? "网页的 34/86、35/86、53/86 全部来自第一组 SkillsBench，而不是三个基准合计。跨模型迁移另用 57 个源模型成功任务的条件子集，不等于完整 86 题。官方发布了三组任务包，但加载数据本身不等于复现论文：provider-specific executor harness 仍需另外接入。" : "The 34/86, 35/86 and 53/86 figures all refer to SkillsBench, not the three suites combined. Cross-model transfer uses a conditional 57-task source-success subset rather than all 86 tasks. The three bundles are released, but paper reproduction still requires the external provider-specific execution harness.",
+        source: "https://aclanthology.org/2026.findings-emnlp.991.pdf",
+        sourceLabel: "SkillRevise · main results / Appendix A.1–A.6",
+        items: [
+          {
+            name: zh ? "主实验 01 / SkillsBench · 86 题" : "Main 01 / SkillsBench · 86 tasks",
+            description: zh ? "跨领域专业 Agent 工作流，包含题目、环境资产与程序化评分器。这里使用作者发布的 86 题任务包，不是 SkillsBench v3 图表中的 84 题口径。" : "Cross-domain professional agent workflows with instructions, environment assets and programmatic verifiers. Uses the authors' 86-task bundle, not the 84-task scope of the SkillsBench v3 charts.",
+            use: zh ? "在相同任务与执行接口下比较无 Skill、独立 Skill-Creator、初始 v0 与最多三轮修订。" : "Compares no Skill, independent Skill-Creator, initial v0 and up to three revisions using matched task and execution interfaces.",
+            metric: zh ? "Verifier 任务成功数 / 86；主结果 53/86 = 61.63%。" : "Verifier successes / 86; the main result is 53/86 = 61.63%.",
+            links: [
+              ["https://github.com/HKUST-KnowComp/skillrevise/tree/main/data/skillsbench", zh ? "论文使用的 86 题任务包与清单" : "Paper's 86-task bundle and manifest"],
+              ...benchmarkLinks.skillsbench
+            ]
+          },
+          {
+            name: zh ? "主实验 02 / SkillLearnBench-Random · 50 题" : "Main 02 / SkillLearnBench-Random · 50 tasks",
+            description: zh ? "原基准按任务族组织多个实例；本文选取覆盖主要任务族的 50 题随机子集，再将每个实例导出为独立任务目录。" : "The source benchmark groups multiple instances into task families. The paper selects a 50-task random subset spanning the main families and exports standalone task directories.",
+            use: zh ? "关闭同族 sibling-instance 迁移上下文，只评估单个任务；不沿用原基准的覆盖率、安全性、可执行性 LLM-judge 指标。" : "Disables sibling-instance transfer context and evaluates standalone tasks, without adopting the original coverage, safety or executability LLM-judge metrics.",
+            metric: zh ? "仅统计 verifier 任务成功数 / 50；GPT-5.5 主结果为 29/50。" : "Verifier task successes / 50 only; the GPT-5.5 main result is 29/50.",
+            links: [["https://github.com/HKUST-KnowComp/skillrevise/tree/main/data/skilllearnbench", zh ? "论文选定的 50 题数据、测试与清单" : "Paper's selected 50 tasks, tests and manifest"]]
+          },
+          {
+            name: zh ? "主实验 03 / SWE-Skills-Bench-Hard · 70 题" : "Main 03 / SWE-Skills-Bench-Hard · 70 tasks",
+            description: zh ? "软件工程困难子集，保留原始任务提示、仓库、base image、repo commit 与构建 / 单元测试，再转换成统一接口。它不是 SWE-bench Verified 的别名。" : "A hard software-engineering subset preserving task prompts, repositories, base images, commits and build/unit-test evaluators under a shared interface. It is not another name for SWE-bench Verified.",
+            use: zh ? "使用明确选择的 70 个任务；原基准的参考 Skill 不作为解题答案提供给修订 agent。" : "Uses an explicitly selected 70-task subset; source reference Skills are not exposed as solution artifacts to the revision agent.",
+            metric: zh ? "原始构建 / 单元测试导出的 verifier 成功数 / 70；GPT-5.5 主结果为 33/70。" : "Verifier successes / 70 from the original build/unit tests; the GPT-5.5 main result is 33/70.",
+            links: [["https://github.com/HKUST-KnowComp/skillrevise/tree/main/data/swe-skills-bench", zh ? "论文选定的 70 题数据、环境与测试" : "Paper's selected 70 tasks, environments and tests"]]
+          },
+          {
+            name: zh ? "扩展 / ALFWorld · 校准后冻结" : "Extension / ALFWorld · calibrate then freeze",
+            description: zh ? "交互式家庭环境，评估目标完成与多步行动规划；不是上面三组文件任务的统一导出包。" : "Interactive household tasks testing goal completion and multi-step planning, separate from the three file-based task bundles above.",
+            use: zh ? "Qwen3-8B：25 个校准任务形成 10 条原则，再冻结原则库，在 100 个独立任务上评估；不吸收评估任务反馈。" : "Qwen3-8B uses 25 calibration tasks to build 10 principles, freezes the bank, then evaluates 100 separate tasks without absorbing evaluation feedback.",
+            metric: zh ? "环境任务成功表现。官方包提供 loader，但不分发论文运行的原则库、划分与专用 launcher，不能仅下载 ALFWorld 就宣称完全复现。" : "Environment-defined task success. The release includes a loader but not the paper-run banks, splits or dedicated launcher, so downloading ALFWorld alone does not reproduce this study.",
+            links: benchmarkLinks.alfworld
+          },
+          {
+            name: zh ? "扩展 / BFCL-v4 · 单轮与 multi-turn base" : "Extension / BFCL-v4 · single-turn and multi-turn base",
+            description: zh ? "函数与工具调用评测，单轮侧重调用结构与参数，多轮侧重连续工具交互的执行正确性。" : "Function/tool-calling evaluation: single-turn checks call structure and arguments, while multi-turn checks sustained executable interactions.",
+            use: zh ? "Qwen3-8B：单轮和 multi-turn base 分别校准并冻结 6 条 / 5 条原则，各评估 100 题；不是 From Raw Experience 的多轮划分。" : "Qwen3-8B uses separately calibrated frozen banks of 6 and 5 principles, with 100 evaluation tasks each. These are not the multi-turn splits used by From Raw Experience.",
+            metric: zh ? "单轮用官方 AST checker；多轮 base 用 bfcl-eval 2026.3.23。专用 harness、论文划分与原则库未随示例发布。" : "Single-turn uses the official AST checker; multi-turn base uses bfcl-eval 2026.3.23. The example release omits the dedicated harness, paper splits and principle banks.",
+            links: benchmarkLinks.bfcl
+          }
+        ]
+      }
+    };
     const authorsButton = number => `<button type="button" class="sk-author-button" data-paper-authors="${citedPapers[number - 1]}" aria-controls="ev-paper-authors" aria-label="${zh ? "查看作者与单位：" : "View authors and affiliations: "}${paperAuthors[citedPapers[number - 1]].title}">${zh ? "作者" : "Authors"}</button>`;
+    const benchmarksButton = number => `<button type="button" class="sk-author-button" data-paper-benchmarks="${citedPapers[number - 1]}" aria-controls="ev-paper-benchmarks" aria-label="${zh ? "查看数据集与 Benchmark：" : "View datasets and benchmarks: "}${paperAuthors[citedPapers[number - 1]].title}">${zh ? "数据集 / Benchmark" : "Benchmarks"}</button>`;
     const paperLink = number => {
       const paper = paperAuthors[citedPapers[number - 1]];
       return `<a class="sk-paper-link" href="${paper.source}" target="_blank" rel="noopener" aria-label="${zh ? "在新标签页打开论文原文：" : "Open paper in a new tab: "}${paper.title}">${zh ? "论文原文" : "Paper"} ↗</a>`;
     };
-    const cite = number => `<button type="button" class="sk-cite" data-sk-target="sk-ref-${number}" aria-label="${zh ? "查看参考文献" : "View reference"} ${number}">[${number}]</button>${authorsButton(number)}${paperLink(number)}`;
-    const reference = (number, body) => `<div class="sk-reference" id="sk-ref-${number}" tabindex="-1"><b>[${number}]</b><span>${body}${authorsButton(number)}</span></div>`;
+    const cite = number => `<button type="button" class="sk-cite" data-sk-target="sk-ref-${number}" aria-label="${zh ? "查看参考文献" : "View reference"} ${number}">[${number}]</button>${authorsButton(number)}${benchmarksButton(number)}${paperLink(number)}`;
+    const reference = (number, body) => `<div class="sk-reference" id="sk-ref-${number}" tabindex="-1"><b>[${number}]</b><span>${body}${authorsButton(number)}${benchmarksButton(number)}</span></div>`;
     const heading = (number, id, title, citation = "") => `<div class="sk-heading"><span class="sk-number">${number}</span><h2 id="${id}">${title}${citation}</h2></div>`;
     const comparisons = [
       {model: "Claude Opus 4.5", harness: "Claude Code", base: 22.0, curated: 45.3, ai: 21.6},
@@ -4583,7 +4713,7 @@ window.SWECHAT_SOURCE = {
       {id:"A", title:zh ? "A · AI 生成的独立 Skill" : "A · Separate AI-authored Skill", detail:zh ? "示例：用 Copilot + GPT-6.1 Sol 根据源任务与开发资料生成 AI Skill，独立保存于 ai/，记录自己的版本与哈希。它与 human/ 中的人类 Skill 是不同产物，不能混合加载；最终测试题始终不可见，人类组获得同等资料与验证机会。此处是拟议配置，不代表已完成实验。" : "Example: use Copilot + GPT-6.1 Sol to generate the AI Skill from source tasks and development evidence. Store it separately in ai/ with its own version and hash. It is a different artifact from the human Skill in human/; never load both together. Final test tasks remain unseen; humans receive matched evidence and validation access. This is a proposed configuration, not a completed experiment."},
       {id:"H", title:zh ? "H · 人类编写的独立 Skill" : "H · Separate human-authored Skill", detail:zh ? "人工作者基于同一批源任务与资料编写另一份 Skill，独立保存于 human/，记录自己的版本、哈希、工时和修订预算。它不是 AI Skill 的同一文件或共享副本；在另一组干净容器中单独加载，不默认哪种来源更好。" : "Humans author a separate Skill from matched source evidence. Store it in human/ with its own version, hash, authoring time and revision budget. It is not the same file or a shared copy of the AI Skill. Load it alone in a separate clean condition; neither source is assumed superior."},
       {id:"F", title:zh ? "F · 相同检查规则 / 两份独立冻结产物" : "F · Same checks / separately frozen artifacts", detail:zh ? "按相同且预先固定的规则检查两类产物的格式、依赖、可执行性与泄漏风险，记录失败产物，不用测试成绩筛选。统一的是检查规则，不是 Skill 内容：ai/ 与 human/ 分别保存版本与哈希，只读传递，互不覆盖或合并；文件夹本身不是沙箱。" : "Apply the same predeclared format, dependency, executability and leakage checks to both sources. Log failures without selecting on test scores. The checks are shared, not the Skill content: version and hash ai/ and human/ separately, pass them read-only, and never overwrite or merge them. Folders are not sandboxes."},
-      {id:"N", title:zh ? "N · 无 Skill 基线" : "N · No-Skill baseline", detail:zh ? "不加载任何额外 Skill，但使用与其他两组相同的目标模型、harness、工具、执行预算和未见测试题。" : "Load no added Skills. Keep the target model, harness, tools, execution budget and unseen tasks identical to both Skill conditions."},
+      {id:"N", title:zh ? "N · 无 Skill 基线" : "N · No-Skill baseline", detail:zh ? "不加载任何额外 Skill，但使用与其他两组相同的目标模型、harness、工具、执行预算和独立测试题。" : "Load no added Skills. Keep the target model, harness, tools, execution budget and held-out tasks identical to both Skill conditions."},
       {id:"B", title:zh ? "B · 示例测试配置：Claude Code + Claude Haiku 4.5" : "B · Example test setup: Claude Code + Claude Haiku 4.5", detail:zh ? "示例：三组统一使用 Claude Code 作为测试 harness、Claude Haiku 4.5 作为执行模型，不沿用生成端的 Copilot + GPT-6.1 Sol。执行器通过工具访问公开工作区，不接触私有 oracle。No Skill、AI Skill、Human Skill 分别新建执行容器，固定任务镜像、工具与执行预算，并隔离会话、缓存和记忆。此处是拟议配置，不代表已完成实验。" : "Example: all three conditions use Claude Code as the test harness and Claude Haiku 4.5 as the execution model, not the generator's Copilot + GPT-6.1 Sol. The executor accesses the public workspace through tools, never the private oracle. Create fresh execution containers for no Skill, AI Skill and human Skill; fix the task image, tools and run budget, and isolate sessions, caches and memory. This is a proposed configuration, not a completed experiment."},
       {id:"T", title:zh ? "T · 题目描述与任务环境" : "T · Task description and environment", detail:zh ? "一个题目对应一个可复现任务单元：题目描述、仓库与 base_commit、依赖镜像，以及独立保存的 oracle。agent 只看到问题、约束和公开代码；镜像版本与任务 ID 固定，三组使用同一任务定义。" : "Each reproducible task unit defines a problem statement, repository and base commit, dependency image, and separately stored oracle. The agent sees only the problem, constraints and public code. Pin the image and instance ID; all three conditions share the same task definition."},
       {id:"O", title:zh ? "O · 受保护的评测 Oracle" : "O · Protected evaluation oracle", detail:zh ? "做题结束后停止 agent，将其提交的 patch / output 交给新的干净评测容器，再注入私有测试与判定规则。oracle 不进入 agent 上下文或可访问文件系统，也不接受 agent 的自评分。各组使用同一冻结 oracle；图中执行与评测属于同一任务单元的不同阶段。" : "After stopping the agent, apply its patch / output in a fresh evaluation container and inject private tests and grading rules. Keep the oracle out of the agent's context and accessible filesystem; do not trust agent self-scores. Use one frozen oracle across conditions. Execution and evaluation are separate stages of the same task unit."},
@@ -4722,7 +4852,7 @@ description: Check reported metrics when
     }];
     const slideTitles = [
       ...(zh
-        ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "SkillsBench：同模型自写自用", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "SkillRevise：条件与结果", "SkillRevise：方法流程", "SkillRevise：修订预算与边界", "结论与证据边界", "我的实验：任务容器与 Oracle", "原始论文", "附录：完整对照数据"]
+        ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "SkillsBench：同模型自写自用", "独立测试：负迁移", "独立测试：具体数据", "固定 Skill 跨模型迁移", "SkillRevise：条件与结果", "SkillRevise：方法流程", "SkillRevise：修订预算与边界", "结论与证据边界", "我的实验：任务容器与 Oracle", "原始论文", "附录：完整对照数据"]
         : ["Research question", "Three key figures", "Curated vs. AI-generated", "SkillsBench: self-generation protocol", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "SkillRevise: conditions and results", "SkillRevise: method", "SkillRevise: budget and boundaries", "Conclusions and limits", "My experiment: task container & oracle", "Primary sources", "Appendix: full comparison"]),
       ...researchQuestions.map((question, i) => `RQ${i + 1} · ${question.title}`),
       ...basicsPages.map(page => `${zh ? "什么是 Skill" : "What is a Skill"} · ${page.title}`),
@@ -4752,7 +4882,7 @@ description: Check reported metrics when
         <div>
           <div class="sk-kicker">MEETING 02 / EVIDENCE BRIEF · 2026</div>
           <h1 class="sk-title" id="sk-page-title">${zh ? 'AI 生成的 Skill，<br><em>效果与迁移究竟如何？</em>' : 'AI-generated Skills.<br><em>How well do they work and transfer?</em>'}</h1>
-          <p class="sk-lede">${zh ? "不只问 Skill 有没有用。<br>看 AI 生成与人工整理的实测差距，再看未见任务与跨模型迁移。" : "Not just whether Skills help.<br>Compare AI-generated and human-curated artifacts, then examine held-out tasks and cross-model transfer."}</p>
+          <p class="sk-lede">${zh ? "不只问 Skill 有没有用。<br>看 AI 生成与人工整理的实测差距，再看独立测试任务与跨模型迁移。" : "Not just whether Skills help.<br>Compare AI-generated and human-curated artifacts, then examine held-out tasks and cross-model transfer."}</p>
           <div class="ev-tags"><span>${zh ? "论文表格核查" : "Paper tables checked"}</span><span>${zh ? "版本固定 · 口径分离" : "Version-pinned · distinct protocols"}</span></div>
         </div>
         <aside class="ev-question">
@@ -4763,7 +4893,7 @@ description: Check reported metrics when
       </section>
       <section class="ev-highlights ev-slide" id="sk-highlights" tabindex="-1" aria-label="${zh ? "关键数据摘要" : "Key figures"}">
         <article class="ev-highlight"><span class="ev-eyebrow">01 / ${zh ? "人工对照" : "CURATED VS. AI"}</span><b>12.5–23.7<small>${pp}</small></b><h2>${zh ? "人工整理领先 AI 自生成" : "Curated Skills outperform self-generation"}</h2><p>SkillsBench v3 · Table 3<br>${zh ? "5 组配对配置 · 当前任务表现，非迁移率" : "5 paired configurations · current-task performance, not transfer"}</p>${authorsButton(1)}</article>
-        <article class="ev-highlight"><span class="ev-eyebrow">02 / ${zh ? "未见任务" : "HELD-OUT TASKS"}</span><b>≈25<small>%</small></b><h2>${zh ? "评估组合出现负迁移" : "Evaluated combinations show negative transfer"}</h2><p>From Raw Experience · Table 1<br>${zh ? "不是单个任务失败率，也不是人机差距" : "Not a per-task failure rate or a human–AI gap"}</p>${authorsButton(2)}</article>
+        <article class="ev-highlight"><span class="ev-eyebrow">02 / ${zh ? "独立测试任务" : "HELD-OUT TASKS"}</span><b>≈25<small>%</small></b><h2>${zh ? "评估组合出现负迁移" : "Evaluated combinations show negative transfer"}</h2><p>From Raw Experience · Table 1<br>${zh ? "不是单个任务失败率，也不是人机差距" : "Not a per-task failure rate or a human–AI gap"}</p>${authorsButton(2)}</article>
         <article class="ev-highlight"><span class="ev-eyebrow">03 / ${zh ? "跨模型复用" : "CROSS-MODEL REUSE"}</span><b>+1.8–9.5<small>${pp}</small></b><h2>${zh ? "同一份 Skill，收益因模型而变" : "One fixed Skill, different benefits"}</h2><p>From Raw Experience · Figure 4<br>${zh ? "强经验池产物 · 两个执行模型的收益端点" : "Strong-pool artifact · gain endpoints across consumers"}</p>${authorsButton(2)}</article>
       </section>
 
@@ -4821,17 +4951,18 @@ description: Check reported metrics when
             </tbody>
           </table>
         </div>
-        <p class="sk-note">${zh ? "<b>边界：</b>其余四个 Claude + Claude Code 配置同理；v3 未评估 Gemini 的自生成。这不是跨模型迁移、冻结 Skill 后的未见任务复用，也不是 SkillRevise 的 verifier 反馈修订循环。结论限于这一自生成协议，不代表所有 AI 写作方法。" : "<b>Boundary:</b> the four Claude + Claude Code configurations follow the same setup; Gemini self-generation was not evaluated in v3. This is not cross-model transfer, frozen-Skill reuse on unseen tasks, or SkillRevise's verifier-driven revision. Conclusions apply to this generation protocol."}</p>
+        <p class="sk-note">${zh ? "<b>边界：</b>其余四个 Claude + Claude Code 配置同理；v3 未评估 Gemini 的自生成。这不是跨模型迁移、冻结 Skill 后在独立测试任务上复用，也不是 SkillRevise 的 verifier 反馈修订循环。结论限于这一自生成协议，不代表所有 AI 写作方法。" : "<b>Boundary:</b> the four Claude + Claude Code configurations follow the same setup; Gemini self-generation was not evaluated in v3. This is not cross-model transfer, frozen-Skill reuse on held-out tasks, or SkillRevise's verifier-driven revision. Conclusions apply to this generation protocol."}</p>
         <p class="ev-sr-source">SkillsBench v3 · §3.3 / Table 3 · <a href="${paperAuthors.skillsbench.source}#page=19" target="_blank" rel="noopener">${zh ? "附录 C.6：原始生成指令（PDF 第 19–20 页）" : "Appendix C.6: generation instructions (PDF pp. 19–20)"} ↗</a></p>
       </section>
 
       <section class="sk-panel ev-slide" id="sk-transfer" tabindex="-1" aria-labelledby="sk-transfer-title">
-        ${heading("02", "sk-transfer-title", zh ? "换成未见任务，AI 生成的 Skill 还能用吗？" : "Do AI-generated Skills help on unseen tasks?", cite(2))}
+        ${heading("02", "sk-transfer-title", zh ? "在独立测试任务上，AI 生成的 Skill 还能用吗？" : "Do AI-generated Skills help on held-out tasks?", cite(2))}
         <div class="ev-section-meta"><span>From Raw Experience · Table 1 / §4.1–4.2</span><span>${zh ? "5 领域 × 5 生成模型 × 6 执行模型" : "5 domains × 5 extractors × 6 executors"}</span></div>
-        <div class="ev-protocol" aria-label="${zh ? "未见任务评估协议" : "Held-out evaluation protocol"}">
-          <div><small>01 / SOURCE</small><b>${zh ? "经验生成集" : "Experience split"}</b><span>${zh ? "收集训练侧执行轨迹" : "Collect training-side execution traces"}</span></div>
+        <p class="sk-note">${zh ? "<b>什么叫独立测试任务？</b>同一领域中，未用于本次经验收集与 Skill 提取、只用于最终评估的任务。不是换用新数据集，也不保证模型预训练时从未接触过。" : "<b>What does held-out mean?</b> Tasks in the same domain reserved for evaluation, excluded from this study's experience collection and Skill extraction. This does not imply a new dataset or absence from model pretraining."}</p>
+        <div class="ev-protocol" aria-label="${zh ? "独立测试任务评估协议" : "Held-out evaluation protocol"}">
+          <div><small>01 / SOURCE</small><b>${zh ? "经验生成集" : "Experience split"}</b><span>${zh ? "收集用于提取 Skill 的执行轨迹" : "Collect traces for Skill extraction"}</span></div>
           <div><small>02 / EXTRACT</small><b>${zh ? "AI 提炼 Skill" : "AI extracts a Skill"}</b><span>${zh ? "从成功与失败中总结" : "Distill successes and failures"}</span></div>
-          <div><small>03 / HELD-OUT</small><b>${zh ? "未见测试集" : "Unseen test split"}</b><span>${zh ? "与无 Skill 基线配对比较" : "Compare against no-Skill execution"}</span></div>
+          <div><small>03 / HELD-OUT</small><b>${zh ? "独立测试集" : "Held-out test split"}</b><span>${zh ? "不参与提取，只用于评估" : "Evaluation only; excluded from extraction"}</span></div>
         </div>
         <div class="ev-risk-layout">
           <div class="ev-risk-summary"><span class="ev-eyebrow">${zh ? "负迁移 / NEGATIVE TRANSFER" : "NEGATIVE TRANSFER"}</span><b>≈25<small>%</small></b><p>${zh ? "使用 AI 生成 Skill 后，表现低于无 Skill 的评估组合比例。" : "Share of evaluated combinations that perform worse with AI-generated Skills than without."}</p><span>${zh ? "任务按 1∶1 划分 · 每项评估重复 3 次" : "1:1 task split · 3 evaluation runs per entry"}</span></div>
@@ -4844,10 +4975,10 @@ description: Check reported metrics when
 
       <section class="sk-panel ev-slide" id="sk-transfer-cases" tabindex="-1" aria-labelledby="sk-cases-title">
         ${heading("02", "sk-cases-title", zh ? "同为 AI 生成，既有收益，也有退化" : "AI-generated Skills: gains and regressions", cite(2))}
-        <p class="ev-intro">${zh ? "四个未见任务组合：对照无 Skill 基线，观察使用后的实际变化。" : "Four held-out combinations: compare with-Skill results against the no-Skill baseline."}</p>
-        <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "未见任务实验明细，可横向滚动" : "Held-out task results; horizontally scrollable"}"><table class="ev-table" id="ev-transfer-table">
+        <p class="ev-intro">${zh ? "四个独立测试评估组合：任务均未参与本次 Skill 提取，对照无 Skill 基线，观察使用后的实际变化。" : "Four held-out combinations: tasks are excluded from Skill extraction; compare with-Skill results against the no-Skill baseline."}</p>
+        <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "独立测试任务实验明细，可横向滚动" : "Held-out task results; horizontally scrollable"}"><table class="ev-table" id="ev-transfer-table">
           <caption>${zh ? "Table 1 选取的四个组合；使用后通过率 = 基线 + 论文报告的变化量（按已舍入数值计算）。" : "Four selected Table 1 combinations; with-Skill rates = baseline + reported delta, calculated from rounded values."}</caption>
-          <thead><tr><th scope="col">${zh ? "未见任务基准" : "Held-out benchmark"}</th><th scope="col">${zh ? "生成 → 执行模型" : "Extractor → executor"}</th><th scope="col">${zh ? "无 Skill" : "No Skill"}</th><th scope="col">${zh ? "AI Skill" : "AI Skill"}</th><th scope="col">Δ ${zh ? "百分点" : "pp"}</th></tr></thead>
+          <thead><tr><th scope="col">${zh ? "测试任务所属基准" : "Held-out benchmark"}</th><th scope="col">${zh ? "生成 → 执行模型" : "Extractor → executor"}</th><th scope="col">${zh ? "无 Skill" : "No Skill"}</th><th scope="col">${zh ? "AI Skill" : "AI Skill"}</th><th scope="col">Δ ${zh ? "百分点" : "pp"}</th></tr></thead>
           <tbody>${transferCases.map(item => `<tr><th scope="row">${item.benchmark}</th><td class="ev-model-pair">${item.writer}<span>→ ${item.executor}</span></td><td>${item.base.toFixed(2)}%</td><td>${(item.base + item.delta).toFixed(2)}%</td><td class="${item.delta > 0 ? "ev-positive" : "ev-negative"}">${signed(item.delta)}</td></tr>`).join("")}</tbody>
         </table></div>
         <p class="sk-note">${zh ? "不同执行模型的 Skill 来自各自经验池；上表不是把同一份 Skill 换给不同模型的冻结产物对照。它也不是完整矩阵，整体比例以上方全研究汇总为准。" : "Skills for different executors come from their respective experience pools. These rows are not a fixed-artifact cross-model comparison, nor the full matrix; overall rates are reported separately above."}</p>
@@ -4874,8 +5005,8 @@ description: Check reported metrics when
         ${heading("04", "sk-boundary-title", zh ? "数据已经回答什么，还没回答什么？" : "What do the data establish—and leave open?")}
         <div class="ev-verdicts">
           <div><span>01 / ${zh ? "已有对照" : "MEASURED"}</span><h3>${zh ? "当前任务效果，AI 自生成明显落后。" : "Self-generation trails curated Skills on current tasks."}</h3><p>SkillsBench${authorsButton(1)}${zh ? " 五组配对配置：低 12.5–23.7 个百分点。结论限定在对应版本、模型与生成协议。" : ": five paired configurations, 12.5–23.7 pp lower, within the tested version, models, and protocol."}</p></div>
-          <div><span>02 / ${zh ? "已有迁移实验" : "TRANSFER TESTED"}</span><h3>${zh ? "AI 生成产物可以迁移，但不保证有益。" : "AI-generated artifacts can transfer, but not always help."}</h3><p>From Raw Experience${authorsButton(2)}${zh ? "：未见任务约 25% 的组合负迁移。这是 AI 生成 Skill 的实验，不能据此推断与人类 Skill 的迁移差距。" : ": about 25% of held-out combinations regress. This evaluates AI-generated Skills, not the human–AI transfer gap."}</p></div>
-          <div><span>03 / ${zh ? "尚缺直接对照" : "STILL OPEN"}</span><h3>${zh ? "不能量化“AI 的迁移率比人类低多少”。" : "The human–AI transfer gap is not quantified here."}</h3><p>${zh ? "需要相同信息、相同预算、人类与 AI 分别编写，冻结产物后在同一批未见任务上测试。" : "A direct test needs matched evidence and budgets, human- and AI-authored artifacts, then frozen-artifact evaluation on the same held-out tasks."}</p></div>
+          <div><span>02 / ${zh ? "已有迁移实验" : "TRANSFER TESTED"}</span><h3>${zh ? "AI 生成产物可以迁移，但不保证有益。" : "AI-generated artifacts can transfer, but not always help."}</h3><p>From Raw Experience${authorsButton(2)}${zh ? "：独立测试中约 25% 的评估组合出现负迁移。这是 AI 生成 Skill 的实验，不能据此推断与人类 Skill 的迁移差距。" : ": about 25% of held-out combinations regress. This evaluates AI-generated Skills, not the human–AI transfer gap."}</p></div>
+          <div><span>03 / ${zh ? "尚缺直接对照" : "STILL OPEN"}</span><h3>${zh ? "不能量化“AI 的迁移率比人类低多少”。" : "The human–AI transfer gap is not quantified here."}</h3><p>${zh ? "需要相同信息、相同预算、人类与 AI 分别编写，冻结产物后在同一批独立测试任务上测试。" : "A direct test needs matched evidence and budgets, human- and AI-authored artifacts, then frozen-artifact evaluation on the same held-out tasks."}</p></div>
         </div>
       </section>
 
@@ -5146,7 +5277,7 @@ description: Check reported metrics when
     appendix.append(fullData, result.querySelector(".ev-caution"));
     result.insertAdjacentHTML("beforeend", `<button type="button" class="ev-slide-link" data-sk-target="sk-self-generation">${zh ? "自生成是什么意思？→ 协议说明" : "What does self-generation mean? → Protocol"}</button> · <button type="button" class="ev-slide-link" data-sk-target="sk-data-appendix">${zh ? "完整数据与实验边界 → 附录" : "Full data and protocol boundaries → Appendix"}</button>`);
     stage.insertAdjacentHTML("beforeend", `
-      <section class="ev-author-page" id="ev-paper-authors" hidden aria-labelledby="ev-authors-title">
+      <section class="ev-paper-page" id="ev-paper-authors" hidden aria-labelledby="ev-authors-title">
         <div class="ev-author-top">
           <h2 id="ev-authors-title" tabindex="-1">${zh ? "作者与单位" : "Authors and affiliations"}</h2>
           <button type="button" class="ev-slide-link" id="ev-authors-back">${zh ? "← 返回原页" : "← Back to slide"}</button>
@@ -5162,6 +5293,16 @@ description: Check reported metrics when
             <tbody id="ev-authors-rows"></tbody>
           </table>
         </div>
+      </section>
+      <section class="ev-paper-page" id="ev-paper-benchmarks" hidden aria-labelledby="ev-benchmarks-title">
+        <div class="ev-author-top">
+          <h2 id="ev-benchmarks-title" tabindex="-1">${zh ? "数据集与 Benchmark" : "Datasets and benchmarks"}</h2>
+          <button type="button" class="ev-slide-link" id="ev-benchmarks-back">${zh ? "← 返回原页" : "← Back to slide"}</button>
+        </div>
+        <p id="ev-benchmarks-overview"></p>
+        <p id="ev-benchmarks-protocol"></p>
+        <p><a id="ev-benchmarks-source" target="_blank" rel="noopener"></a> · ${zh ? "核对日期：2026-10-27" : "Checked: 2026-10-27"}</p>
+        <div id="ev-benchmarks-cards"></div>
       </section>`);
     const allSlides = Array.from(stage.querySelectorAll(".ev-slide"));
     const methodSlides = new Set(["sk-experiment"]);
@@ -5191,18 +5332,38 @@ description: Check reported metrics when
     const next = document.getElementById("ev-next");
     let slideIndex = 0;
     const authorPage = document.getElementById("ev-paper-authors");
-    let authorOpener = null;
-    let authorOriginScroll = 0;
-    const clearAuthors = () => {
+    const benchmarkPage = document.getElementById("ev-paper-benchmarks");
+    let detailOpener = null;
+    let detailOriginScroll = 0;
+    const clearPaperDetails = () => {
       authorPage.hidden = true;
-      root.classList.remove("ev-reading-authors");
-      stage.removeAttribute("data-author-view");
-      authorOpener = null;
+      benchmarkPage.hidden = true;
+      root.classList.remove("ev-reading-paper");
+      stage.removeAttribute("data-paper-view");
+      detailOpener = null;
+    };
+    const openPaperDetails = (kind, paperId, opener, focus) => {
+      clearPaperDetails();
+      detailOpener = opener || slides[slideIndex].querySelector(`[data-paper-${kind}="${paperId}"]`);
+      detailOriginScroll = slides[slideIndex].scrollTop;
+      const panel = kind === "authors" ? authorPage : benchmarkPage;
+      const titleId = kind === "authors" ? "ev-authors-title" : "ev-benchmarks-title";
+      root.classList.add("ev-reading-paper");
+      stage.dataset.paperView = paperId;
+      stage.setAttribute("aria-labelledby", titleId);
+      panel.hidden = false;
+      panel.scrollTop = 0;
+      prev.disabled = true;
+      next.disabled = true;
+      const url = new URL(location.href);
+      url.searchParams.delete("authors");
+      url.searchParams.delete("benchmarks");
+      url.searchParams.set(kind, paperId);
+      history.replaceState(null, "", url);
+      if (focus) document.getElementById(titleId).focus({preventScroll: true});
     };
     const showAuthors = (paperId, opener = null, focus = false) => {
       const paper = paperAuthors[paperId];
-      authorOpener = opener || slides[slideIndex].querySelector(`[data-paper-authors="${paperId}"]`);
-      authorOriginScroll = slides[slideIndex].scrollTop;
       document.getElementById("ev-authors-title").textContent = `${paper.title} · ${zh ? "作者与单位" : "Authors and affiliations"}`;
       document.getElementById("ev-authors-paper-title").textContent = paper.fullTitle;
       document.getElementById("ev-authors-note").textContent = paper.note;
@@ -5223,20 +5384,28 @@ description: Check reported metrics when
         row.append(number, author, units);
         return row;
       }));
-      root.classList.add("ev-reading-authors");
-      stage.dataset.authorView = paperId;
-      stage.setAttribute("aria-labelledby", "ev-authors-title");
-      authorPage.hidden = false;
-      authorPage.scrollTop = 0;
-      prev.disabled = true;
-      next.disabled = true;
-      const url = new URL(location.href);
-      url.searchParams.set("authors", paperId);
-      history.replaceState(null, "", url);
-      if (focus) document.getElementById("ev-authors-title").focus({preventScroll: true});
+      openPaperDetails("authors", paperId, opener, focus);
+    };
+    const showBenchmarks = (paperId, opener = null, focus = false) => {
+      const benchmark = paperBenchmarks[paperId];
+      document.getElementById("ev-benchmarks-title").textContent = `${paperAuthors[paperId].title} · ${zh ? "数据集与 Benchmark" : "Datasets and benchmarks"}`;
+      document.getElementById("ev-benchmarks-overview").textContent = benchmark.overview;
+      document.getElementById("ev-benchmarks-protocol").textContent = benchmark.protocol;
+      const source = document.getElementById("ev-benchmarks-source");
+      source.href = benchmark.source;
+      source.textContent = `${zh ? "论文依据：" : "Paper source: "}${benchmark.sourceLabel} ↗`;
+      document.getElementById("ev-benchmarks-cards").innerHTML = benchmark.items.map(item => `
+        <article class="ev-benchmark-card">
+          <h3>${item.name}</h3>
+          <p><b>${zh ? "任务是什么：" : "Task: "}</b>${item.description}</p>
+          <p><b>${zh ? "这篇怎么用：" : "Use in this paper: "}</b>${item.use}</p>
+          <p><b>${zh ? "如何评分：" : "Evaluation: "}</b>${item.metric}</p>
+          <p>${item.links.map(([href, label]) => `<a href="${href}" target="_blank" rel="noopener">${label} ↗</a>`).join("")}</p>
+        </article>`).join("");
+      openPaperDetails("benchmarks", paperId, opener, focus);
     };
     const showSlide = (index, focus = false) => {
-      clearAuthors();
+      clearPaperDetails();
       slideIndex = Math.max(0, Math.min(slides.length - 1, index));
       rememberedSlides[currentTopic === "evidence" ? currentPaper : currentTopic] = slideIndex;
       allSlides.forEach(slide => { slide.hidden = true; });
@@ -5265,6 +5434,7 @@ description: Check reported metrics when
       document.getElementById("ev-slide-progress").value = slideIndex + 1;
       const url = new URL(location.href);
       url.searchParams.delete("authors");
+      url.searchParams.delete("benchmarks");
       url.searchParams.set("section", currentTopic);
       if (currentTopic === "evidence") url.searchParams.set("paper", currentPaper);
       else url.searchParams.delete("paper");
@@ -5278,9 +5448,9 @@ description: Check reported metrics when
         active.focus({preventScroll: true});
       }
     };
-    const closeAuthors = () => {
-      const opener = authorOpener;
-      const scroll = authorOriginScroll;
+    const closePaperDetails = () => {
+      const opener = detailOpener;
+      const scroll = detailOriginScroll;
       showSlide(slideIndex);
       slides[slideIndex].scrollTop = scroll;
       (opener || slides[slideIndex]).focus({preventScroll: true});
@@ -5288,7 +5458,11 @@ description: Check reported metrics when
     root.querySelectorAll("[data-paper-authors]").forEach(button => {
       button.addEventListener("click", () => showAuthors(button.dataset.paperAuthors, button, true));
     });
-    document.getElementById("ev-authors-back").addEventListener("click", closeAuthors);
+    root.querySelectorAll("[data-paper-benchmarks]").forEach(button => {
+      button.addEventListener("click", () => showBenchmarks(button.dataset.paperBenchmarks, button, true));
+    });
+    document.getElementById("ev-authors-back").addEventListener("click", closePaperDetails);
+    document.getElementById("ev-benchmarks-back").addEventListener("click", closePaperDetails);
     const showTopic = (topic, index, paper = currentPaper) => {
       currentTopic = topic;
       currentPaper = paper;
@@ -5332,6 +5506,7 @@ description: Check reported metrics when
     }
     showTopic(initialTopic, initialIndex, initialPaper);
     if (Object.hasOwn(paperAuthors, params.get("authors"))) showAuthors(params.get("authors"));
+    else if (Object.hasOwn(paperBenchmarks, params.get("benchmarks"))) showBenchmarks(params.get("benchmarks"));
     const bindTabs = (tabs, activate) => tabs.forEach((tab, i) => {
       tab.addEventListener("click", () => activate(tab));
       tab.addEventListener("keydown", event => {
@@ -5368,11 +5543,11 @@ description: Check reported metrics when
       document.getElementById("ev-fullscreen").textContent = document.fullscreenElement ? (zh ? "退出全屏" : "Exit full screen") : (zh ? "全屏" : "Full screen");
     };
     root.onkeydown = event => {
-      if (!authorPage.hidden) {
+      if (!authorPage.hidden || !benchmarkPage.hidden) {
         if (event.key === "Escape") {
           event.preventDefault();
           event.stopPropagation();
-          closeAuthors();
+          closePaperDetails();
         }
         return;
       }
