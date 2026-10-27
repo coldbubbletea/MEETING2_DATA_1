@@ -1576,6 +1576,18 @@
   .ev-results-evidence ul{padding-left:18px}
   .ev-result-status{font-size:11px;white-space:normal}
   .ev-slide.ev-results-slide .ev-intro{font-size:12px;margin:8px 0}
+  .ev-gitskills-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:10px 0}
+  .ev-gitskills-cards article{min-width:0;padding:12px;border:1px solid var(--sk-line);border-radius:12px;background:#F6F9FC}
+  .ev-gitskills-cards p{font-size:11px;line-height:1.7;color:var(--sk-muted);margin:0}
+  .ev-gitskills-stats b{display:block;color:var(--sk-blue);font-size:24px;line-height:1.5}
+  .ev-gitskills-stats span{font-size:11px;color:var(--sk-muted)}
+  .ev-gitskills-callout{padding:10px 12px;border-left:3px solid #36786D;background:#EFF7F3;font-size:12px;line-height:1.7;color:var(--sk-muted)}
+  .ev-gitskills-links{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:12px;line-height:1.8}
+  .ev-gitskills-links a{color:var(--sk-blue)}
+  .ev-slide.ev-explainer-slide .ev-gitskills-table{min-width:580px}
+  .ev-slide.ev-explainer-slide .ev-gitskills-table th,.ev-slide.ev-explainer-slide .ev-gitskills-table td{padding:5px 10px}
+  .ev-gitskills-table td{white-space:normal;line-height:1.65}
+  @media(max-width:760px){.ev-gitskills-cards{grid-template-columns:1fr}}
   @media(max-width:760px){.ev-results-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
   .ev-research-slide{display:grid;align-content:center;gap:22px;background:linear-gradient(125deg,#EDF4F8,#FFF 70%)}
   .ev-research-label{margin:0;color:var(--sk-blue);font-size:12px;font-weight:600;letter-spacing:.08em}
@@ -4554,9 +4566,18 @@ window.SWECHAT_SOURCE = {
           ["Yauwai Yim", [1]], ["Hongyu Luo", [1]], ["Xiyu Ren", [1]], ["Ruan Chenyu", [5]],
           ["Haoran Li", [1]], ["Yangqiu Song", [1]]
         ]
+      },
+      gitskills: {
+        title: "GitSkills",
+        fullTitle: "GitSkills: A Dataset of Agent Skills on GitHub",
+        version: "arXiv:2608.10906v3 · PDF p. 1 · 2026-09-11",
+        source: "https://arxiv.org/pdf/2608.10906v3",
+        note: zh ? "作者顺序和单位按 v3 PDF 首页记录。论文标注 MSR ’27 · To appear；这里不将样本仓库的 Mining Challenge proposal 说明当作独立的录用证明。" : "Author order and affiliations follow the v3 PDF title page. The paper states MSR ’27, To appear; the sample repository's Mining Challenge proposal wording is not independent acceptance verification.",
+        affiliations: ["University College London, United Kingdom", "University of Hohenheim, Stuttgart, Germany", "University of Cagliari, Italy"],
+        authors: [["Giuseppe Destefanis", [1]], ["Daniel Graziotin", [2]], ["Matteo Vaccargiu", [2]], ["Marco Ortu", [3]]]
       }
     };
-    const citedPapers = ["skillsbench", "raw-experience", "skillrevise"];
+    const citedPapers = ["skillsbench", "raw-experience", "skillrevise", "gitskills"];
     const benchmarkLinks = {
       skillsbench: [
         ["https://www.skillsbench.ai/", zh ? "项目主页" : "Project"],
@@ -4571,7 +4592,25 @@ window.SWECHAT_SOURCE = {
         ["https://github.com/ShishirPatil/gorilla/tree/main/berkeley-function-call-leaderboard", zh ? "官方数据与评测器" : "Official data and evaluator"]
       ]
     };
+    const gitSkillsDataLinks = [
+      ["https://doi.org/10.5281/zenodo.21875637", zh ? "完整 SQLite · Zenodo DOI" : "Full SQLite · Zenodo DOI"],
+      ["https://huggingface.co/datasets/mvaccargiu/gitskills", zh ? "Parquet 镜像 · Hugging Face" : "Parquet mirror · Hugging Face"],
+      ["https://github.com/giuseppedestefanis/gitskills-sample", zh ? "GitHub 样本与字段说明" : "GitHub sample and schema"]
+    ];
     const paperBenchmarks = {
+      gitskills: {
+        overview: zh ? "GitSkills 是真实世界 Agent Skill 的观测数据集，不是带题目、执行环境和 oracle 的效果 benchmark。它适合研究生态与筛选 Skill 来源，不能直接输出任务成功率。" : "GitSkills is an observational dataset of real-world Agent Skills, not a task/environment/oracle benchmark. It supports ecosystem studies and Skill-source selection, not direct task-success measurement.",
+        protocol: zh ? "固定按 v3：2026 年 7 月采集，3,797,117 次文件出现、282,200 个仓库、1,877,981 种字节级去重内容。所有副本保留；正文与目录资源主要补全一个代表副本，历史仅覆盖子集。数据集中没有本文可直接使用的可靠“纯人工 / AI 生成”真值标签。" : "Fixed to v3: July 2026 collection, 3,797,117 file occurrences, 282,200 repositories and 1,877,981 byte-distinct contents. All copies are retained, but text/composition enrichment concerns one representative; history covers a subset. This is not a ready-made source of reliable purely human/AI authorship ground truth.",
+        source: "https://arxiv.org/pdf/2608.10906v3",
+        sourceLabel: "GitSkills v3 · §I–IV / Table I / Appendix A",
+        items: [{
+          name: "GitSkills",
+          description: zh ? "SQLite 中包含 artifacts、repos、artifact_siblings、mining_runs 四张表，连接文件位置、内容哈希、文本、配套资源与仓库元数据；458,548 个文件有历史信息，不是全部文件都有。" : "Four SQLite tables—artifacts, repos, artifact_siblings and mining_runs—link file locations, hashes, text, bundled assets and repository metadata. History information covers 458,548 files, not all files.",
+          use: zh ? "全文约 41 GB SQLite；GitHub 样本约 277 MB，含 29,786 次出现、13,000 种内容、11,841 个仓库。这些大小与样本数来自官方样本 README，不是另一版全集统计。" : "The sample README reports about 41 GB for full SQLite and 277 MB for the sample: 29,786 occurrences, 13,000 contents and 11,841 repositories. These are release/sample details, not a different full-population count.",
+          metric: zh ? "没有执行成绩或统一评分器。格式合法、被复制、仓库 stars 高，都不能自动解释为 Skill 有效；代表副本也不等于原创来源。Zenodo 链接按论文列出，本次未能访问，未验证下载可用性。" : "No execution scores or unified evaluator. Valid format, copies or repository stars do not establish effectiveness; representatives do not establish original authorship. The Zenodo link is paper-provided; access failed in this check, so download availability is unverified.",
+          links: gitSkillsDataLinks
+        }]
+      },
       skillsbench: {
         overview: zh ? "跨领域、可执行的 Agent 工作流基准：不是一套知识问答题，而是让 agent 在真实工作区中操作文件、调用工具并产出可检验的结果。" : "An executable, cross-domain agent-workflow benchmark: agents manipulate files and tools in a workspace to produce verifiable outputs, rather than only answering knowledge questions.",
         protocol: zh ? "本页图表固定使用 v3 的 84 个实际评测任务、11 个领域。v3 摘要写 86 题，但 §2.5、图表与本文引用的结果使用 84 题；不能将两个口径合并。官方仓库与数据集持续更新，不等于这一历史评测快照。" : "The charts use the 84 evaluated tasks across 11 domains in v3. Its abstract says 86 tasks, whereas §2.5 and the cited results use 84; these scopes must not be conflated. The live repository and dataset are not a frozen copy of that historical evaluation.",
@@ -4852,6 +4891,79 @@ description: Check reported metrics when
           ${basicsSources("overview", "specification", "anthropic")}`
       }
     ];
+    const gitSkillsPages = [
+      {
+        id: "overview", title: zh ? "论文与数据规模" : "Paper and scope",
+        content: `
+          <p class="ev-intro">${zh ? "<b>一句话：</b>把 GitHub 上公开可见的 Skill 文件、复制关系和部分维护信息，整理成可查询的数据集。它回答“生态中有什么”，不直接回答“用了以后效果如何”。" : "<b>In one sentence:</b> a queryable snapshot of public GitHub Skill files, their copies and some maintenance information. It describes what exists, not how well it works in execution."}</p>
+          <div class="ev-gitskills-cards ev-gitskills-stats">
+            <article><b>3,797,117</b><span>${zh ? "文件出现次数 · 保留每个仓库 / 路径" : "File occurrences · each repository/path retained"}</span></article>
+            <article><b>1,877,981</b><span>${zh ? "不同内容 · 按文件字节哈希分组" : "Distinct contents · byte-hash groups"}</span></article>
+            <article><b>282,200</b><span>${zh ? "公开仓库 · 195,841 个拥有者账号" : "Public repositories · 195,841 owner accounts"}</span></article>
+          </div>
+          <p class="ev-gitskills-callout">${zh ? "<b>不要把 380 万理解成 380 万种独立 Skill。</b>论文报告 50.5% 的文件出现是重复副本；同一文本可能被很多仓库复制，但配套脚本和历史未必相同。" : "<b>3.8 million occurrences are not 3.8 million independent Skills.</b> The paper reports 50.5% duplicate occurrences. Identical texts can appear in many repositories with different bundled scripts or histories."}</p>
+          <p class="sk-note">${zh ? "采集时间：2026 年 7 月；本页固定 v3（2026-09-11）。这是一篇 3 页的数据集论文，文中的“潜在研究问题”不等于已经做完实验的结论。" : "Collected in July 2026; this page fixes v3 (2026-09-11). This is a three-page dataset paper; its potential research questions are not completed experimental findings."}</p>`
+      },
+      {
+        id: "construction", title: zh ? "采集方法与数据结构" : "Collection and schema",
+        content: `
+          <div class="ev-gitskills-cards">
+            <article><h3>${zh ? "01 / 发现文件" : "01 / Discovery"}</h3><p>${zh ? "按 SKILL.md 文件名搜索；GitHub 单次查询最多返回 1,000 项，故按文件大小不断拆分查询范围，保留每个位置。" : "Search by SKILL.md filename; split file-size ranges to work around GitHub's 1,000-result query limit, retaining each occurrence."}</p></article>
+            <article><h3>${zh ? "02 / 字节级去重" : "02 / Deduplication"}</h3><p>${zh ? "按内容哈希分组，每组选一个代表，优先标准目录；其他副本仍保留。代表是采集选择，不是原创者判定。" : "Group by content hash, selecting one representative, preferring standard locations. Keep other copies; selection does not establish origin."}</p></article>
+            <article><h3>${zh ? "03 / 代表项补全" : "03 / Enrichment"}</h3><p>${zh ? "获取代表文件的正文、YAML、目录资源及仓库信息；仅对标准位置和其余分层样本获取历史。" : "Enrich representative text, YAML, sibling assets and repository metadata; retrieve history for standard locations and a stratified sample of others."}</p></article>
+          </div>
+          <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "GitSkills 表结构，可横向滚动" : "GitSkills schema; horizontally scrollable"}"><table class="ev-table ev-gitskills-table">
+            <thead><tr><th scope="col">${zh ? "SQLite 表" : "SQLite table"}</th><th scope="col">${zh ? "记录数" : "Records"}</th><th scope="col">${zh ? "存什么" : "Contents"}</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">artifacts</th><td>3,797,117</td><td>${zh ? "文件位置、file_sha、代表标记；代表项另含正文、front matter、资源摘要。" : "Locations, file_sha and representative flag; representative text, front matter and composition summaries."}</td></tr>
+              <tr><th scope="row">repos</th><td>282,200</td><td>${zh ? "仓库语言、stars、fork 标记、创建 / 推送日期等元数据。" : "Repository language, stars, fork flag and creation/push dates."}</td></tr>
+              <tr><th scope="row">artifact_siblings</th><td>7,264,865</td><td>${zh ? "代表 Skill 同目录的文件 / 目录、大小及限额内的文本；不等于全部可执行脚本。" : "Sibling files/directories, sizes and capped text; not a count of executable scripts."}</td></tr>
+              <tr><th scope="row">mining_runs</th><td>7</td><td>${zh ? "采集查询与时间记录；含四个崩溃后补记零计数的运行。" : "Collection queries and timestamps; includes four crashed runs retroactively closed with zero counts."}</td></tr>
+            </tbody>
+          </table></div>
+          <p class="sk-note">${zh ? "历史覆盖 458,548 个文件，存在 artifacts 的列中，不是第五张 history 表。相同 file_sha 可连接副本；同目录资源及历史只对应选中的那个仓库副本。" : "History covers 458,548 files in artifacts columns, not a fifth history table. file_sha connects copies; sibling assets and history describe only the selected repository copy."}</p>`
+      },
+      {
+        id: "questions", title: zh ? "论文提出的研究机会" : "Proposed research questions",
+        content: `
+          <p class="ev-intro">${zh ? "<b>以下是论文 §III 的五类潜在研究方向，不是作者已经验证的发现。</b>" : "<b>These are the five potential research themes in §III, not established findings.</b>"}</p>
+          <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "GitSkills 潜在研究方向，可横向滚动" : "Potential GitSkills research themes; horizontally scrollable"}"><table class="ev-table ev-gitskills-table">
+            <thead><tr><th scope="col">${zh ? "方向" : "Theme"}</th><th scope="col">${zh ? "可以问什么" : "Questions"}</th><th scope="col">${zh ? "需要注意" : "Caution"}</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">${zh ? "采用与语言演化" : "Adoption and language"}</th><td>${zh ? "哪些项目采用？内容用途、语言和模板化程度如何变化？" : "Which projects adopt Skills, and how do purposes, languages and templates evolve?"}</td><td>${zh ? "仓库创建日期不是 Skill 引入日期。" : "Repository creation is not Skill introduction."}</td></tr>
+              <tr><th scope="row">${zh ? "共享格式" : "Shared format"}</th><td>${zh ? "工具专属目录与中立目录如何分布？正文依赖哪种 agent？" : "How do tool-specific/neutral locations and agent dependencies differ?"}</td><td>${zh ? "格式兼容不等于跨 harness 效果相同。" : "Format compatibility is not equal cross-harness performance."}</td></tr>
+              <tr><th scope="row">${zh ? "复制与传播" : "Copies and propagation"}</th><td>${zh ? "哪些内容被广泛复用？改动是否在副本间同步？" : "Which contents spread widely, and do edits propagate between copies?"}</td><td>${zh ? "同哈希证明相同字节，不证明谁先写。" : "Equal hashes establish bytes, not original authorship."}</td></tr>
+              <tr><th scope="row">${zh ? "自然语言软件度量" : "Instruction metrics"}</th><td>${zh ? "长度、可读性、变更量与复用或维护有何关系？" : "How do size, readability and churn relate to reuse/maintenance?"}</td><td>${zh ? "这些是代理指标，不能替代执行质量。" : "These proxies do not replace execution quality."}</td></tr>
+              <tr><th scope="row">${zh ? "维护与信任" : "Maintenance and trust"}</th><td>${zh ? "何时过时？副本是否新增命令、联网或可执行资源？" : "When do Skills become stale or gain commands, network access or executables?"}</td><td>${zh ? "包含脚本不自动等于恶意或漏洞。" : "Bundled code alone does not establish maliciousness or a vulnerability."}</td></tr>
+            </tbody>
+          </table></div>
+          <p class="sk-note">${zh ? "对本研究最相关的是：怎样找 Skill 候选、识别复制关系、追踪版本；人类 / AI 的执行效果差异仍需另做实验。" : "Most relevant here: finding Skill candidates, detecting copies and tracking versions. Human/AI execution differences still require separate experiments."}</p>`
+      },
+      {
+        id: "limits", title: zh ? "覆盖边界与误读风险" : "Coverage and interpretation limits",
+        content: `
+          <div class="ev-gitskills-cards">
+            <article><h3>${zh ? "采集下界，不是全网全集" : "Lower bound, not all Skills"}</h3><p>${zh ? "仅公开仓库和默认分支；GitHub 搜索还限制文件大小（小于 384 KB）、仓库活跃性与规模，fork 通常仅在 stars 多于父仓库时被索引。" : "Public repositories and default branches only; search also limits file size (under 384 KB), activity and repository size. Forks are indexed only when more starred than their parent."}</p></article>
+            <article><h3>${zh ? "文件名匹配不等于有效 Skill" : "Filename matches are not validity"}</h3><p>${zh ? "保留大小写变体，54,289 个（1.4%）是 skill.md 等变体，也可能早于格式出现。需按精确文件名、位置、front matter 与时间定义纳入规则。" : "Retains 54,289 case variants (1.4%), including skill.md and potentially pre-format files. Define inclusion rules using basename, location, front matter and dates."}</p></article>
+            <article><h3>${zh ? "代表副本不代表全部资源" : "Representative scope matters"}</h3><p>${zh ? "相同 SKILL.md 不保证脚本、参考资料与历史一致；副本比较不能把代表项的全部资源套给其他仓库。" : "Identical SKILL.md bytes do not imply identical scripts, references or histories. Do not assign all representative assets to every copy."}</p></article>
+          </div>
+          <p class="ev-gitskills-callout">${zh ? "<b>缺失值需要显式处理：</b>1,544 个代表项缺目录列表，标准位置中 1,166 个缺历史；42 个代表项在发现与抓取间变动且原内容未恢复。应检查采集标记与 content_sha_ok，不能把缺失当“没有脚本 / 从未维护”。" : "<b>Handle missingness explicitly:</b> 1,544 representatives lack folder listings; 1,166 standard-location representatives lack history. For 42 representatives, changed content could not be recovered. Check collection flags and content_sha_ok; missing does not mean no scripts or no maintenance."}</p>
+          <p class="sk-note">${zh ? "提交账号经过稳定匿名化，Bot 保留登录名，部分 AI Co-authored-by 名称保留。Bot / User、提交者、共同署名和语言风格都不是可靠的“全文由人 / AI 编写”真值。" : "Commit accounts are consistently anonymized, Bot logins and some AI coauthor names retained. Account type, committer, coauthor trailers and writing style are not reliable ground truth for wholly human/AI authorship."}</p>`
+      },
+      {
+        id: "use-and-sources", title: zh ? "如何用于本研究与数据入口" : "Research use and data access",
+        content: `
+          <p class="ev-intro">${zh ? "<b>本页的研究建议，非论文实验结论：</b>将 GitSkills 用作候选来源与去重依据，而不是直接当成人类 Skill 真值库或效果 benchmark。" : "<b>Our research synthesis, not a paper result:</b> use GitSkills for candidate sourcing and deduplication, not as human-authorship ground truth or an execution benchmark."}</p>
+          <div class="ev-gitskills-cards">
+            <article><h3>${zh ? "找候选" : "Find candidates"}</h3><p>${zh ? "按领域、许可证和版本筛选，回到原仓库核对正文与资源；公开或可复制不代表可以不经许可再分发。" : "Filter by domain, license and version; verify text/assets upstream. Public or copyable does not remove redistribution obligations."}</p></article>
+            <article><h3>${zh ? "去重与分组" : "Deduplicate and group"}</h3><p>${zh ? "同哈希内容归组，另检查近似副本与派生关系。不能把复制的 Skill 当作多个独立作者样本。" : "Group exact hashes and inspect near-duplicates/derivations. Copies are not independent author samples."}</p></article>
+            <article><h3>${zh ? "另建效果证据" : "Add execution evidence"}</h3><p>${zh ? "另行核实作者来源、准备测试任务与评分器，并固定 Skill 及配套资源。高 stars、复制多、格式合法都不能代替测试。" : "Verify provenance separately, supply tasks/evaluators and pin Skill assets. Stars, copy counts and valid format do not substitute for tests."}</p></article>
+          </div>
+          <div class="ev-gitskills-links">${gitSkillsDataLinks.map(([href, label]) => `<a href="${href}" target="_blank" rel="noopener">${label} ↗</a>`).join("")}</div>
+          <p class="sk-note">${zh ? "官方样本 README：全集 SQLite 约 41 GB；样本约 277 MB，含 29,786 次文件出现、13,000 种内容和 11,841 个仓库。样本不等于全集；Hugging Face 的 train 是存储 split 名，不是本研究的训练 / 测试划分。Zenodo 链接来自论文，本次访问受阻，未验证下载。" : "Sample README: full SQLite about 41 GB; sample about 277 MB with 29,786 occurrences, 13,000 contents and 11,841 repositories. The sample is not the full dataset. Hugging Face's train is a storage split name, not our experiment split. Zenodo is paper-linked; access was blocked and downloading was not verified."}</p>
+          ${reference(4, `<b>Destefanis, Graziotin, Vaccargiu &amp; Ortu. GitSkills: A Dataset of Agent Skills on GitHub.</b><br>arXiv:2608.10906v3 · 2026-09-11 · ${zh ? "论文标注 MSR ’27 · To appear" : "Paper states MSR ’27 · To appear"}<br><a href="https://arxiv.org/abs/2608.10906v3" target="_blank" rel="noopener">${zh ? "固定版本条目" : "Fixed-version record"} ↗</a> · <a href="https://arxiv.org/pdf/2608.10906v3" target="_blank" rel="noopener">PDF ↗</a>`)}`
+      }
+    ];
     const experimentSnapshot = {
       capturedAt: "2026-10-27 16:37:11 UTC+8",
       commit: "b63b7b2850226b6aa4fb5929a8c1ac7bc4d9a6af",
@@ -5004,11 +5116,13 @@ description: Check reported metrics when
         : ["Research question", "Three key figures", "Curated vs. AI-generated", "SkillsBench: self-generation protocol", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "SkillRevise: conditions and results", "SkillRevise: method", "SkillRevise: budget and boundaries", "Conclusions and limits", "My experiment: task container & oracle", "Primary sources", "Appendix: full comparison"]),
       ...researchQuestions.map((question, i) => `RQ${i + 1} · ${question.title}`),
       ...basicsPages.map(page => `${zh ? "什么是 Skill" : "What is a Skill"} · ${page.title}`),
-      ...experimentTasks.map(task => `${zh ? "实验结果" : "Experiment results"} · ${task.title}`)
+      ...experimentTasks.map(task => `${zh ? "实验结果" : "Experiment results"} · ${task.title}`),
+      ...gitSkillsPages.map(page => `GitSkills · ${page.title}`)
     ];
     root.innerHTML = `
       <div class="ev-topic-tabs" role="tablist" aria-label="${zh ? "第二次 Meeting 内容" : "Meeting 2 topics"}">
         <button type="button" id="ev-topic-basics" role="tab" data-ev-topic="basics" aria-controls="ev-basics-tabs ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "什么是 Skill" : "What is a Skill?"}</button>
+        <button type="button" id="ev-topic-gitskills" role="tab" data-ev-topic="gitskills" aria-controls="ev-gitskills-tabs ev-topic-panel" aria-selected="false" tabindex="-1">GitSkills</button>
         <button type="button" id="ev-topic-evidence" role="tab" data-ev-topic="evidence" aria-controls="ev-paper-tabs ev-topic-panel" aria-selected="true">${zh ? "论文证据" : "Paper evidence"}</button>
         <button type="button" id="ev-topic-research" role="tab" data-ev-topic="research" aria-controls="ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "研究问题" : "Research questions"}</button>
         <button type="button" id="ev-topic-method" role="tab" data-ev-topic="method" aria-controls="ev-topic-panel" aria-selected="false" tabindex="-1">${zh ? "实验方法" : "Experimental methods"}</button>
@@ -5019,6 +5133,9 @@ description: Check reported metrics when
       </div>
       <div class="ev-paper-tabs" id="ev-basics-tabs" role="tablist" aria-label="${zh ? "什么是 Skill：概念导航" : "What is a Skill: concepts"}" hidden>
         ${basicsPages.map((page, i) => `<button type="button" id="ev-basic-${page.id}" role="tab" data-ev-basic="${i}" aria-controls="ev-topic-panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${page.title}</button>`).join("")}
+      </div>
+      <div class="ev-paper-tabs" id="ev-gitskills-tabs" role="tablist" aria-label="${zh ? "GitSkills：论文导航" : "GitSkills: paper navigation"}" hidden>
+        ${gitSkillsPages.map((page, i) => `<button type="button" id="ev-gitskills-${page.id}" role="tab" data-ev-gitskills="${i}" aria-controls="ev-topic-panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${page.title}</button>`).join("")}
       </div>
       <div class="ev-paper-tabs" id="ev-task-tabs" role="tablist" aria-label="${zh ? "实验结果：按测试题目浏览" : "Experiment results: browse by task"}" hidden>
         ${experimentTasks.map((task, i) => `<button type="button" id="ev-task-${task.id}" role="tab" data-ev-task="${i}" aria-controls="ev-topic-panel" aria-selected="${i === 0}" tabindex="${i === 0 ? 0 : -1}">${task.title}</button>`).join("")}
@@ -5347,6 +5464,13 @@ description: Check reported metrics when
           ${experimentEvidence(task)}
           `}
         </section>`).join("")}
+      ${gitSkillsPages.map((page, i) => `
+        <section class="sk-panel ev-slide ev-explainer-slide" data-gitskills="${i}" id="sk-gitskills-${page.id}" tabindex="-1" aria-labelledby="sk-gitskills-${page.id}-title">
+          ${heading(`G${i + 1}`, `sk-gitskills-${page.id}-title`, page.title, cite(4))}
+          <div class="ev-section-meta"><span>GitSkills · arXiv v3 · 2026-09-11</span><span>${zh ? "数据集论文 · 非效果 benchmark" : "Dataset paper · not an execution benchmark"}</span></div>
+          ${page.content}
+          <p class="ev-sr-source">${zh ? "依据：v3 §I–IV / Table I / Appendix A；样本信息另据官方 README。" : "Sources: v3 §I–IV / Table I / Appendix A; sample details from the official README."}</p>
+        </section>`).join("")}
       </div>
       <button type="button" class="ev-side-nav" id="ev-next" aria-label="${zh ? "下一页" : "Next slide"}" title="${zh ? "下一页" : "Next slide"}" aria-controls="ev-topic-panel" aria-keyshortcuts="ArrowRight PageDown"><span aria-hidden="true">›</span></button>
       </div>
@@ -5462,7 +5586,7 @@ description: Check reported metrics when
         <p id="ev-authors-paper-title"></p>
         <p>${zh ? "单位按该版本论文署名记录，保留机构原名，不代表作者当前任职。作者顺序与原文一致。" : "Affiliations retain the institution names listed in this paper version, not necessarily current employment. Author order follows the paper."}</p>
         <p id="ev-authors-note"></p>
-        <p><a id="ev-authors-source" target="_blank" rel="noopener"></a> · ${zh ? "核对日期：2026-10-26" : "Checked: 2026-10-26"}</p>
+        <p><a id="ev-authors-source" target="_blank" rel="noopener"></a> · <span id="ev-authors-checked"></span></p>
         <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "作者与署名单位，可横向滚动" : "Authors and affiliations; horizontally scrollable"}">
           <table class="ev-table">
             <caption id="ev-authors-count"></caption>
@@ -5483,12 +5607,13 @@ description: Check reported metrics when
       </section>`);
     const allSlides = Array.from(stage.querySelectorAll(".ev-slide"));
     const methodSlides = new Set(["sk-experiment"]);
-    const topicForSlide = slide => methodSlides.has(slide.id) ? "method" : slide.hasAttribute("data-research-question") ? "research" : slide.hasAttribute("data-skill-basics") ? "basics" : slide.hasAttribute("data-experiment-task") ? "results" : "evidence";
+    const topicForSlide = slide => methodSlides.has(slide.id) ? "method" : slide.hasAttribute("data-research-question") ? "research" : slide.hasAttribute("data-skill-basics") ? "basics" : slide.hasAttribute("data-experiment-task") ? "results" : slide.hasAttribute("data-gitskills") ? "gitskills" : "evidence";
     const topics = {
       evidence: allSlides.filter(slide => topicForSlide(slide) === "evidence"),
       method: allSlides.filter(slide => topicForSlide(slide) === "method"),
       research: allSlides.filter(slide => topicForSlide(slide) === "research"),
       basics: allSlides.filter(slide => topicForSlide(slide) === "basics"),
+      gitskills: allSlides.filter(slide => topicForSlide(slide) === "gitskills"),
       results: allSlides.filter(slide => topicForSlide(slide) === "results")
     };
     const papers = Object.fromEntries(paperGroups.map(paper => [paper.id, paper.ids.map(id => document.getElementById(id))]));
@@ -5496,12 +5621,14 @@ description: Check reported metrics when
     let currentTopic = "evidence";
     let currentPaper = "overview";
     let slides = papers.overview;
-    const rememberedSlides = {method: 0, research: 0, basics: 0, results: 0, ...Object.fromEntries(paperGroups.map(paper => [paper.id, 0]))};
+    const rememberedSlides = {method: 0, research: 0, basics: 0, gitskills: 0, results: 0, ...Object.fromEntries(paperGroups.map(paper => [paper.id, 0]))};
     const topicTabs = Array.from(root.querySelectorAll("[data-ev-topic]"));
     const paperTabs = Array.from(root.querySelectorAll("[data-ev-paper]"));
     const paperTablist = document.getElementById("ev-paper-tabs");
     const basicsTabs = Array.from(root.querySelectorAll("[data-ev-basic]"));
     const basicsTablist = document.getElementById("ev-basics-tabs");
+    const gitSkillsTabs = Array.from(root.querySelectorAll("[data-ev-gitskills]"));
+    const gitSkillsTablist = document.getElementById("ev-gitskills-tabs");
     const taskTabs = Array.from(root.querySelectorAll("[data-ev-task]"));
     const taskTablist = document.getElementById("ev-task-tabs");
     const slideSelect = document.getElementById("ev-slide-select");
@@ -5544,6 +5671,7 @@ description: Check reported metrics when
       document.getElementById("ev-authors-title").textContent = `${paper.title} · ${zh ? "作者与单位" : "Authors and affiliations"}`;
       document.getElementById("ev-authors-paper-title").textContent = paper.fullTitle;
       document.getElementById("ev-authors-note").textContent = paper.note;
+      document.getElementById("ev-authors-checked").textContent = `${zh ? "核对日期：" : "Checked: "}${paperId === "gitskills" ? "2026-10-27" : "2026-10-26"}`;
       const source = document.getElementById("ev-authors-source");
       source.href = paper.source;
       source.textContent = `${paper.version} ↗`;
@@ -5574,9 +5702,9 @@ description: Check reported metrics when
       document.getElementById("ev-benchmarks-cards").innerHTML = benchmark.items.map(item => `
         <article class="ev-benchmark-card">
           <h3>${item.name}</h3>
-          <p><b>${zh ? "任务是什么：" : "Task: "}</b>${item.description}</p>
-          <p><b>${zh ? "这篇怎么用：" : "Use in this paper: "}</b>${item.use}</p>
-          <p><b>${zh ? "如何评分：" : "Evaluation: "}</b>${item.metric}</p>
+          <p><b>${paperId === "gitskills" ? (zh ? "数据是什么：" : "Data: ") : (zh ? "任务是什么：" : "Task: ")}</b>${item.description}</p>
+          <p><b>${paperId === "gitskills" ? (zh ? "如何获取：" : "Access: ") : (zh ? "这篇怎么用：" : "Use in this paper: ")}</b>${item.use}</p>
+          <p><b>${paperId === "gitskills" ? (zh ? "能否直接评分：" : "Ready-made scoring: ") : (zh ? "如何评分：" : "Evaluation: ")}</b>${item.metric}</p>
           <p>${item.links.map(([href, label]) => `<a href="${href}" target="_blank" rel="noopener">${label} ↗</a>`).join("")}</p>
         </article>`).join("");
       openPaperDetails("benchmarks", paperId, opener, focus);
@@ -5594,7 +5722,7 @@ description: Check reported metrics when
       });
       const active = slides[slideIndex];
       active.scrollTop = 0;
-      const localTabs = currentTopic === "basics" ? basicsTabs : currentTopic === "results" ? taskTabs : null;
+      const localTabs = currentTopic === "basics" ? basicsTabs : currentTopic === "gitskills" ? gitSkillsTabs : currentTopic === "results" ? taskTabs : null;
       if (localTabs) {
         localTabs.forEach((tab, i) => {
           const selected = i === slideIndex;
@@ -5646,6 +5774,7 @@ description: Check reported metrics when
       slides = topic === "evidence" ? papers[paper] : topics[topic];
       paperTablist.hidden = topic !== "evidence";
       basicsTablist.hidden = topic !== "basics";
+      gitSkillsTablist.hidden = topic !== "gitskills";
       taskTablist.hidden = topic !== "results";
       topicTabs.forEach(tab => {
         const selected = tab.dataset.evTopic === topic;
@@ -5700,6 +5829,7 @@ description: Check reported metrics when
     });
     bindTabs(paperTabs, tab => showTopic("evidence", undefined, tab.dataset.evPaper));
     bindTabs(basicsTabs, tab => showTopic("basics", Number(tab.dataset.evBasic)));
+    bindTabs(gitSkillsTabs, tab => showTopic("gitskills", Number(tab.dataset.evGitskills)));
     bindTabs(taskTabs, tab => showTopic("results", Number(tab.dataset.evTask)));
     bindTabs(topicTabs, tab => showTopic(tab.dataset.evTopic));
     prev.addEventListener("click", () => showSlide(slideIndex - 1, true));
