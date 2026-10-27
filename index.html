@@ -1566,6 +1566,17 @@
   .ev-slide.ev-results-slide .ev-table th,.ev-slide.ev-results-slide .ev-table td{padding:8px 12px}
   .ev-results-slide .ev-table caption{padding:8px 12px}
   .ev-results-note{margin:8px 0 0;color:var(--sk-muted);font-size:11px;line-height:1.6}
+  .ev-results-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:12px 0}
+  .ev-results-stats>div{padding:10px;border:1px solid var(--sk-line);border-radius:10px;background:#F6F9FC}
+  .ev-results-stats b{display:block;color:var(--sk-blue);font-size:23px}
+  .ev-results-stats span{font-size:11px;color:var(--sk-muted)}
+  .ev-results-evidence{margin-top:12px;color:var(--sk-muted);font-size:11px;line-height:1.7}
+  .ev-results-evidence summary{cursor:pointer;color:var(--sk-blue)}
+  .ev-results-evidence code{overflow-wrap:anywhere;white-space:normal}
+  .ev-results-evidence ul{padding-left:18px}
+  .ev-result-status{font-size:11px;white-space:normal}
+  .ev-slide.ev-results-slide .ev-intro{font-size:12px;margin:8px 0}
+  @media(max-width:760px){.ev-results-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
   .ev-research-slide{display:grid;align-content:center;gap:22px;background:linear-gradient(125deg,#EDF4F8,#FFF 70%)}
   .ev-research-label{margin:0;color:var(--sk-blue);font-size:12px;font-weight:600;letter-spacing:.08em}
   .ev-research-slide h2{margin:0;max-width:25em;font-size:clamp(24px,3.5vw,46px);font-weight:500;line-height:1.5;letter-spacing:-.025em;color:#29465C}
@@ -4626,14 +4637,14 @@ window.SWECHAT_SOURCE = {
       },
       skillrevise: {
         overview: zh ? "主实验在三组带 verifier 的任务上进行，并统一转换为 SkillsBench 风格的独立任务目录。下面单独列出两类“校准后冻结”的扩展实验，避免与主实验的反馈修订混为一谈。" : "The main experiments use three verifier-driven suites normalized into standalone SkillsBench-style task directories. Two calibration-then-freeze extensions are listed separately to distinguish them from main-task feedback revision.",
-        protocol: zh ? "网页的 34/86、35/86、53/86 全部来自第一组 SkillsBench，而不是三个基准合计。跨模型迁移另用 57 个源模型成功任务的条件子集，不等于完整 86 题。官方发布了三组任务包，但加载数据本身不等于复现论文：provider-specific executor harness 仍需另外接入。" : "The 34/86, 35/86 and 53/86 figures all refer to SkillsBench, not the three suites combined. Cross-model transfer uses a conditional 57-task source-success subset rather than all 86 tasks. The three bundles are released, but paper reproduction still requires the external provider-specific execution harness.",
+        protocol: zh ? "网页的 v0：35/86、v1：47/86、v3：53/86 全部来自第一组 SkillsBench，而不是三个基准合计。跨模型迁移另用 57 个源模型成功任务的条件子集，不等于完整 86 题。官方发布了三组任务包，但加载数据本身不等于复现论文：provider-specific executor harness 仍需另外接入。" : "The v0: 35/86, v1: 47/86 and v3: 53/86 figures all refer to SkillsBench, not the three suites combined. Cross-model transfer uses a conditional 57-task source-success subset rather than all 86 tasks. The three bundles are released, but paper reproduction still requires the external provider-specific execution harness.",
         source: "https://aclanthology.org/2026.findings-emnlp.991.pdf",
         sourceLabel: "SkillRevise · main results / Appendix A.1–A.6",
         items: [
           {
             name: zh ? "主实验 01 / SkillsBench · 86 题" : "Main 01 / SkillsBench · 86 tasks",
             description: zh ? "跨领域专业 Agent 工作流，包含题目、环境资产与程序化评分器。这里使用作者发布的 86 题任务包，不是 SkillsBench v3 图表中的 84 题口径。" : "Cross-domain professional agent workflows with instructions, environment assets and programmatic verifiers. Uses the authors' 86-task bundle, not the 84-task scope of the SkillsBench v3 charts.",
-            use: zh ? "在相同任务与执行接口下比较无 Skill、独立 Skill-Creator、初始 v0 与最多三轮修订。" : "Compares no Skill, independent Skill-Creator, initial v0 and up to three revisions using matched task and execution interfaces.",
+            use: zh ? "本页选取无 Skill 参照与 SkillRevise 的初始 v0、最多一轮修订 v1、最多三轮修订 v3；任务与执行接口相同。" : "This page selects the no-Skill reference and SkillRevise's initial v0, one-revision budget v1 and three-revision budget v3, using matched task and execution interfaces.",
             metric: zh ? "Verifier 任务成功数 / 86；主结果 53/86 = 61.63%。" : "Verifier successes / 86; the main result is 53/86 = 61.63%.",
             links: [
               ["https://github.com/HKUST-KnowComp/skillrevise/tree/main/data/skillsbench", zh ? "论文使用的 86 题任务包与清单" : "Paper's 86-task bundle and manifest"],
@@ -4729,11 +4740,6 @@ window.SWECHAT_SOURCE = {
     ];
     const researchQuestions = [
       {
-        title: zh ? "生成能力与可迁移性" : "Generation and transferability",
-        question: zh ? "大模型能否生成 Skill？这些 Skill 是否具有可迁移性？" : "Can large language models generate Skills, and do those Skills transfer?",
-        description: zh ? "区分当前任务的使用效果，与冻结 Skill 后的跨任务、跨模型迁移。" : "Distinguish current-task performance from cross-task and cross-model transfer of frozen Skills."
-      },
-      {
         title: zh ? "AI Skill vs. 人类 Skill" : "AI Skills vs. human Skills",
         question: zh ? "大模型生成的 Skill，与人类编写的 Skill 相比，效果如何？" : "How do LLM-generated Skills perform compared with human-authored Skills?",
         description: zh ? "在相同资料、执行条件和预算下，比较 AI 与人工编写的 Skill。" : "Compare AI- and human-authored Skills with matched evidence, execution conditions and budgets."
@@ -4757,6 +4763,11 @@ window.SWECHAT_SOURCE = {
         title: zh ? "不同生成 harness 的产物差异" : "Differences across generator harnesses",
         question: zh ? "不同 harness 生成的 Skill，有哪些特点与差异？" : "What characteristics and differences emerge in Skills generated by different harnesses?",
         description: zh ? "固定生成模型、源任务、可见资料与预算，比较 Skill 的内容结构、流程和工具依赖，再在同一目标环境检验迁移表现。" : "Fix the generator model, source tasks, visible evidence and budget. Compare artifact structure, procedures and tool dependencies, then evaluate transfer in the same target environment."
+      },
+      {
+        title: zh ? "Skill 的可迁移性" : "Skill transferability",
+        question: zh ? "大模型生成的 Skill 是否具有可迁移性？" : "Do LLM-generated Skills transfer?",
+        description: zh ? "区分当前任务的使用效果，与冻结 Skill 后的跨任务、跨模型迁移。" : "Distinguish current-task performance from cross-task and cross-model transfer of frozen Skills."
       }
     ];
     const skillSources = {
@@ -4841,15 +4852,152 @@ description: Check reported metrics when
           ${basicsSources("overview", "specification", "anthropic")}`
       }
     ];
-    const experimentTasks = [{
-      id: "debug-trl-grpo",
-      title: "debug-trl-grpo",
-      rows: [
-        {id: "ai", label: zh ? "AI 生成 Skill" : "AI-generated Skill", artifact: zh ? "Kimi · 单文件" : "Kimi · single file", reward: 0.60, seconds: 217.712, outputTokens: 30813},
-        {id: "human", label: zh ? "官方人工 Skill 包" : "Official human-curated Skills", artifact: zh ? "3 份 Skill + 参考文档与脚本" : "3 Skills + references and scripts", reward: 0.60, seconds: 148.609, outputTokens: 20324},
-        {id: "none", label: zh ? "无 Skill" : "No Skill", artifact: zh ? "不提供额外 Skill" : "No added Skills", reward: 0.60, seconds: 212.034, outputTokens: 27577}
-      ]
-    }];
+    const experimentSnapshot = {
+      capturedAt: "2026-10-27 16:37:11 UTC+8",
+      commit: "b63b7b2850226b6aa4fb5929a8c1ac7bc4d9a6af",
+      separateCodexReward: 0.25,
+      excludedRuns: 3
+    };
+    const experimentArms = {
+      kimi: {key: "A_kimi_skill", label: zh ? "Kimi 生成 Skill" : "Kimi-generated Skill", artifact: zh ? "Kimi K3.1 Pro · 单文档" : "Kimi K3.1 Pro · single document"},
+      human: {key: "B_human_skills", label: zh ? "官方人工 Skills" : "Official human-curated Skills", artifact: zh ? "完整包，含参考文档与脚本" : "Full package with references and scripts"},
+      none: {key: "C_no_skill", label: zh ? "无 Skill" : "No Skill", artifact: zh ? "不提供额外 Skill" : "No added Skills"},
+      haiku: {key: "A_haiku_skill", label: zh ? "Haiku 生成 Skill（追加）" : "Haiku-generated Skill (additional)", artifact: zh ? "Haiku 5.5 · 单文档" : "Haiku 5.5 · single document"}
+    };
+    const experimentBatches = {
+      trl: {date: "2026-10-26", path: "trl_kimi31_deepseek41flash_20261026T064710Z"},
+      software5: {date: "2026-10-26", path: "software5_kimi31_deepseek41flash_20261026T080417Z"},
+      haiku: {date: "2026-10-27", path: "haiku55_generated6_dsflash_20261027T080927Z"},
+      react: {date: "2026-10-27", path: "react_kimi31_deepseek41flash_20261027T072025Z"}
+    };
+    const experimentStatuses = {
+      completed_valid: zh ? "已完成 · 正式评分" : "Completed · official score",
+      unfinished_no_final_score: zh ? "待完成 · 暂无最终评分" : "Unfinished · no final score",
+      blocked_provider_overload: zh ? "生成受阻 · 服务端过载" : "Generation blocked · provider overloaded",
+      interrupted_no_final_score: zh ? "执行中断 · 无最终评分" : "Interrupted · no final score",
+      no_completed_record: zh ? "无完成记录 · 无评分" : "No completed record or score"
+    };
+    const experimentTaskResults = [
+      {
+        id: "debug-trl-grpo",
+        name: zh ? "TRL GRPO 调试" : "TRL GRPO debugging",
+        description: zh ? "修复 TRL GRPO 的计算与 completion 解码缺陷。" : "Repair numerical and completion-decoding defects in TRL GRPO.",
+        metric: zh ? "官方加权 reward：0.60 不是全部测试断言的通过率，也不代表实际训练收益。" : "Official weighted reward: 0.60 is neither an assertion pass rate nor evidence of improved training outcomes.",
+        observation: zh ? "四条正式记录均为 0.600。历史人工组提供 3 份 Skill 及配套资源，生成组仅单文档，不能据此认定等效。" : "All four official records score 0.600. The historical human arm provides 3 Skills plus resources versus a single generated document; equal observed rewards do not establish equivalence.",
+        caveat: zh ? "首次三组因内置 Skill 暴露不一致已排除；其中人工组 1.0 不纳入本表。早期 Codex 无 Skill 的 0.25 属于不同协议，另列于总览。" : "The first three-arm attempt was excluded for inconsistent built-in Skill exposure, including its human-arm 1.0. The earlier Codex no-Skill 0.25 belongs to a different protocol and is separate in the overview.",
+        rows: [
+          {arm: "kimi", batch: "trl", status: "completed_valid", reward: 0.6, seconds: 217.712, outputTokens: 30813},
+          {arm: "human", batch: "trl", status: "completed_valid", reward: 0.6, seconds: 148.609, outputTokens: 20324},
+          {arm: "none", batch: "trl", status: "completed_valid", reward: 0.6, seconds: 212.034, outputTokens: 27577},
+          {arm: "haiku", batch: "haiku", status: "completed_valid", reward: 0.6, seconds: 325.703, outputTokens: 43313}
+        ]
+      },
+      {
+        id: "dialogue-parser",
+        name: zh ? "对话脚本解析" : "Dialogue parser",
+        description: zh ? "把文本脚本转换成经过校验的 JSON 对话图与 DOT 可视化。" : "Convert a text script into a validated JSON dialogue graph and DOT visualization.",
+        metric: zh ? "官方 CTRF passed/tests 比例，保留三位小数；本题的 0.833 与二元奖励题的 0 不可直接作跨题排名。" : "Official CTRF passed/tests ratio, retained to three decimals; 0.833 here is not directly comparable with zero on a binary-reward task.",
+        observation: zh ? "Kimi 与无 Skill 为 0.833，人工与 Haiku 追加组为 1.000。历史 Kimi / 无 Skill 的失败涉及 End 节点不可达。" : "Kimi and no Skill score 0.833; human Skills and the Haiku addition score 1.000. Historical Kimi/no-Skill failures involve an unreachable End node.",
+        caveat: zh ? "Haiku 的 1.000 是次日追加的单次观测，未同期重跑人工与无 Skill，不能据此作稳定优劣结论。" : "Haiku's 1.000 is a single next-day observation without concurrent human/no-Skill reruns, not evidence of stable superiority.",
+        rows: [
+          {arm: "kimi", batch: "software5", status: "completed_valid", reward: 0.833, seconds: 93.460, outputTokens: 17739},
+          {arm: "human", batch: "software5", status: "completed_valid", reward: 1, seconds: 73.751, outputTokens: 13760},
+          {arm: "none", batch: "software5", status: "completed_valid", reward: 0.833, seconds: 137.649, outputTokens: 23393},
+          {arm: "haiku", batch: "haiku", status: "completed_valid", reward: 1, seconds: 96.276, outputTokens: 17082}
+        ]
+      },
+      {
+        id: "llm-prefix-cache-replay",
+        name: zh ? "LLM 前缀缓存回放" : "LLM prefix-cache replay",
+        description: zh ? "实现块级前缀缓存与 S3FIFO 策略，对请求轨迹进行回放并输出缓存统计。" : "Implement block-level prefix caching and S3FIFO, replay request traces and report cache statistics.",
+        metric: zh ? "官方二元 reward：全部要求满足才记 1，否则为 0，不按通过测试的比例改分。" : "Official binary reward: 1 only when all requirements pass, otherwise 0; partial test passes do not change the reward.",
+        observation: zh ? "人工组为 1.000，其余三个已完成条件为 0.000。Kimi 与 Haiku 均通过 6 项测试中的 5 项，但官方奖励仍为 0。" : "Human Skills score 1.000; the other three completed conditions score 0.000. Kimi and Haiku each pass 5 of 6 tests but still receive official reward 0.",
+        caveat: zh ? "历史 Kimi 的最终驻留块数不符。部分检查通过不等于整题成功，也不能把 Haiku 的失败原因自动认定与 Kimi 相同。" : "The historical Kimi run has an incorrect final resident-block count. Partial checks do not imply task success, and Haiku's failure cause must not be assumed identical.",
+        rows: [
+          {arm: "kimi", batch: "software5", status: "completed_valid", reward: 0, seconds: 78.638, outputTokens: 12593},
+          {arm: "human", batch: "software5", status: "completed_valid", reward: 1, seconds: 32.369, outputTokens: 5830},
+          {arm: "none", batch: "software5", status: "completed_valid", reward: 0, seconds: 293.533, outputTokens: 48458},
+          {arm: "haiku", batch: "haiku", status: "completed_valid", reward: 0, seconds: 67.492, outputTokens: 11390}
+        ]
+      },
+      {
+        id: "tictoc-unnecessary-abort-detection",
+        name: zh ? "TicToc 不必要事务中止检测" : "TicToc unnecessary-abort detection",
+        description: zh ? "分析 TicToc 并发控制轨迹，区分必须中止与本可安全继续的事务。" : "Analyze TicToc concurrency-control traces to distinguish necessary aborts from transactions that could safely continue.",
+        metric: zh ? "官方 policy-ladder 分段奖励：先检查输出格式，再按策略判断计分，不是格式测试通过率。" : "Official policy-ladder reward: format checks precede policy scoring; it is not the fraction of format tests passed.",
+        observation: zh ? "Kimi 与无 Skill 为 0.100，人工与 Haiku 追加组为 1.000。历史 Kimi / 无 Skill 对“不必要中止”的判断过宽。" : "Kimi and no Skill score 0.100; human Skills and the Haiku addition score 1.000. Historical Kimi/no-Skill runs classify unnecessary aborts too broadly.",
+        caveat: zh ? "本题 Kimi 生成在执行前由默认 max 改为 high 推理强度，生成预算不完全统一；不能把差异全部归因于 Skill 质量。" : "Before execution, Kimi generation switched from default max to high reasoning effort. Generation budgets are not fully matched, so differences cannot be attributed solely to Skill quality.",
+        rows: [
+          {arm: "kimi", batch: "software5", status: "completed_valid", reward: 0.1, seconds: 448.299, outputTokens: 44255},
+          {arm: "human", batch: "software5", status: "completed_valid", reward: 1, seconds: 841.164, outputTokens: 116860},
+          {arm: "none", batch: "software5", status: "completed_valid", reward: 0.1, seconds: 702.011, outputTokens: 82979},
+          {arm: "haiku", batch: "haiku", status: "completed_valid", reward: 1, seconds: 517.819, outputTokens: 79318}
+        ]
+      },
+      {
+        id: "jax-computing-basics",
+        name: zh ? "JAX 基础计算" : "JAX computing basics",
+        description: zh ? "使用 JAX 完成数值计算任务，并写出五个数组结果。" : "Use JAX to complete numerical-computing tasks and produce five output arrays.",
+        metric: zh ? "官方二元 reward：四个数组正确、一个不符，整题仍记 0；本页保留原始得分，不补分。" : "Official binary reward: four correct arrays and one mismatch still score 0. Original scores are retained without adjustment.",
+        observation: zh ? "四条正式记录均为 0.000*。历史三组其余四个数组正确，但 RNN 按行向量递推，参考值按列向量递推。" : "All four official records score 0.000*. In the three historical arms, four arrays match, but the RNN uses row-vector recurrence while the reference uses column-vector recurrence.",
+        caveat: zh ? "* 为防答案泄露而隐藏参考目录后，剩余题面未充分明确乘法方向，不能把零分直接归因于能力不足。Haiku 同样为 0，但其失败原因不能自动套用历史诊断。" : "* After the answer-reference directory was hidden, the remaining prompt underspecified multiplication orientation. Zero scores are not clean evidence of inability. Haiku also scores 0, but its cause must not be inferred from the historical diagnosis.",
+        rows: [
+          {arm: "kimi", batch: "software5", status: "completed_valid", reward: 0, seconds: 34.864, outputTokens: 5923},
+          {arm: "human", batch: "software5", status: "completed_valid", reward: 0, seconds: 18.411, outputTokens: 2714},
+          {arm: "none", batch: "software5", status: "completed_valid", reward: 0, seconds: 90.919, outputTokens: 13654},
+          {arm: "haiku", batch: "haiku", status: "completed_valid", reward: 0, seconds: 27.769, outputTokens: 4919}
+        ]
+      },
+      {
+        id: "parallel-tfidf-search",
+        name: zh ? "并行 TF-IDF 检索" : "Parallel TF-IDF search",
+        description: zh ? "并行化索引构建与批量相似度查询，同时满足正确性与加速要求。" : "Parallelize index construction and batch similarity search while meeting correctness and speed requirements.",
+        metric: zh ? "官方二元 reward：结果正确，且构建至少加速 1.5 倍、查询至少加速 2 倍，才记 1。" : "Official binary reward: correct results plus at least 1.5× indexing and 2× query speedups are required for 1.",
+        observation: zh ? "历史三组均为 1.000。构建 / 查询加速比：Kimi 2.22× / 3.56×，人工 2.84× / 4.93×，无 Skill 2.92× / 7.99×。" : "All three historical arms score 1.000. Index/query speedups: Kimi 2.22× / 3.56×; human 2.84× / 4.93×; no Skill 2.92× / 7.99×.",
+        caveat: zh ? "快照时 Haiku Skill 已冻结、执行已启动，但无最终 summary/reward：不记 0，也不认定失败。共享宿主机上的单次速度不能说明稳定性能排名。" : "At snapshot time, the Haiku Skill was frozen and execution had started, but no final summary/reward existed: not zero or a confirmed failure. Single measurements on a shared host do not establish stable speed rankings.",
+        rows: [
+          {arm: "kimi", batch: "software5", status: "completed_valid", reward: 1, seconds: 836.889, outputTokens: 77629},
+          {arm: "human", batch: "software5", status: "completed_valid", reward: 1, seconds: 1381.141, outputTokens: 76746},
+          {arm: "none", batch: "software5", status: "completed_valid", reward: 1, seconds: 1162.832, outputTokens: 99663},
+          {arm: "haiku", batch: "haiku", status: "unfinished_no_final_score", reward: null, seconds: null, outputTokens: null}
+        ]
+      },
+      {
+        id: "react-performance-debugging",
+        name: zh ? "React / Next.js 性能调试" : "React / Next.js performance debugging",
+        description: zh ? "修复电商应用的交互延迟、组件重渲染与前端包体积问题。" : "Repair interaction latency, component rerenders and bundle-size problems in an e-commerce app.",
+        metric: zh ? "正式任务使用官方二元 reward；当前没有可纳入对照的模型评分。" : "The task uses official binary reward, but no completed model score is currently available for comparison.",
+        observation: zh ? "仅有未解题原始应用的基础设施预检：11 项中 8 通过、3 失败，reward 为 0。这个 0 不是任何模型条件的成绩。" : "Only infrastructure preflight on the unsolved original app is available: 8/11 checks pass, 3 fail, reward 0. This zero is not a score for any model condition.",
+        caveat: zh ? "Kimi 生成因 HTTP 429 engine_overloaded_error 受阻，并非已证实额度不足；人工组执行中断，无 Skill 无完成记录。Haiku 本轮未选择该题。容器存活不代表 agent 仍在解题。" : "Kimi generation was blocked by HTTP 429 engine_overloaded_error, not confirmed quota exhaustion. The human run was interrupted; no Skill has no completed record. Haiku did not select this task. A surviving container does not imply an active agent.",
+        rows: [
+          {arm: "kimi", batch: "react", status: "blocked_provider_overload", reward: null, seconds: null, outputTokens: null},
+          {arm: "human", batch: "react", status: "interrupted_no_final_score", reward: null, seconds: null, outputTokens: null},
+          {arm: "none", batch: "react", status: "no_completed_record", reward: null, seconds: null, outputTokens: null}
+        ]
+      }
+    ];
+    experimentTaskResults.forEach(task => {
+      task.title = task.id;
+      task.rows.forEach(row => {
+        const batch = experimentBatches[row.batch];
+        const runPath = row.batch === "trl" ? `${batch.path}/runs` : `${batch.path}/tasks/${task.id}/runs`;
+        row.source = `${runPath}/${experimentArms[row.arm].key}${row.status === "completed_valid" ? "/summary.json" : ""}`;
+      });
+    });
+    const completedExperimentRuns = experimentTaskResults.flatMap(task => task.rows).filter(row => row.status === "completed_valid").length;
+    const unfinishedExperimentRuns = experimentTaskResults.flatMap(task => task.rows).filter(row => row.reward === null).length;
+    const experimentTasks = [{id: "summary", title: zh ? "阶段总览" : "Snapshot overview"}, ...experimentTaskResults];
+    const resultReward = (task, row) => row.reward === null ? (zh ? "— 无评分" : "— No score") : `${row.reward.toFixed(3)}${task.id === "jax-computing-basics" ? "*" : ""}`;
+    const experimentProtocolNote = zh ? "历史 Kimi / 人工 / 无 Skill 主要运行于 10 月 26 日；Haiku 仅追加 10 月 27 日的生成 Skill 组，没有同步重跑对照。每条件仅一次，不是同日随机对照，也不能作统计显著或稳定效率结论。" : "Historical Kimi/human/no-Skill runs are mainly from Oct 26; Haiku adds only a generated-Skill arm on Oct 27, without rerunning controls. One run per condition; not a same-day randomized comparison or evidence of statistical significance or stable efficiency.";
+    const experimentEvidence = task => `
+      <details class="ev-results-evidence">
+        <summary>${zh ? "协议、指标口径与本地来源" : "Protocol, metric definitions and local sources"}</summary>
+        <p>${zh ? "固定输入版本；生成仅见题目，不见人工 Skills、源码或评分器。协议要求关闭内置 Skill discovery，Skill 组显式 Read 并审计交付；已完成评分的记录通过输入与评分入口核查，不对未完成项声称审计通过。生成组单文档，人工组完整资源包，长度与数量未匹配；Kimi 生成预算及推理设置并不完全统一。容器网络限制也比原任务更严格。" : "Pinned inputs; generators see the task, not human Skills, source code or verifiers. The protocol disables built-in Skill discovery and requires explicit Skill reads and delivery audits. Completed scored records pass input/verifier checks; this is not claimed for unfinished entries. Generated single documents are not length/resource-matched to human packages. Kimi generation budgets/reasoning settings vary; network access is stricter than the original tasks."}</p>
+        <p>${zh ? "耗时为执行器报告值：TRL 历史三组取 comparison.csv 中最终 CLI 事件耗时，其余取 agent_duration_seconds；均不含 Skill 生成、镜像构建与外部评分。输出 tokens 统一取 model_usage[deepseek-flash].outputTokens 的累计口径，不混用最终事件 usage.output_tokens。costUSD 的 costBasis 为 unknown，不当作真实账单。模型身份以服务商返回标识为准。" : "Time is executor-reported: historical TRL arms use the final CLI-event timing in comparison.csv; others use agent_duration_seconds. It excludes Skill generation, image builds and external grading. Output tokens consistently use aggregate model_usage[deepseek-flash].outputTokens, not final-event usage.output_tokens. costUSD with unknown costBasis is not an actual bill; model identity is provider-reported."}</p>
+        <p>${zh ? "Haiku 生成仅机械规范元数据名称大小写，正文未按得分修改；冻结后未重跑挑分。此页是固定快照，不自动追踪后续运行状态。" : "Haiku generation received only mechanical metadata-name normalization, not score-based body edits. Frozen artifacts were not rerun to select better scores. This is a fixed snapshot, not live run monitoring."}</p>
+        <p>${zh ? "汇总依据：" : "Snapshot sources: "}<code>EXPERIMENT_SNAPSHOT_20261027.json</code> · <code>EXPERIMENT_RUNS_20261027.csv</code> · <code>EXPERIMENT_SUMMARY_20261027_ZH.md</code></p>
+        ${task ? `<ul>${task.rows.map(row => `<li>${experimentArms[row.arm].label}: <code>${row.source}</code></li>`).join("")}</ul><p>${zh ? "已完成项已逐条核对正式 summary；未完成项只列快照记录的运行 / 计划目录。历史 TRL 耗时另核对该批 comparison.csv。原始轨迹与实验目录未嵌入网页。" : "Completed entries were checked against official summaries; unfinished entries list snapshot run/planned directories only. Historical TRL timing is checked against its batch comparison.csv. Raw traces and experiment directories are not embedded."}</p>` : ""}
+      </details>`;
     const slideTitles = [
       ...(zh
         ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "SkillsBench：同模型自写自用", "独立测试：负迁移", "独立测试：具体数据", "固定 Skill 跨模型迁移", "SkillRevise：条件与结果", "SkillRevise：方法流程", "SkillRevise：修订预算与边界", "结论与证据边界", "我的实验：任务容器与 Oracle", "原始论文", "附录：完整对照数据"]
@@ -5084,22 +5232,21 @@ description: Check reported metrics when
       </section>
 
       <section class="sk-panel ev-slide ev-explainer-slide" id="sk-revision" tabindex="-1" aria-labelledby="sk-revision-title">
-        ${heading("S1", "sk-revision-title", zh ? "先分清：独立基线与修订链" : "Separate baselines from the revision chain", cite(3))}
+        ${heading("S1", "sk-revision-title", zh ? "SkillRevise：从初稿到反馈修订" : "SkillRevise: from first draft to revision", cite(3))}
         <div class="ev-section-meta"><span>SkillsBench${authorsButton(1)} · 86 ${zh ? "题" : "tasks"} · Table 1</span><span>GPT-5.5 · Codex ACP · Docker BenchFlow</span></div>
-        <p class="ev-intro">${zh ? "<b>不是 39.53% → 40.70% → 61.63% 连续升级。</b>Skill-Creator 是独立基线；SkillRevise 从自己生成的 v0 出发，才进入反馈修订。" : "<b>39.53% → 40.70% → 61.63% is not one improvement chain.</b> Skill-Creator is a separate baseline; SkillRevise revises its own initial v0."}</p>
-        <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "SkillRevise 五个评估条件与定义，可横向滚动" : "Five SkillRevise evaluation conditions and definitions; horizontally scrollable"}">
+        <p class="ev-intro">${zh ? "<b>只看 SkillRevise 自己的流程：</b>先写第一稿 v0，再根据执行反馈修改。v1 / v3 分别是最多允许一轮 / 三轮修订的结果。" : "<b>Follow SkillRevise's own workflow:</b> write v0, then revise from execution feedback. v1 / v3 allow at most one / three revisions."}</p>
+        <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "SkillRevise 四个评估条件与定义，可横向滚动" : "Four SkillRevise evaluation conditions and definitions; horizontally scrollable"}">
           <table class="ev-table" id="ev-sr-results">
             <thead><tr><th scope="col">${zh ? "实验条件" : "Condition"}</th><th scope="col">${zh ? "实际流程" : "What is evaluated"}</th><th scope="col">${zh ? "成功数 · 成功率" : "Successes · rate"}</th></tr></thead>
             <tbody>${[
               ["none", zh ? "无 Skill" : "No Skill", zh ? "不安装 Skill，直接执行一次。" : "One execution without an installed Skill.", 31],
-              ["creator", "Skill-Creator", zh ? "独立的一次性生成基线：写 Skill → 执行；不根据执行反馈修订。" : "Separate one-shot baseline: author a Skill, then execute; no feedback-grounded revision.", 34],
-              ["v0", zh ? "SkillRevise · 初始 v0" : "SkillRevise · initial v0", zh ? "本方法自己生成的起点；尚未看到执行反馈、诊断或修订。" : "This method's own initial artifact, before execution feedback, diagnosis or revision.", 35],
-              ["maxrev1", zh ? "Revision v1 · 最多 1 轮" : "Revision v1 · at most 1 round", zh ? "从 v0 出发，最多修订并重跑一次；在已评测历史中择优。" : "Start from v0; allow one repair and re-execution, then select the best observed version.", 47],
-              ["maxrev3", zh ? "Revision v3 · 最多 3 轮" : "Revision v3 · at most 3 rounds", zh ? "从 v0 出发，最多修订并重跑三次；成功即停，返回历史最佳。" : "Start from v0; allow three repairs and re-executions, stop on success, return the best observed version.", 53]
+              ["v0", zh ? "SkillRevise v0 · 初稿" : "SkillRevise v0 · first draft", zh ? "模型先写出的第一稿 Skill；尚未根据本次执行反馈修改。" : "The model's first Skill draft, before revision from this task's execution feedback.", 35],
+              ["maxrev1", zh ? "SkillRevise v1 · 最多 1 轮" : "SkillRevise v1 · at most 1 round", zh ? "从 v0 出发，最多修订并重跑一次；在已评测历史中择优。" : "Start from v0; allow one repair and re-execution, then select the best observed version.", 47],
+              ["maxrev3", zh ? "SkillRevise v3 · 最多 3 轮" : "SkillRevise v3 · at most 3 rounds", zh ? "从 v0 出发，最多修订并重跑三次；成功即停，返回历史最佳。" : "Start from v0; allow three repairs and re-executions, stop on success, return the best observed version.", 53]
             ].map(([id, label, description, successes]) => `<tr data-sr-condition="${id}"><th scope="row">${label}</th><td>${description}</td><td><b>${successes}/86</b> · ${(successes / 86 * 100).toFixed(2)}%</td></tr>`).join("")}</tbody>
           </table>
         </div>
-        <p class="sk-note">${zh ? "Skill-Creator 与 v0 都是反馈修订前的 AI 产物，不是人类 Skill，也不是同一份文件的前后版本。34 与 35 只差一题，不能据此归因某个提示技巧。“一次性”限制的是生成／修订流程，不是 agent 的工具调用次数。" : "Skill-Creator and v0 are both pre-revision AI artifacts, not human Skills or successive versions of one file. Their one-task gap does not isolate a prompting effect. One-shot refers to authoring/revision, not the executor's tool-call count."}</p>
+        <p class="sk-note">${zh ? "本表只选取无 Skill 参照及 v0 / v1 / v3 条件，不是完整 Table 1。v1 / v3 表示修订预算，不保证返回第 1 / 第 3 版文件；修订增加了反馈、执行次数与 token 消耗，不是等成本比较。" : "Selected no-Skill and v0 / v1 / v3 conditions, not the full Table 1. v1 / v3 denote revision budgets, not guaranteed returned versions. Revision adds feedback, executions and tokens; costs are not equal."} <a href="https://aclanthology.org/2026.findings-emnlp.991.pdf#page=6" target="_blank" rel="noopener">${zh ? "[3] §4.1 原始定义" : "[3] §4.1 definition"} ↗</a> · <a href="https://aclanthology.org/2026.findings-emnlp.991.pdf#page=13" target="_blank" rel="noopener">${zh ? "附录 B.2 执行流程" : "B.2 protocol"} ↗</a></p>
         <p class="ev-sr-source"><a href="https://aclanthology.org/2026.findings-emnlp.991.pdf#page=7" target="_blank" rel="noopener">Table 1 ↗</a> · §4.1–4.2 / Appendix B.2 · ${zh ? "编写、修订、执行均用 GPT-5.5；相同任务接口与 verifier。" : "GPT-5.5 authors, revises and executes; task interface and verifier are shared."}</p>
       </section>
       <section class="sk-panel ev-slide ev-explainer-slide" id="sk-revision-method" tabindex="-1" aria-labelledby="sk-revision-method-title">
@@ -5155,20 +5302,50 @@ description: Check reported metrics when
         </section>`).join("")}
       ${experimentTasks.map((task, i) => `
         <section class="sk-panel ev-slide ev-results-slide" data-experiment-task="${task.id}" id="sk-result-${task.id}" tabindex="-1" aria-labelledby="sk-result-${task.id}-title">
-          ${heading(`E${i + 1}`, `sk-result-${task.id}-title`, zh ? "TRL GRPO 调试：三组对照试运行" : "TRL GRPO debugging: three-arm pilot")}
-          <div class="ev-results-config">
-            <p><b>${zh ? "生成端：" : "Generator: "}</b>Kimi K3.1 Pro <code>kimi-k3.1-pro</code></p>
-            <p><b>${zh ? "三组共同执行器：" : "Shared executor: "}</b>Claude Code 2.1.270 + DeepSeek Flash <code>deepseek-flash</code></p>
+          ${heading(`E${i + 1}`, `sk-result-${task.id}-title`, task.id === "summary" ? (zh ? "实验阶段总览：得分与未完成状态" : "Experiment snapshot: scores and unfinished runs") : task.name)}
+          ${task.id === "summary" ? `
+          <p class="ev-results-note">${zh ? "统计快照：" : "Snapshot: "}${experimentSnapshot.capturedAt} · ${zh ? "不是最终报告，待完成项不记零。" : "Not a final report; unfinished entries are not zero."}</p>
+          <div class="ev-results-stats">
+            <div><b>${completedExperimentRuns}</b><span>${zh ? "Claude Code 正式评分记录" : "Official Claude Code scores"}</span></div>
+            <div><b>1</b><span>${zh ? "不同协议的 Codex 历史基线" : "Separate-protocol Codex baseline"}</span></div>
+            <div><b>${unfinishedExperimentRuns}</b><span>${zh ? "未获最终评分的记录" : "Records without a final score"}</span></div>
+            <div><b>${experimentSnapshot.excludedRuns}</b><span>${zh ? "已排除的首次 TRL 试跑" : "Excluded initial TRL runs"}</span></div>
           </div>
-          <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "debug-trl-grpo 三组实验结果，可横向滚动" : "debug-trl-grpo three-arm results; horizontally scrollable"}">
-            <table class="ev-table" id="ev-pilot-${task.id}">
-              <caption>SkillsBench${authorsButton(1)} · ${task.title} · 2026-10-26 · ${zh ? "任务版本" : "task commit"} <code>b63b7b285022</code></caption>
-              <thead><tr><th scope="col">${zh ? "实验条件" : "Condition"}</th><th scope="col">${zh ? "官方 reward" : "Official reward"}</th><th scope="col">${zh ? "执行耗时（秒）" : "Execution time (s)"}</th><th scope="col">${zh ? "输出 tokens" : "Output tokens"}</th></tr></thead>
-              <tbody>${task.rows.map(row => `<tr data-result-arm="${row.id}"><th scope="row">${row.label}<small>${row.artifact}</small></th><td>${row.reward.toFixed(2)}</td><td>${row.seconds.toFixed(3)}</td><td>${fmtCount(row.outputTokens)}</td></tr>`).join("")}</tbody>
+          <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "七个任务的官方奖励与状态，可横向滚动" : "Official rewards and status for seven tasks; horizontally scrollable"}">
+            <table class="ev-table" id="ev-experiment-overview">
+              <caption>${zh ? "点击任务名查看明细；不同题目的 reward 量尺不同，不计算混合均值排名。" : "Select a task for details. Reward scales differ; no mixed-score average ranking."}</caption>
+              <thead><tr><th scope="col">${zh ? "测试题目" : "Task"}</th><th scope="col">Kimi<br>2026-10-26</th><th scope="col">${zh ? "人工" : "Human"}<br>2026-10-26</th><th scope="col">${zh ? "无 Skill" : "No Skill"}<br>2026-10-26</th><th scope="col">Haiku<br>${zh ? "10-27 追加" : "Oct 27 addition"}</th></tr></thead>
+              <tbody>${experimentTaskResults.map(result => `<tr data-overview-task="${result.id}"><th scope="row"><button type="button" class="ev-slide-link" data-sk-target="sk-result-${result.id}">${result.title}</button></th>${["kimi", "human", "none", "haiku"].map(arm => {
+                if (result.id === "react-performance-debugging" && arm === "haiku") return `<td>${zh ? "本轮未选择" : "Not selected"}</td>`;
+                const row = result.rows.find(item => item.arm === arm);
+                return `<td>${row.reward === null ? experimentStatuses[row.status] : resultReward(result, row)}</td>`;
+              }).join("")}</tr>`).join("")}</tbody>
             </table>
           </div>
-          <p class="ev-results-note">${zh ? "每组仅 1 次，展示统一关闭内置 Skill discovery 后的有效轮次。0.60 是官方加权 reward，不是全部测试的通过率；耗时不含 Skill 生成、镜像构建和外部评分。" : "One run per arm, using the corrected protocol with built-in Skill discovery disabled in every arm. 0.60 is the official weighted reward, not a test pass rate. Time excludes Skill generation, image build and external grading."}</p>
-          <p class="ev-results-note">${zh ? "来源：本地冻结实验汇总与 comparison.csv。AI 单文件与官方多文件资源包并非等资源对照，不能据此认定两类 Skill 等效或某类更优。" : "Source: frozen local experiment summary and comparison.csv. The AI single-file artifact and official multi-file package are not resource-matched; this pilot does not establish equivalence or superiority."}</p>
+          <p class="ev-results-note">${zh ? "日期例外：React 的三条尝试均来自 10 月 27 日，未产生正式模型得分。有效完成总数为 24（23 条 Claude 记录 + 1 条 Codex 历史记录），不是 24 个任务，也不是 24 次同期对照。" : "Date exception: all three React attempts are from Oct 27 and have no official model score. There are 24 included completions (23 Claude records + 1 historical Codex record), not 24 tasks or 24 concurrent controlled trials."}</p>
+          <p class="ev-results-note">${experimentProtocolNote}</p>
+          <p class="ev-results-note">${zh ? "* JAX：隐藏参考目录后题面未明确 RNN 乘法方向，零分保留但能力解释受限。React 的预检 reward 0 不是模型成绩；Haiku TF-IDF 无评分不等于失败。" : "* JAX: hiding reference answers left RNN multiplication orientation underspecified; original zeros are retained with limited capability interpretation. React's preflight reward 0 is not a model score; unscored Haiku TF-IDF is not a failure."}</p>
+          <p class="ev-results-note">${zh ? "另列历史基线：Codex CLI + DeepSeek Flash、无 Skill、TRL reward" : "Separate historical baseline: Codex CLI + DeepSeek Flash, no Skill, TRL reward"} <b>${experimentSnapshot.separateCodexReward.toFixed(2)}</b> · ${zh ? "执行器 / 协议不同，不与 Claude 组作 Skill 因果比较。" : "Different executor/protocol; not a controlled Skill comparison with Claude runs."}</p>
+          ${experimentEvidence(null)}
+          ` : `
+          <p class="ev-intro">${task.description}</p>
+          <div class="ev-results-config">
+            <p><b>${zh ? "共同执行器：" : "Shared executor: "}</b>Docker · Claude Code + DeepSeek Flash <code>deepseek-flash</code></p>
+            <p><b>${zh ? "Skill 生成器：" : "Skill generators: "}</b>Kimi <code>kimi-k3.1-pro</code>${task.id === "react-performance-debugging" ? (zh ? "（生成受阻；Haiku 本轮未选择）" : " (blocked; Haiku not selected)") : ` / Haiku <code>claude-haiku-5.5</code>`} · ${zh ? "快照" : "snapshot"} ${experimentSnapshot.capturedAt}</p>
+          </div>
+          <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${task.title} · ${zh ? "结果与状态，可横向滚动" : "results and status; horizontally scrollable"}">
+            <table class="ev-table" id="ev-pilot-${task.id}">
+              <caption>SkillsBench${authorsButton(1)} · ${task.title} · ${zh ? "任务版本" : "task commit"} <code>${experimentSnapshot.commit.slice(0, 12)}</code></caption>
+              <thead><tr><th scope="col">${zh ? "条件 · 日期" : "Condition · date"}</th><th scope="col">${zh ? "官方 reward" : "Official reward"}</th><th scope="col">${zh ? "状态" : "Status"}</th><th scope="col">${zh ? "执行耗时（秒）" : "Execution time (s)"}</th><th scope="col">${zh ? "累计输出 tokens" : "Aggregate output tokens"}</th></tr></thead>
+              <tbody>${task.rows.map(row => `<tr data-result-arm="${row.arm}" data-result-status="${row.status}" data-result-source="${row.source}"><th scope="row">${experimentArms[row.arm].label}<small>${experimentArms[row.arm].artifact} · ${experimentBatches[row.batch].date}</small></th><td>${resultReward(task, row)}</td><td class="ev-result-status">${experimentStatuses[row.status]}</td><td>${row.seconds === null ? "—" : row.seconds.toFixed(3)}</td><td>${row.outputTokens === null ? "—" : fmtCount(row.outputTokens)}</td></tr>`).join("")}</tbody>
+            </table>
+          </div>
+          <p class="ev-results-note"><b>${zh ? "评分含义：" : "Score meaning: "}</b>${task.metric}</p>
+          <p class="ev-results-note"><b>${zh ? "本次观察：" : "Observed: "}</b>${task.observation}</p>
+          <p class="ev-results-note"><b>${zh ? "解释限制：" : "Interpretation limits: "}</b>${task.caveat}</p>
+          <p class="ev-results-note">${experimentProtocolNote}</p>
+          ${experimentEvidence(task)}
+          `}
         </section>`).join("")}
       </div>
       <button type="button" class="ev-side-nav" id="ev-next" aria-label="${zh ? "下一页" : "Next slide"}" title="${zh ? "下一页" : "Next slide"}" aria-controls="ev-topic-panel" aria-keyshortcuts="ArrowRight PageDown"><span aria-hidden="true">›</span></button>
