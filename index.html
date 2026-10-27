@@ -1601,7 +1601,7 @@
   .ev-deck-message{font-size:12px;color:#AC5045;text-align:center}
   .ev-slide-link{border:0;background:none;padding:6px 0;color:var(--sk-blue);font:500 12px var(--sans);cursor:pointer}
   .ev-plan-status{display:inline-block;padding:4px 10px;border-radius:99px;background:#FFF1D9;color:#886124;font-size:11px;font-weight:600}
-  .ev-plan-groups,.ev-plan-checks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
+  .ev-plan-groups{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
   .ev-plan-card{min-width:0;padding:18px;border:1px solid var(--sk-line);border-radius:14px;background:#F6F9FC}
   .ev-plan-card.ai{background:#EEF3FC;border-color:#CFDCF0}
   .ev-plan-card.human{background:#EDF7F2;border-color:#C9E2D6}
@@ -1613,10 +1613,6 @@
   .ev-plan-metrics>div{padding:16px 18px;border:1px solid var(--sk-line);border-radius:12px}
   .ev-plan-metrics h3{font-size:14px;margin:0 0 10px;color:var(--sk-blue)}
   .ev-plan-metrics p{font-size:12px;line-height:1.8;color:var(--sk-muted);margin:8px 0 0}
-  .ev-plan-formula{font-size:16px;font-weight:600;line-height:1.8;color:#246F61}
-  .ev-plan-checks .ev-plan-card{padding:14px 16px}
-  .ev-plan-checks h3{font-size:14px;margin:6px 0 8px}
-  .ev-plan-checks p{font-size:12px}
   #sk-experiment{padding:10px 20px}
   #sk-experiment .sk-heading{margin-bottom:0}
   #sk-experiment .ev-plan-status{margin-left:12px;vertical-align:middle}
@@ -1707,12 +1703,11 @@
   @media print{.ev-flow-packet{display:none}}
   @media print{.ev-task-heading>button{display:none}.ev-flow{min-width:0}.ev-docker-overview,.ev-docker-overview[hidden]{display:grid!important}.ev-docker-detail{display:none!important}.ev-condition-input>.ev-pipeline-connector{display:block!important}.ev-docker-row,.ev-condition-input .ev-flow-node{print-color-adjust:exact}}
   @media(max-width:760px){
-    .ev-plan-groups,.ev-plan-checks,.ev-plan-metrics{grid-template-columns:1fr}
+    .ev-plan-groups,.ev-plan-metrics{grid-template-columns:1fr}
   }
   @media(min-width:761px) and (max-height:820px){
-    .ev-plan-groups,.ev-plan-checks{margin:10px 0}
+    .ev-plan-groups{margin:10px 0}
     .ev-plan-groups .ev-plan-card{padding:14px 18px}
-    .ev-plan-checks .ev-plan-card{padding:10px 16px}
     .ev-plan-metrics{margin:12px 0}
     .ev-plan-metrics>div{padding:12px 18px}
     .ev-slide{padding:24px 30px}
@@ -4727,8 +4722,8 @@ description: Check reported metrics when
     }];
     const slideTitles = [
       ...(zh
-        ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "SkillsBench：同模型自写自用", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "SkillRevise：条件与结果", "SkillRevise：方法流程", "SkillRevise：修订预算与边界", "结论与证据边界", "我的实验：任务容器与 Oracle", "实验控制与评价指标", "原始论文", "附录：完整对照数据"]
-        : ["Research question", "Three key figures", "Curated vs. AI-generated", "SkillsBench: self-generation protocol", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "SkillRevise: conditions and results", "SkillRevise: method", "SkillRevise: budget and boundaries", "Conclusions and limits", "My experiment: task container & oracle", "Controls and evaluation metrics", "Primary sources", "Appendix: full comparison"]),
+        ? ["研究问题", "三个关键数字", "人工整理 vs AI 生成", "SkillsBench：同模型自写自用", "未见任务：负迁移", "未见任务：具体数据", "固定 Skill 跨模型迁移", "SkillRevise：条件与结果", "SkillRevise：方法流程", "SkillRevise：修订预算与边界", "结论与证据边界", "我的实验：任务容器与 Oracle", "原始论文", "附录：完整对照数据"]
+        : ["Research question", "Three key figures", "Curated vs. AI-generated", "SkillsBench: self-generation protocol", "Held-out: negative transfer", "Held-out: exact results", "Fixed-Skill cross-model transfer", "SkillRevise: conditions and results", "SkillRevise: method", "SkillRevise: budget and boundaries", "Conclusions and limits", "My experiment: task container & oracle", "Primary sources", "Appendix: full comparison"]),
       ...researchQuestions.map((question, i) => `RQ${i + 1} · ${question.title}`),
       ...basicsPages.map(page => `${zh ? "什么是 Skill" : "What is a Skill"} · ${page.title}`),
       ...experimentTasks.map(task => `${zh ? "实验结果" : "Experiment results"} · ${task.title}`)
@@ -4957,21 +4952,6 @@ description: Check reported metrics when
         <div class="ev-flow-detail" id="ev-flow-detail" aria-live="polite" aria-atomic="true"><h3>${zh ? "三个独立容器：同一模型、同一 Harness、同一题目与 Oracle，仅 Skill 条件不同" : "Three isolated containers: same model, harness, task and oracle; only the Skill condition changes"}</h3><p>${zh ? "借鉴" : "Inspired by"} <a href="https://www.swebench.com/SWE-bench/guides/evaluation/" target="_blank" rel="noopener">SWE-bench ${zh ? "容器化评测" : "containerized evaluation"}</a>${zh ? "；配置仅为研究示例，非实测结果。点击 Docker 查看内部。" : "; illustrative setup, not measured results. Select a Docker to inspect it."}</p></div>
       </section>
 
-      <section class="sk-panel ev-slide" id="sk-experiment-controls" tabindex="-1" aria-labelledby="sk-controls-title">
-        ${heading("06", "sk-controls-title", zh ? "如何分清“写得差”与“迁移后变差”？" : "Separate initial quality from transfer degradation")}
-        <div class="ev-section-meta"><span class="ev-plan-status">${zh ? "实验提案 · 控制与度量" : "Proposed study · controls and metrics"}</span><span>${zh ? "先做三组 pilot，再补源环境三组评估" : "Start with a three-condition pilot, then add source-environment evaluation"}</span></div>
-        <div class="ev-plan-checks">
-          <article class="ev-plan-card"><h3>${zh ? "01 / 任务与 Oracle 隔离" : "01 / Task–oracle isolation"}</h3><p>${zh ? "固定任务镜像，agent 仅见题目与公开工作区。结束后在新的干净评测容器中注入私有 oracle；每个任务 × 条件 × 重复运行独立重置，不向 agent 暴露评测测试。" : "Pin the task image; expose only the problem and public workspace to the agent. After stopping it, inject the private oracle in a fresh evaluation container. Reset per task × condition × repeat; never expose grading tests to the agent."}</p></article>
-          <article class="ev-plan-card"><h3>${zh ? "02 / 公平生成与执行" : "02 / Fair comparison"}</h3><p>${zh ? "匹配可见资料、工具与验证机会；分别记录人类工时、AI token 与修订预算。随机运行顺序，用统一评分器。" : "Match evidence, tools and validation access; record human hours, AI tokens and revision budgets separately. Randomize run order; use one scorer."}</p></article>
-          <article class="ev-plan-card"><h3>${zh ? "03 / 重复与归因" : "03 / Replication"}</h3><p>${zh ? "多份独立 Skill、多位人工作者、重复运行并报告配对置信区间。后续拆分只换模型 / 只换 harness / 两者都换。" : "Use independent Skills, multiple human authors, repeated runs and paired confidence intervals. Later vary model only, harness only, or both."}</p></article>
-        </div>
-        <div class="ev-plan-metrics">
-          <div><h3>${zh ? "主指标 / 目标环境净收益" : "Primary / target-environment gain"}</h3><div class="ev-plan-formula">G<sub>AI,B</sub> = S<sub>AI,B</sub> − S<sub>None,B</sub><br>G<sub>Human,B</sub> = S<sub>Human,B</sub> − S<sub>None,B</sub></div><p>${zh ? "S 为任务成功率；比较两种净收益，并同时报告 token、耗时与工具调用数。不把成功率差称为“迁移率”。" : "S is task success rate. Compare net gains; also report tokens, latency and tool calls. A success-rate gap is not a transfer rate."}</p></div>
-          <div><h3>${zh ? "扩展 / 源环境也做三组评估" : "Extension / evaluate all three at source too"}</h3><div class="ev-plan-formula">T = (G<sub>AI,B</sub> − G<sub>AI,A</sub>)<br>− (G<sub>Human,B</sub> − G<sub>Human,A</sub>)</div><p>${zh ? "A、B 均使用未参与编写的评估任务。T &lt; 0 表示 AI 收益变化更不利；结合任务难度解释，不能只凭目标表现归因迁移。" : "Use held-out evaluation tasks at A and B. T &lt; 0 means a less favorable gain change for AI; interpret alongside task difficulty, not as a standalone causal claim."}</p></div>
-        </div>
-        <p class="sk-note">${zh ? "待 pilot 决定：基准、模型与 harness 组合、作者人数及重复次数。全部在正式测试前固定，不预设或补造实验结果。" : "Pilot decisions: benchmark, model–harness pairs, author count and repeats. Freeze the protocol before final testing; no results are assumed or fabricated."}</p>
-      </section>
-
       <section class="sk-panel ev-slide ev-explainer-slide" id="sk-revision" tabindex="-1" aria-labelledby="sk-revision-title">
         ${heading("S1", "sk-revision-title", zh ? "先分清：独立基线与修订链" : "Separate baselines from the revision chain", cite(3))}
         <div class="ev-section-meta"><span>SkillsBench${authorsButton(1)} · 86 ${zh ? "题" : "tasks"} · Table 1</span><span>GPT-5.5 · Codex ACP · Docker BenchFlow</span></div>
@@ -5184,7 +5164,7 @@ description: Check reported metrics when
         </div>
       </section>`);
     const allSlides = Array.from(stage.querySelectorAll(".ev-slide"));
-    const methodSlides = new Set(["sk-experiment", "sk-experiment-controls"]);
+    const methodSlides = new Set(["sk-experiment"]);
     const topicForSlide = slide => methodSlides.has(slide.id) ? "method" : slide.hasAttribute("data-research-question") ? "research" : slide.hasAttribute("data-skill-basics") ? "basics" : slide.hasAttribute("data-experiment-task") ? "results" : "evidence";
     const topics = {
       evidence: allSlides.filter(slide => topicForSlide(slide) === "evidence"),
