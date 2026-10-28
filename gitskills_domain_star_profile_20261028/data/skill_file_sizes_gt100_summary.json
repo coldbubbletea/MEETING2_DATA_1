@@ -1,0 +1,114 @@
+{
+  "threshold_stars": 100,
+  "integrity": {
+    "big_repositories": 11376,
+    "b_shas": 187727,
+    "candidate_representatives": 187727,
+    "a_skills": 128382,
+    "candidate_length_mismatch": 0,
+    "candidate_content_missing": 0,
+    "sibling_sample_check": {
+      "file": "part-00000.parquet",
+      "sampled": 5000,
+      "size_matches_content": 4993,
+      "blob_sha_matches_content": 4989
+    },
+    "all_representatives": {
+      "representatives": 1877981,
+      "skill_md_bytes": 14403198309,
+      "folder_bytes_recorded": 318117697665,
+      "composition_truncated": 252250,
+      "composition_unfetched": 1544
+    }
+  },
+  "A": {
+    "selection": "A_representative_repo_gt100",
+    "skills": 128382,
+    "skill_md_bytes": 958665240,
+    "skill_md_blob_unverified": 0,
+    "per_skill_sum_bytes": 12237802986,
+    "union_files": 500876,
+    "union_bytes": 12029642943,
+    "nested_overlap_bytes": 208160043,
+    "fetched_skills_table_bytes": 12237777342,
+    "fetched_skills_recorded_bytes": 19661590117,
+    "folder_conflicts": 0,
+    "union_conflicts": 143,
+    "per_skill_median_bytes": 6003.0,
+    "per_skill_p90_bytes": 40670,
+    "per_skill_p99_bytes": 731963,
+    "per_skill_max_bytes": 296731692,
+    "by_status": {
+      "composition_complete": {
+        "skills": 98698,
+        "per_skill_bytes": 9062683229,
+        "files": 380427
+      },
+      "composition_truncated": {
+        "skills": 29681,
+        "per_skill_bytes": 3175094113,
+        "files": 129504
+      },
+      "composition_unfetched": {
+        "skills": 3,
+        "per_skill_bytes": 25644,
+        "files": 3
+      }
+    }
+  },
+  "B": {
+    "selection": "B_any_copy_gt100",
+    "skills": 187727,
+    "skill_md_bytes": 1432090282,
+    "skill_md_blob_unverified": 0,
+    "per_skill_sum_bytes": 15604522152,
+    "union_files": 722604,
+    "union_bytes": 15386744082,
+    "nested_overlap_bytes": 217778070,
+    "fetched_skills_table_bytes": 15602571185,
+    "fetched_skills_recorded_bytes": 23301982385,
+    "folder_conflicts": 0,
+    "union_conflicts": 143,
+    "per_skill_median_bytes": 6504,
+    "per_skill_p90_bytes": 42379,
+    "per_skill_p99_bytes": 617965,
+    "per_skill_max_bytes": 343432357,
+    "by_status": {
+      "composition_complete": {
+        "skills": 144971,
+        "per_skill_bytes": 11784369291,
+        "files": 572232
+      },
+      "composition_truncated": {
+        "skills": 42607,
+        "per_skill_bytes": 3818201894,
+        "files": 160519
+      },
+      "composition_unfetched": {
+        "skills": 149,
+        "per_skill_bytes": 1950967,
+        "files": 149
+      }
+    }
+  },
+  "A_bands": [
+    {
+      "band_stars": "101-999",
+      "skills": 75327,
+      "per_skill_bytes": 8834701801,
+      "files": 330061
+    },
+    {
+      "band_stars": "1000-9999",
+      "skills": 49666,
+      "per_skill_bytes": 3145826916,
+      "files": 166246
+    },
+    {
+      "band_stars": ">=10000",
+      "skills": 3389,
+      "per_skill_bytes": 257274269,
+      "files": 13627
+    }
+  ]
+}
