@@ -1588,6 +1588,26 @@
   .ev-slide.ev-explainer-slide .ev-gitskills-table th,.ev-slide.ev-explainer-slide .ev-gitskills-table td{padding:5px 10px}
   .ev-gitskills-table td{white-space:normal;line-height:1.65}
   @media(max-width:760px){.ev-gitskills-cards{grid-template-columns:1fr}}
+  .ev-profile-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin:12px 0}
+  .ev-profile-chart{margin:0;padding:10px;border:1px solid var(--sk-line);border-radius:14px;background:#F6F9FC;min-width:0}
+  .ev-profile-chart figcaption{font-size:12px;font-weight:600;color:var(--sk-blue);line-height:1.6}
+  .ev-profile-chart svg{display:block;width:130px;height:130px;max-width:100%;margin:6px auto}
+  .ev-profile-chart ul{list-style:none;padding:0;margin:0;display:grid;gap:3px}
+  .ev-profile-chart li{display:flex;align-items:baseline;gap:7px;font-size:11px;line-height:1.55;color:var(--sk-muted)}
+  .ev-profile-chart li i{display:inline-block;width:9px;height:9px;flex:none;border-radius:2px}
+  .ev-profile-chart li span{flex:1}
+  .ev-profile-chart li b{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .ev-profile-chart li button{display:flex;align-items:baseline;gap:7px;flex:1;min-width:0;border:1px solid var(--sk-blue);border-radius:6px;padding:7px;background:#E7F1FA;color:var(--sk-blue);font:inherit;text-align:left;cursor:pointer}
+  .ev-profile-chart a path{cursor:pointer}
+  .ev-profile-chart a:focus path,.ev-profile-chart a:hover path{stroke:#153953;stroke-width:2}
+  .ev-profile-chart li button:focus-visible{outline:2px solid var(--sk-blue);outline-offset:3px}
+  .ev-profile-copy{font-size:12px;line-height:1.8;color:var(--sk-muted);min-width:0}
+  .ev-profile-copy ul{padding-left:18px}
+  .ev-profile-details{margin-top:12px;font-size:11px;color:var(--sk-muted)}
+  .ev-profile-details summary{cursor:pointer;padding:7px 0;color:var(--sk-blue)}
+  .ev-profile-copy code,.ev-profile-source{overflow-wrap:anywhere}
+  @media(max-width:760px){.ev-profile-grid{grid-template-columns:1fr}}
+  @media print{.ev-profile-chart{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
   @media(max-width:760px){.ev-results-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
   .ev-research-slide{display:grid;align-content:center;gap:22px;background:linear-gradient(125deg,#EDF4F8,#FFF 70%)}
   .ev-research-label{margin:0;color:var(--sk-blue);font-size:12px;font-weight:600;letter-spacing:.08em}
@@ -4891,6 +4911,81 @@ description: Check reported metrics when
           ${basicsSources("overview", "specification", "anthropic")}`
       }
     ];
+    const gitSkillsProfile = {
+      revision: "ebab17454a7c236f8f26b183567f1a126f42e3f8",
+      total: 1877981,
+      domains: [
+        ["其他/未归类", "Other / unclassified", 287988],
+        ["Agent 与 Skill 工具链", "Agent and Skill tooling", 153336],
+        ["版本控制与协作", "Version control and collaboration", 131719],
+        ["测试与 QA", "Testing and QA", 127514],
+        ["软件架构与规划", "Architecture and planning", 117997],
+        ["前端与 UI", "Front-end and UI", 105215],
+        ["代码审查与质量", "Code review and quality", 105157],
+        ["设计与多媒体", "Design and multimedia", 93260],
+        ["DevOps 与云", "DevOps and cloud", 87198],
+        ["后端与 API", "Back-end and APIs", 84384],
+        ["文档与办公", "Documents and office", 76510],
+        ["安全与审计", "Security and auditing", 61756],
+        ["写作与营销", "Writing and marketing", 54962],
+        ["编程语言与框架", "Languages and frameworks", 52089],
+        ["科研与学术", "Science and academia", 45701],
+        ["AI 与机器学习", "AI and machine learning", 42928],
+        ["个人效率与生活", "Personal productivity", 41734],
+        ["数据分析与可视化", "Data analysis and visualization", 34519],
+        ["数据库与数据工程", "Databases and data engineering", 33970],
+        ["金融与会计", "Finance and accounting", 28000],
+        ["自动化与爬虫", "Automation and scraping", 24202],
+        ["商业与电商", "Business and commerce", 20959],
+        ["教育与培训", "Education and training", 20574],
+        ["医疗健康", "Healthcare", 18717],
+        ["法律与合规", "Law and compliance", 17561],
+        ["游戏", "Games", 10031]
+      ]
+    };
+    const profileNumber = value => value.toLocaleString(zh ? "zh-CN" : "en-US");
+    const profileLink = (file, label) => `<a href="gitskills_domain_star_profile_20261028/${file}" target="_blank" rel="noopener">${label} ↗</a>`;
+    const highStarCounts = [6841, 10144, 25638, 7754, 5507, 5620, 6088, 5861, 5781, 4485, 4710, 6107, 4033, 3504, 5009, 2269, 2355, 2248, 1952, 2076, 3394, 1328, 1350, 1959, 1869, 500];
+    const highStarDomains = gitSkillsProfile.domains.map((row, i) => [row[0], row[1], highStarCounts[i]]).sort((a, b) => b[2] - a[2]);
+    const highStarLabelled = highStarDomains.filter(row => row[0] !== "其他/未归类");
+    const highStarTotal = 128382;
+    const highStarLanguages = [
+      ["英语", "English", 91191],
+      ["汉语", "Chinese", 10528],
+      ["中英混合", "English–Chinese mixed", 57],
+      ["其他语言", "Other languages", 25926],
+      ["无法判断", "Undetermined", 680]
+    ];
+    const languageProfileSource = `${zh ? "本地自动语言识别 · 2026-11-01 · 非人工标注" : "Local automatic language identification · 2026-11-01 · not human annotation"} · ${profileLink("REPORT_ZH.md", zh ? "统计方法 §11" : "Method §11")} · ${profileLink("data/skill_languages_gt100_summary.json", "JSON")} · ${profileLink("data/skill_languages_gt100.csv", zh ? "语言统计 CSV" : "Language counts CSV")}`;
+    const profileSource = `${zh ? "本地分析 · 2026-10-29 · 非论文结论" : "Local analysis · 2026-10-29 · not paper findings"} · ${profileLink("REPORT_ZH.md", zh ? "交接报告 §9" : "Handoff report §9")} · ${profileLink("data/skill_file_sizes_gt100_summary.json", "JSON")} · ${profileLink("data/skill_domains_gt100.csv", zh ? ">100 星领域 CSV" : ">100-star domain CSV")}`;
+    const profileBack = `<button type="button" class="ev-slide-link" data-profile-exit>${zh ? "← 返回全部 Skill，重新查看星标筛选" : "← Back to all Skills and star selection"}</button>`;
+    const profileDonut = (id, title, segments, center, subtitle, counts = false) => {
+      const total = segments.reduce((sum, segment) => sum + segment.value, 0);
+      let offset = 0;
+      const palette = ["#245B91", "#36786D", "#A46224", "#8666A8", "#3B8AAB", "#64748B", "#BCC8D3"];
+      const sectors = segments.map((segment, i) => {
+        const share = segment.value / total * 100;
+        const point = (radius, percent) => {
+          const angle = percent / 100 * Math.PI * 2 - Math.PI / 2;
+          return `${90 + radius * Math.cos(angle)},${90 + radius * Math.sin(angle)}`;
+        };
+        const large = share > 50 ? 1 : 0;
+        const sector = `<path d="M${point(77.5, offset)} A77.5,77.5 0 ${large},1 ${point(77.5, offset + share)} L${point(54.5, offset + share)} A54.5,54.5 0 ${large},0 ${point(54.5, offset)} Z" fill="${palette[i]}" data-share="${share}"/>`;
+        offset += share;
+        return segment.enter ? `<a href="?meeting=2&amp;section=gitskills&amp;slide=7&amp;profile=gt100&amp;lang=${LANG}#aidev-skills" data-profile-enter aria-label="${zh ? "进入 >100 星 Skill 分类" : "Explore >100-star Skill domains"}"><title>${segment.label}</title>${sector}</a>` : sector;
+      }).join("");
+      return `<figure class="ev-profile-chart" data-profile-chart="${id}">
+        <figcaption id="${id}-caption">${title}</figcaption>
+        <svg viewBox="0 0 180 180" role="${segments.some(segment => segment.enter) ? "group" : "img"}" aria-labelledby="${id}-caption ${id}-description">
+          <desc id="${id}-description">${segments.map(segment => `${segment.label}: ${(segment.value / total * 100).toFixed(2)}%`).join("; ")}</desc>
+          ${sectors}<text x="90" y="88" text-anchor="middle" fill="#245B91" font-size="21" font-weight="700">${center}</text><text x="90" y="108" text-anchor="middle" fill="#52677B" font-size="10">${subtitle}</text>
+        </svg>
+        <ul>${segments.map((segment, i) => {
+          const label = `<span>${segment.label}</span><b>${counts ? `${profileNumber(segment.value)} · ` : ""}${(segment.value / total * 100).toFixed(2)}%</b>`;
+          return `<li><i style="background:${palette[i]}" aria-hidden="true"></i>${segment.enter ? `<button type="button" data-profile-enter>${label}</button>` : label}</li>`;
+        }).join("")}</ul>
+      </figure>`;
+    };
     const gitSkillsPages = [
       {
         id: "overview", title: zh ? "论文与数据规模" : "Paper and scope",
@@ -4902,7 +4997,8 @@ description: Check reported metrics when
             <article><b>282,200</b><span>${zh ? "公开仓库 · 195,841 个拥有者账号" : "Public repositories · 195,841 owner accounts"}</span></article>
           </div>
           <p class="ev-gitskills-callout">${zh ? "<b>不要把 380 万理解成 380 万种独立 Skill。</b>论文报告 50.5% 的文件出现是重复副本；同一文本可能被很多仓库复制，但配套脚本和历史未必相同。" : "<b>3.8 million occurrences are not 3.8 million independent Skills.</b> The paper reports 50.5% duplicate occurrences. Identical texts can appear in many repositories with different bundled scripts or histories."}</p>
-          <p class="sk-note">${zh ? "采集时间：2026 年 7 月；本页固定 v3（2026-09-11）。这是一篇 3 页的数据集论文，文中的“潜在研究问题”不等于已经做完实验的结论。" : "Collected in July 2026; this page fixes v3 (2026-09-11). This is a three-page dataset paper; its potential research questions are not completed experimental findings."}</p>`
+          <p class="sk-note">${zh ? "采集时间：2026 年 7 月；本页固定 v3（2026-09-11）。这是一篇 3 页的数据集论文，文中的“潜在研究问题”不等于已经做完实验的结论。" : "Collected in July 2026; this page fixes v3 (2026-09-11). This is a three-page dataset paper; its potential research questions are not completed experimental findings."}</p>
+          <button type="button" class="ev-slide-link" data-sk-target="sk-gitskills-profile-stars">${zh ? "查看全部 Skill → 筛选 >100 星 → 领域与文件画像" : "All Skills → select >100 stars → domain and file profile"}</button>`
       },
       {
         id: "construction", title: zh ? "采集方法与数据结构" : "Collection and schema",
@@ -4962,6 +5058,109 @@ description: Check reported metrics when
           <div class="ev-gitskills-links">${gitSkillsDataLinks.map(([href, label]) => `<a href="${href}" target="_blank" rel="noopener">${label} ↗</a>`).join("")}</div>
           <p class="sk-note">${zh ? "官方样本 README：全集 SQLite 约 41 GB；样本约 277 MB，含 29,786 次文件出现、13,000 种内容和 11,841 个仓库。样本不等于全集；Hugging Face 的 train 是存储 split 名，不是本研究的训练 / 测试划分。Zenodo 链接来自论文，本次访问受阻，未验证下载。" : "Sample README: full SQLite about 41 GB; sample about 277 MB with 29,786 occurrences, 13,000 contents and 11,841 repositories. The sample is not the full dataset. Hugging Face's train is a storage split name, not our experiment split. Zenodo is paper-linked; access was blocked and downloading was not verified."}</p>
           ${reference(4, `<b>Destefanis, Graziotin, Vaccargiu &amp; Ortu. GitSkills: A Dataset of Agent Skills on GitHub.</b><br>arXiv:2608.10906v3 · 2026-09-11 · ${zh ? "论文标注 MSR ’27 · To appear" : "Paper states MSR ’27 · To appear"}<br><a href="https://arxiv.org/abs/2608.10906v3" target="_blank" rel="noopener">${zh ? "固定版本条目" : "Fixed-version record"} ↗</a> · <a href="https://arxiv.org/pdf/2608.10906v3" target="_blank" rel="noopener">PDF ↗</a>`)}`
+      },
+      {
+        id: "profile-stars", title: zh ? "数据画像：先筛选星标" : "Data profile: select stars first", profile: true,
+        content: `
+          <p class="ev-intro">${zh ? "<b>第一步：从全部 Skill 中选出 >100 星部分。</b>每种不同内容计一次，stars 取代表副本所在仓库；不是每份复制文件，也不是任一副本的最高星标。" : "<b>Step 1: select the >100-star subset from all Skills.</b> Count each distinct content once, using its representative repository's stars, not every copy or the highest-star copy."}</p>
+          <div class="ev-profile-grid">
+            ${profileDonut("gitskills-all-stars", zh ? "全部 Skill · 点击蓝色 >100 星扇区或下方按钮" : "All Skills · select the blue >100-star sector or button", [
+              {label: zh ? ">100 星 · 点击进入 →" : ">100 stars · explore →", value: 128382, enter: true},
+              {label: zh ? "≤100 星（含恰好 100 星）" : "≤100 stars (including exactly 100)", value: 1748812},
+              {label: zh ? "星标缺失（不算 0）" : "Stars unknown (not zero)", value: 787}
+            ], "1,877,981", zh ? "全部不同内容" : "all distinct contents", true)}
+            <div class="ev-profile-copy">
+              <h3>${zh ? "128,382 种 · 占全部 6.84%" : "128,382 contents · 6.84% of all"}</h3>
+              <p>${zh ? "选中后再查看领域分类、星标分段、文件大小与数据限制。后续领域占比统一以 <b>128,382</b> 为分母，不混用全量分类。" : "Select first, then explore domains, star bands, file sizes and limitations. All downstream domain shares use <b>128,382</b>, not the full-corpus distribution."}</p>
+              <p class="ev-gitskills-callout">${zh ? "<b>严格 >100，不是 ≥100。</b>恰好 100 星的 516 种内容留在 ≤100 星组。若采用“任一副本 >100 星”，则有 187,727 种；这只是替代口径，未用于后续分类。" : "<b>Strictly >100, not ≥100.</b> The 516 contents at exactly 100 stars stay in the ≤100 group. Any-copy >100 selects 187,727 contents; this alternative is not used for the following profiles."}</p>
+              <p>${zh ? "高星只是筛选条件，不代表效果已验证。交接：d2ea58f · P0-handoff-gitskills-domain-stars-20261029。" : "Stars are a selection rule, not evidence of effectiveness. Handoff: d2ea58f · P0-handoff-gitskills-domain-stars-20261029."}</p>
+            </div>
+          </div>`
+      },
+      {
+        id: "profile-domains", title: zh ? ">100 星：领域分类" : ">100 stars: domains", profile: true, highStar: true,
+        content: `
+          ${profileBack}
+          <p class="ev-intro">${zh ? "<b>已筛选：代表仓库 >100 星 · 128,382 种内容。</b>沿用原关键词规则重新统计；这里不再展示全部 Skill 的领域分布。" : "<b>Selected: representative repository >100 stars · 128,382 contents.</b> Recomputed with the unchanged keyword taxonomy; this is not the full-corpus distribution."}</p>
+          <div class="ev-profile-grid">
+            ${profileDonut("gitskills-domains", zh ? ">100 星子集 · 前五个有标签领域" : ">100-star subset · top five labeled domains", [
+              ...highStarLabelled.slice(0, 5).map(row => ({label: row[zh ? 0 : 1], value: row[2]})),
+              {label: zh ? "其余 20 个有标签领域" : "Other 20 labeled domains", value: highStarLabelled.slice(5).reduce((sum, row) => sum + row[2], 0)},
+              {label: zh ? "其他 / 未归类" : "Other / unclassified", value: 6841}
+            ], "128,382", zh ? "已筛选不同内容" : "selected contents")}
+            <div class="ev-profile-copy">
+              <h3>${zh ? "版本控制与协作最多，约 19.97%" : "Version control and collaboration leads at 19.97%"}</h3>
+              <p>${zh ? "其后为 Agent 与 Skill 工具链（7.90%）、测试与 QA（6.04%）、安全与审计（4.76%）、代码审查与质量（4.74%）。未归类 6,841 种（5.33%）仍在分母内。" : "Next: Agent and Skill tooling (7.90%), testing/QA (6.04%), security (4.76%), code review/quality (4.74%). All 6,841 unclassified contents (5.33%) stay in the denominator."}</p>
+              <p class="ev-gitskills-callout">${zh ? "这是粗标签，不是领域真值。35,711 种（27.82%）仅靠仓库描述兜底。尚未独立抽检该子集，不能把全量样本的 62%–80% 一致率当成这里的准确率。" : "Coarse labels, not ground truth: 35,711 contents (27.82%) rely on repository-description fallback. This subset has no independent audit: the full-corpus sample's 62%–80% agreement is not subset accuracy."}</p>
+              <div class="ev-gitskills-links">${profileLink("data/skill_domains_gt100.csv", zh ? "筛选后 26 类 CSV" : "Filtered 26-category CSV")} ${profileLink("scripts/skill_domains_gt100.py", zh ? "复现脚本" : "Reproduction script")}</div>
+            </div>
+          </div>
+          <details class="ev-profile-details"><summary>${zh ? "展开已筛选 Skill 的全部 26 类" : "Expand all 26 categories in the selected subset"}</summary>
+            <div class="ev-table-wrap" role="region" tabindex="0" aria-label="${zh ? "筛选后领域表，可横向滚动" : "Filtered domain table; horizontally scrollable"}"><table class="ev-table ev-gitskills-table"><thead><tr><th scope="col">${zh ? "规则领域" : "Rule-based domain"}</th><th scope="col">${zh ? "数量" : "Count"}</th><th scope="col">${zh ? "占 128,382 种" : "Share of 128,382"}</th></tr></thead><tbody>${highStarDomains.map(row => `<tr><th scope="row">${row[zh ? 0 : 1]}</th><td>${profileNumber(row[2])}</td><td>${(row[2] / highStarTotal * 100).toFixed(2)}%</td></tr>`).join("")}</tbody></table></div>
+          </details>`
+      },
+      {
+        id: "profile-concentration", title: zh ? ">100 星：分段与文件大小" : ">100 stars: bands and file sizes", profile: true, highStar: true,
+        content: `
+          ${profileBack}
+          <div class="ev-profile-grid">
+            ${profileDonut("gitskills-high-star-bands", zh ? "128,382 种已筛选 Skill 的星标分段" : "Star bands within the 128,382 selected Skills", [
+              {label: zh ? "101–999 星" : "101–999 stars", value: 75327},
+              {label: zh ? "1,000–9,999 星" : "1,000–9,999 stars", value: 49666},
+              {label: zh ? "≥10,000 星" : "≥10,000 stars", value: 3389}
+            ], "9,618", zh ? "个代表仓库" : "representative repos", true)}
+            <div class="ev-profile-copy">
+              <h3>${zh ? "目录记录合计 19.66 GB，逐文件去重下界 12.03 GB" : "Recorded directory total 19.66 GB; file-union lower bound 12.03 GB"}</h3>
+              <p>${zh ? "包含 SKILL.md 与所在目录递归文件。SKILL.md 本身合计 958,665,240 B（0.96 GB）。目录记录合计 19,661,615,761 B；去重下界 12,029,642,943 B，共 500,876 个可见文件（GB 按十进制）。" : "Includes SKILL.md plus recursive folder files. SKILL.md alone: 958,665,240 B (0.96 GB). Recorded directory sum: 19,661,615,761 B; union lower bound: 12,029,642,943 B across 500,876 visible files (decimal GB)."}</p>
+              <p>${zh ? "可见明细下，单包中位数 6,003 B，P90 为 40,670 B，P99 为 731,963 B。完整目录列表 98,698 个，标记截断 29,681 个，未取得列表 3 个。" : "From visible listings: median package 6,003 B, P90 40,670 B, P99 731,963 B. Complete listings: 98,698; marked truncated: 29,681; unavailable: 3."}</p>
+              <p class="ev-gitskills-callout">${zh ? "不是下载体积、内存或 token 成本。根目录 Skill 会计入整个仓库，PDF、视频、模型等大文件也包括在内。嵌套重复及截断使两种大小口径不可直接互换。" : "Not download sizes, RAM or token costs. Root-level Skills include the entire repository, including PDFs, videos and models. Nesting and truncation prevent treating the totals as interchangeable."}</p>
+            </div>
+          </div>
+          <div class="ev-gitskills-links">${profileLink("data/skill_file_sizes_gt100_top20.csv", zh ? "文件大小前 20 项" : "Top 20 by file size")} ${profileLink("scripts/skill_file_sizes_gt100.py", zh ? "文件大小统计脚本" : "File-size analysis script")}</div>`
+      },
+      {
+        id: "profile-reliability", title: zh ? ">100 星：口径与可信度" : ">100 stars: scope and reliability", profile: true, highStar: true,
+        content: `
+          ${profileBack}
+          <p class="ev-intro">${zh ? "后续画像固定为“代表仓库 >100 星”。任一副本 >100 星的 187,727 种内容不混入；代表副本也不等于原创来源。" : "Profiles use representative repository >100 stars. The 187,727 contents selected by any-copy >100 are not mixed in; representatives do not establish origin."}</p>
+          <div class="ev-profile-grid">
+            ${profileDonut("gitskills-label-audit", zh ? "100 条抽检中：79 条有领域标签" : "Among 100 audited items: 79 carry domain labels", [
+              {label: zh ? "明确一致" : "Clear agreement", value: 49},
+              {label: zh ? "存疑 / 多领域可接受" : "Ambiguous / multiple plausible domains", value: 14},
+              {label: zh ? "明确不一致" : "Clear disagreement", value: 16}
+            ], "49 / 79", zh ? "严格一致 62.0%" : "strict agreement 62.0%", true)}
+            <div class="ev-profile-copy">
+              <h3>${zh ? "规则和抽检都不是独立人工金标准" : "Neither rules nor this audit are independent gold labels"}</h3>
+              <ul>
+                <li>${zh ? "原规则不变。>100 星子集：85,830 种来自名称/描述，35,711 种靠仓库描述兜底，6,841 种未归类。" : "Unchanged taxonomy. In this subset: 85,830 labels use name/description, 35,711 use repository-description fallback, and 6,841 are unclassified."}</li>
+                <li>${zh ? "左图仅是全量样本的历史抽检（种子 20261028），不是 >100 星子集验证。助手判定、无独立复核，不能外推准确率。" : "Left: historical full-corpus audit (seed 20261028), not subset validation. Assistant judgments, no independent review; accuracy cannot be extrapolated."}</li>
+                <li>${zh ? "另外 21 条：5 条漏归类、3 条合理未归类、13 条缺名称和描述而无法判断。不能把 13% 外推为全体未归类内容的缺字段率。" : "The other 21: 5 missed labels, 3 reasonably unclassified and 13 unjudgeable without name/description. The 13% is not a missing-field estimate for the entire unclassified population."}</li>
+                <li>${zh ? "merge 可指 Lean 证明，deployment 也可指销售场景。关键词歧义、同分优先级与词表缺口都会改变标签。" : "Merge may describe a Lean proof; deployment may describe a sales setting. Ambiguity, tie-breaking and vocabulary gaps affect labels."}</li>
+              </ul>
+            </div>
+          </div>
+          <p class="sk-note ev-profile-source">${zh ? "HF 数据固定版本：" : "Pinned HF revision: "}<code>${gitSkillsProfile.revision}</code> · ${zh ? "新交接 2026-10-29。领域子集由本地脚本重新扫描名称/描述与仓库元数据得出；文件大小沿用 d2ea58f 交接结果。" : "Updated handoff 2026-10-29. Subset domains were recomputed locally from names/descriptions and repository metadata; file sizes use the d2ea58f handoff."}</p>
+          <div class="ev-gitskills-links">${profileLink("data/skill_domains_validation_sample.csv", zh ? "100 条抽样" : "100-item sample")} ${profileLink("data/skill_domains_validation_judgements.csv", zh ? "逐条助手判定" : "Item-level assistant judgments")} <a href="https://huggingface.co/datasets/mvaccargiu/gitskills/tree/${gitSkillsProfile.revision}" target="_blank" rel="noopener">${zh ? "HF 固定版本" : "Pinned HF data"} ↗</a></div>`
+      },
+      {
+        id: "profile-languages", title: zh ? ">100 星：编写语言" : ">100 stars: writing languages",
+        profile: true, highStar: true, profileDate: "2026-11-01", source: languageProfileSource,
+        content: `
+          ${profileBack}
+          <p class="ev-intro">${zh ? "<b>同一子集：代表仓库 >100 星 · 128,382 个去重 Skill。</b>统计 SKILL.md 说明正文的自然语言，不是 Python、JavaScript 等编程语言，也不是仓库元数据中的 language 字段。" : "<b>Same subset: representative repository >100 stars · 128,382 distinct Skills.</b> Identify the natural language of SKILL.md prose—not Python/JavaScript, and not the repository metadata language field."}</p>
+          <div class="ev-profile-grid">
+            ${profileDonut("gitskills-high-star-languages", zh ? "128,382 个 Skill · 自然语言分布" : "128,382 Skills · natural-language distribution",
+              highStarLanguages.map(row => ({label: row[zh ? 0 : 1], value: row[2]})),
+              "128,382", zh ? "已筛选不同内容" : "selected contents", true)}
+            <div class="ev-profile-copy">
+              <h3>${zh ? "英语为主；汉语与中英混合分开统计" : "English leads; Chinese and mixed prose are separate"}</h3>
+              <p>${zh ? "每个 Skill 只计一次，五类互斥；其他语言和无法判断也保留在 128,382 的分母中。其他语言包含德语、日语、韩语等，不强行归入英语或汉语。" : "Each Skill is counted once in one of five exclusive categories. Other languages and undetermined cases stay in the 128,382 denominator. Other languages include German, Japanese and Korean, rather than being forced into English or Chinese."}</p>
+              <p>${zh ? "识别前排除 YAML 元数据、代码块、行内代码、链接地址和文件路径。正文不足 40 个字母或汉字，或主语言置信不足时，归入“无法判断”。" : "Remove YAML front matter, code blocks, inline code, URLs and paths before identification. Fewer than 40 prose letters, or insufficient dominant-language confidence, yields an undetermined label."}</p>
+              <p>${zh ? "中英混合要求：识别出的中、英文各至少 40 个字母或汉字、各占正文至少 20%，合计至少 80%；英文片段还需至少 3 个常用功能词，减少工具名导致的误判。未满足混合条件的文件按主要语言分类。" : "Mixed requires at least 40 letters and 20% of prose in each of English and Chinese, together at least 80%. English spans also need at least three function words to reduce tool-name false positives. Otherwise, use the dominant language."}</p>
+              <p class="ev-gitskills-callout">${zh ? "这是 Lingua 2.1.1 的自动识别结果，采用全语言低精度模式；不是人工语言金标准。短文本、术语、引用示例和多语说明可能影响标签。百分比四舍五入后可能不恰好合计 100%。" : "Automatic Lingua 2.1.1 labels using all-language low-accuracy mode—not human gold annotations. Short text, terminology, quoted examples and multilingual instructions may affect labels. Rounded percentages may not sum to exactly 100%."}</p>
+            </div>
+          </div>
+          <div class="ev-gitskills-links">${profileLink("data/skill_languages_gt100_items.csv.gz", zh ? "128,382 条逐项语言标签（CSV.gz）" : "All 128,382 item-level labels (CSV.gz)")} ${profileLink("scripts/skill_languages_gt100.py", zh ? "语言统计复现脚本" : "Language analysis script")}</div>`
       }
     ];
     const experimentSnapshot = {
@@ -5467,9 +5666,9 @@ description: Check reported metrics when
       ${gitSkillsPages.map((page, i) => `
         <section class="sk-panel ev-slide ev-explainer-slide" data-gitskills="${i}" id="sk-gitskills-${page.id}" tabindex="-1" aria-labelledby="sk-gitskills-${page.id}-title">
           ${heading(`G${i + 1}`, `sk-gitskills-${page.id}-title`, page.title, cite(4))}
-          <div class="ev-section-meta"><span>GitSkills · arXiv v3 · 2026-09-11</span><span>${zh ? "数据集论文 · 非效果 benchmark" : "Dataset paper · not an execution benchmark"}</span></div>
+          <div class="ev-section-meta"><span>${page.profile ? `GitSkills · ebab174 · ${page.profileDate || "2026-10-29"}` : "GitSkills · arXiv v3 · 2026-09-11"}</span><span>${page.highStar ? (zh ? "已筛选：代表仓库 >100 星 · 128,382 种" : "Selected: representative repo >100 stars · 128,382 contents") : page.profile ? (zh ? "本地数据画像 · 非论文结论" : "Local dataset profile · not paper findings") : (zh ? "数据集论文 · 非效果 benchmark" : "Dataset paper · not an execution benchmark")}</span></div>
           ${page.content}
-          <p class="ev-sr-source">${zh ? "依据：v3 §I–IV / Table I / Appendix A；样本信息另据官方 README。" : "Sources: v3 §I–IV / Table I / Appendix A; sample details from the official README."}</p>
+          <p class="ev-sr-source">${page.source || (page.profile ? profileSource : (zh ? "依据：v3 §I–IV / Table I / Appendix A；样本信息另据官方 README。" : "Sources: v3 §I–IV / Table I / Appendix A; sample details from the official README."))}</p>
         </section>`).join("")}
       </div>
       <button type="button" class="ev-side-nav" id="ev-next" aria-label="${zh ? "下一页" : "Next slide"}" title="${zh ? "下一页" : "Next slide"}" aria-controls="ev-topic-panel" aria-keyshortcuts="ArrowRight PageDown"><span aria-hidden="true">›</span></button>
@@ -5606,6 +5805,9 @@ description: Check reported metrics when
         <div id="ev-benchmarks-cards"></div>
       </section>`);
     const allSlides = Array.from(stage.querySelectorAll(".ev-slide"));
+    let highStarSelected = new URLSearchParams(location.search).get("profile") === "gt100";
+    const highStarSlideIds = new Set(gitSkillsPages.filter(page => page.highStar).map(page => `sk-gitskills-${page.id}`));
+    const allGitSkillsSlides = allSlides.filter(slide => slide.hasAttribute("data-gitskills"));
     const methodSlides = new Set(["sk-experiment"]);
     const topicForSlide = slide => methodSlides.has(slide.id) ? "method" : slide.hasAttribute("data-research-question") ? "research" : slide.hasAttribute("data-skill-basics") ? "basics" : slide.hasAttribute("data-experiment-task") ? "results" : slide.hasAttribute("data-gitskills") ? "gitskills" : "evidence";
     const topics = {
@@ -5613,7 +5815,7 @@ description: Check reported metrics when
       method: allSlides.filter(slide => topicForSlide(slide) === "method"),
       research: allSlides.filter(slide => topicForSlide(slide) === "research"),
       basics: allSlides.filter(slide => topicForSlide(slide) === "basics"),
-      gitskills: allSlides.filter(slide => topicForSlide(slide) === "gitskills"),
+      gitskills: allGitSkillsSlides.filter(slide => highStarSelected || !highStarSlideIds.has(slide.id)),
       results: allSlides.filter(slide => topicForSlide(slide) === "results")
     };
     const papers = Object.fromEntries(paperGroups.map(paper => [paper.id, paper.ids.map(id => document.getElementById(id))]));
@@ -5627,7 +5829,9 @@ description: Check reported metrics when
     const paperTablist = document.getElementById("ev-paper-tabs");
     const basicsTabs = Array.from(root.querySelectorAll("[data-ev-basic]"));
     const basicsTablist = document.getElementById("ev-basics-tabs");
-    const gitSkillsTabs = Array.from(root.querySelectorAll("[data-ev-gitskills]"));
+    const allGitSkillsTabs = Array.from(root.querySelectorAll("[data-ev-gitskills]"));
+    let gitSkillsTabs = allGitSkillsTabs.filter(tab => highStarSelected || !gitSkillsPages[Number(tab.dataset.evGitskills)].highStar);
+    allGitSkillsTabs.forEach(tab => { tab.hidden = !gitSkillsTabs.includes(tab); });
     const gitSkillsTablist = document.getElementById("ev-gitskills-tabs");
     const taskTabs = Array.from(root.querySelectorAll("[data-ev-task]"));
     const taskTablist = document.getElementById("ev-task-tabs");
@@ -5746,6 +5950,8 @@ description: Check reported metrics when
       if (currentTopic === "results") url.searchParams.set("task", experimentTasks[slideIndex].id);
       else url.searchParams.delete("task");
       url.searchParams.set("slide", String(slideIndex + 1));
+      if (currentTopic === "gitskills" && highStarSelected) url.searchParams.set("profile", "gt100");
+      else url.searchParams.delete("profile");
       if (active.id === "sk-experiment" && selectedDockerCondition) url.searchParams.set("container", selectedDockerCondition.id);
       else url.searchParams.delete("container");
       history.replaceState(null, "", url);
@@ -5791,6 +5997,20 @@ description: Check reported metrics when
       document.getElementById("ev-slide-progress").max = slides.length;
       showSlide(index ?? rememberedSlides[topic === "evidence" ? paper : topic]);
     };
+    const selectStarProfile = selected => {
+      highStarSelected = selected;
+      topics.gitskills = allGitSkillsSlides.filter(slide => selected || !highStarSlideIds.has(slide.id));
+      gitSkillsTabs = allGitSkillsTabs.filter(tab => selected || !gitSkillsPages[Number(tab.dataset.evGitskills)].highStar);
+      allGitSkillsTabs.forEach(tab => { tab.hidden = !gitSkillsTabs.includes(tab); });
+      const targetId = selected ? "sk-gitskills-profile-domains" : "sk-gitskills-profile-stars";
+      showTopic("gitskills", topics.gitskills.findIndex(slide => slide.id === targetId));
+      slides[slideIndex].focus({preventScroll: true});
+    };
+    root.querySelectorAll("[data-profile-enter]").forEach(button => button.addEventListener("click", event => {
+      event.preventDefault();
+      selectStarProfile(true);
+    }));
+    root.querySelectorAll("[data-profile-exit]").forEach(button => button.addEventListener("click", () => selectStarProfile(false)));
     const params = new URLSearchParams(location.search);
     const requestedSlide = Number(params.get("slide"));
     let initialIndex = Number.isInteger(requestedSlide) && requestedSlide > 0 ? requestedSlide - 1 : 0;
@@ -5813,15 +6033,17 @@ description: Check reported metrics when
     showTopic(initialTopic, initialIndex, initialPaper);
     if (Object.hasOwn(paperAuthors, params.get("authors"))) showAuthors(params.get("authors"));
     else if (Object.hasOwn(paperBenchmarks, params.get("benchmarks"))) showBenchmarks(params.get("benchmarks"));
-    const bindTabs = (tabs, activate) => tabs.forEach((tab, i) => {
+    const bindTabs = (tabs, activate) => tabs.forEach(tab => {
       tab.addEventListener("click", () => activate(tab));
       tab.addEventListener("keydown", event => {
-        const destinations = {ArrowLeft: (i + tabs.length - 1) % tabs.length, ArrowRight: (i + 1) % tabs.length, Home: 0, End: tabs.length - 1};
+        const visibleTabs = tabs.filter(candidate => !candidate.hidden);
+        const currentIndex = visibleTabs.indexOf(tab);
+        const destinations = {ArrowLeft: (currentIndex + visibleTabs.length - 1) % visibleTabs.length, ArrowRight: (currentIndex + 1) % visibleTabs.length, Home: 0, End: visibleTabs.length - 1};
         const destination = destinations[event.key];
         if (destination === undefined) return;
         event.preventDefault();
         event.stopPropagation();
-        const nextTab = tabs[destination];
+        const nextTab = visibleTabs[destination];
         activate(nextTab);
         nextTab.focus();
         nextTab.scrollIntoView({block: "nearest", inline: "nearest"});
@@ -5829,7 +6051,7 @@ description: Check reported metrics when
     });
     bindTabs(paperTabs, tab => showTopic("evidence", undefined, tab.dataset.evPaper));
     bindTabs(basicsTabs, tab => showTopic("basics", Number(tab.dataset.evBasic)));
-    bindTabs(gitSkillsTabs, tab => showTopic("gitskills", Number(tab.dataset.evGitskills)));
+    bindTabs(allGitSkillsTabs, tab => showTopic("gitskills", Number(tab.dataset.evGitskills)));
     bindTabs(taskTabs, tab => showTopic("results", Number(tab.dataset.evTask)));
     bindTabs(topicTabs, tab => showTopic(tab.dataset.evTopic));
     prev.addEventListener("click", () => showSlide(slideIndex - 1, true));

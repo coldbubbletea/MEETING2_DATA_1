@@ -1,0 +1,16 @@
+{
+  "revision": "ebab17454a7c236f8f26b183567f1a126f42e3f8",
+  "selection": "dedup_primary == 1 AND representative repository stars > 100",
+  "groups": {
+    "gt100": 128382,
+    "le100": 1748812,
+    "unknown": 787
+  },
+  "basis_counts": {
+    "none": 6841,
+    "repo_description": 35711,
+    "skill_text": 85830
+  },
+  "taxonomy": "skill_domain_stars.py; unchanged",
+  "validation": "No independent audit of the selected subset; whole-corpus audit is not subset accuracy"
+}

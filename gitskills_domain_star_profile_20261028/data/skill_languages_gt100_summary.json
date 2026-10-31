@@ -1,0 +1,55 @@
+{
+  "revision": "ebab17454a7c236f8f26b183567f1a126f42e3f8",
+  "selection": "dedup_primary == 1 AND representative repository stars > 100",
+  "total": 128382,
+  "counts": {
+    "english": 91191,
+    "chinese": 10528,
+    "mixed": 57,
+    "other": 25926,
+    "unknown": 680
+  },
+  "method": {
+    "detector": "lingua-language-detector",
+    "version": "2.1.1",
+    "mode": "all languages; low accuracy; minimum relative distance 0.15",
+    "input": "SKILL.md prose, excluding front matter, code blocks, inline code, URLs and paths",
+    "minimum_prose_letters": 40,
+    "mixed": "English and Chinese each >=40 letters and >=20% of all prose letters; combined >=80%; at least 3 English function words in English-detected spans",
+    "english_function_words": [
+      "a",
+      "an",
+      "and",
+      "are",
+      "as",
+      "be",
+      "by",
+      "for",
+      "from",
+      "if",
+      "in",
+      "is",
+      "not",
+      "of",
+      "or",
+      "that",
+      "the",
+      "then",
+      "these",
+      "this",
+      "those",
+      "to",
+      "when",
+      "with",
+      "you",
+      "your"
+    ],
+    "other": "A detected dominant language other than English or Chinese",
+    "unknown": "Too little prose or no confident dominant language; remains in denominator"
+  },
+  "limitations": [
+    "Automatic text classification, not an independent human language audit.",
+    "Language refers to SKILL.md prose, not repository programming language or bundled files.",
+    "Quoted examples and multilingual instructions can affect automatic labels."
+  ]
+}

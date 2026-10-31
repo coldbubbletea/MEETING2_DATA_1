@@ -162,3 +162,65 @@
 ### 9.5 复现
 
 将 [scripts/skill_file_sizes_gt100.py](scripts/skill_file_sizes_gt100.py) 复制到 `gitskills-parquet/analysis/`，在 `gitskills-parquet/` 下运行 `python3 analysis/skill_file_sizes_gt100.py --workers 6`。结果写入 `gitskills-parquet/output/`。
+
+## 10. 网页下钻用的 >100 星领域统计
+
+网页先展示全部 1,877,981 种内容的星标筛选图，再进入主口径 A 的 128,382 种内容：
+
+- 代表仓库 >100 星：128,382；≤100 星：1,748,812；星标缺失：787。恰好 100 星的 516 种内容不纳入。
+- [data/skill_domains_gt100.csv](data/skill_domains_gt100.csv) 使用原分类规则重新扫描主口径 A，每个领域占比的分母都是 128,382；不是全量领域占比的直接沿用。
+- 标签依据：名称/描述 85,830 种、仓库描述兜底 35,711 种、未归类 6,841 种。该高星子集尚未独立抽检，不能将第 4 节的全量抽检一致率解释为高星子集准确率。
+- 计数及方法记录见 [data/skill_domains_gt100_summary.json](data/skill_domains_gt100_summary.json)。
+
+在本仓库根目录复现：
+
+```bash
+PYTHONDONTWRITEBYTECODE=1 python gitskills_domain_star_profile_20261028/scripts/skill_domains_gt100.py \
+  --data /home/satoru/agent/gitskills-parquet/data \
+  --output gitskills_domain_star_profile_20261028/data
+```
+
+输入应为同一固定版本 `ebab17454a7c236f8f26b183567f1a126f42e3f8` 的 Parquet 副本。脚本会检查全量、>100 星与缺失计数是否符合交接结果，不修改原始数据。
+
+## 11. 超过 100 星 Skill 的自然语言（2026-11-01）
+
+沿用主口径 A：`dedup_primary == 1`，且代表仓库 `stars > 100`，共 **128,382** 个不同内容。统计的是 `SKILL.md` 说明正文的自然语言，不是仓库的编程语言，也不分析附属文件。
+
+| 自动语言标签 | Skill 数 | 占 128,382 个 |
+|---|---:|---:|
+| 英语 | 91,191 | 71.03% |
+| 汉语 | 10,528 | 8.20% |
+| 中英混合 | 57 | 0.04% |
+| 其他语言 | 25,926 | 20.19% |
+| 无法判断 | 680 | 0.53% |
+
+五类互斥，每个 Skill 只计一次，无法判断项不从分母中剔除。百分比四舍五入后合计可能不是 100%。
+
+### 11.1 方法与限制
+
+- 使用 `lingua-language-detector==2.1.1`，全部支持语言、低精度模式，主语言最小相对置信差为 0.15。
+- 排除文件开头的 YAML front matter、反引号或波浪号围栏代码块、四空格或制表符缩进的行、行内代码、图片、URL 和文件路径；Markdown 链接保留可读标签。清洗规则是启发式，不等同于完整 Markdown 语法解析。
+- 对清洗后的全文识别主语言，并对多语言片段按 Unicode 字母数计权，汉字计入。少于 40 个正文语言字符，或没有足够置信度的主语言，归为无法判断；主语言不是英语或汉语时归为其他语言。
+- 中英混合要求英语、汉语识别片段各至少 40 个语言字符、各占全文语言字符至少 20%、合计至少 80%。英文片段还须至少出现 3 个常见英语功能词；词表保存于 JSON。该限制用于减少英文工具名、API 名称和路径导致的混合误判，不代表所有含两种语言的文件都会被归入混合。
+- 抽查了其他语言、汉语、混合和无法判断的部分实例，并根据工具名误判修正了混合判定。代码测试覆盖纯英文、中文夹技术词、中英混合、混合阈值、日语、西班牙语以及代码/元数据排除。**这不是独立人工抽检，不能将自动标签当成人工金标准或宣称准确率。**
+- 短文本、技术词、引用示例、多语说明以及清洗规则都可能影响结果。全部内容已经过分类，计数不是从样本外推的。
+
+### 11.2 数据与复现
+
+- [语言汇总 CSV](data/skill_languages_gt100.csv)
+- [方法与计数 JSON](data/skill_languages_gt100_summary.json)
+- [128,382 条逐项标签（压缩 CSV）](data/skill_languages_gt100_items.csv.gz)：含仓库、路径、内容哈希、标签、正文字符数及各识别语言片段字符数。以 gzip 压缩后上传，避免提交约 57 MB 的未压缩文件。
+- [统计脚本](scripts/skill_languages_gt100.py)与[分类测试](scripts/test_skill_languages_gt100.py)。
+
+在已有 PyArrow 的环境中，从本仓库根目录运行（原路径仍通过软链接指向数据盘）：
+
+```bash
+python3 -m pip install -r gitskills_domain_star_profile_20261028/scripts/requirements-language.txt
+PYTHONDONTWRITEBYTECODE=1 python3 gitskills_domain_star_profile_20261028/scripts/skill_languages_gt100.py \
+  --data /home/satoru/agent/gitskills-parquet/data \
+  --output gitskills_domain_star_profile_20261028/data --workers 6
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
+  -s gitskills_domain_star_profile_20261028/scripts -p 'test_skill_languages_gt100.py'
+```
+
+脚本检查仓库总数、128,382 条代表项及其内容哈希唯一性；缺少已选代表项正文时明确报错，不静默当作无法判断。网页新增“>100 星：编写语言”页，沿用现有饼图、中文/英文切换和高星筛选导航，原页面序号不变。
